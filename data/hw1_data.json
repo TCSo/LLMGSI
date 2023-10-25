@@ -1,0 +1,185 @@
+{
+    "hw1_data" : [
+        {
+            "question-number": "HW01 Q2: A Plus Abs B", 
+            "threads": [
+                {
+                    "question": "I keep getting an error message saying: 'int' object is not callable. What should I do?", 
+                    "answer": "you are setting f to a number. Note that the return statement calls f as a function, so f needs to be a function. Hint: look at what's happening after the 'return' keyword in the a_plus_abs_b function. That will give you an idea what the type of f should be. This error message means that you are trying to use an integer as a function. As a general debugging tip, I strongly recommend googling your error to understand why/under what circumstances this error appears. For this particular error this link provides a pretty good explanation."
+                }, 
+                {
+                    "question": "how to define a function after '=' sign?", 
+                    "answer": "For this problem, the functions add  and sub, which are functions that add and subtract respectively, are imported for you already. We don't actually need to define a new function. Instead, think about what function we can assign f to make this program work the way it is intended to."
+                }, 
+                {
+                    "question": "Hi, I assigned f to be a function (i.e.: f = sub(a, b)), but I'm still getting the error that ''int' object is not callable'. I understand that I'm technically assigning f to an int, but how else am I supposed to assign f? I get that assigning a function to an int results in an error, but I have no clue how else to go about the problem. Thanks!", 
+                    "answer": "Look at the lecture video, you should probably assign f to a function since it is being called. "
+                }, 
+                {
+                    "question": "When I run the test for question 1 on the homework I return a syntax error for my incomplete code in question 3. I am typing python3 ok -q a_plus_abs_bWhat should I do?", 
+                    "answer": "Check for the missing (, ), \", : in question 3. If you still can't find it, redownload the HW01"
+                }, 
+                {
+                    "question": "When I check the problem, I'm getting a Name Error saying \"name ____ is not defined\". I'm only using \"add\" and \"sub\", so now I'm just confused. ", 
+                    "answer": "Assuming you're using python interactive mode(python3 -I hw01.py), you need to resave the file, quit(), and relaunch the interpreter when you make changes like that to your code. "
+                }, 
+                {
+                    "question": "Where in our terminal (our directory) are we supposed to type python3 ok -q a_plus_abs_bto check our code? ", 
+                    "answer": "The same directory that hw1.py is in. "
+                }, 
+                {
+                    "question": "I keep getting this error on the part where we have to say return f(a,b) even though it was in the skeleton code, so I'm a little confused. TypeError: 'int' object is not callable Error: #Error: expected # 5 # but got # Traceback (most recent call last): # ... # TypeError: 'int' object is not callable", 
+                    "answer": "The error is telling you that you are trying to use an int as a function. Look at the function call f(a, b) and work through the order of evaluation (1 evaluate operator, 2 evaluate operands, 3 apply operator to operands). This should help you find why the error is occurring. "
+                }, 
+                {
+                    "question": "I'm trying to test my cod for Q2 and I'm in the right directory and everything but it's giving me a syntax error for ok. Any help? SyntaxError: invalid syntax >>> python3 ok -q a_plus_abs_b SyntaxError: invalid syntax >>>", 
+                    "answer": "Also just wanted to mention that you're in your python interpreter (indicated by the >>> )You should run this command in the terminal (on mac, indicated by $, C:\\> or smth similar on powershell)"
+                }, 
+                {
+                    "question": "Hello, when I went to test my code, it gave me NameError: A is not defined", 
+                    "answer": "This means that somewhere in your code, you are trying to use a variable without having it assigned to a value. Make sure that every variable you use is defined before it is used (also, case matters (a and A are different variables))."
+                }
+            ]
+        },
+        {
+            "question-number": "HW01 Q3: Two of Three", 
+            "threads": [
+                {
+                    "question": "I'm completely stuck on how to find the second smallest number in the set. If anyone has any advice on where to start it would be really appreciated.", 
+                    "answer": "If you know the largest or smallest number in the set, then you never have to actually identify the second smallest (middle num) to compute the sum square of the smallest two. Instead, think about what you know how to find using max() and min() and how you could subtract these away from a math expression, leaving you with the sum squares of the two lowest nums."
+                }, 
+                {
+                    "question": "Why is it that when I run the test it says no doctests were found for two_of_three?", 
+                    "answer": "Did you delete any of your comments? I think deleting them might interfere with the doctests."
+                }, 
+                {
+                    "question": "I watched the hint video for this multiple times, but I'm still stuck on how exactly to  input the code. I either get \"error expect __ but got __\" or TypeError; probably doesn't help much since those are vague errors. I feel like I'm missing something really obvious, so any help would be great. ", 
+                    "answer": "As a hint, please rewatch 10:35 of the video walkthrough. This tells us that we can calculate the value we want by adding up all of the squares, then subtracting out the largest number squared. Let's break this down into more approachable sub-problems: We need to figure out: 1. How do we square a number? 2. How do we add up all of the squares of x, y, and z? 3. How do we get the largest number of x, y, and z? "
+                }, 
+                {
+                    "question": "I have a question when it comes to adding up all the squares. add() only takes 2 arguments so how should we approach adding all the squares of the three arguments(x, y, and z).", 
+                    "answer": "We don't have to use the add(a,b) function; usually we would just use the + operator instead. Though I would also like to note that it is possible to add three arguments using the add function through a nested function call. "
+                }, 
+                {
+                    "question": "Having some problems with the auto-grader ok. >>> from hw01 import * >>> two_of_three(1, 2, 3) Traceback (most recent call last): File \"/Users/avirishreya/PycharmProjects/CS61a/hw01/hw01.py\", line 39, in two_of_three return sum (a * a, b * b, c * c) - [not including full code to comply with anti-cheating guidelines) NameError: name 'a' is not defined # Error: expected # 5 # but got # Traceback (most recent call last): # ... # NameError: name 'a' is not defined", 
+                    "answer": "If you look at the header line of the question def two_of_three(x, y, z): that indicates that you can only refer to x, y, and z. The description refers to a and b (the two smallest of x, y, and z), but your code can't refer to a or b directly unless you define them first. Instead, you have to write things in terms of x, y, and z."
+                }, 
+                {
+                    "question": "Hello, I keep getting \"No doctests found\" and I did not edit my comments.", 
+                    "answer": "Try to redownload hw01.py and compare the two functions. Maybe you'll find the one tiny detail that offsets your doctest."
+                }
+            ]
+        },
+        {
+            "question-number": "HW01 Q4: Largest Factor", 
+            "threads": [
+                {
+                    "question": "Is there a way to make_array or np.append in python? or should we try to find another way of coding", 
+                    "answer": "Since have not learned about lists yet in this course, there is another way to do this problem."
+                }, 
+                {
+                    "question": "I know we haven't covered loops yet, but if I incorporated a loop, would I get credit?", 
+                    "answer": "loops are fine"
+                }, 
+                {
+                    "question": "Are we supposed to print the statement as well or just return the largest factor.", 
+                    "answer": "you should be returning the largest factor--no need to print anything."
+                }, 
+                {
+                    "question": "I know we're allowed to use loops, but is using range() okay?", 
+                    "answer": "sure. you don't need it though"
+                }, 
+                {
+                    "question": "Can this question be done without a while loop?", 
+                    "answer": "for the purposes of this problem, a loop would suffice. to answer your question, one way could be to cheat and make a map that correlates each number to its largest factor enough to pass the doctests but it would fail for any number not in the map."
+                }, 
+                {
+                    "question": "if we havent learned about while loops yet, how are we going to use it?", 
+                    "answer": "While loop will be covered tomorrow, Monday. You can watch it and then do the HW1 which dues Thursday."
+                }, 
+                {
+                    "question": "Are we allowed to use lists/append? ", 
+                    "answer": "No, you are not allowed to use lists/append to solve this problem. Please stick to only things we have covered in the class so far."
+                }, 
+                {
+                    "question": "Do we need to check the input n is greater than 1 or we can assume so?", 
+                    "answer": "You have to check if n>0"
+                }, 
+                {
+                    "question": "I constantly get this. I'm not sure what I'm doing wrong. return a ^ SyntaxError: 'return' outside function", 
+                    "answer": "Make sure your indentation is correct and that the return statement is inside the function: def func(a): return a"
+                }, 
+                {
+                    "question": "When I run the autograder, it says there is a syntax error with line 55 (directly below) in my code. Can someone help me with what my syntax error is? \"while n % k = 0:\"", 
+                    "answer": "\"=\" means assign and \"==\" means equal to hope this helps! "
+                }
+            ]
+        },
+        {
+            "question-number": "HW01 Q5: If Function vs Statement", 
+            "threads": [
+                {
+                    "question": "I understand that the execution for a call expression is: 1. evaluate operator & operand subexpressions 2. apply the operator function Does this mean that that both 42 and 47 are already returned in step 1 when executing with_if_function, and if_function is never applied? Or is 47 found when if_function is applied?", 
+                    "answer": "\"Evaluate operator\" means the program looks in the environment to see whether with_if_function is defined. When you \"evaluate operand subexpressions,\" you use the normal rules for the evaluation of expressions. Then, in step 2, you bind the resulting values to the names of the formal parameters in the local frame and evaluate the body of the function until you get a return value. All local variables are cleared once the function is evaluated, and the parent frame can only see the return value. Neither part of step 1 can produce a return value. Also, look at the second doctest for both functions. The output tells you what exactly the functions should return, which should give you an idea on what's going on in the body of the function. The professors also discussed this concept in this morning's question session."
+                }, 
+                {
+                    "question": "For my with_if_function(), I get 42 and 47 not 47 and 42 so I get an error. Does the order matter?", 
+                    "answer": "yes"
+                }, 
+                {
+                    "question": "so, I came up with a simple code and run. Got both passed . Does that mean Im good to go?", 
+                    "answer": "yes! congrats :0"
+                }, 
+                {
+                    "question": "Really struggling with this problem. Beaker recommends drawing environment trees. How do I do that? What is the starting point? I want to be able to think in diagrams. Also, it is to my understanding that an if_statement will never run the both the True & False code but the if_function will always run all the code.", 
+                    "answer": "I personally didn't use the environment trees, but I can assure you your understanding is on the right track.  The with_if_statement is supposed to print out 47 (will not print both 42 and 47), but the with_if_function will print out both 42 and 47 (will not print only 42).  Can you see a relationship with what you are understanding and what is supposed to print? "
+                }, 
+                {
+                    "question": "How do I submit Q5 to okpy.org? I tried python3 -i hw01.py in my Terminal but it didn't go through like it did for Q1-4?", 
+                    "answer": "python3 ok --submit, it should both give you a website url to go see your backup AND you can then go to okpy.org and see the submission there."
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW01 Q6: Hailstone", 
+            "threads": [
+                {
+                    "question": "I wrote my code for hailstone and it works, but okpy is telling me I failed a test because I have trailing zeros in my numbers (e.g. returns 8.0 instead of just 8) even though the values are technically the same. Do I need to go back and fix this in my code, or will it be fine as-is?", 
+                    "answer": "I'd suggest not using int()! Instead, google and check for the difference between // and /. // is integer floor division, (7 // 2 -> 1) (6//2 = 3) / is float division, EX:( 7 / 2 -> 3.5) (6/2 = 3.0)"
+                }, 
+                {
+                    "question": "Would hailstone(1) have 4 steps (1, 4, 2, 1) or just 1 step?", 
+                    "answer": "Hailstone(1) will have only 1 step"
+                }, 
+                {
+                    "question": "I got the error below... the answers are technically correct but okpy recognizes them as incorrect because of the \".0\"s... Is this okay to submit or must I fix it? # Error: expected #     10 #     5 #     16 #     8 #     4 #     2 #     1 # but got #     10 #     5.0 #     16.0 #     8.0 #     4.0 #     2.0 #     1.0 ", 
+                    "answer": "Are you using / instead of // ? If so, scroll up to my comment above @150_f1 to see the different between 'em"
+                }, 
+                {
+                    "question": "Do we need to check whether input n is positive or not?", 
+                    "answer": "No, you can assume n is a positive number (step 1 of the puzzle as stated in the hw spec)."
+                }, 
+                {
+                    "question": "When I run my code for the hailstone question, it won't print the starting number (n) but will print everything else correctly. This is the error that comes up: # Error: expected #     10 #     5 #     16 #     8 #     4 #     2 #     1 # but got #     5 #     16 #     8  #     4 #     2 #     1", 
+                    "answer": "I also printed n once before the while loop, and my code is working. Check if you put print n within the suite underneath the def header? If you wrote print n something should be outputted, I'm not sure why it would have no result."
+                }, 
+                {
+                    "question": "I don't remember if we learned how to find the length. I'm going back through videos and the textbook and I can't find it. Is this something we're supposed to figure out or did we learn it?", 
+                    "answer": "In this question you can think of the length as being a count of how many numbers our hailstone sequence will be displaying."
+                }, 
+                {
+                    "question": "def hailstone(n). 1.The about the value of the parameter n. Should n  be a positive number (>0)? If n <=0, the number will not travel up and down and end at 1.  2. According to the rule as below: Pick a positive integer n as the start. If n is even, divide it by 2. If n is odd, multiply it by 3 and add 1. Continue this process until n is 1. if the parameter n =1,  I expect the hailstone sequence is 4, 2, 1, and return 3.  Am I right about the output of the hailstone sequence when parameter n =1?", 
+                    "answer": "a defining feature of the hailstone sequence is that it ends at 1, so if n = 1 then the sequence ends right then and there."
+                }, 
+                {
+                    "question": "I have the code implemented for the hailstone sequence and it has been working, but I am unsure about how to add the count of the sequence. My latest attempts have resulted in errors and was wondering if someone could pls explain how it works. ", 
+                    "answer": "Here the hailstone function actually has 2 \"outputs\". One of the outputs when you call the function is that you print out all of the numbers in your hailstone sequence. However, the actual return value of the function should be the length of your sequence. In other words, the amount of values you printed. So every time you have a print statement, see if you can update some sort of count variable."
+                }, 
+                {
+                    "question": "I implemented the code and it gave back the hailstone sequence but then I received this error: Error :Expected #10 #5 #16 #8 #4 #2 #1 but got Traceback (most recent call last): UnboundLocalError: local variable \"steps\" referenced before assignment", 
+                    "answer": "Judging by the error message, the error is most likely due to you using the 'steps' variable before its assigned to anything."
+                }
+            ]
+        }
+    ]
+}

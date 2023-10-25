@@ -1,0 +1,49 @@
+{
+    "hw2_data" : [
+        {
+            "question-number": "HW02 Q1: Num Eights", 
+            "threads": [
+                {
+                    "question": "", 
+                    "answer": ""
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW02 Q2: Ping-pong", 
+            "threads": [
+                {
+                    "question": "", 
+                    "answer": ""
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW02 Q3: Missing Digits", 
+            "threads": [
+                {
+                    "question": "", 
+                    "answer": ""
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW02 Q4: Count Coins", 
+            "threads": [
+                {
+                    "question": "", 
+                    "answer": ""
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW02 Q5: Anonymous Factorial", 
+            "threads": [
+                {
+                    "question": "", 
+                    "answer": ""
+                }
+            ]
+        }
+    ]
+}
