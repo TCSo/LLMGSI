@@ -4,8 +4,16 @@
             "question-number": "HW02 Q1: Num Eights", 
             "threads": [
                 {
-                    "question": "", 
-                    "answer": ""
+                    "question": "When I'm trying to come up with base cases, I'm not sure how to not cause the function to return too soon. The only base cases I could come up with caused the function to stop once it saw an 8. I would really appreciate a hint or any help.", 
+                    "answer": "With a base case, you want to think of the most simple result that could happen. Following the function's purpose, you want to know how many eights appear in a given number x. So when you are looking at a particular digit, what could that digit be? Either an eight or not an eight. Hope this helps a bit. (It could also help in general to think about how you would solve this question iteratively with a while loop for instance. I know previously we learned about going through each digit of a number with floor division and modulo.)"
+                }, 
+                {
+                    "question": "Are we allowed to have recursive calls in an elif statement? I did that and passed the cases. Will I still get full credit? ", 
+                    "answer": "Yes, you are allowed to have recursive calls in the elif statement."
+                }, 
+                {
+                    "question": "It seems like my doctest works for the one's above, but not  86380. Any ideas why? I'm thinking because 0 is the last digit, but I'm not sure why would that matters?", 
+                    "answer": "Make sure that your base cases and recursive calls cover all possible cases. I can't tell what's causing the error without looking at your code, but it is likely due to mishandling 0's. "
                 }
             ]
         }, 
@@ -13,8 +21,44 @@
             "question-number": "HW02 Q2: Ping-pong", 
             "threads": [
                 {
-                    "question": "", 
-                    "answer": ""
+                    "question": "If the helper function inside pingpong is the one called recursively, does this still adhere to the rules of the problem?", 
+                    "answer": "Yeah that's fine. Just make sure the helper also doesn't contain any assignment statements"
+                }, 
+                {
+                    "question": "May I use a previous function/problem within my solution to this problem?", 
+                    "answer": "ye the instrictions say you can"
+                }, 
+                {
+                    "question": "Are if/elif/else, return, and comparison statements allowed?", 
+                    "answer": "Yes to all of these. Only assignment statements are disallowed (this is done by the autograder so you'll know if you violate this condition)"
+                }, 
+                {
+                    "question": "What should we do if we have a code that we think works and is working on the doctests but timesout at pingpong(68)?", 
+                    "answer": "Ideally, your recursive function or helper should only call helper(n-1), and only call it once. If you have code like this: def helper(n): return helper(n-1) + helper(n-2) or def helper(n): return helper(n-1) + helper(n-1) Your runtime will be exponential, and will time out."
+                }, 
+                {
+                    "question": "In the hint video, the helper function takes three arguments (index, ppn, dir) I get that the last two are supposed to be trackers, but how does this work when we're returning a call to helper? If I don't know ppn or dir, how can I figure out what to pass into those arguments?", 
+                    "answer": "So I think what they were going for was that helper would be a drop-in replacement for the while loop. The idea is that you call helper(1,1,1), which would call the next helper, which would call the next helper, and when helper(n, ...) gets called, it returns the correct answer (which gets returned all the way down the stack). While this does work, I do feel that it's a little bit of a contrived solution, because a while or for loop would just be straight-up better. I have an alternate solution to suggest: You could write a helper function called direction(n), which recursively finds the direction pingpong should be going in. Then, have pingpong use pingpong(n-1) and direction(n) to find the current element."
+                }, 
+                {
+                    "question": "Im confused. When I do the problem by hand pingpong(8) should give me 0, and my code doest this too. Im not sure where I went wrong with the hand written part. I think Im getting the code wrong because of my understanding of the problem? From what I can see we start at index 1 and count up and every time the index contains an 8 or is divisible by 8, then we need to change the direction from up to down or vice versa. And we should return the nth number at which the direction shifts correct?", 
+                    "answer": "The pingpong function is supposed to return the nth element of the sequence (not the nth number at which the direction shifts). pingpong(8) asks for the 8th element; it should return 8 because we counted upward from the 1st element, which is 1. If we continue the sequence, we then switch directions after the 8th element and start counting downwards, so pingpong(9) should return 7."
+                }, 
+                {
+                    "question": "Can I use a string container in one of the \"if/elif/else\" conditions? I didn't use any other assignment statement. ", 
+                    "answer": "if you passed all the tests you should be fine. "
+                }, 
+                {
+                    "question": "Are we allowed to use this type of sequence now that we've learned it: 8 in str(12345678)", 
+                    "answer": "the intent is for you to try and do this problem without using string conversion--I'd recommend trying to figure it out this way because it's likely that similar restrictions will be in place on exams. however, if you pass the okpy tests using string conversion you'll get full points."
+                }, 
+                {
+                    "question": "I'm having some trouble with understanding how to approach the base cases of the helper function. Does anyone have any insight that could lead me in the right direction? Thank you!", 
+                    "answer": "if you are having trouble with the base case, it may help to take a look at what you are initially calling as arguments into your initial call of your helper function. If you are calling the appropriate initial argument values, the base case should be pretty clear"
+                }, 
+                {
+                    "question": "Is it possible to solve this problem without a helper function?", 
+                    "answer": "It is possible, but you'll probably have to add \"extra\" base cases to keep it from timing out. In my opinion, it's also much harder."
                 }
             ]
         }, 
@@ -22,8 +66,20 @@
             "question-number": "HW02 Q3: Missing Digits", 
             "threads": [
                 {
-                    "question": "", 
-                    "answer": ""
+                    "question": "Is it still recursion if the function you are calling recursively is the inner function of a higher-order function?", 
+                    "answer": "recursion can be any function being called over and over again within that same one function. so an inner function can be recursively called, when that inner function is calling itself; remember that this function call has to be in the inner function, not the parent function to be considered as recursion."
+                }, 
+                {
+                    "question": "May we write an inner helper function (similar to what the hints video for Q2 ping-pong had suggested) that recursively calls itself? Does that violate any rules for the question?", 
+                    "answer": "Yeah it's fine, inner helper functions aren't explicitly outlawed :)"
+                },
+                {
+                    "question": "I am wondering if n<10 can be a good choice of the base case. ", 
+                    "answer": "Yes."
+                }, 
+                {
+                    "question": "def ^ SyntaxError: invalid syntax I am having trouble how to fix this error. I am trying to run the missing digit function, but this error is not allowing the function to run. I am not sure where I need to fix the syntax. I tried indenting and backspacing this function, but nothing is working.", 
+                    "answer": "Check your parenthesis and brackets in other functions, you might have missed a closing brace somewhere."
                 }
             ]
         }, 
