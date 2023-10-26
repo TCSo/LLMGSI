@@ -87,6 +87,61 @@
             "question-number": "HW02 Q4: Count Coins", 
             "threads": [
                 {
+                    "question": "can I change the next_largest_coin function to a next_smallest_coin to fit my code?", 
+                    "answer": "I could make next_smallest_coin work easily but am curious if there are any tips to making it work using next_largest_coin. I feel like the point is to figure out the reverse of the count_partitions solution."
+                }, 
+                {
+                    "question": "I can figure out how to get the correct answer with a function I defined, called next_smallest_coin, but can't figure it out with the given next_largest_coin function. Can someone help point me in the right direction?", 
+                    "answer": "I think a common pattern is this with and without idea for tree recursion. So for the example of making change for 15 15 1-cent coins * 10 1-cent, 1 5-cent coins * 5 1-cent, 2 5-cent coins * 5 1-cent, 1 10-cent coins * 3 5-cent coins + 1 5-cent, 1 10-cent coin + we can split up into two cases, one that is with 1 coin, and the other that is without the 1 coin, as shown by the * and + this matches the logic from http://composingprograms.com/pages/17-recursive-functions.html#example-partitions : The number of ways to partition n using integers up to m equals the number of ways to partition n-m using integers up to m, and the number of ways to partition n using integers up to m-1. The number of ways to make change is with this smallest coin and only using everything but the smallest coin"
+                }, 
+                {
+                    "question": "I used \"coin is None\" as a condition in my if statement. Is \"is\" operator considered out of scope or I can use it?", 
+                    "answer": "You can use it!"
+                }, 
+                {
+                    "question": "Did anyone else have the same test case failed? Any hints would be appreciated. >>> count_couns(100) 121 # Error: expected # 242 # but got # 121", 
+                    "answer": "Make sure you are actually using the 25 cent coin! I had the same error and what Alex said solved my issue, I didn't actually use the 25 cent coin, but rather due to one of the base case conditions it would terminate to 0 when the next coin was 25 if that helps OP (though it's probably resolved by now)"
+                }, 
+                {
+                    "question": "Is it ok if my solution doesn't use recursion?", 
+                    "answer": "You have to use recursion!"
+                }, 
+                {
+                    "question": "Are we allowed to add parameters to the function? Currently my response is just a helper function that does basically everything, because I needed two parameters as opposed to one to solve it. But I feel like it would be cleaner if I could just add a second parameter to the original function, and have a default value for the second parameter so it would still work when called with one argument. I have a similar situation with I think either problem 2 or 3. Any advice?", 
+                    "answer": "you arent allowed to change the parameters to the original function. you might want to look into using an inner helper function."
+                }, 
+                {
+                    "question": "When I run the code on numbers 10, and 15, I get the correct output, but when I go up to 20 and 100 it fails, but still gives me a number just the wrong one. On 20 im getting 10 instead of 9, and on 100 im getting 262 instead of 242. Not sure what im doing wrong. ", 
+                    "answer": "when you go \"up\" a coin level, makes sure you don't subtract the current coin. I.E. call f(n, next_largest_coin(c)) instead of f(n-c, next_largest_coin(c))  If 10, 15, and 20 work but count_coins(25) doesn't work (should = 13), then not including 25cents is probably the issue. Turns out that I wasn't including 25cents due to returning 0 instead of a call function. "
+                }, {
+                    "question": "Can we write a separate helper function outside of the count_coins function, or does our helper function have to fall within the count_coins function? Also, if we change next_largest_coin to be next_smallest_coin is that okay? ", 
+                    "answer": "Changing next_largest_coin to next_smallest_coin is completely fine. I'm not sure about writing the helper function outside; normally it should be ok, but the doctests for count_coins also check the source code of count_coins to make sure there are no while or for loops. I would put it inside, just to be safe."
+                }, 
+                {
+                    "question": "I somehow figured it out and successfully submitted it (4 test cases passed, no cases failed), but when I copy and pasted my code into python tutor to try and find out how I did it, python tutor says that there is a trace size error. Should I be worried?", 
+                    "answer": "If it says something like “stopped since this run produced more than 2mb of data” then that’s perfectly fine. It just means that there are so many recursive calls that python tutor can’t display everything. If it works when you run it normally then you’re fine."
+                }, 
+                {
+                    "question": "I've been working on this particular problem for a while now, but I feel like I haven't been making any progress for the past few hours. I'm not sure what the recursive cases should be (specifically the partitioning total) and I'm also feeling lost on what I should pass as n and m in my initial call to the helper function. I'd greatly appreciate it if somebody could point me in the right direction. ", 
+                    "answer": ""
+                }, 
+                {
+                    "question": "", 
+                    "answer": ""
+                }, 
+                {
+                    "question": "", 
+                    "answer": ""
+                }, 
+                {
+                    "question": "", 
+                    "answer": ""
+                }, 
+                {
+                    "question": "", 
+                    "answer": ""
+                }, 
+                {
                     "question": "", 
                     "answer": ""
                 }
