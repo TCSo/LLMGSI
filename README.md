@@ -28,7 +28,7 @@ Install all required dependencies with
 ```
 pip install -r requirements.txt
 ```
-Run make to start the application
+Replace "YOUR_OPENAI_API_KEY" in src/setup_utils.py with a valid openAI API key and run make to start the application
 ```
 make run
 ```
