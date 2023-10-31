@@ -1,0 +1,55 @@
+{
+    "hw11_data" : [
+        {
+            "question-number": "HW0 Q1: Course Policy", 
+            "threads": [
+                {
+                    "question": "Do we need to put anything for Problem 1 for our submission?", 
+                    "answer": "Submit the form, and write on your assignment an acknowledgement that you have submitted the form."
+                }, 
+                {
+                    "question": "Nevermind, it seems that Q2 of HW0 is currently linking to last semester's course policies page.", 
+                    "answer": "Thanks for pointing this out, we fixed it on the pdf"
+                }, 
+                {
+                    "question": "The course policies page says that \"Homeworks will be due on Fridays at 10:59 PM,\" but I am seeing on HW0 that it is due on \"Tuesday, Janurary 31, 2023, at 10:59PM.\"", 
+                    "answer": "Resolved in HW0 announcement."
+                }
+            ]
+        },
+        {
+            "question-number": "HW0 Q3: Gradient Descent Doesn't Go Nuts with Ill-Conditioning", 
+            "threads": [
+                {
+                    "question": "Using the question's hint, I was able to find nice bounds for alpha, but I'm a little uncertain where to proceed from here. I've tried working backwards from what we're aiming to show but with little success. From what we know about the max singular value of F, what's a good next step towards showing an inequality?", 
+                    "answer": "Try using some inequalities you have seen before, like maybe triangle inequality, cauchy-shwartz, any inequalities having to do with norms, perhaps having to do with the maximum singular value, eigenvalues of matrices, etc. That's the direction I took!"
+                },
+                {
+                    "question": "When the problem statement says that \"the gradient descent cannot possibly diverge from the given problem\", in mathematical terms what does the term diverge mean in this context?", 
+                    "answer": "I just assumed that it can't blow up to something extreme (my personal understanding could be inaccurate though as well). I think for the context of the problem however, I don't believe this wording to be too important."
+                },
+                {
+                    "question": "Could you give me a hint on how to prove the maximum singular value of I-η·F_t·F is not greater than 1 from the fact that gradient descent does not diverge?", 
+                    "answer": "Think about the simple scalar recurrence relation. Unroll this for a few terms. What do you notice about the coefficient on the \"older\" terms? How can you make sure that they decay? What does this have to do with convergence/divergence?"
+                },
+                {
+                    "question": "Can we assume the learning rate is > 0?", 
+                    "answer": "Yes, we can assume that the learning rate is positive."
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW0 Q5: Vector Calculus", 
+            "threads": [
+                {
+                    "question": "Hi, is there recommended readings for vector calculus? Much of the material is lightly touched by Math 53, which is insufficient for multivariable used in CS 182 (I hope these materials can be emphasized in math 53). Math 53 mostly talks about partial derivatives and multiple integrals in the context of multivariable functions, not in the context when matrices and vector notations come in. I'm reading supplemental readings from Stanford 229 and matrix cookbook, but neither give me a solid foundation. For example, there're many properties that are there as \"given\" rather than something that's proved. Can staffs point me to vector calc (matrix calc, to be precise) resources useful in 182? Thanks!", 
+                    "answer": "The ideas should have been hit in 127/227A. Sadly, we don't know a good tutorial for this material that doesn't already assume that you understand it."
+                }, 
+                {
+                    "question": "small nick pick but shouldn't there be a transpose symbol here?", 
+                    "answer": "No, because it's a derivative of a scalar w.r.t. a vector x, so your gradient_{i,j}, since the dimension of f is 1x1, you get a gradient of size 1x(length of x)."
+                }
+            ]
+        }
+    ]
+}
