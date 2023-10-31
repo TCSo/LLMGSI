@@ -4,16 +4,19 @@ The LLMGSI Project is a research project aiming to use large language models (LL
 ## Repository Structure
 ```
 LLMGSI
-│   README.md
-│   requirements.txt
-│   .gitignore  
+├───README.md
+├───requirements.txt
+├───.gitignore  
 └───data (Course specific data)
-│   └───hw1_data.json
-│   └───hw2_data.json
+│   ├───data_config.json
+│   ├───cs61a_fa20
+│   │   ├───hw1_data.json
+│   │   ├───hw2_data.json
+│   │   └───...   
 │   └───...   
 └───src (main source code)
-│   └───main.py (main entry point for the program)
-│   └───query_engines (llamaindex query engines)
+│   ├───main.py (main entry point for the program)
+│   ├───query_engines (llamaindex query engines)
 │   └───setup_utils.py (setup utilities)
 └───storage (Prebuilt retrieval index)
 │   └───...
