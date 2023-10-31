@@ -1,0 +1,39 @@
+{
+    "hw11_data" : [
+        {
+            "question-number": "HW11 Q1: Summarization (Part II)", 
+            "threads": [
+                {
+                    "question": "In this problem, I see that we are using the Seq2SeqTrainer to do the fine tuning. What exactly are we fine-tuning to? I see that the Seq2SeqTrainer uses a cross entropy loss and Adam optimizer to basically fit the model to the dataset we have provided. I guess this is how summarization fine tuning is done in practice? What do people do when they want to fine tune a generative model to domain specific language?", 
+                    "answer": "The Seq2SeqTrainer is used to train a sequence-to-sequence model on a labeled dataset for tasks like translation, summarization, or text-to-code generation. Finetuning, which involves training a pretrained model on a specific task, is the standard practice in NLP. For fine-tuning an unconditional generative model to domain-specific language, you can use a similar approach with some modifications: (a) employ an unconditional generative model such as a Transformer with causal masks but no cross-attentions, like GPT-3; (b) initialize with a GPT model rather than a T5 model; (c) use a dataset containing only sequences, like those from a domain-specific language, instead of input-output pairs."
+                }, 
+                {
+                    "question": "Any hints on implementing the stack? I can't seem to figure out how to modify the positional encoding to be the right length.", 
+                    "answer": "You may look at how many tokens have been computed and stored in the cache to infer the position you are currently at."
+                }
+            ]
+        },
+        {
+            "question-number": "HW11 Q4: Variational AutoEncoders", 
+            "threads": [
+                {
+                    "question": "I think I understand this problem, but am running into an error — it says that my outputs aren't scalar, which the question states they should be. How should I think about making the vectors scalar?", 
+                    "answer": "Ah, a misunderstanding — looked at the equations again, the final results are wrapped in an expectation, which answers my question."
+                }
+            ]
+        }, 
+        {
+            "question-number": "HW11 Q6: Policy Gradient", 
+            "threads": [
+                {
+                    "question": "Is there any rationale behind using argmax of prediction logits instead of sampling from it.", 
+                    "answer": "Both samping and argmax strategy can be used to train RL agents. Samping is actually more close to the definition of the vanilla policy gradients method. You can also try sampling if you would like."
+                }, 
+                {
+                    "question": "Should we see 90% test or train accuracy? I'm seeing 90% train, but 90% test seems very hard. ", 
+                    "answer": "Thank you for pointing out. It did refer to the training accuracy in the first version. However, I think it is more reasonable to make sure you reach a good test accuracy, so the latest version has changed this to \"a test accuracy of approximately 75%\""
+                }
+            ]
+        }
+    ]
+}
