@@ -1,0 +1,222 @@
+{
+    "proj2_data" : [
+        {
+            "question-number": "[Cats] problem 1", 
+            "threads": [
+                {
+                    "question": "why does choose(ps, s, 2) return an empty string and not fine? Isn't the length of fine still equal to or less than 4?", 
+                    "answer": "See above. There are only 2 strings that aren't filtered out, so after filtering there is no string at index 2"
+                }, 
+                {
+                    "question": "What happens when selectfunction returns false? Do we skip to next elements in the paragraphs list? Like mentioned in the initial post, if a certain element gets filtered out, are we allowed to modified the paragraphs list? Thanks!", 
+                    "answer": "You should not be modifying the original paragraphs list. Instead, we recommend first creating a new list with all the paragraphs that aren't filtered out, and then using that."
+                },
+                {
+                    "question": "Do we have to write the code in one line?", 
+                    "answer": "No."
+                },
+                {
+                    "question": "can we use the append function", 
+                    "answer": "Sure, you can use the append function. "
+                },
+                {
+                    "question": "Do we have to write the code in one line?", 
+                    "answer": "No."
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 2", 
+            "threads": [
+                {
+                    "question": "Are we allowed to use topics not yet covered to answer this question (exception handling)?", 
+                    "answer": "It's highly discouraged to rely on exception handling for this question."
+                },
+                {
+                    "question": "Should we use lambda or a helper function?", 
+                    "answer": "You're recommended to define a function using standard def syntax (a lambda may be tricky to write)"
+                },
+                {
+                    "question": "Is there a way to remove the punctuations? ", 
+                    "answer": "From the project file: Hint: You may use the string utility functions in utils.py. You can reference the docstrings of the utility functions to see how they are being used. "
+                },
+                {
+                    "question": "is using a for loop for this question recommended? I am unsure if I need to iterate through each item of topic and paragraph", 
+                    "answer": "You certainly would need some sort of iteration (especially for words in the paragraph), but to check if a word in the paragraph is actually a topic of interest, you don’t necessarily need a loop."
+                },
+                {
+                    "question": "In the test for this problem Suite 1 Case 1 why should dogs(\"AdogsParagraph\") return False? It clearly contains the word 'dogs' ", 
+                    "answer": "Per the spec, \"Additionally, only check for exact matches of the words in topic in the paragraph, not substrings. For example, 'dogs' is not a match for the word 'dog'.\""
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 3", 
+            "threads": [
+                {
+                    "question": "are we assuming that the 'typed' list will always big as least as big as the 'reference' list?", 
+                    "answer": "No."
+                }, 
+                {
+                    "question": "can we create a function inside of accuracy to use on any of the conditions? ", 
+                    "answer": "Yes though it should not be necessary."
+                }, 
+                {
+                    "question": "Are we allowed to import another library...like math?", 
+                    "answer": "Please stick to what's provided."
+                }, 
+                {
+                    "question": "Is there anything we are supposed to do to get rid of \"\\t\" / tab in our strings?", 
+                    "answer": "Using the split() function (I believe the function is located in utils.py) should do the trick"
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 4", 
+            "threads": [
+                {
+                    "question": "I'm a bit confused about this case. there are 7 characters including whitespaces, so the number of words would be 7 / 5. then there are 5 seconds elapsed, so that's 5 / 60 minutes. so doesn't that come out to 16.8 wpm? why would it be 20.0", 
+                    "answer": "I think the desired answer for this test case is 24.0, not 20.0. The reason why it is not 16.8 is that you have two whitespaces between each character, so you have 10 characters (or 2 five-character chunks) in total."
+                }
+            ]
+        }, 
+        {
+            "question-number": "[Cats] problem 5", 
+            "threads": [
+                {
+                    "question": "can we use the built-in index() function?", 
+                    "answer": "You could, but remember if you have duplicates in a list, index() only returns the index of the first element."
+                }, 
+                {
+                    "question": "Hello, I am having trouble understanding where the logic that compares the difference between typed_word and elements in valid_words and the limit, would be located. In the problem description on the website, and the example function length_diff, it would appear that the logic is located inside the difference function itself. However, in the WWPD questions to unlock the doctests, we are given functions such as abs_diff (in screenshot). abs_diff is defined with a formal parameter for limit, but limit is never used in the function definition. This would indicate that the comparison logic should be located in the autocorrect function. Where should we write this logic? Thanks", 
+                    "answer": "Your autocorrect should pass the limit into the difference function, and is also responsible for this logic: \"However, if the lowest difference between typed_word and any of the valid_words is greater than limit, then typed_word is returned instead.\" The difference function is responsible for computing the difference between words themselves; then your autocorrect is responsible for interpreting that properly."
+                }, 
+                {
+                    "question": "I was able to complete the problem. However, I am confused as to why we are passing in limit to the difference function if it is not being used there. Will this become important later in the project? ", 
+                    "answer": "Yes; in questions 6 and 7 you will be implementing difference functions that use the provided limit."
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 6", 
+            "threads": [
+                {
+                    "question": "Hello! I am having trouble counting differences above the limit before the recursion stops. I know that it's supposed to return a number above the limit, but I'm unsure of how to do it without modifying my base case and affecting other results. I have debugging messages that display the final return of the recursion. ", 
+                    "answer": "It’s impossible to debug this without looking at your code. Consider making a private post per the template at @19."
+                }, 
+                {
+                    "question": "does this mean we should return a func call which can genrate a random # which is bigger than limit?", 
+                    "answer": "No need to randomize - you could return any number larger than limit (such as limit + 1)"
+                }, 
+                {
+                    "question": "I'm very confused what the purpose of limit is and how to use it in the function?", 
+                    "answer": "The idea here is if you know you are going to go over the limit, you can just return anything that’s larger than the limit. Think about how you can update the limit (it doesn’t have to be constant) in the recursive calls so that you can achieve this goal."
+                }, 
+                {
+                    "question": "what gonnna happen if len(goal)<len(start)? all doctest have len(goal)>=len(start)", 
+                    "answer": "If the strings are not of equal length, the difference in lengths is added to the total."
+                }, 
+                {
+                    "question": "Are we allowed to use a helper function? Or is this not recommended?", 
+                    "answer": "It's allowed, though it should not be necessary."
+                }, 
+                {
+                    "question": "I got the error \"AssertionError: Remove this line\". I think this is caused by the line \"assert False, 'Remove this line'\" which was prewritten in the code. How can I fix this issue?", 
+                    "answer": "(For others wondering, you should remove the line)"
+                }, 
+                {
+                    "question": "I was able to implement this using a helper function but I'd like to try to solve it without one. How would I go about tracking the number of substitutions without a helper function to store it or is there another approach which uses the limit parameter?", 
+                    "answer": "You can use limit to help keep track of how many substitutions remaining can be made."
+                }, 
+                {
+                    "question": "I am having trouble understanding why this doctest: feline_flips(\"awful\", \"awesome\", 3) > 3 returns True, but feline_flips(\"awful\", \"awesome\", 5) > 5 returns False. To my understanding, in both instances the limit has been reached and therefore the limit should be returned, making both of these statements False.", 
+                    "answer": "From the project explanation webpage: \"If the number of characters that must change is greater than limit, then feline_flips should return any number larger than limit and should minimize the amount of computation needed to do so.\""
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 7", 
+            "threads": [
+                {
+                    "question": "Hello, can I get some hint on problem 7, like how to decide the order of doing summation, removing, and substitution. I don't know where to start now. ", 
+                    "answer": "Let's re-summarize what is in question 7. 1. In question 7, we want to figure out \"the minimum number of edit operations needed to transform the start word into the goal word.\" 2. This is a recursive function with three recursive calls. One of these recursive calls will be similar to the recursive call in feline_flips. 3. If the number of edits required is greater than limit, then minimum_mewtations should return any number larger than limit and should minimize the amount of computation needed to do so. All points above are quoted from the project explanation. Point 1 shows us that our ultimate objective is to get the minimum distance, which is a sum of other minimum distance. For example, minimum_mewtations(\"hi\", \"ho\") may depend on minimum_mewtations(\"i\", \"o\"). Point 2 shows us that we are given three recursive calls to solve this problem. Meanwhile, we are trying to figure out whether adding, removing, or substitution provides minimum distance. Point 3 shows us that if we have reached limit amount of operations, we should return a number larger than limit. A recursive function has a base case, recursive case, and a conditional expression for the base case. This is a lot of information but try to link them together, hopefully it may help."
+                }, 
+                {
+                    "question": "I am having trouble on question 7. Could I use tree recursion to determine the minimum distance? For example, using puring since its length is shorter than our goal’s length, it will either add or substitute. This will create purrng and purrg. Again, each of the words will split into two more words till they reach the goal, following certain conditionals that I set to them. After continuously going through all the possibilities, I can choose the shortest distance. To be honest, I feel that I am making it more complicated than it actually should be. Can I please get a hint because I have been stuck on this question for a long time.", 
+                    "answer": "For the case you have presented it does only have two possible considerations: adding and substituting. But let's take a look at the general case here, which involves adding, substituting, and deleting a character. It is true that after you have gone through all the possibilities, you can choose the one combination of three actions that renders the shortest distance. This is a good direction. Meanwhile, it is possible to use tree recursion to go through all possibilities. Using partition counting as an example, we went through all possible combinations of numbers and only presented or counted the ones that are partitions. So yes, you may use tree recursion to determine the minimum distance as you consider all possibilities of actions. "
+                }, 
+                {
+                    "question": "For questions 6 and 7, are we allowed to use \"def helper(...)\" for the recursion?",
+                    "answer": "You may define a helper if you wish, though it's not necessary to solve the problem."
+                }, 
+                {
+                    "question": "I don't see how it's possible to only use 3 recursive calls for this question. Is there not at least 4 recursive branches (add/remove/substitute/do nothing) to consider?", 
+                    "answer": "Technically yes, but in the case that we do nothing, we only recurse on the do nothing branch. When an adjustment needs to be made, we recurse on the other 3 branches. So your code can/should contain 4 recursive calls, it's just only a max of 3 of them will be ran at any given step."
+                }, 
+                {
+                    "question": "Lets say for the example 'scat' and 'cat', I just wanted to remove the 's' from 'scat'....how can I skip over the variable add to the variable remove? Should I put if else (conditional statements) to direct which one of these variables to reach/execute? ", 
+                    "answer": "Maybe you should consider all possible actions you can take and select the best possible action?"
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 8", 
+            "threads": [
+                {
+                    "question": "So for question 8, are we just supposed to extract the key and the values of the dictionary (upload) and print them? ", 
+                    "answer": "Not quite - you need to construct a dictionary containing the proper values and pass that into upload."
+                }, 
+                {
+                    "question": "When making the ratio calculation for question 8 I found an issue where python would report .60000000000000000001 instead of just .6 . For example python would divide 1 by 5 to get 0.2 and add this to the storing variable 3 times.  Then when it finally returns the storage variable it for some reason it adds on the extra 1 in the 16th ish decimal place.  Another part of the problem is that I can't round the variable to just be .6 because future cases require the full drawn out decimal.  Is there a simple way to fix this that I haven't thought of?", 
+                    "answer": "For this reason we recommend accumulating and then dividing instead of dividing and then accumulating."
+                }, 
+                {
+                    "question": "My project partner and I are trying to think of ways to stop a for loop. Since we haven't covered break, is there an alternative that we could use? Thanks!", 
+                    "answer": "If you end up needing to use that, it's okay, but perhaps a while loop would serve your purposes better."
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 9", 
+            "threads": [
+                {
+                    "question": "Are we allowed to use list mutations like .append for this problem?", 
+                    "answer": "You could but I don’t think it’s necessary."
+                }, 
+                {
+                    "question": "Hi. What does \"Important: Be sure to use the match constructor when returning a match. The tests will check that you are using the data abstraction rather than assuming a particular data format.\" mean? I met the same problem as @1095_f3 but I did not get what does the answer to this question means.", 
+                    "answer": "It means that when you're returning a match, you should call match and pass in whatever it takes in instead of manually returning a list or something like that."
+                }, 
+                {
+                    "question": "In Case 4, it returns an empty list for the words. But when I return that empty list it keeps saying it's a 'NoneType' object. How do you return an empty list without returning a 'NoneType' object?", 
+                    "answer": "The error here is that the match you're returning is None. Make sure you are returning an actual match."
+                }
+            ]
+        },
+        {
+            "question-number": "[Cats] problem 10", 
+            "threads": [
+                {
+                    "question": "Can we use list.index for this problem?", 
+                    "answer": "Sure, though it shouldn't be necessary."
+                }, 
+                {
+                    "question": "Can we use the player and word indices in our code and still follow abstraction rules?", 
+                    "answer": "Yes, since some functions for the match object actually require player and word indices, but still remain aware of all available functions you have for a match object, specifically those besides get_times and get_words. It is easy to unknowingly violate the barriers of abstractions."
+                }, 
+                {
+                    "question": "How do I resolve ties for this question? I was thinking to check if list contains any item in another list but I feel like thats out of scope of my knowledge. Is there an easier way to do this??", 
+                    "answer": "If you iterate through the indices in standard order, and use the right comparison operator (think < versus <=) you should be fine."
+                }, 
+                {
+                    "question": "Not sure if I understand the task. Unlock test do not help with clarification. Should I make a private post?", 
+                    "answer": "You are given a match (which contains all words, and the times they were typed at). You must return a list of lists, where the first list contains all the words that the first player took the least amount of time to type (aka typed the fastest), the second list contains all the words that the second player typed the fastest, etc. Does this clear things up?"
+                }, 
+                {
+                    "question": "In regards to the barriers, we know the type of return value of get_times and get_words, so manipulating that data further shouldn't breach the abstraction layer? Correct me if I'm wrong please.", 
+                    "answer": "Yep that's correct!"
+                }
+            ]
+        }
+    ]
+}
