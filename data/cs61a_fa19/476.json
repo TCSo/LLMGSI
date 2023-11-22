@@ -1,0 +1,141 @@
+{
+    "subject": "[HW 02] Q3: Make Repeater",
+    "content": "<a href=\"https://cs61a.org/hw/hw02//#q3\">Q3: Make Repeater</a>\n\n<p> Please post all questions you have below concerning Q3: Make Repeater in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I tried to do return in one line and it came up. Does anyone know what kind of error is it?![](https://piazza.com/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fpvjkvcaxqlfr%2FIMG_6400.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "The function h(x) only has 1 formal parameter which is x. You probably tried something like h(x, y) which has 2 arguments which is why Python is giving an error."
+                },
+                {
+                    "feedback": "Oh okay. But I didn’t use the function h because it says this function is undefined. I used the function compose1 directly, which has two parameters. When I put two there it ran into the same error. But when I put only one parameter, it would say “missing one positional value”. I’m so confused."
+                },
+                {
+                    "feedback": "Since the compose function returns the h function, to access the h function from the global frame, you would have to do something like compose(f, g) where f and g are functions. maybe you set a variable to the result of calling the compose function, and then tried to pass in two arguments into the returned function?"
+                },
+                {
+                    "feedback": "Thank you! I’ll try to do that!"
+                },
+                {
+                    "feedback": "Just make sure that whatever's referring to the function h(x) is only passed in one argument. If you're still stuck, drawing an environment diagram should help"
+                }
+            ]
+        },
+        {
+            "question": "I've written code for make_repeater, but when I try to test it I get the following error: int object is not callable, specifically referring to the line composer = composer(f(x)). Why is this? I don't see an integer anywhere.",
+            "follow-ups": [
+                {
+                    "feedback": "How did you define the composer function?"
+                },
+                {
+                    "feedback": "I set it equal to the argument f given."
+                },
+                {
+                    "feedback": "Assuming that you put the statement in a while loop, composer would be bound to the value of calling composer (which was then bound to f) on the value f(x). So composer is now bound to an int value. You cannot call int objects on other values, which explains the error"
+                },
+                {
+                    "feedback": "Ohhhh, so what you're saying is that if I put arguments into the function, even if they are other functions - that basically means that I have called it and it is now an integer."
+                },
+                {
+                    "feedback": "Yes, as long as the function you're calling only returns integer values. You must always evaluate the expression to the right of the assignment statement first"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting the int not callable error on the given compose1 function. I am very confused as this code was given...",
+            "follow-ups": [
+                {
+                    "feedback": "How did you call the function?"
+                },
+                {
+                    "feedback": "You cannot pass an integer into the compose1 function. You need to pass in two functions."
+                },
+                {
+                    "feedback": "If accumulate is put as one of the parameters for compose1, then does accumulate count as an integer(because it returns an integer) or a function?"
+                },
+                {
+                    "feedback": "Look at the definition of compose1 and walk through each step of execution and see what happens - are you sure you want to pass accumulate into compose1, or should it be the other way around?"
+                },
+                {
+                    "feedback": "You should not pass in accumulator as one of the arguments for compose1 because compose1 returns a function that calls the functions passed into compose1 on one argument. To call accumulator, you need to pass in 4 inputs unless you use default values (which you should not add in this case)"
+                },
+                {
+                    "feedback": "if accumulate returns an integer, it will count as an integer when used as a parameter because python will solve for the values of the parameters before using them in the function."
+                }
+            ]
+        },
+        {
+            "question": "Can accumulate return a function?  I tried passing in combiner as combine1, n as an int, and both base and term as functions, but I can't get around the need to call term(n), which then leads to an error because it calls combine1 with a function and an int as the parameters (rather than 2 functions).",
+            "follow-ups": [
+                {
+                    "feedback": "You can pass in a function that returns a function to get the behavior desired - lambdas can enable you to fit this on one line, as the challenge requests"
+                },
+                {
+                    "feedback": "Think about how you can use functions to manipulate the types of values that get passed"
+                },
+                {
+                    "feedback": "so... is it possible to have accumulate return a function?"
+                },
+                {
+                    "feedback": "yes, accumulate can return a function object depending on how you defined the function."
+                },
+                {
+                    "feedback": "I got it. I didn't realize you can use lambda to ignore parameters"
+                },
+                {
+                    "feedback": "I am having trouble for the last case in question 3. ANy suggestions?"
+                }
+            ]
+        },
+        {
+            "question": "For the one-line challenge solution, is it okay if the combiner function is not commutative?",
+            "follow-ups": [
+                {
+                    "feedback": "you could pass in a non-commutative function, as long as it behaves according to the description of the problem in the end!"
+                }
+            ]
+        },
+        {
+            "question": "I am stuck at this one-line chanllenge right now. If I take combiner as compose1 and term as f, how can I apply f n times without passing f(n), f(n-1)...? Can anyone gives me any clue?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about what you're passing in for term: do you want term(k) (where k is a value from 1 to n, as used in accumulate) to be equal to the computed value of f(k)? If not, what should the value of term(k) be? Does it depend on the numerical value of k? Compare a multi-line version of make_repeater to the definition of accumulate and see what would fit."
+                },
+                {
+                    "feedback": "Got it!! Thx so much!"
+                },
+                {
+                    "feedback": "I'm stuck on the same problem. If take combiner as compose1, how to make it possible since combiner takes an int and a func as parameters whereas compose1 takes two func?  Or, if the term should be compose1, how to decide the combiner, base and n for accumulate?  Could anyone gives me a hint? Thx!!"
+                },
+                {
+                    "feedback": "Write `make_repeater` using multiple lines to make it look something like the implementation of `accumulate`. Then see what you can substitute in for `base`, `combiner`, `n`, and the term-generating function `term`. Finally, replace your multi-line implementation with a call to `accumulate`."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzccsf191qn5wt%2Fk0bn00sk3acu%2FScreen_Shot_20190908_at_4.56.31_PM.png)  When I use ok to check my answer for Q3, I got this error show up, does this mean we have to work on those \"for fun questions\"?",
+            "follow-ups": [
+                {
+                    "feedback": "I have figured out that I missed one bracket in previous codes"
+                }
+            ]
+        },
+        {
+            "question": "Just to clarify, we don't need to use compose1() to create make_repeater right? Like is it possible to have a solution without using compose1()?",
+            "follow-ups": [
+                {
+                    "feedback": "I don't think so, I think it's just used for the one line challenge."
+                }
+            ]
+        },
+        {
+            "question": "Does the challenge at the end of question three in hw02 carry points or is it optional?",
+            "follow-ups": [
+                {
+                    "feedback": "It's optional."
+                }
+            ]
+        }
+    ]
+}

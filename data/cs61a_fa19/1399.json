@@ -1,0 +1,79 @@
+{
+    "subject": "[HW 05] Q1: Counter",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q1\">Q1: Counter</a>\n\n<p> Please post all questions you have below concerning Q1: Counter in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "how do i make a different counter value when a new string is passed in?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider using the \"in\" operator to check for if the string is new"
+                }
+            ]
+        },
+        {
+            "question": "How to make sure that when passing in a new string, the time the function is called on that string doesn’t add up from previous times?",
+            "follow-ups": [
+                {
+                    "feedback": "Keep track of the number of times the function has been called for each string (that's essentially the problem statement)"
+                }
+            ]
+        },
+        {
+            "question": "What does this error mean?  TypeError: 'NoneType' object is not callable.",
+            "follow-ups": [
+                {
+                    "feedback": "It means that you are trying to call the \"None\" value in python, you most likely have a variable set to None that you are trying to call."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure why I'm getting this answer...any hints? Thanks!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjmhz6r9hduNU%2Fk1tr20asfmqa%2FScreen_Shot_20191016_at_1.49.31_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps every function returned by `make_counter` re-uses the same counts? Each counter returned by separate calls to `make_counter` is supposed to have a unique set of counts"
+                },
+                {
+                    "feedback": "How do I do that and also make use of nonlocal? Because for a variable (like count) to be nonlocal, it must be defined somewhere previously"
+                },
+                {
+                    "feedback": "You can also use nonlocal like the following:                def fun():         x = 0         def counting():             nonlocal x             x += 1             print(x)         return counting          >>> counter = fun()     >>> counter()     1     >>> counter()     2     >>> counter2 = fun()     >>> counter2()     1  Notice how `counter2` also starts at 1. This sort of code format is what you need in your solution. Another thing to keep in mind: what data type has been taught to us that can take in a string and output an integer?"
+                }
+            ]
+        },
+        {
+            "question": "I can't figure out how to reset the count when a new string is inputted yet have the count for old strings that have already been inputted remain the same. Any clues?",
+            "follow-ups": [
+                {
+                    "feedback": "how are you storing the counts in the first place? it is a matter of doing something differently in each case."
+                }
+            ]
+        },
+        {
+            "question": "i hope this isn't too vague, but i'm trying to implement this using a dictionary and a helper function but keep getting the error \"name _____ is not defined\" although it's the argument for my helper function—can anyone please offer any insight as to why this would be happening? :/",
+            "follow-ups": [
+                {
+                    "feedback": "Check the scope - make sure the name is bound to some value where it is referenced. Don't be afraid to use Python Tutor to examine this line-by-line"
+                },
+                {
+                    "feedback": "got it! thank you cyrus! :)"
+                }
+            ]
+        },
+        {
+            "question": "Every time I run my test cases, it gives an error that tells me I passed in an argument when 0 are required, but I used a nonlocal statement and did not pass anything into my helper and I tried rewriting it in several ways even trying the template above. Can anyone give an idea of the issue?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm I got it"
+                }
+            ]
+        },
+        {
+            "question": "Could this be solved using lst.count(x) and lst.append()? No mutable functions/nonlocal needed",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, but it's not the intended solution"
+                }
+            ]
+        }
+    ]
+}

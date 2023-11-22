@@ -1,0 +1,146 @@
+{
+    "subject": "[HW 06] Q1: Survey",
+    "content": "<a href=\"https://cs61a.org/hw/hw06//#q1\">Q1: Survey</a>\n\n<p> Please post all questions you have below concerning Q1: Survey in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "i'm having a trouble with the survey, after I got the passphrase and entered it into the file, it tells me:  \\---redacted the passphrase--",
+            "follow-ups": [
+                {
+                    "feedback": "replace *** PASSPHRASE HERE *** with the actual passphrase but keep the quotes"
+                },
+                {
+                    "feedback": "It worked!! Thank you so much."
+                }
+            ]
+        },
+        {
+            "question": "[hw6survey.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp99oz1i290%2Fk2arlzld4k2z%2Fhw6survey.png)  I copy pasted the passphrase in but it returns a Key Error whenever I try to run it. Can anyone help me figure out why this is?",
+            "follow-ups": [
+                {
+                    "feedback": "Can you post the exact error? Perhaps the key was pasted in wrong"
+                },
+                {
+                    "feedback": "[hw6survey.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp99oz1i290%2Fk2aytr37sdb%2Fhw6survey.png)  I checked the key like 10 times and tried it again just now, so hopefully it's not wrong :)"
+                },
+                {
+                    "feedback": "Sike, turns out the autograder isn't compatible with python 3.8."
+                }
+            ]
+        },
+        {
+            "question": "Why?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5gk45uqr445h%2Fk2b7bzu3zfco%2FScreen_Shot_20191028_at_18.57.51.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you surrounded the key with quotes inside hw06.py"
+                },
+                {
+                    "feedback": "oops thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Where can I find the token? I completed the form, but nothing was sent to my email nor was anything downloaded. Thanks in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "It was visible directly after pressing the submit button - go back and press the button to modify your response and then re-submit and you should see it"
+                }
+            ]
+        },
+        {
+            "question": "Uhhhh my TA (Evan Corriere) isn't on the list of TA's....",
+            "follow-ups": [
+                {
+                    "feedback": "Evan should now be added, sorry about the inconvenience"
+                }
+            ]
+        },
+        {
+            "question": "when I opened the hw file, there was no survey func...where should I put my passphase",
+            "follow-ups": [
+                {
+                    "feedback": "it is in the hw06.py file."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk2eecl1nrpud%2FScreen_Shot_20191031_at_12.37.40_AM.png)  Why is this keep happening? where do I put in my passphrase",
+            "follow-ups": [
+                {
+                    "feedback": "In the hw06.py file"
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191031_at_12.48.49_AM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhl9cy4r411%2Fk2eer16try20%2FScreen_Shot_20191031_at_12.48.49_AM.png)did the survey but am having trouble submitting?",
+            "follow-ups": [
+                {
+                    "feedback": "wait sorry i figured it out i cant read lmao"
+                }
+            ]
+        },
+        {
+            "question": "What is happening here...",
+            "follow-ups": [
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk05igwxkhykld%2Fk2eyizenrwso%2FSnipaste_20191031_100228.png)"
+                },
+                {
+                    "feedback": "Remove the space at the start and end of the string"
+                },
+                {
+                    "feedback": "Oh I see!! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi0s7bo2490%2Fk2gqer2bl2cv%2FScreen_Shot_20191101_at_3.48.45_PM.png) I've been unable to figure out what's wrong with my survey when I try to submit? I entered the passcode correctly I'm pretty sure.",
+            "follow-ups": [
+                {
+                    "feedback": "This same error isn't letting me unlock test cases or run ok in the problems either"
+                },
+                {
+                    "feedback": "Same"
+                },
+                {
+                    "feedback": "My problem as well"
+                },
+                {
+                    "feedback": "I have the same issue too"
+                },
+                {
+                    "feedback": "please see @1864 for a temporary fix!"
+                },
+                {
+                    "feedback": "Same"
+                }
+            ]
+        },
+        {
+            "question": "'urlib3' is already installed, but I'm consistently getting this error. I entered the correct passcode. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdikaea854l2%2Fk2gqho7mvz0a%2FScreen_Shot_20191101_at_3.51.48_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "please see @1864!"
+                }
+            ]
+        },
+        {
+            "question": "File \"ok\\\\__main__.py\", line 43, in <module>   File \"ok\\\\__main__.py\", line 24, in patch_requests   OSError: [Errno 0] Error: 'requests\\\\\\cacert.pem'  I keep getting this error when I try to run survey. Anyone know what to do??",
+            "follow-ups": [
+                {
+                    "feedback": "@1880"
+                }
+            ]
+        },
+        {
+            "question": "what does this error mean?  ModuleNotFoundError: No module named 'urllib3'",
+            "follow-ups": [
+                {
+                    "feedback": "@1880"
+                }
+            ]
+        }
+    ]
+}

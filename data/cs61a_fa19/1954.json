@@ -1,0 +1,213 @@
+{
+    "subject": "[Scheme] Problem 5",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-5-1-pt\">Problem 5</a>\n\n<p> Please post all questions you have below concerning Problem 5 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I passed all the tests except this one:  scm> (eval (define tau 6.28))   Traceback (most recent call last):   k (most recent call last):   File \"ok\\client\\sources\\ok_test\\scheme.py\", line 59, in evaluate   (exp, self._frame))   File \"ok\\client\\utils\\timer.py\", line 33, in timed   raise submission.error   File \"ok\\client\\utils\\timer.py\", line 49, in run   self.result = self.fn(*self.args, **self.kargs)   File \"C:\\Users\\thefi\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 39, in scheme_eval   return scheme_apply(evaluate_first, evaluate_rest, env)   File \"C:\\Users\\thefi\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 51, in scheme_apply   return procedure.apply(args, env)   File \"C:\\Users\\thefi\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 154, in apply   return self.fn(*python_args)   File \"C:\\Users\\thefi\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 24, in scheme_eval   return env.lookup(expr)   AttributeError: 'bool' object has no attribute 'lookup'  # Error: expected   # 6.28   # but got   # Traceback (most recent call last):   # ...   # AttributeError: 'bool' object has no attribute 'lookup'  Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "check the places where you are calling the lookup function - you may be calling it from a context that is not a Frame."
+                },
+                {
+                    "feedback": "did you figure this out? I have the same error"
+                },
+                {
+                    "feedback": "I'm also getting the same error, except \"AttributeError: 'list' object has no attribute 'lookup'\"     It's happening from inside my scheme_eval function; did you figure this out?"
+                },
+                {
+                    "feedback": "Make sure you only call `lookup` on variables that are an instance of `Frame`. Attempting to call it on anything else will result in an error, since `lookup` is only defined on `Frame`s. Check your types."
+                },
+                {
+                    "feedback": "Oh no! I also get the same exact error as shown in the picture. I've checked my lookup calls (even though I don't explicitly call lookup in my do_define_form function). What do you mean by checking types?"
+                },
+                {
+                    "feedback": "Whatever object you’re calling the `lookup` function on, make sure that that object is an instance of `Frame`. It sounds like you may accidentally be trying to call it on a boolean value."
+                },
+                {
+                    "feedback": "hey nicholas! there's only three places in my code where I define/use lookup, and none of those instances seem to be violating the fact that it must be called from a Frame context. should I make a private post to the instructors for help?"
+                },
+                {
+                    "feedback": "Hi everyone! I went to office hours today and I was helped out by the amazing staff! I was getting the same error as posted above. If you are having a similar problem, I would recommend looking at your problem 3 code and ensuring that you are adding the correct env to your python_args."
+                },
+                {
+                    "feedback": "I was today years old when I learned that self.use_env is a boolean not a Frame object."
+                }
+            ]
+        },
+        {
+            "question": "I keep receiving the error in early test cases that \"int is not callable\" followed by the bound value. What does this mean?",
+            "follow-ups": [
+                {
+                    "feedback": "Or more accurately, why might it be happening? It seems like an error with scheme_eval, but I'm pretty sure that's not correct since I didn't change anything in there outside of the designated areas."
+                },
+                {
+                    "feedback": "nvm fixed it"
+                },
+                {
+                    "feedback": "How do you fix it? Shouldn't we call eval on expr.rest?"
+                },
+                {
+                    "feedback": "Not exactly. In the case of (define a (+ 2 3)), expressions.rest would give us ((+ 2 3)). Is that what we want to call scheme_eval on?"
+                },
+                {
+                    "feedback": "I think scheme eval takes in a pair as expr. So in the Q, do I need to convert (+2 3) into a pair using read_line? But that is not working."
+                },
+                {
+                    "feedback": "figured"
+                },
+                {
+                    "feedback": "I've noticed that calling expressions.rest on scheme_eval gives us the \"int is not callable\" error, but I don't understand what to pass into scheme_eval instead. Can someone please give me hints on what scheme_eval should take in?"
+                },
+                {
+                    "feedback": "The `define` form for assigning variables will assign the variable to the value of the **second** element in the `expressions` list. Make sure you’re correctly retrieving the second element of the linked list. (Hint: What does the `.rest` attribute of a `Pair` contain?)"
+                },
+                {
+                    "feedback": "ahhh i get it!! thank you!"
+                },
+                {
+                    "feedback": "No problem! Good luck on the remainder of your project!"
+                },
+                {
+                    "feedback": "I am still having trouble wrapping my head around this. Jack mentioned that in case of (define a (+ 2 3)), we would not want to call scheme_eval on ((+ 2 3)). But should that not be exactly what we have to do? Scheme_eval on (+ 2 3) would return 5 and then we can bind that 5 to the symbol a using the define method of Frame class."
+                },
+                {
+                    "feedback": "Got it.   For those who are still having a trouble, check what would expressions.rest return and if that's what on we want to call scheme_eval."
+                },
+                {
+                    "feedback": "There is a subtle but key difference between evaluating `((+ 2 3))` and `(+ 2 3)`; note how one has double parentheses and one has single parentheses. The first evaluates to `(5)`, which is an error since `5` isn’t a procedure, and the other evaluates to the value `5`. In other words, make sure you are only getting the second element and not the rest of `expressions`.      EDIT: Ah, you beat me to it."
+                }
+            ]
+        },
+        {
+            "question": "the reason it keeps saying that is it because I didnt transform the value expression to scheme form? \"int is not callable\"",
+            "follow-ups": [
+                {
+                    "feedback": "remember that under the hood, the define list expression is represented as a chain of pair instances."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk2o5gj034spy%2FScreen_Shot_20191106_at_7.26.22_PM.png)  Read the above posts, but still not sure why I am getting this error. Do we need to consider two cases? Once when we have a call expression and the other when we do not?",
+            "follow-ups": [
+                {
+                    "feedback": "No, you only need to handle one case explicitly - I think you're over- evaluating the value to be assigned"
+                },
+                {
+                    "feedback": "Got it! Thank you so much! I was over-evaluating"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2pbggqlv2qs%2FScreen_Shot_20191107_at_3.01.56_PM.png)      Right now, I check if x exists. If it does, I return its value. If not, I define it and return 'x'. However, I am stuck on this case where x was previously defined, and you want to reassign its value, and still return 'x'. Any idea how I could approach this issue?"
+        },
+        {
+            "question": "Any ideas why this is showing with parenthesis? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k52hj8236b%2Fk2pka4elophm%2FScreen_Shot_20191107_at_7.08.41_PM.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps you need to call .first on your list"
+                }
+            ]
+        },
+        {
+            "question": "What does this error mean?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcauk1ond7y5vl%2Fk2qr7s65vrj7%2FScreen_Shot_20191108_at_3.10.06_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Old versions of the Scheme project had \"`second`\" instead of \"`rest`\" as an attribute of `Pair`"
+                },
+                {
+                    "feedback": "It looks like you’re trying to call `.second` rather than `.rest` for the `Pair` object, to clarify on Cyrus’s answer."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyb0om924bv2ew%2Fk2s0ps6d9p3o%2FScreen_Shot_20191109_at_12.24.46_PM.png)  How do I fix this? I'm doing expressions.rest.first within the scheme_eval call, if I instead do expressions.first I get an \"unknown identifier: size\" error.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the `define` procedure returns the name of the defined variable, not its value. You need to make sure you handle the assignment in the frame, but also make sure your return value is correct, as well."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting the error \"define is missing 1 argument 'value'\" even though I'm passing in an argument for it(the evaluated expression after the symbol). I'm using the form 'Frame.define\" if that helps.",
+            "follow-ups": [
+                {
+                    "feedback": "If you’re calling it with the form `Frame.define`, you need to make sure you pass in the instance. That’s why the parameters are always `define(self, symbol, value)`. If you call `define` on the instance itself, the `self` is implied, so you only need the latter two arguments. However, if you call `Frame.define(the_symbol, the_value)`, then `the_symbol` will be passed as `self`, and `the_value` will be passed as `symbol`, and there will be a missing argument for `value`."
+                },
+                {
+                    "feedback": "How would you call define on the instance itself? If I try that I get a self is not defined error or define is not defined error, any way I try to implement that."
+                },
+                {
+                    "feedback": "If you have a `Frame` called `env`, and you want to define `'foo'` to have the value `'bar`', you would call `env.define('foo', 'bar')`. If that isn’t working, then it’s likely that your `LambdaProcedure` isn’t storing its environment properly."
+                },
+                {
+                    "feedback": "Oh gosh i see that was a dumb mistake on my part. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I'm passing all the tests but when I tried eval with a name with a quotation, Scheme did not return any value:                scm> (eval (define tau 6.28))       6.28       scm> (eval tau)       6.28       scm> (eval 'tau)          I don't know what I might have done wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "Quoted forms are handled in problem 6. Solve that, then try it again!"
+                },
+                {
+                    "feedback": "I was just wondering the same thing, thank you for this!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcjfs3qnkcm48o%2Fk2wsio8taapw%2FScreen_Shot_20191112_at_8.32.49_PM.png)  this might be a really dumb question but this keeps happening no matter what code I put in for my questions 4,5, and 6 (including appropriate return statements)? Can anybody explain why?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you have implemented the quote handling in **both** `scheme_read` **and** the quote handling in `do_quote_form`."
+                }
+            ]
+        },
+        {
+            "question": "How do I fix an error that says unknown identifier?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyyd494x694%2Fk2wxh9yiszw%2FScreen_Shot_20191112_at_10.53.05_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re trying to evaluate your symbol. Your symbol should not be evaluated—it tells you what value you’re trying to bind to, so take it literally.  Do evaluate your value (the second element), though."
+                },
+                {
+                    "feedback": "I've called scheme_eval on expressions.rest.first, which means it should be the second element right? And then after, I do Frame(None).define and then lookup to make sure that it's in there before returning the first element, but it doesn't seem to work"
+                },
+                {
+                    "feedback": "You are not evaluating `target`, or `expressions.first`, at any point in your solution, right?"
+                },
+                {
+                    "feedback": "No, I've only called scheme_eval on expressions.rest.first, I've only used target/expressions.first for the define function and when im trying to return the name"
+                },
+                {
+                    "feedback": "\"And then after, I do Frame(None).define and then lookup to make sure that it's in there before returning the first element\"  Not sure this step is necessary, and I'm not sure what you mean by Frame(None).define. Your solution should be doing two things:  1\\. Bind the evaluated second expression to the first expression unevaluated  2\\. Return the first expression unevaluated"
+                },
+                {
+                    "feedback": "You shouldn’t be constructing new `Frame`s on the fly. You are already provided a `Frame` to define in called `env`—use that to define."
+                },
+                {
+                    "feedback": "Got it, thank you so much to you both!! I appreciate it"
+                },
+                {
+                    "feedback": "No problem"
+                },
+                {
+                    "feedback": "^"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error. My thought is to call scheme_eval on expressions.rest.first and bind it to a variable, and then call env.define on target and this variable, then return target. I don't see where could possibly be wrong though.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2zbhaakhg2o%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191114_%E4%B8%8B%E5%8D%882.58.40.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, I wonder if there are multiple problems going on. The `pair is not callable: (+ 2 3)` error tells me the interpreter is trying to evaluate `((+ 2 3))` at some point, where that expression is in the first position of a list. But also, the operator should be evaluated before it checks if it is a procedure, so it’s weird that you’re not getting `int is not callable: 5` instead. Could you double check both your problem 4 and 5 implementations and make sure that you’re not passing `expressions.rest` into `scheme_eval` (I know you said you did, but I’ll say it anyway) and that you are evaluating the operator, then evaluating the operands, then applying the operator to the operands in `scheme_eval`?"
+                },
+                {
+                    "feedback": "Does ((+ 2 3)) means Pair(Pair('+', Pair(2, Pair(3, nil))), nil)? And is this the reason why we want .rest.first instead of just .rest?"
+                },
+                {
+                    "feedback": "Yes."
+                }
+            ]
+        }
+    ]
+}

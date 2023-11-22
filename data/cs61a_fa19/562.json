@@ -1,0 +1,56 @@
+{
+    "subject": "[Lab 02] Q2: WWPD: Higher Order Functions",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q2\">Q2: WWPD: Higher Order Functions</a>\n\n<p> Please post all questions you have below concerning Q2: WWPD: Higher Order Functions in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "edit: reached solution",
+            "follow-ups": [
+                {
+                    "feedback": "Figured it out. Haha"
+                }
+            ]
+        },
+        {
+            "question": "Hello  How does more_chocolate, more_cake = chocolate(), cake. more chocolate work?  Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "The argument `chocolate()` is evaluated to be whatever `chocolate()` returns. `cake` evaluates to `cake`. Then `more_chocolate` gets bound to whatever `chocolate()` evaluates to, and `more_cake` gets bound to `cake`."
+                },
+                {
+                    "feedback": "Why would this return anything?"
+                },
+                {
+                    "feedback": "Yes, doesn't it just assign names to chocolate() and cake?"
+                },
+                {
+                    "feedback": "chocolate is a call expression with parameters none as in (). So, if there is a print statement when assigning a call expression to a variable, the print statement is executed. Hope it helps!"
+                }
+            ]
+        },
+        {
+            "question": "Why when execute return 'cake', it will display \"cake\"? What's the ruld for ' ' and \" \" ?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk0egw4ydw8s7%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190910_16.28.06.png)",
+            "follow-ups": [
+                {
+                    "feedback": "returning keeps the string as a string, so we represent that by keeping the quotes in the ED. printing will display the text of the string, which will be everything inside of the quotes, since technically the quotes themselves are not part of the string, but only act as boundaries for the characters of the string."
+                },
+                {
+                    "feedback": "Touching up on this, why would the return value of cake in f1 be the function pie? I understand that this is the answer because in def(pie) it returns pie, but when it evaluates print('beats') in line 2 shouldn't it return None because that is the return value of print? Therefore it shouldn't get to def(pie) right?"
+                },
+                {
+                    "feedback": "In f1, it states return pie, hence that is the return value. The function pie is not yet called hence it is not evaluated."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnol2ip9j1p9%2Fk0hbdmfzqts0%2FScreen_Shot_20190912_at_4.17.03_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How come these two are different?  Why does one result in:  beets  sweets  why does the other one result in  sweets  'cake'"
+                },
+                {
+                    "feedback": "Ah. I see. One is print output. The other one includes print output and also gives the return value."
+                }
+            ]
+        }
+    ]
+}

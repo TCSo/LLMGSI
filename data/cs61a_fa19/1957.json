@@ -1,0 +1,101 @@
+{
+    "subject": "[Scheme] Problem 2",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-2-1-pt\">Problem 2</a>\n\n<p> Please post all questions you have below concerning Problem 2 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am so confused with this test  Understanding scheme.py > Suite 1 > Case 5  I. User-defined procedures open a new frame; builtins do not   II. Builtins simply execute a predefined function; user-defined   procedures must evaluate additional expressions in the body   III. Builtins have a fixed number of arguments; user-defined procedures do not  I mean, am I supposed to know these from the codes or they are just the rules of this implementation? Could anyone explain the first one and the third one please?",
+            "follow-ups": [
+                {
+                    "feedback": "Not sure if my understanding is right but. For the first one, builtin functions are apart of the builtinprocedure class and the user-defined produces are apart of the lambdaprocedure class(all user-defined procedures are treated as lambdaproduces i believe). A builtinproduce basically gets evaluated using python so no need to open a new frame. However, a user-defined function has a body that might have multiple lines and steps where there is no equivalent python builtin function so you need to open a new frame. For the third one, I think it's false because builtins don't have a fixed number of arguments."
+                }
+            ]
+        },
+        {
+            "question": "Could anyone help me explain this test?  Understanding scheme.py > Suite 1 > Case 6  Q: What exception should be raised for the expression (1)?   Choose the number of the correct choice:   0) SchemeError(\"malformed list: (1)\")   1) SchemeError(\"unknown identifier: 1\")   2) SchemeError(\"1 is not callable\")   3) AssertionError",
+            "follow-ups": [
+                {
+                    "feedback": "think about how Scheme would read the expression `(1)` if put into an interpreter - the same applies here."
+                }
+            ]
+        },
+        {
+            "question": "I am done with problem 2 but I can't really exit using ctrl-d, it gives me this error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy1jdw4a5ms%2Fk2lcmgviayww%2FAnnotation_20191104_202333.png)  Is there a way to fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "Closing and reopening your terminal should probably handle it."
+                },
+                {
+                    "feedback": "You could also type:  (exit)"
+                }
+            ]
+        },
+        {
+            "question": "Why would this happen? I'm confused![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnovoh80e1xx%2Fk2oczjagd03k%2FUntitled.png)  And after some investigation, I've found that the instance \"global_frame\" appears to be an instance of class \"interpreter.rBTh_8\". Why?"
+        },
+        {
+            "question": "I am sort of confused on how to access the current frame since there is no instance attribute for that. How can I access the current frame?",
+            "follow-ups": [
+                {
+                    "feedback": "I think I am accessing the current frame now but the error I am getting is that the none type object has no attribute 'lookup'. I was trying to use a recursive call to go up to the parent however it seems like the global frame is a none type. shouldn't the raise statement take care of this problem?"
+                },
+                {
+                    "feedback": "Functions that need the current frame take it as one of the arguments (for example, scheme_eval has the argument env). It looks like what happens in your case is that when you are trying to look up a name, you go up along your frames and, not finding a name, you eventually try to access the parent frame of the global frame, you get None (since the global frame doesn't have a parent) and then call lookup on that, which fails because None doesn't have that method. I think that you are not terminating the search if the name is not found in the global frame. Try adding a condition to your loop that terminates it when frame is None."
+                },
+                {
+                    "feedback": "Got it thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Once you don't find the symbol in the current frame, to check if the var is in parent's frame, why doesn't checking                if self.parent is None  and then recursively calling the lookup function again but with self.parent.lookup",
+            "follow-ups": [
+                {
+                    "feedback": "*why doesn't this not work"
+                },
+                {
+                    "feedback": "What error are you receiving?"
+                },
+                {
+                    "feedback": "It sounds like your reasoning is correct. Remember that if `self.parent` is in fact `None`, then you can’t do any more lookup, so your code has to fall through to the bottom `raise` statement to raise the error."
+                },
+                {
+                    "feedback": "I found that for some reason `self.parent.lookup()` and `lookup(self.parent)` are two different things 🤷🏻‍♂️  Perhaps you're running into the same problem OP."
+                },
+                {
+                    "feedback": "`lookup` takes in a _symbol_ and returns the value bound to that symbol. The parent of a frame isn't stored as a symbol inside of that frame's bindings, so calling `lookup` with `self.parent` makes no sense."
+                },
+                {
+                    "feedback": "@Cyrus, I was omitting arguments. First argument is `self`."
+                },
+                {
+                    "feedback": "Ah."
+                },
+                {
+                    "feedback": "Remember that there are two way of calling class functions:   ```   class Fizz():   def buzz(self, n):   print('fizzbuzz' if n % 15 == 0 else 'fizz' if n % 3 == 0 else 'buzz' if n % 5 == 0 else n)      fizz = Fizz()   ```       The first is dot notation. This is when you just do something like `instance.do_something`, and **the `self` argument is omitted because it is implied from the instance you called it on**. This means that we can call `fizz.buzz(3)`, where `n` is bound to `3`, since `self` is already bound to the `fizz` instnace.       The second is calling the method from the class and manually passing in the instance. This would be something like `Fizz.buzz(fizz, 15)`. Since we called `buzz` on the class, we have to determine which instance we pass in. **The `self` parameter is not omitted in this case.**       In general, I personally prefer the dot notation."
+                }
+            ]
+        },
+        {
+            "question": "Do we have to define a new key value pair for self.bindings in the define function? And do we check if the symbol is in this dictionary to see if the symbol is in the current frame?",
+            "follow-ups": [
+                {
+                    "feedback": "Yep!"
+                },
+                {
+                    "feedback": "[Screen_Shot_20191112_at_11.43.57_PM.](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkznpn8e956553%2Fk2wzf0er4ltk%2FScreen_Shot_20191112_at_11.43.57_PM.png)  What could be wrong?"
+                },
+                {
+                    "feedback": "Make sure you are utilizing the `symbol` parameter in `lookup`. You should only return the value that corresponds to that symbol. You seem to just be returning the value of the latest binding in `bindings`"
+                }
+            ]
+        },
+        {
+            "question": "How do I pass this test?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjbhgcj5er%2Fk33opctp9ge8%2Fokokdmdmdm.PNG)  What is wrong with my tries?",
+            "follow-ups": [
+                {
+                    "feedback": "MB. This is for problem 1."
+                }
+            ]
+        }
+    ]
+}

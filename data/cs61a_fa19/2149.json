@@ -1,0 +1,118 @@
+{
+    "subject": "[Lab 12] Q6: The Smallest Unique Positive Integer",
+    "content": "<a href=\"https://cs61a.org/lab/lab12//#q6\">Q6: The Smallest Unique Positive Integer</a>\n\n<p> Please post all questions you have below concerning Q6: The Smallest Unique Positive Integer in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "The hint in the problem description contains an infinite loop: \" _Hint:_ Think about what attribute you need to `GROUP BY`. Which groups do we want to keep after this? We can filter this out using a `HAVING` clause. If you need a refresher on aggregation, see [Q6](https://cs61a.org/lab/lab12/#Q6).\"",
+            "follow-ups": [
+                {
+                    "feedback": "I think they meant see below, where it states \"The COUNT Aggregator\""
+                },
+                {
+                    "feedback": "I'm too nitpicky for my own good"
+                },
+                {
+                    "feedback": "I mean, I love a good recursion error in my lab description."
+                },
+                {
+                    "feedback": "Lol yea we meant count aggregator section below, good catch"
+                },
+                {
+                    "feedback": "lol oops sorry for the infinite loop! I will update the website! good catch :)"
+                }
+            ]
+        },
+        {
+            "question": "Not sure if it's my code or the test cases, but I can't seem to pass the test cases because the last entry differs from the expected. Everything else is exactly the same (verified with a text difference tool cuz I was too lazy to look at the output :-P). Anybody else getting this issue?  Left side of the picture is the expected output and the right side is my output.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkb6usfpbg144%2Fk353jb6vj6cv%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "What version of SQLite are you using?"
+                },
+                {
+                    "feedback": "3.21.0. Dunno if that's too old."
+                },
+                {
+                    "feedback": "FWIW, that's more recent than 3.8.3, which the course staff listed as the minimum"
+                },
+                {
+                    "feedback": "I guess I’ll bump it to the instructors. I wonder if there are some minor nuances with `BIGINT` or whatever that changed between versions."
+                },
+                {
+                    "feedback": "I have the same error and am using the provided precompiled SQLite."
+                },
+                {
+                    "feedback": "Small update, I updated to the latest version of SQLite (which I believe is 3.30.1 according to the website). Still having the issue."
+                },
+                {
+                    "feedback": "@Nicholas De Leon are you using Windows 10?  fwiw, you do have the correct solution, so you are good SQL-wise."
+                },
+                {
+                    "feedback": "I am using Windows 10. Also good to know it’s not the code :-)."
+                },
+                {
+                    "feedback": "looking into this! Most likely something changes about precision between sql versions caused this small error"
+                },
+                {
+                    "feedback": "oof yes this is an issue with Windows + adversarial student inputs. We just pushed out a fix to it so if you wanna redownload lab12 and copy your solutions over it should be working now! sorry abou that"
+                },
+                {
+                    "feedback": "“Adversarial student inputs” is the best thing I have heard in a while. *cough cough* Cats GUI *cough cough*"
+                },
+                {
+                    "feedback": "We've learned our lesson to enforce data validation in the future!"
+                },
+                {
+                    "feedback": "Cool it works now. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Did we learn \"group by\" and \"having\"? Is \"group by\" referred to a function, like the one used in R?",
+            "follow-ups": [
+                {
+                    "feedback": "We will learn this in lecture on Wednesday! Basically, an aggregator function has to know how exactly to form the groups to be aggregated, so `GROUP BY` tells you how to group. For example, I could tell it to `GROUP BY parent` if I wanted all the entries with the same `parent` to be aggregated. `HAVING` is similar to `WHERE` in that it will filter certain things out, but `WHERE` is for individual rows, while `HAVING` is for groups."
+                },
+                {
+                    "feedback": "Makes sense! Thanks!"
+                },
+                {
+                    "feedback": "Can I do \"where count(*) = 1\"? I tried, but its not working."
+                },
+                {
+                    "feedback": "got it"
+                },
+                {
+                    "feedback": "I don't get it. Could you explain why \"where count(*) = 1\" does not work?"
+                },
+                {
+                    "feedback": "Ok. Nvm. Just use the HAVING clause, I didn't see that part"
+                },
+                {
+                    "feedback": "Just to clarify any confusion, the `WHERE` clause is a filter for individual rows, while the `HAVING` clause is for groups. You can filter out individual rows before they get grouped, for example, but if you wanted to filter out only certain *groups* with `COUNT(*) = 1`, you would have to use `HAVING`. Also, aggregator functions don’t make sense in the context of individual rows, which is why you don’t see them in `WHERE` clauses."
+                }
+            ]
+        },
+        {
+            "question": "How do we determine if a entry is an int?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, I was looking at the wrong row"
+                }
+            ]
+        },
+        {
+            "question": "For this question, why wouldn't this work? SELECT time, distinct smallest FROM students;",
+            "follow-ups": [
+                {
+                    "feedback": "~The syntax would technically be `SELECT DISTINCT time, smallest FROM students;`, but the point of the question is that you have to figure it out using joins… You know, spirit of the question and all.~"
+                },
+                {
+                    "feedback": "Actually, I lied about that—all the times are distinct, so you would probably have to use multiple SELECT statements. Either way… again, spirit of the question."
+                },
+                {
+                    "feedback": "Final post: `DISTINCT` only chooses the first of duplicated values, so it wouldn’t be applicable for this problem. Sorry, I should probably do a bit more research into this next time."
+                }
+            ]
+        }
+    ]
+}

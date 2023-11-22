@@ -1,0 +1,42 @@
+{
+    "subject": "[Lab 08] Q2: Finding Orders of Growth",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q2\">Q2: Finding Orders of Growth</a>\n\n<p> Please post all questions you have below concerning Q2: Finding Orders of Growth in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Orders of Growth > Suite 1 > Case 3  (cases remaining: 1)  Q: What is the order of growth of `foo` in terms of `n`, where `n` is  the length of `lst`?  def foo(lst, i):  mid = len(lst) // 2  if mid == 0:  return lst  elif i > 0:  return foo(lst[mid:], -1)  else:  return foo(lst[:mid], 1)  Choose the number of the correct choice:  0) Theta(2^n)  1) Theta(n^2)  2) Theta(n)  3) Theta(log(n))  ? 3  \\-- OK! --  Got this correct for the first time. I had trouble understanding this question, and there is no explanation for this question on lab 8 from website. Can somebody explain me why it is Theta(log(n))?",
+            "follow-ups": [
+                {
+                    "feedback": "log(n) can be confusing with orders of growth since they never specify the base of the logarithm.  But the vast majority of times, the base is implicitly understood to be 2.  This is true in this question as well.  When we pass in a list to foo, we can see that mid is set to half of that list's length,  and then foo is called used a half of mid (the first half in the elif branch, the second half in the else branch).  So with each call to foo, lst is halved.  A list of length 8 will take only one more iteration than a list of length 4.  Therefore, the order of growth is Theta(log base 2 of n).  Since orders of growth leave out the bases of logarithms, our final answer is Theta(log(n))."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzoahqdkwhg2h7%2Fk22vr3b6f919%2FScreen_Shot_20191022_at_11.11.14_PM.png)  Why isn't this logarithmic?? Doesn't more and more numbers get returned early when n gets bigger and bigger??",
+            "follow-ups": [
+                {
+                    "feedback": "Are you talking about how as $$n$$ gets bigger, there is less primes, so we wouldn't go through the entire for loop?  This is definitely a very interesting thought. However,    1. It won't be logarithmic (I am fairly certain the distribution of prime numbers do not fall logarithmically)   2. We care about worst case bounds. In the worst case, we are guaranteed to definitely run through the entire for loop. Reason being, if we don't worry about how sparse or dense prime numbers are, we never know when we will go through the `if` statement.    3. BUT, yes, if you experiment this, you probably won't see a clean linear growth."
+                }
+            ]
+        },
+        {
+            "question": "def bar(n):         i, sum = 1, 0         while i <= n:             sum += biz(n)             i += 1         return sum          def biz(n):         i, sum = 1, 0         while i <= n:             sum += i**3             i += 1         return sum  Solution on 61A site: \"...this while loop also executes _n_ times, with each iteration taking constant time...\"  How can the i^3 operation be constant time, when in lecture we learned that exponentiation with odd numbers is linear?",
+            "follow-ups": [
+                {
+                    "feedback": "For 61A purposes, we consider simple operations like cubing numbers to take constant time"
+                },
+                {
+                    "feedback": "So even if the operation contained was complicated (maybe n^n for example, which clearly is not constant time) we should just assume it is? I guess I just want to be sure what is considered constant and what isn't, clearly loops/iteration are not considered constant, is that all?"
+                },
+                {
+                    "feedback": "For the purpose of at least this midterm, I believe loops are basically it, along with traversing the branches of a tree or other logarithmic moves, etc. - I'm not 100% sure on that, can an instructor provide input?"
+                },
+                {
+                    "feedback": "Sorry for the tangent, but what do you mean by \"traversing the branches of a tree or other logarithmic moves,\" is traversing a tree O(ln(n)) rather than O(n)?"
+                },
+                {
+                    "feedback": "Ignore that; I meant to refer to something like running binary search on a sorted list, which cuts the list in half every iteration so the runtime becomes O(log(n)) where log is log-base-2  <https://en.wikipedia.org/wiki/Binary_search_algorithm>  Traversing all nodes of a tree has a runtime of O(n)"
+                }
+            ]
+        }
+    ]
+}

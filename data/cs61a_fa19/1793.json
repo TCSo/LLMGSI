@@ -1,0 +1,45 @@
+{
+    "subject": "[Lab 09] Q9: Substitute",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q9\">Q9: Substitute</a>\n\n<p> Please post all questions you have below concerning Q9: Substitute in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Getting this error on first test case: SchemeError: pair is not callable: (c a b)  Not sure how to interpret it, as the line including my pair statement is as follows: ((pair? s) (substitute (s old new)))",
+            "follow-ups": [
+                {
+                    "feedback": "take a look at how you are formatting your recursive call!"
+                },
+                {
+                    "feedback": "@Brandon, could you give a different hit? I am having the same issue and my recursive calls appear to be okay.  @OP, what was the issue?"
+                },
+                {
+                    "feedback": "I fixed the recursive call but am still getting infinite recursion as well. I gave up and moved on to homework lol"
+                },
+                {
+                    "feedback": "The issue was calling **s cdr** (incorrect) instead of **cdr s** (correct)."
+                },
+                {
+                    "feedback": "My error was calling (pair? s) instead of (pair? (car s)), but good to know. Stood out like a sore thumb after a short break from debugging."
+                }
+            ]
+        },
+        {
+            "question": "(substitute '(c a b) 'b 'l)  I am stuck on this test case. I tried (c a 1) and it didn't work and I can't see anything else it could be. Any thoughts?",
+            "follow-ups": [
+                {
+                    "feedback": "Think what ‘l evaluates to - it’s not 1"
+                }
+            ]
+        },
+        {
+            "question": "(define (substitute s old new)       (if (null? s)           nil           (if (pair? (car s))               (cons (substitute (car s) old new) (substitute (cdr s) old new))               (if (eq? (car s) old)                   (cons new (substitute (cdr s) old new))                   (cons (car s) (substitute (car s) old new)))))     )  My code is over here, I got the wrong that 'argument 0 of car has wrong type (str)'. I guess it points to my first (car s) statement on Line 4, but what is wrong with that?",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm, I found the mistake lol"
+                },
+                {
+                    "feedback": "In the future please do not post your code to Piazza"
+                }
+            ]
+        }
+    ]
+}

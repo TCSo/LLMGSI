@@ -1,0 +1,77 @@
+{
+    "subject": "[Lab 04] Q5: Couple",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q5\">Q5: Couple</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q5: Couple in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "do we use recursion in this question? dont quite see how tho?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm"
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use \"Len\" for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, and it can be safely assumed that `len(s1) == len(s2)` since there is an assert statement provided"
+                }
+            ]
+        },
+        {
+            "question": "Do we have to use recursion for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "No; try using a list comprehension"
+                }
+            ]
+        },
+        {
+            "question": "I have successfully extract each element from the original lists and put them in the correct order ready for couple. But I couldn’t make each two of them into pairs like [1, 4], [2, 5], instead I got 1, 4, 2, 5. Should I add some line in my code to fix this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Read up on lists [here](https://cs61a.org/lab/lab04/#lists) and generate a list for each couple"
+                }
+            ]
+        },
+        {
+            "question": "I already did this question but I am not understanding why the following two cases give the same result of [1, 4, 2, 5, 3, 6]  1\\. lst += [ [ s1[i], s2[i] ] ]  2\\. lst += s1[i], s2[i]  But they are different when I do it interactively,  >>> [1,2]   [1, 2]   >>> 1,2   (1, 2)   >>> x=[1,2]   >>> y=1,2   >>> x   [1, 2]   >>> y   (1, 2)  The second case is not a list, so I thought it would error. Or, does it work in the same way as:  lst += s1[i]  lst += s2[i]",
+            "follow-ups": [
+                {
+                    "feedback": "Concatenating a tuple to a list appends each element of the tuple to the list. It should also be mentioned that the += operator [is known to have strange behavior with lists](https://stackoverflow.com/questions/2347265/why-does- behave-unexpectedly-on-lists)"
+                },
+                {
+                    "feedback": "I see, thank you!"
+                },
+                {
+                    "feedback": "would it be a good practice to always write it in the first format then?"
+                },
+                {
+                    "feedback": "We haven't learned about tuples yet so I would stick to the first form"
+                },
+                {
+                    "feedback": "ok"
+                }
+            ]
+        },
+        {
+            "question": "I don't get how we're using the range function here... Any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "You need to be able to access the value of both the first and second lists at each index. Look at the assert statement provided. How can you figure out how many indices you have to iterate over?"
+                }
+            ]
+        },
+        {
+            "question": "Hello, I am able to get all of the lists in order and correct syntax, excluding the end of the range. How do I include the end of the range (to finish all of the list)?  ex test case:  # Error: expected   # [[1, 4], [2, 5], [3, 6]]   # but got   # [[1, 4], [2, 5]]",
+            "follow-ups": [
+                {
+                    "feedback": "If you want to iterate 3 times, for example, you should say `for i in range(3)`"
+                },
+                {
+                    "feedback": "I have for i in range(len(s1))... shouldn’t that work?"
+                }
+            ]
+        }
+    ]
+}

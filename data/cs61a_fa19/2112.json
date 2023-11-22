@@ -1,0 +1,245 @@
+{
+    "subject": "[HW 09] Q1: Replicate",
+    "content": "<a href=\"https://cs61a.org/hw/hw09//#q1\">Q1: Replicate</a>\n\n<p> Please post all questions you have below concerning Q1: Replicate in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am confused about how I could use append since **append (replicate...) (...)** will not be a tailed context and I should put replicate in the front, right?  Could somebody give me some hints? Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "You are correct; that would not be a tail context. Since you would lose all the variables once you enter a tail recursive call, you should create a helper method that would keep track of your list so far, and then you would just append to that and then pass it into your next tail call."
+                },
+                {
+                    "feedback": "Thank you so much!"
+                },
+                {
+                    "feedback": "How do we keep track of \"the list so far\"?"
+                },
+                {
+                    "feedback": "i just created a helper function with an extra parameter"
+                },
+                {
+                    "feedback": "Any hints as to what that parameter is for? I'm beyond lost"
+                },
+                {
+                    "feedback": "Consider the example for a tail-recursive `reverse` function: ``` (define (reverse lst) (define (reverse-tail lst sofar) (if (null? lst) sofar (reverse- tail (cdr lst) (cons (car lst) sofar)))) (reverse-tail lst nil)) ``` We reverse the list by continually building up `sofar` as the reversed list and then passing it to the next call of `reverse-tail` so that we never have to reference the old frame again—tail recursion."
+                },
+                {
+                    "feedback": "The extra parameter should keep track of the list that you need to return and you should update it in the recursive call. I found this problem very similar to Problem 16 in Scheme, if that helps."
+                },
+                {
+                    "feedback": "Ah, I was hell-bent on making the last statement of the replicate procedure a recursive call to replicate - I appreciate the newfound perspective, thank you both! I was able to get it to work. Much love"
+                },
+                {
+                    "feedback": "Could someone please elaborate on why it is necessary to have a helper function for this problem? What is the \"list so far\""
+                },
+                {
+                    "feedback": "You need a helper function to keep track of the list that you built so far because since you can't use while/for loops in Scheme, you can only store the list in a new parameter"
+                },
+                {
+                    "feedback": "How is this call not tail recursive:                append(ListImBuildingUp (replicateHelper x (decrement n) (ListImBuildingUp)))  Because this results in a maximum depth error"
+                },
+                {
+                    "feedback": "Calling append around the recursive call makes it so there is extra computation that needs to be done after the recursive call returns (Since you need to append whatever you get from the helper to the list you are building). Hence, it is not tail recursive.  As a hint to fix this, consider doing the appending not around the recursive call, but around the second parameter to your helper function since it is meant to keep track of the list you have so far."
+                },
+                {
+                    "feedback": "What do we append to the ListImBuildingup in the example above?"
+                },
+                {
+                    "feedback": "@Nicholas But what two things would I be appending"
+                },
+                {
+                    "feedback": "The goal here is to build up the list one by one with each recursive call. This means, whenever you decrement n, you should be adding an extra x to the end of the list. For example, if the list you have so far is (1 1 1), (which suggests x = 1) and n is not 0, you should append another 1 to the end of this list to get (1 1 1 1). Then this becomes the new list you have so far which you could put back into the helper."
+                },
+                {
+                    "feedback": "But that would mean you are appending the x value to the call of the function which is not tail recursive"
+                },
+                {
+                    "feedback": "Nvm. Thanks Nicholas!"
+                }
+            ]
+        },
+        {
+            "question": "Why do we need to use append instead of cons? I created a helper function that keeps track of the list that needs to be returned and I updated the list in the recursive call. Couldn't you update the list with either cons or append?",
+            "follow-ups": [
+                {
+                    "feedback": "You could use either. It says you **may** wish, but you’re not required to use it. I personally used `cons`."
+                },
+                {
+                    "feedback": "Alright thanks!"
+                },
+                {
+                    "feedback": "(Actually, I personally think using `cons` was way more elegant than using `append`, since `(cons 1 '(2 3))` is equivalent to `(append (list 1) '(2 3))`."
+                },
+                {
+                    "feedback": "Yeah, I'm not sure why the problem recommended using append as opposed to cons lol"
+                },
+                {
+                    "feedback": "Gonna leave this unresolved in case an instructor has any further input"
+                },
+                {
+                    "feedback": "Well, you can definitely use either one. I am personally a little biased to `append`, and here is why.  Typically, `append` does not create an extra list. You take the existing list and you add elements to it. I forget the exact details, but I am pretty sure Scheme does the same. On the other hand, when you use `cons`, you are defining a new list (sort of).  So, really, my bias comes down to the question of: _If you already have a list and you know you will be updating it, why bother creating a new one? Just use the one you already have!_"
+                },
+                {
+                    "feedback": "But for `replicate`, we can only add on one at a time due to the nature of Scheme, so we aren’t able to use `append` to combine two lists because we’re always just adding *one* element to a list, right?"
+                },
+                {
+                    "feedback": "While I think `cons` makes more sense when just adding one element, you can also do it with `append`:                     scm> (define a '(1 2))     a     scm> (cons 0 a)     (0 1 2)     scm> (append '(0) a)     (0 1 2)"
+                },
+                {
+                    "feedback": "Yeah, I know that… I don’t know, I guess I’m biased towards `cons`, contrary to Brian."
+                },
+                {
+                    "feedback": "I think what Nicholas is saying is that there’s no inherent advantage to using append since for the sake of this question, if we were to use append, it requires the creation of an additional list anyway, so cons would be better since using it leads to a more succinct solution. But there’s nothing inherently wrong with using one over the other, I guess it’s just a matter of personal preference."
+                }
+            ]
+        },
+        {
+            "question": "Can I get some reference on how long a tail recursive version of this function should take to run a big number? For example, running this 1000 times takes me about 2-3 seconds. Is this considered too long? (10000 and above take quite a long time actually).",
+            "follow-ups": [
+                {
+                    "feedback": "Additionally, I do pass the test cases, I just want to make sure my solution is in fact tail recursive for learning's sake haha"
+                },
+                {
+                    "feedback": "(replicate 2 1000) runs basically instantly for me, though that might vary based on the computer as well. (replicate 2 1000) takes 2-3 seconds. Making a function tail-recursive won't make it faster; it will just ensure that it uses a fixed amount of space."
+                },
+                {
+                    "feedback": "I thought the whole point of tail recursion was to make recursive functions run faster? Some functions take forever to run if they're not implemented tail recursively."
+                },
+                {
+                    "feedback": "hmm, I don't think that's the main point. The computations needed to be done are the same, but it is true that there are _many_ more active frames without tail recursion, and while this may cause some sort of slow-down in real life, theoretically, the time complexity should be the same.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy1rz92rpon1wh%2Fk3467msbiegy%2FScreen_Shot_20191118_at_12.31.31_AM.png)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy1rz92rpon1wh%2Fk346aw34uty7%2FScreen_Shot_20191118_at_12.33.29_AM.png)  As you can see, the difference between the iterative function and the recursive one is one of space, which is the problem we were trying to solve in [lecture](https://www.youtube.com/watch?v=zOxxB- gdO9U&list=PL6BsET-8jgYWA52_QkhSsfOOsnt1sW_fa&index=3). In python, tail recursion isn't optimized for, which is why Scheme's implementation is useful. When you implement factorial tail recursively, you still have to compute n products, and so the time complexity should be the same.  Also, which functions are you talking about?"
+                },
+                {
+                    "feedback": "There is no way to get around the fact that you will have to do a certain computation $$n$$ number of times. However, what we can do is optimize when those computations are made and whether we create new frames every time we perform that computation. Tail recursion means that we will still perform the same computation (like multiplying a number by another number in the case of factorial), resulting in the same time efficiency, but we won’t create new frames for each multiplication (resulting in greater space efficiency)."
+                }
+            ]
+        },
+        {
+            "question": "I got an empty scheme list instead of replicated form. Can somebody give some hint on where could be wrong?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk34qrxkzubei%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191118_%E4%B8%8A%E5%8D%8810.06.50.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out! I wasn't returning the right thing for my base case."
+                }
+            ]
+        },
+        {
+            "question": "Not sure where to begin this. Any hints?  Do tail recursion problems generally involve some sort of helper function?",
+            "follow-ups": [
+                {
+                    "feedback": "The first followup to this thread contains pretty good insight on how to get started. Not all tail-recursive functions require helpers (Q3 of this assignment doesn't) but in the case of this question a helper function comes in handy."
+                }
+            ]
+        },
+        {
+            "question": "I used cons instead of append. I am not sure what does this error mean?  ; Expected: (1 1 1 1 1)   ; Actual : SchemeError: int is not callable: 1   (replicate 1 5)",
+            "follow-ups": [
+                {
+                    "feedback": "Somewhere, your code is resulting in the evaluation of the expression `(1)` which is invalid since 1 is not a procedure. Maybe you have an extra pair of parentheses somewhere?"
+                },
+                {
+                    "feedback": "I'm getting the same error but I double and triple checked my parentheses and I really don't think that's the reason for my error... @OP have you solved this error? do you have any insight for me?"
+                },
+                {
+                    "feedback": "If you want, you could put your code into your own Scheme project interpreter and add a debug statement in `scheme_eval` to see the `expr` it is trying to evaluate at all times. It has to be true that you’re trying to evaluate an expression with 1 as the operator at some point; adding debug statements may help you get closer to finding the solution. If you still can’t figure it out, I would recommend making a private post to the instructors or going into office hours sometime."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpoyphlx2kp%2Fk36856jyd344%2FError_scheme.JPG)  I am having an issue, where my code seems tail recursive, however I am unable to pass the test due to a time out error. Does anyone know how I can solve this error?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like your code just isn’t terminating at all. Make sure you actually hit your base cases at some point."
+                },
+                {
+                    "feedback": "I'm not sure why because it does reach the base case for the earlier test of 1,000."
+                },
+                {
+                    "feedback": "Never mind, I reran the code and it said I passed the cases. Thank you."
+                }
+            ]
+        },
+        {
+            "question": "Might be a silly question but someone advised that \"you should create a helper method that would keep track of your list so far\" but what does this mean? I don't really know what to put in my helper function and I'm not understanding why we have to keep track of a list? Like what list? Sorry I'm very confused and any help would be appreciated. Thanks in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "Consider the example for a tail-recursive reverse function: ``` (define (reverse lst) (define (reverse-tail lst sofar) (if (null? lst) sofar (reverse- tail (cdr lst) (cons (car lst) sofar)))) (reverse-tail lst nil)) ``` We reverse the list by continually building up `sofar` as the reversed list and then passing it to the next call of reverse-tail so that we never have to reference the old frame again, which is one of the key components of tail recursion. If we didn’t do this, we would have to keep the frame so that we can `cons` the final result, which doesn’t work for tail recursion."
+                }
+            ]
+        },
+        {
+            "question": "I don't understand what we're trying to append? Above someone said \"consider doing the appending not around the recursive call, but around the second parameter to your helper function since it is meant to keep track of the list you have so far\". What is this trying to say? Why do we have to append to the second parameter? I'm confused...",
+            "follow-ups": [
+                {
+                    "feedback": "We have to append to a variable that keeps track of our replicated list so far because tail recursion implies that we will lose all the data in the frame once we enter the next recursive call. The point of tail recursion is to be able to discard old frames, but if we have an operation that still has to take place after the recursive call, like `(cons x (replicate x (- n 1)))`, then we can’t discard the frame, which is the whole point of tail call optimization. Instead, we use a variable to keep track of the list we have built so far so that we can just pass it in as an argument to the next tail call, discarding the current frame. Refer to the thread right above for an example with another function."
+                },
+                {
+                    "feedback": "So are we appending in the helper function or to the parameters in the helper function. Sorry I'm just lost"
+                },
+                {
+                    "feedback": "We append when we pass the argument to the next recursive call, not to the result of the recursive call. For example, we could do something like `(replicate (cons (...)))`, since the operand gets evaluated first, but not `(cons (replicate (...)))`, since that would not be a tail call."
+                }
+            ]
+        },
+        {
+            "question": "Can someone help with this  Error: expected   # (1 1 1 1 1)   # but got   # Traceback (most recent call last):   # ...   # SchemeError: cdr can only be a pair, nil, or a promise but was x",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your recursive call always returns a **list**, not just a single value. For example, if you had a base case where `n` was 1, you would make sure you return a single-element list containing the value, not just the value itself. Also, if you are using quotation at all, you really shouldn’t need to."
+                },
+                {
+                    "feedback": "it didn't even reach my base case, for some reason (cons x list_x) works but (append list_x x) or (append list_x 'x) would not work"
+                },
+                {
+                    "feedback": "Remember that `append` is only for appending **two lists** together, while `cons` only prepends an **element** to a **list**: ``` scm> (cons 1 (list 2 3)) (1 2 3) scm> (append (list 1) (list 2 3)) (1 2 3) scm> (append 1 (list 2 3)) Error: argument 0 of append has wrong type (int) ```"
+                }
+            ]
+        },
+        {
+            "question": "I am appending the x to my list and decrementing n but my result is always just the name of my helper function? any advice or insight on how to solve this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk3880jarvl1r%2FScreen_Shot_20191120_at_8.30.59_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you calling your helper?"
+                },
+                {
+                    "feedback": "yes... am i not supposed to?"
+                },
+                {
+                    "feedback": "no matter what I do, the output is the name of my helper function"
+                },
+                {
+                    "feedback": "Now I'm getting  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk3899we4okb6%2FScreen_Shot_20191120_at_9.08.37_PM.png)"
+                },
+                {
+                    "feedback": "nvm I fixed it with quasiquote. Not sure if we're allowed to use that but it passes regardless"
+                },
+                {
+                    "feedback": "You really shouldn’t be using quotation at all, just so you know. If you want to prepend the expression that `x` points, you can really just use `(cons x (...))`."
+                },
+                {
+                    "feedback": "how did you resolve not returning 'replicate-helper'? I'm having the same error."
+                },
+                {
+                    "feedback": "^ lol I forgot to call replicate-helper outside of the helper function. It's just returning the name because there is no call to the function. If you're still confused I would advice you to look at the tail recursion section of the discussion 10 worksheet"
+                }
+            ]
+        },
+        {
+            "question": "What is supposed to be my else call in the helper function and what am I supposed to do outside of the helper function?",
+            "follow-ups": [
+                {
+                    "feedback": "outside of the helper, you should simply need to call the helper. in your helper, you either return the list (base case) or return the helper called on a list that has an extra value _x_ in it and the other parameters adjusted appropriately."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk39eewbjdy46%2FScreen_Shot_20191121_at_4.20.01_PM.png)  I am keep getting this error that says cdr can not be ran on an integer. I think the problem with my code is that I wrote (cons x helperfunction). But if not, can someone tell me why this is keep happening?  Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "I also tried using append but now its keep telling me that argument 0 has a wrong type."
+                },
+                {
+                    "feedback": "Double check the output of your helper function and make sure it’s a list if it is suppose to be a list. If it is supposed to be a stream, make sure it is a stream, and then use `cons-stream` rather than `cons`. Which one of those it should return will depend on what exactly it is supposed to do."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "subject": "[Hog] Problem 2",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-2-1-pt\">Problem 2</a>\n\n<p> Please post all questions you have below concerning Problem 2 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Why is it that free_bacon() takes score and not opponent_score? Isn't the function in the body doing an operation to the opponent's score?",
+            "follow-ups": [
+                {
+                    "feedback": "`score` is the opponent's score in this question"
+                }
+            ]
+        },
+        {
+            "question": "Any tips/ideas in how I can separate the digits of the score to then be able to use a min operator????",
+            "follow-ups": [
+                {
+                    "feedback": "Make use of the mod (%) operator which gives you the remainder and floor division (//) which gets rid of the decimal."
+                },
+                {
+                    "feedback": "OK. So i bounded the mod 10 one to a given name, then I bounded the // to another name. This should give me the 2 digits of the number. However, when I use 10 - min(the two names I gave for the mod and //) it doesn't seem to work. Is my logic wrong??"
+                },
+                {
+                    "feedback": "I got it!!"
+                },
+                {
+                    "feedback": "Even I did the 10-min(digit1, digit2) but it doesn't seem to work."
+                },
+                {
+                    "feedback": "It's giving me this as the output.  Question 2 > Suite 1 > Case 1  >>> from hog import *  >>> take_turn(2, 0, make_test_dice(4, 6, 1))  # Error: expected  # 10  # but got  It isn't showing anything for the but got __ part"
+                },
+                {
+                    "feedback": "The min () thing worked for me. The rest of my code wasn’t right. Keep trying. As a tip you should go back an look over lab 01 (the add digits problem)."
+                }
+            ]
+        },
+        {
+            "question": "why free bacon (57) gives 6?  I mean I think it should be 10-5=5 according to the rules.  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. It should give you 5. Where are you getting 6 from free_bacon(57)?"
+                },
+                {
+                    "feedback": "Y"
+                },
+                {
+                    "feedback": "When I try to unlock the tests, all the things turned wrong and I don’t know why."
+                },
+                {
+                    "feedback": "Try closing Python and your terminal and trying again. I'm not sure why that's happening. It doesn't seem to be a problem with your understanding of the free_bacon function."
+                },
+                {
+                    "feedback": "Thanks a lot"
+                },
+                {
+                    "feedback": "I know what’s happening because I learned Cs 61a summer 2019 online and download project 01 in summer. I guess I mixed the two folders."
+                }
+            ]
+        }
+    ]
+}

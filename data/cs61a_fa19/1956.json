@@ -1,0 +1,98 @@
+{
+    "subject": "[Scheme] Problem 3",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-3-1-pt\">Problem 3</a>\n\n<p> Please post all questions you have below concerning Problem 3 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "What text should be included in the SchemeError raised in this problem if the wrong number of arguments are passed in?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out"
+                }
+            ]
+        },
+        {
+            "question": "Could someone please elaborate/explain: `use_env` is a Boolean flag that indicates whether or not this built-in procedure will expect the current environment to be passed in as the last argument. The environment is required, for instance, to implement the built-in `eval` procedure.",
+            "follow-ups": [
+                {
+                    "feedback": "And why do we need to do the following: If `self.use_env` is `True`, then add the current environment `env` as the last argument to this Python list."
+                },
+                {
+                    "feedback": "This is an instance attribute of the BuiltinProcedure class. The use_env flag just indicates if this procedure expects an environment variable as the last argument to the method. We have this flag so we know whether or not we need to pass in the current environment to the BuiltInProcedure. The reason we add the current environment to the last argument to the Python list when use_env is True is that the BuiltInProcedure expects an environment for the last argument, so we are ensuring our args list is consistent with this."
+                },
+                {
+                    "feedback": "Okay, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Use a `try`/`except` block to intercept the exception and raise an appropriate `SchemeError` in its place. How do we know which scheme error is appropriate for each case?",
+            "follow-ups": [
+                {
+                    "feedback": "If you get a TypeError, then the wrong number of arguments were passed in. So you can just raise a SchemeError with an error message indicating that the incorrect number of arguments were passed into the function."
+                },
+                {
+                    "feedback": "Got it, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I passed the test, but I don't understand why do we need to check for use_env and why do we need to add the current env into the python list?",
+            "follow-ups": [
+                {
+                    "feedback": "Some built-in procedures need the current environment to work properly, such as `eval`"
+                }
+            ]
+        },
+        {
+            "question": "how do we get the correct number of arguments for a particular function?",
+            "follow-ups": [
+                {
+                    "feedback": "Oh nvm, I was overcomplicating it all you need to do is check for a TypeError"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2tld3bxuyq9%2FScreen_Shot_20191110_at_2.48.39_PM.png)  How would I raise the EOFError instead of the SchemeError for this case?",
+            "follow-ups": [
+                {
+                    "feedback": "I have the same question."
+                },
+                {
+                    "feedback": "Only a `TypeError` should cause a `SchemeError` in its place. Other errors such as `EOFError` should be left untouched, so make sure your `except` clause only catches `TypeError`s, not all errors."
+                },
+                {
+                    "feedback": "The test is built to throw an `EOFError`, and it makes sure that it is left untouched. It’s not actually the `EOFError` it cares about as much as it is all errors that aren’t `TypeError`s."
+                },
+                {
+                    "feedback": "How would I make my except clause only catch TypeErrors? That's where I'm really stuck."
+                },
+                {
+                    "feedback": "Here’s an example:   ```   def divide(a, b):   try:   return a / b   except ZeroDivisionError:   return \"Can't divide by zero\"   except TypeError:   return 'a or b is not a number'   ```   And the output:   ```   >>> divide(2, 4)   0.5   >>> divide(2, 0)   \"Can't divide by zero\"   >>> divide(2, 'a')   'a or b is not a number'   ```"
+                },
+                {
+                    "feedback": "Apologies for the weird indentation. I can’t get it to indent correctly."
+                },
+                {
+                    "feedback": "Thanks so much! Completely forgot how to check error types using except!"
+                },
+                {
+                    "feedback": "Haha, no problem. It happens to the best of us. Best of luck!"
+                }
+            ]
+        },
+        {
+            "question": "I keep get nothing returned for the first test case. Any hints?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2z0dk8ql7xg%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191114_%E4%B8%8A%E5%8D%889.49.09.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Have you completely implemented `BuiltinProcedure.apply`? It looks like that function probably isn’t returning anything right now—make sure you have a `return` statement."
+                },
+                {
+                    "feedback": "I do have a return statement, but I'm thinking it's because I can't return self.fn(*args) on my return statement line?"
+                },
+                {
+                    "feedback": "You should probably be using `python_args` rather than `args`, since that is converted to a Python list to pass into `self.fn`. Also, make sure you appropriately handle `use_env`."
+                }
+            ]
+        }
+    ]
+}

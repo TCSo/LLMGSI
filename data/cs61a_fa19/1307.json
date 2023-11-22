@@ -1,0 +1,288 @@
+{
+    "subject": "[Ants] Problem 6",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-6-2-pt\">Problem 6</a>\n\n<p> Please post all questions you have below concerning Problem 6 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I am wondering for \"def eat_bee(self, bee):\", what does bee represent here? If I am going to select a random bee, how would that relate to the \"bee\" here?",
+            "follow-ups": [
+                {
+                    "feedback": "This Bee is the Bee that is randomly selected. We would like the HungryAnt to eat this specific Bee and not another Bee."
+                },
+                {
+                    "feedback": "I see. However, I tried to reduce the bee's armor to 0 but it doesn't work and it showed \"'NoneType' object has no attribute 'armor'\". I also tried to call the Insect.reduce_armor function, but since I couldn't use bee.armor, I was stuck on which argument am I supposed to pass in as the second argument \"amount\"."
+                },
+                {
+                    "feedback": "This probably means you're passing None into eat_bee. One possible way for this to happen is if you aren't checking if there are bees on the Place the HungryAnt is (If there are no bees where the HungryAnt is, it shouldn't be eating anything). If the bee parameter is a valid Bee object, you should be able to use bee.armor."
+                },
+                {
+                    "feedback": "I see, that greatly helps! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "In the action method, what is \"colony\" referred to? I guess I am still not sure how to use this \"colony\" appropriately.",
+            "follow-ups": [
+                {
+                    "feedback": "colony is an AntColony object. AntColony objects basically contain information about the state of the game, such as where the beehive is, how much time has elapsed, etc."
+                },
+                {
+                    "feedback": "Got it, thanks!"
+                },
+                {
+                    "feedback": "For the hungryant's action, do we need to use the colony argument?"
+                },
+                {
+                    "feedback": "No"
+                },
+                {
+                    "feedback": "I had the same question. Thanks Cyrus!"
+                },
+                {
+                    "feedback": "Im really confused on how you just bypass using the colony argument because every time I try to call the action function from the eat_bee function, as to simulate the hungryant either eating a bee and going back into digesting or not eating a bee and waiting another turn with digesting at 0, I input colony and I get the error: 'colony' not defined. If i dont use it i get the error: missing one positional argument in call to action."
+                },
+                {
+                    "feedback": "Got it"
+                },
+                {
+                    "feedback": "Can you explain how you got it?"
+                },
+                {
+                    "feedback": "Pay attention to the doctest and the order in which things happen"
+                }
+            ]
+        },
+        {
+            "question": "Problem 6 > Suite 2 > Case 1  >>> from ants import *  Traceback (most recent call last):  File \"/Users/Desktop/cs61a/ants/ants.py\", line 360  class BodyguardAnt(Ant):  ^  **IndentationError: expected an indented block**  ****  After I passed the tests for problem 1-6, and when I ran the tests again, it just says 'expected an indented block', and all the tests for previous problems cannot pass right now. But the IndentationError appears in the place of problem 8, which I haven't started yet. How can I solve this problem? Any advice please? Thanks a lot!!",
+            "follow-ups": [
+                {
+                    "feedback": "Check the lines before that one for any stray indentation. I use Sublime and convert all tabs to spaces before/during every project, and it helps clear up any wonky indentation issues."
+                }
+            ]
+        },
+        {
+            "question": "Also, give each `HungryAnt` an instance attribute `digesting` that counts the number of turns it has left to digest (default is 0, since it hasn't eaten anything at the beginning).  Where do I create the digesting instance since it is not a class instance?",
+            "follow-ups": [
+                {
+                    "feedback": "Instance attributes go within the __init__ method."
+                },
+                {
+                    "feedback": "Is it just digesting=0 in the body or is it a parameter to __init__?"
+                },
+                {
+                    "feedback": "Take a look at the other __init__ methods in class definitions to see how instance attributes are defined."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk1jvv9tvsol%2FScreen_Shot_20191009_at_4.07.09_PM.png)  Any clue on why I keep getting 1?",
+            "follow-ups": [
+                {
+                    "feedback": "You're getting 0, not 1. I think your code isn't checking whether the HungryAnt is still digesting. Rather, your HungryAnt is just eating any bee that appears, regardless of how many turns it has been since it ate."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhs6sobd44k%2Fk1jx4l7kkjb8%2Fhuh_question_mark.png)  My code has the hungry bee's digestion go down if it's digesting, so I would think it would eat the new bee if it is no longer digesting. Why wouldn't it?",
+            "follow-ups": [
+                {
+                    "feedback": "It is supposed to eat the new bee, but your code doesn't follow that logic. Your code returning 1 instead of 0 implies `bee2` wasn't eaten."
+                },
+                {
+                    "feedback": "Update: it does count down to zero (debugged with print), so it should try to eat the second bee, and yet it doesn't  Why would it detect the first bee but not the second?"
+                },
+                {
+                    "feedback": "I think your counter logic is likely to blame. Make sure you are eating a bee and resetting the counter to the correct initial value when the counter hits zero"
+                },
+                {
+                    "feedback": "Try reducing the target bee's armor using one of class Insect's instance methods. This solved the same issue for me."
+                },
+                {
+                    "feedback": "It was the class methods thing. Once I used reduce_armor(), it worked."
+                }
+            ]
+        },
+        {
+            "question": "Is there a hint on how to make sure the ant stops eating when it is digesting?",
+            "follow-ups": [
+                {
+                    "feedback": "If the ant is digesting, it should not do anything. Only when it is not digesting should it be able to eat a bee."
+                },
+                {
+                    "feedback": "Well, as per the instructions, you should have a digesting instance variable that counts the number of turns it will take for the HungryAnt to stop digesting. We also know that the action() method is responsible for handling when the ant eats (since it makes a call to eat_bee).  With that in mind, here's another way to phrase the question. In your action() method, how can we stop the call to eat_bee() if the counter is greater than 0 (AKA the HungryAnt still has more turns to go until it is done digesting)?"
+                }
+            ]
+        },
+        {
+            "question": "I completed the problem without implementing eat_bee, how would I approach it with this method and would I be punished for not using that method?",
+            "follow-ups": [
+                {
+                    "feedback": "When your digesting counter reaches a certain value, you would call `self.eat_bee` and pass in a random bee. The `self.bee` method would then use a call to `bee.reduce_armor` to reduce the bee's armor to 0. I don't think you'll be punished correctness-wise since there are no hidden tests, but maybe you would lose a composition point for having an unused method? I'd suggest you re-write your solution with `eat_bee` in use to be safe."
+                }
+            ]
+        },
+        {
+            "question": "How is the bee parameter passed into the eat_bee method? I tried passing a list of the bees, self.place.bees, but I didn't get how the random bee is to be selected.",
+            "follow-ups": [
+                {
+                    "feedback": "Consider using the `random_or_none` method to select a random bee from the current place to be eaten"
+                }
+            ]
+        },
+        {
+            "question": "Not sure why this is the only test I am failing. I reset the digesting counter in the eat_bee function, which is called in the action function if digesting counter is 0 and there are still bees. Any help is appreciated!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp7au2wy27n%2Fk1nb44ykiq11%2FScreen_Shot_20191012_at_1.35.28_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind, figured it out!"
+                },
+                {
+                    "feedback": "I'm having this same issue, how did you troubleshoot it?"
+                },
+                {
+                    "feedback": "when resetting the digesting counter, be sure to use self.time_to_digest instead of hardcoding 3. it worked fine after i made this edit. hope this helps :)"
+                },
+                {
+                    "feedback": "Thank you so much! It fixed my error as well :D"
+                },
+                {
+                    "feedback": "I was able to work this out. However, I am still wondering why hardcoding 3 instead of using self.time_to_digest when resetting self.digesting would prevent the length of place.bees from reaching 0. Isn't self.time_to_digest equal to 3 by default? Is hardcoding 3 a violation of an abstraction barrier?"
+                },
+                {
+                    "feedback": "in this specific test, the value of time_to_digest is changed, so that it tests to see if you are using that class variable. any hard-coding would error in this case."
+                }
+            ]
+        },
+        {
+            "question": "How can we check if the ant is till drive sting? Do we need a while loop?",
+            "follow-ups": [
+                {
+                    "feedback": "Elaborate what you mean?"
+                },
+                {
+                    "feedback": "Sorry. I mean “if the ant is till digesting”."
+                },
+                {
+                    "feedback": "Keep track of digestion as a counter variable that is referenced inside the `action` method. You don't need to use a while loop"
+                },
+                {
+                    "feedback": "Can I access the digesting variable by self.digesting and do I need to override the default value of 0 in action method?"
+                },
+                {
+                    "feedback": "Yes, and you need to modify its value inside action to make sure it counts properly"
+                },
+                {
+                    "feedback": "you do not need any iteration for this implementation. Try using a given counter to see if the ant is still digesting or not."
+                },
+                {
+                    "feedback": "It says to decrement the digesting variable if its digesting. If the default value is 0, why would be decrement? Shouldn't we increment until it hits 3?"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error. It seems that I'm not reducing the bee's armor to 0 but I don't know why.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1onjoyzp9pl%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191013_%E4%B8%8A%E5%8D%8812.12.30.png)",
+            "follow-ups": [
+                {
+                    "feedback": "one hint I can give is make sure that in your eat_bee sub function, you specify how much damage the bee takes using reduce_armor. Also, remember how to call a specific bee's armor and how you would combine the two things together (reduce_armor and calling a specific bees armor)."
+                },
+                {
+                    "feedback": "how do you get a specific bees armor?"
+                },
+                {
+                    "feedback": "Remember that `armor` is an instance attribute of any arbitrary bee"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhuohk7245m%2Fk1phruaxicnp%2FScreen_Shot_20191013_at_2.18.10_PM.png)  how come this is displaying \"object has no attribute 'reduce armor'\"? Doesn't the bee object inherit the self.armor attribute from the insect class?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm forgot to check len of bees"
+                },
+                {
+                    "feedback": "why would you need to check the len of bees?"
+                },
+                {
+                    "feedback": "you do not need to - I imagine that the student's implementation might be dependent on whether there are bees in a give bees list or not."
+                }
+            ]
+        },
+        {
+            "question": "How do I get a bee from the self.place for the action method?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider using the `bees` attribute and the `random_or_none` method"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjycqtxometz1r2%2Fk1pjti6r8vo7%2FScreen_Shot_20191013_at_3.16.23_PM.png)  I've seen some instances of the same test case (p6/s2/c2) where it expects 1, and some that expect 0.  I would imagine that since the counter goes back down to zero, the bee would be eaten.  Which test case should I use? Is there an error here? (I re-downloaded the Ants project package just to make sure I didn't modify anything by accident)",
+            "follow-ups": [
+                {
+                    "feedback": "It should be 1. The test case you've taken a picture of is the correct one since it takes 3 turns for the HungryAnt to digest, so it shouldn't eat the second bee yet."
+                },
+                {
+                    "feedback": "Yep, you're right. Got it fixed. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I got it right but was stuck for a while on how to set the eaten bee's armor to 0 in the eat_bee() method. I used bee.armor = 0 at first and it did not work. Only when i used the method reduce_armor() did it work. Why?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "reduce_armor has the added effect of removing the Bee from its place and calling its death_callback as seen in the code below (note Bee inherits Insect, so this is taken from the Insect class). This is necessary for passing some of the test cases.                    def reduce_armor(self, amount):             \"\"\"Reduce armor by AMOUNT, and remove the insect from its place if it             has no armor remaining.                  >>> test_insect = Insect(5)             >>> test_insect.reduce_armor(2)             >>> test_insect.armor             3             \"\"\"             self.armor -= amount             if self.armor <= 0:                 self.place.remove_insect(self)                 self.death_callback()"
+                },
+                {
+                    "feedback": "Thanks for your reply Nicholas! But the case I failed just checked bee2.armor after calling hungry.action(colony) once digesting time was equal to 0. So technically, it should pass that case right when using self.armor = 0 ?"
+                },
+                {
+                    "feedback": "If you're in HungryAnt, self would refer to the HungryAnt and not the Bee right? Doing self.armor in HungryAnt.action() would result in the Ant having 0 armor and not the Bee.  If that's a typo and you meant bee.armor, that still would not work since if there were multiple bees on the place (such as a Bee1 and a Bee2), and the first Bee has its armor reduced using bee.armor = 0, it is still in the bees list of the place, so random_or_none could still give us back the dead bee to eat, leaving the second bee unharmed."
+                }
+            ]
+        },
+        {
+            "question": "How can you check if there is the specific \"bee\" in the place of the hungry ant? I tried using the parameter bee and checking if it's in the place of the hungry then reducing armor to 0 but it doesn't seem to reduce the armor at all. I am confusing whether or not I am not checking if it is in the place correctly, of if I am not reducing the armor correctly. Any ideas how I could fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm the op. I think my problem might also be that I am not calling eat_bee within action. Whenever I try calling eat_bee within the action function, I get the error that eat_bee is not defined. Any idea how to fix this issue? I feel like this might be the actual issue because in the doctests they have only called action not eat_bee?"
+                },
+                {
+                    "feedback": "Try doing self.eat_bee instead of just eat_bee. eat_bee is an attribute of a class, so you need to explicitly call it on self to use it."
+                },
+                {
+                    "feedback": "Yup that worked, however, I am now stuck on the 9th test case where it tells me that bees win exception(I also made that post). Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "please help me. how do I access the bee's armor to reduce it to 0!",
+            "follow-ups": [
+                {
+                    "feedback": "never mind got it"
+                }
+            ]
+        },
+        {
+            "question": "Has anyone had problems with the 9th test case? I pass the first 8 and everything seems fine, however, I get a Traceback...\"Bees Win Exception\" return when I am not supposed to. Does anyone understand why I might be getting this?",
+            "follow-ups": [
+                {
+                    "feedback": "can you post a picture of the specific error you are getting, and any information on what you have done to try to debug it?"
+                }
+            ]
+        },
+        {
+            "question": "AttributeError: type object 'Bee' has no attribute 'armor'  Why am I getting this error, we don't have to add any class attributes to Bee since its a subclass of Insects right?",
+            "follow-ups": [
+                {
+                    "feedback": "`Bee.armor` isn't allowed since that tries finding the attribute `armor` in the class `Bee`, but if you have a specific bee, you can do `bee.armor` to get its armor value"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnphk4bea2fk%2Fk1slkmgul0o3%2Fc.png)  Could anyone explain how to fix this problem?  I used self.time_to_digest and also use reduce_armor method....",
+            "follow-ups": [
+                {
+                    "feedback": "it looks like your bee never eats a second time - make sure that your logic in your code can eventually allow a bee to do that (after it is done digesting)."
+                }
+            ]
+        }
+    ]
+}

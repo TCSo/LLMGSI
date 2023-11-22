@@ -1,0 +1,68 @@
+{
+    "subject": "[HW1] Q1",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw01/#q1\" target=\"_blank\">Question 1: A Plus Abs B</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q1 in the follow-ups.<br />If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "i tried f= add(a, b), but why still get f is 'int'  return f(a, b)  TypeError: 'int' object is not callable",
+            "follow-ups": [
+                {
+                    "feedback": "By giving add() function two parameters a and b, it is not assigning the function add() to variable f, but actually calls the function add(). Therefore f equals to the return value of add(a, b). I have written a lambda thing to wrap this function call up, which then f is assigned by a function."
+                },
+                {
+                    "feedback": "Thanks! I tested and lambda works fine, should have other ways though."
+                },
+                {
+                    "feedback": "Remember what Prof DeNero said in lecture about assigning function names to variables"
+                },
+                {
+                    "feedback": "Yeah, I could only get it to work with lambda at first, but there is definitely a way to without"
+                },
+                {
+                    "feedback": "Sorry, I am too stupid to mention the lambda solution at first. There is totally no need for this, and the solution is deadly easy. I am pretty sure you guys can figure it out after evaluate the lines for a little bit."
+                }
+            ]
+        },
+        {
+            "question": "My function worked last night when I ran the test, but now it gives me this error? I'm not sure why it doesn't take an int all of a sudden, because I changed nothing.   ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fk01kjcb7no0w%2FScreen_Shot_20190901_at_3.47.56_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, I debugged it. xD"
+                }
+            ]
+        },
+        {
+            "question": "I have the exact same problem as the first guy that posted a question but I do not know what lambda is. Based on the previous question, I could assume that f is currently not functioning as a function but it is going back to the add function instead? so how do I redirect this back to the f function?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about how to use different imported functions to fit in the two situations and that's what object f is looking for."
+                },
+                {
+                    "feedback": "i finally got it! thank u so much for the encouragement hehe im so glad i managed to did it on my own."
+                },
+                {
+                    "feedback": "Hi I have the same problem and so far I have put f = add(a, -b) because that is a version of what denero did in class but I still cant figure it out . im super lost please help me"
+                }
+            ]
+        },
+        {
+            "question": "i keep getting this error, what am i doing wrong?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7h3izj1l4zu%2Fk02wcfjjokdu%2FScreen_Shot_20190902_at_2.08.40_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Since you've already defined f as the result of a function f = add(a,b) or add(a,-1*b), you cannot then use it as part of a function f(a,b)"
+                },
+                {
+                    "feedback": "i'm sorry, i don't really understand what to do D:"
+                },
+                {
+                    "feedback": "Try looking at what you bounded f to and visually substituting it in your return function and see if anything is wrong. Also try looking at the imported operators to see if you can use anything else."
+                }
+            ]
+        },
+        {
+            "question": "Tried a bunch of different ways but I always get  TypeError: 'int' object is not callable"
+        },
+        {
+            "question": "I am new (ish) to coding and I couldn't recall what 'lambda' or 'anonymous' expressions did. I found this video on youtube to remind me what lambda expressions are and how to use them. I hope some of you find this helpful.  https://www.youtube.com/watch?v=25ovCm9jKfA&vl=en"
+        }
+    ]
+}

@@ -1,0 +1,81 @@
+{
+    "subject": "[Lab 10] Q3: Evaluating Call Expressions",
+    "content": "<a href=\"https://cs61a.org/lab/lab10//#q3\">Q3: Evaluating Call Expressions</a>\n\n<p> Please post all questions you have below concerning Q3: Evaluating Call Expressions in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Where to start for this problem? So far I just have self.apply(env) to apply the operator to the operands?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are evaluating the operator and operands, and then applying the evaluated operator to the evaluated operands"
+                }
+            ]
+        },
+        {
+            "question": "When I try to evaluate the operands, I keep getting the error that the \"list object has no attribute eval\". How else am I supposed to evaluate the operands?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember than `self.operands` is a list of operands, not an operand by itself"
+                },
+                {
+                    "feedback": "So do I evaluate each individual element in the list of operands? I don't see any other way of doing it."
+                },
+                {
+                    "feedback": "Yes."
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I am trying to iterate through the operands, and apply the evaluated operator to each evaluated operand, but I keep getting the following error:                     TypeError: 'Number' object is not iterable     Any ideas on what I might be doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Actually, I just fixed this bug, but now I return 4 instead of \"Number(4).\" Any idea why?"
+                },
+                {
+                    "feedback": "Turns out it was because I was printing, not returning."
+                },
+                {
+                    "feedback": "I got the same problem and I'm exactly the same thing. Could you give me some hint on how to solve this?"
+                },
+                {
+                    "feedback": "i have the same problem too :/"
+                },
+                {
+                    "feedback": "Not OP but I had a similar issue and in my case, I was way overthinking the iteration."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting the error: \"Number\" object has no attribute eval  I thought all operands were instances of the Expr class![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxuxy6vhrxp3v5%2Fk2q4356kxcuy%2FScreenshot_20191108_at_4.23.37_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind, to fix this, I used a different variable to assign my new list and not 'self.operands'"
+                }
+            ]
+        },
+        {
+            "question": "For some reason I can't seem to be able to run the lab.  Whenever I put any command into the console, this pops up:",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhoa4tu742i%2Fk2qqcgkc404r%2F20191108_2.png)"
+                },
+                {
+                    "feedback": "@1994"
+                }
+            ]
+        },
+        {
+            "question": "How do I update the environment? In the doctests its made to update a, but how do I know which value in the environment to update, or whether I should make a new value in the environment?",
+            "follow-ups": [
+                {
+                    "feedback": "Calling a function creates a new environment in which the formal parameters are newly defined, according to the arguments, and then the function is applied in that environment."
+                },
+                {
+                    "feedback": "thanks!"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,237 @@
+{
+    "subject": "[HW 03] Q4: Flatten",
+    "content": "<a href=\"https://cs61a.org/hw/hw03/#q4\">Q4: Flatten</a>\n\n<p> Please post all questions you have below concerning Q4: Flatten in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "how to return a list? our lection doesn't talk about list yet.",
+            "follow-ups": [
+                {
+                    "feedback": "I got error: TypeError: 'int' object is not iterable  for this code:  \"for i in list1:\""
+                },
+                {
+                    "feedback": "Lists will be covered in Monday's lecture! You can use the square brackets '[ ]' to make a list. For example the code 'a = []' will initialize an empty list bound to the name 'a', and 'b = [3, 6, 10]' creates a list with the elements 3, 6, and 10 bound to the name 'b'. You can read more about lists in chapter 2 of the textbook. <http://composingprograms.com/pages/21-introduction.html>"
+                }
+            ]
+        },
+        {
+            "question": "can I use for or while for this question?",
+            "follow-ups": [
+                {
+                    "feedback": "While loops are fine, but for loops (section 2.3 of Composing Programs) won't be taught until the day after the HW deadline, so stay away from them for now"
+                },
+                {
+                    "feedback": "can we use assignment statements in Q4?"
+                },
+                {
+                    "feedback": "Yes, you can yse assignment statements"
+                },
+                {
+                    "feedback": "Thank you so much for your very quick response!"
+                },
+                {
+                    "feedback": "Since for loops were taught in lecture today, are they fair game now? or do we still have to use a while loop"
+                },
+                {
+                    "feedback": "for statements are fine."
+                }
+            ]
+        },
+        {
+            "question": "Any advice on how to start this problem? I'm kinda stuck",
+            "follow-ups": [
+                {
+                    "feedback": "Try looping through the list and checking each individual element. What should you do if the element you checked is also a list? (Think about recursion and what the flatten function is supposed to return) What should you do if the element is not a list? Then think about how you can return the resulting list."
+                },
+                {
+                    "feedback": "What does the recursive leap of faith mean? It means you assume the function you are defining is already correct even though you’re not finished defining it yet. As the above anon suggests, check if you encounter a nested list. If you assume your function already works, how would you flatten that inner list?"
+                },
+                {
+                    "feedback": "ans = []  ans.append(1)==> ans = [1]  ans.append([2])==> ans= [1, [2]]  ans = []  but ans+=[3,4]==>asn = [3,4]  You can use this idea if it is a list, then add the list into your ans."
+                },
+                {
+                    "feedback": "Note that append hasn't been covered in lecture yet. While completely valid, append is not part of the intended solution :)"
+                },
+                {
+                    "feedback": "is extend permitted to be used?"
+                }
+            ]
+        },
+        {
+            "question": "How do we check if something is a list?",
+            "follow-ups": [
+                {
+                    "feedback": "Read the hint: if you have a variable `x`, you can check if it’s a list with the expression `type(x) == list`"
+                }
+            ]
+        },
+        {
+            "question": "Is this question meant to involve recursion? The docstring doesn't prevent assignment statements like the previous problems. Does that mean we are free to use an iterative solution?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, you are allowed to do it both ways, although I’m not sure if it’s capable of being solved via iteration"
+                }
+            ]
+        },
+        {
+            "question": "Every time my help function occurs a nested list(index = k), the following elements(index > k) won't be able to be added to my result list.  What should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "Maybe adding some level of recursion would help"
+                }
+            ]
+        },
+        {
+            "question": "Does the intended solution involve iteration at all? I did it correctly with iteration and a bit of recursion, but I spent an hour before trying and failing to do so using recursion only.",
+            "follow-ups": [
+                {
+                    "feedback": "I used both; iteration is required at minimum to grab all the elements of the original list I believe"
+                }
+            ]
+        },
+        {
+            "question": "can anyone tell me how to extrat items from the list? I use this way but it doesn't work [ CODE REMOVED ]",
+            "follow-ups": [
+                {
+                    "feedback": "Please do not post code on Piazza; make a private post if you would like instructors to help you out with code attached"
+                },
+                {
+                    "feedback": "thanks Cyrus - removed the code from the OP's post. note though that if it is a list, then that list itself may be a multi-layer list that needs to be flattened..."
+                }
+            ]
+        },
+        {
+            "question": "I used a for loop to track each element of lst and inside it an if statement to see whether that element is a list, then I returned a recursive call to flatten the element but it turned out that didn’t work. The list without nested list works just fine, but the one with nested list doesn’t flatten at all. Can somebody help me?",
+            "follow-ups": [
+                {
+                    "feedback": "You can't just return the recursive call, you need to do something with the result of that call, like adding it to another list."
+                },
+                {
+                    "feedback": "I did add the result to lst though."
+                },
+                {
+                    "feedback": "How are you adding to your list? Have you ran any interactive tests? You may need to look up how addition of list elements work"
+                },
+                {
+                    "feedback": "I think I’m adding to the lst provided as arg in the original flatten function. I guess I know what’s wrong with my approach! Thank you! It helps a lot!"
+                },
+                {
+                    "feedback": "No problem! If all else, try looking up the extend method that comes with lists."
+                }
+            ]
+        },
+        {
+            "question": "Hello, so when I am trying to check if an item in the original list is a list or not, I use this:     for x in lst:   if type(x) == list:  However, this never seems to be evaluating to true for some reason..I tried printing stuff inside the if statement to check and see if the statement ever returns true but it doesn't seem to be returning true at all...is there something wrong with my syntax????",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your test case involves a nested list (the first one doesn't) and if it does, then try seeing if your for loop is executing by placing debug print statements inside the loop but outside the if statement"
+                },
+                {
+                    "feedback": "I tried to do that...the for loop seems to be running and my code works for the first case (since its supposed to skip the if statement and go to the else which just returns lst)....but the problem is, for the second case as well (which does contain a nested list) the if statement is not returning True even though i am iterating through each index in lst so it just goes to the else case and returns lst again...I am not sure what I am doing wrong because this is the only part of my code that doesn't seem to be working..."
+                },
+                {
+                    "feedback": "Also could I use stuff like isinstance() or are we not allowed to do that yet..?"
+                },
+                {
+                    "feedback": "You probably could since it's not explicitly prohibited, but you shouldn't need to use it for this problem. In general, I think it's best to solve the homework problems using only what we have learned in class so far."
+                },
+                {
+                    "feedback": "Ok could u help me understand what I am doing wrong with the if statement...I'm not sure why it doesnt return true when I am iterating over a list with nested lists"
+                },
+                {
+                    "feedback": "Have you tried putting a print statement inside the if statement to verify that it is not actually evaluating to True?"
+                },
+                {
+                    "feedback": "Yes, already tried"
+                },
+                {
+                    "feedback": "I got the same problem...for the nested cases they just return lst when they should not. Have you figured out what’s wrong here?"
+                },
+                {
+                    "feedback": "No dude im struggling lol"
+                }
+            ]
+        },
+        {
+            "question": "Is it possible to list a deep list?  For example, like aaa = [ 1, [ 2, 3 ], 4 ], so aaa[0] == 1, _aaa[1] == [ 2, 3 ],_ aaa[2] == 4.  Is it available to list out the \"2\" and \"3\" respectively just like aaa[0] and aaa[2] did?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, you can. since aaa[1] simply returns another list, you can then get the individual elements of this list by using aaa[1][0] and aaa[1][1]."
+                },
+                {
+                    "feedback": "ohhhhh, got it! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use list slicing to solve this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, but I don't believe that's part of the intended solution"
+                }
+            ]
+        },
+        {
+            "question": "For the third case I got[2,3,1,4] instead of [1,2,3,4], is there a way to change the sequence of items in a list?",
+            "follow-ups": [
+                {
+                    "feedback": "You're likely not flattening inner arrays sequentially"
+                }
+            ]
+        },
+        {
+            "question": "Im getting a mutable error because my code is changing the original list. How did y'all prevent / fix this ?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jryyhii14l1%2Fk0yl5lytf67k%2Fflatten_.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are likely just adding the contents of the nested list to the end of the original list. You have to figure out a way to keep the order of the digits the same, just put into one list."
+                },
+                {
+                    "feedback": "That is what I am doing,,, but I do also sort the list. Any hints/help on how to reaproach the problem ?"
+                },
+                {
+                    "feedback": "update: able to pass the test cases w/o recursion and just using adding and sorting,,, is that okay???"
+                },
+                {
+                    "feedback": "Absolutely not; the point of this problem is to practice recursion"
+                }
+            ]
+        },
+        {
+            "question": "are we supposed to use a helper function for this problem as in count_change?",
+            "follow-ups": [
+                {
+                    "feedback": "No, the ideal solution is recursive without a helper function. Remember the concept of a recursive leap of faith"
+                },
+                {
+                    "feedback": "Figured it out. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "How are we supposed to take out the items within the list using recursion once we know that the element in the list is a list?",
+            "follow-ups": [
+                {
+                    "feedback": "Take a recursive leap of faith!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble figuring out what the function is supposed to return. If the function is supposed to use recursion while also flattening the list, how can we \"unpack\" the elements of each nested list and return it in a single list?",
+            "follow-ups": [
+                {
+                    "feedback": "By taking a recursive leap of faith"
+                },
+                {
+                    "feedback": "I took a break, rewrote my code from scratch, and was able to get the answer. Thank you."
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use built in list functions in order to add items to the list? I don't know if we learned about them in class yet though",
+            "follow-ups": [
+                {
+                    "feedback": "You should not use append or slicing considering we have not covered that far in lecture. This problem is solvable with everything we've learned thus far!"
+                }
+            ]
+        }
+    ]
+}

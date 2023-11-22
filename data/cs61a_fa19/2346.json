@@ -1,0 +1,81 @@
+{
+    "subject": "[Lab 14] Q4: Num Splits",
+    "content": "<a href=\"https://cs61a.org/lab/lab14//#q4\">Q4: Num Splits</a>\n\n<p> Please post all questions you have below concerning Q4: Num Splits in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "How to avoid double-counting?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember the hint: \"If the result you return is off by some constant factor, it will likely be easiest to simply divide/subtract away that factor.\" So if you double count, dividing by 2 should do the trick."
+                }
+            ]
+        },
+        {
+            "question": "What's the best way to breaking down tree recursive problems besides trusting the leap of faith? How do you break down what you need to recurse because I have trouble with this? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "Well, you kind of _have_ to rely on a recursive leap of faith. Tree recursion problems in particular depend on breaking down large problems into two possibilities. For example, for the count_partitions problem, the tree recursion was broken down into two broad cases: Either you use the largest number, or you don’t. Using it would imply that you have to keep the largest number and then subtract that from the total in your recursive call, or you don’t use it, drop it from the list of numbers, and pass in an unchanged total. Then, you append the two results together and return. If anything, tree recursion requires even _more_ trust in the recursive leap of faith. It’s hard to go too much more into detail over Piazza, but feel free to go into OH sometime to give you a more in-depth review of tree recursion! The main thing is really figuring out how to split your recursive cases into two categories."
+                }
+            ]
+        },
+        {
+            "question": "My initial thought was to call the function on s[1:] but I would add s[0] to every element of s[1:] at a time. So for example, if s was [-2, 1, 3], I would pass in [-1, 3] for my first recursive call and [1 1] for the second recursive call. However, I'm pretty sure this approach is wrong. Does anyone know how to consider all possible combinations?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider using a helper function, which takes in 3 parameters (all of which are lists). The first list is the \"master\" list you want to draw numbers form, and the other two parameter lists are the two lists that are described in the problem"
+                }
+            ]
+        },
+        {
+            "question": "Why does the sum of an empty list equal 0? doing the below code causes a recursion depth error                sum([])",
+            "follow-ups": [
+                {
+                    "feedback": "The sum built-in takes in two parameters, an iterable, and (optionally) a value to start summing with. If this value is not specified, its default is 0. sum then loops over each value in the iterable, adding them to start, and returns the final result. In this case, there are no values in the list, and 0 is the default start, so nothing gets added to 0 and 0 is returned."
+                },
+                {
+                    "feedback": "what exactly is the syntax for that because when I try sum(lst, 0) or sum(lst, start = 0) I get an error"
+                },
+                {
+                    "feedback": "It’s just sum(lst) - the sum of an empty list should work fine in Python, if it doesn’t, there’s likely an issue elsewhere in your code."
+                },
+                {
+                    "feedback": "strange, because when I do sum([]) I get a recursion error"
+                },
+                {
+                    "feedback": "The syntax to include a start is `sum(lst, start)`: ``` >>> sum([], 2) 2 >>> sum([1, 2], 5) 8 ```"
+                },
+                {
+                    "feedback": "Are you accidentally redefining `sum` somewhere?"
+                },
+                {
+                    "feedback": "yep, that was the problem, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I am using a couple of helper functions to get this done. One of them will find all possible combinations of the list and place them in a list. Tree recursion seems like the best option for this. But I am having a hard time writing the function. I have 3 cases: null, length of 1, and else case. The else case has two recursive calls. One where it includes the first element s[0] + recursive_call(s[1:]) and one where it doesnt i.e recursive_call (s[1:]). This, however, doesnt give me all possibilities. For instance, it doesnt give me all the various possibilities. I would then use all the various possibilities and find the differences in the sums. Then count those with a difference less than d, and then output that. It just isnt working though.",
+            "follow-ups": [
+                {
+                    "feedback": "Try thinking about it like this: All combinations of a list are either the first element joined with the first of all the combinations of the rest of the list or the first element joined with the second of all the combinations of the rest of the list. In other words, all the combinations of `[1, 2, 3, 4]` is `1` appended to the first of all the combinations of `[2, 3, 4]` or `1` append to the second of all the combinations of `[2, 3, 4]`."
+                }
+            ]
+        },
+        {
+            "question": "I did this question with a helper function but in a weird way. I started with the whole original list, and a variable at 0 initially. I then moved elements from the original list into either the first or the second sublist and modified my variable to keep track of the difference between the sums of the two lists. And then compared this variable with d in the end. Though the solution is relatively long, I'm curious about how others did this question more cleanly??",
+            "follow-ups": [
+                {
+                    "feedback": "I think this is the most \"clean\" solution to this problem. How long was your solution? I used the same strategy and my code was around 6 lines."
+                },
+                {
+                    "feedback": "This sounds like the most clean approach I could think of, as well. Another approach would be to use a helper function to just find all the ways to split a list and then `filter` over those to find all the splits where the difference was within the threshold. As with many things in the programming world, there is more than one solution that works."
+                },
+                {
+                    "feedback": "Awesome! Yeah mine was about 9 lines. Thank you for both your responses!"
+                },
+                {
+                    "feedback": "(btw I thought that this solution was really elegant)"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+{
+    "subject": "[Ants] Problem 1",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-1-1-pt\">Problem 1</a>\n\n<p> Please post all questions you have below concerning Problem 1 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I returned 5 for the “harvester.action(colony)” instead of the next line. Why is that?",
+            "follow-ups": [
+                {
+                    "feedback": "“harvester.action(colony)” is not supposed to return anything. It just needs to increment the 'food' attribute of 'colony'."
+                },
+                {
+                    "feedback": "Do I need to add a food attribute to the Ant class?"
+                },
+                {
+                    "feedback": "Nvm! I returned incorrectly!"
+                },
+                {
+                    "feedback": "how did you fix this? I have the same issue, I don't know how to not return 5 when harvester.action(colony) is called."
+                },
+                {
+                    "feedback": "you return whenever you have a return statement - do you have one in your code?"
+                }
+            ]
+        },
+        {
+            "question": ">>> from ants import * >>> Ant.food_cost ? 0 \\-- OK! -- >>> HarvesterAnt.food_cost ? 0 \\-- Not quite. Try again! -- Please you guys explain why it is not 0 for me",
+            "follow-ups": [
+                {
+                    "feedback": "I guess that HarvesterAnt.food_cost = 2 right? Because we have queen ant and Harvester ant."
+                },
+                {
+                    "feedback": "nvm. I got the problems."
+                },
+                {
+                    "feedback": "I still don't get it... can someone explain why it's 2 instead of 0?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkb6usfpbg144%2Fk1pmcmbk85c0%2FCapture1.PNG)  From the project page, the HarvesterAnt is defined to have a food_cost of 2."
+                },
+                {
+                    "feedback": "Yoo thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Problem 1 > Suite 2 > Case 2 (cases remaining: 1) >>> from ants import * >>> # Testing HarvesterAnt action >>> # Note that initializing an Ant here doesn't cost food, only >>> # deploying an Ant in the game simulation does >>> # >>> # Create a test layout where the colony is a single row with 9 tiles >>> beehive = Hive(make_test_assault_plan()) >>> colony = AntColony(None, beehive, ant_types(), dry_layout, (1, 9)) >>> # >>> colony.food = 4 >>> harvester = HarvesterAnt() >>> harvester.action(colony) >>> colony.food Why is colony.food 5?",
+            "follow-ups": [
+                {
+                    "feedback": "Because you're calling colony.food again, every time you call it, it should add one food o the colony."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkimypi2gxy2ll%2Fk1pj2ow4ubgu%2FScreen_Shot_20191013_at_2.55.39_PM.png)  I keep getting this error. I'm not really understanding this error and if I add more expressions to the dot expression, it stays the same.",
+            "follow-ups": [
+                {
+                    "feedback": "What is \"foodprob\"?"
+                },
+                {
+                    "feedback": "oh lol I dont know how that got there. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "how can you differentiate between harvester.action(colony) and colony.action? My 'action' currently returns the colony's food + 1\\. However, I am failing this test case because 5 gets returned for harvester.action(colony) when it should wait to get returned when the next line, colony.action is called:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk1sasb016ry4%2FAnts.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You only want to change colony.food with that function. You don't really need to return a value there."
+                }
+            ]
+        }
+    ]
+}

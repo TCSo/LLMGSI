@@ -1,0 +1,85 @@
+{
+    "subject": "[OKPY] Week 10 Grades Released",
+    "content": "<p>Lab 7, Lab 8, Homework 4, Ants Checkpoint, Ants scores have been released!</p>\n<p> </p>\n<p><strong>Important Notes:</strong></p>\n<ul><li>We decided to give everyone credit for Lab 8. But you cannot assume the same will happen for lab 14 (final review), so if you forgot to submit lab 8, make sure to submit Lab 14 when we get to it!</li><li>Homework 4 is out of 4 points. We gave 2 points for completing half of the homework.</li><li>Cats Composition grades have been released as well. See &#64;1897 for more details.</li></ul>\n<p></p>\n<p>You can check your progress in the course using <a href=\"http://howamidoing.cs61a.org\" target=\"_blank\" rel=\"noopener noreferrer\">howamidoing.cs61a.org</a>!</p>\n<p>Deadline to submit regrade request is <b>Sunday, November 10th</b>. See <a href=\"/class/jziyku5gomy7aq?cid=778\" target=\"_blank\" rel=\"noopener noreferrer\"></a><a href=\"/class/jziyku5gomy7aq?cid=778\" target=\"_blank\" rel=\"noopener noreferrer\"></a><a href=\"/class/jziyku5gomy7aq?cid=778\" target=\"_blank\" rel=\"noopener noreferrer\"></a><a href=\"/class/jziyku5gomy7aq?cid=778\" target=\"_blank\" rel=\"noopener noreferrer\"></a><a href=\"/class/jziyku5gomy7aq?cid=778\">&#64;778</a> to see how regrades work!</p>",
+    "threads": [
+        {
+            "question": "If lab 8 is extra credit, it is still out of 1 point right?",
+            "follow-ups": [
+                {
+                    "feedback": "Lab 8 is NOT an extra credit, it's a free credit :)"
+                },
+                {
+                    "feedback": "Ah I see I misunderstood, thanks for the clarification"
+                }
+            ]
+        },
+        {
+            "question": "[howamidoing.cs61a.org](http://howamidoing.cs61a.org/) no longer shows my MT2 score, is this intentional?",
+            "follow-ups": [
+                {
+                    "feedback": "working in progress! will be up in ~20 min"
+                },
+                {
+                    "feedback": "midterm 2 scores should be up as well"
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "For some reason, for ants, my ok submission took my checkpoint submission as my final submission and therefore I got a 0 for all of the questions afterwards. Who can I contact to fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Please submit a regrade request @778"
+                }
+            ]
+        },
+        {
+            "question": "I have no score on my hw4 and it shows a 0/4 on howamidoing",
+            "follow-ups": [
+                {
+                    "feedback": "Submit a regrade request @778"
+                }
+            ]
+        },
+        {
+            "question": "What do if our midterm score is incorrect? No option for this on the regrade form.",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean by incorrect? After we are done processing midterm regrades, I'm gonna update mt scores all together."
+                },
+                {
+                    "feedback": "Ah I see. Meant that it reflected my original score pre-regrade on Gradescope"
+                }
+            ]
+        },
+        {
+            "question": "Minor detail but why is Cats(total) on [howamidoing.cs61a.org](http://howamidoing.cs61a.org/)! out of 18, shouldn't it be out of 17 because including the EC, it should 18 otherwise 17?",
+            "follow-ups": [
+                {
+                    "feedback": "oh its because its  Current / Maximum score possible so far   ---"
+                }
+            ]
+        },
+        {
+            "question": "Ants project doesn't have composition points? Cause I only have 30 points",
+            "follow-ups": [
+                {
+                    "feedback": "Composition is a separate grade that has not been released yet"
+                },
+                {
+                    "feedback": "THX"
+                }
+            ]
+        },
+        {
+            "question": "How soon can we expect an answer to our regrade request?",
+            "follow-ups": [
+                {
+                    "feedback": "these are being handled after the deadline as the staff can find the time to handle them - please be patient with us!"
+                }
+            ]
+        }
+    ]
+}

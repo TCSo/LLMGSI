@@ -1,0 +1,11 @@
+{
+    "subject": "Waldo",
+    "content": "In scheme, why (eq&#xff1f;(car ‘(waldo)) waldo) return #f<div>But (eq? waldo waldo) return #t. Thanks!</div>",
+    "threads": [
+        {
+            "subject": "",
+            "content": "<p>I think in your first eq? statement, the first &#34;waldo&#34; is an object in the list, while the second one is a string, so scheme compares their memory address, which are different. See the description below.</p>\n<p>And the two &#39;waldo&#39; in your second eq? statement are the same thing, so they are equal.</p>\n<p>I&#39;m not sure about it, let&#39;s see how TAs think about this.</p>\n<p><img alt=\"\" src=\"/redirect/s3?bucket=uploads&amp;prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fk2jrg9nuo8i4%2FTIM%E6%88%AA%E5%9B%BE20191103174259.png\" /><br /><br /></p>\n<p>---------------------------------------</p>\n<p></p>\n<p>when you make a list using that syntax, it will quite literally get the representation (waldo). This stores waldo the symbol instead of evaluating it as a name. It&#39;s equivalent to doing (list &#39;waldo). If you make the list using (list waldo), then you will get #t.</p>",
+            "threads": []
+        }
+    ]
+}

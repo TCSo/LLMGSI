@@ -1,0 +1,62 @@
+{
+    "subject": "[Lab 13] Q4: Quine",
+    "content": "<a href=\"https://cs61a.org/lab/lab13//#q4\">Q4: Quine</a>\n\n<p> Please post all questions you have below concerning Q4: Quine in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Woah. This is crazy."
+        },
+        {
+            "question": "What's the main logical difference between this one and the quine in python? I'm getting the wrong output using the exact same logic.",
+            "follow-ups": [
+                {
+                    "feedback": "Not much, really. Scheme has the advantage where all expressions are really just lists, so if you’re getting the wrong output, double check how you are getting that output in the first place and try to reverse it back to the source of the issue."
+                }
+            ]
+        },
+        {
+            "question": "<https://www.nyx.net/~gthompso/quine.htm>",
+            "follow-ups": [
+                {
+                    "feedback": "![Image result for fbi god tom and jerry](https://thecoachsteam.files.wordpress.com/2018/09/fbi-tom-and- jerry.jpg?w=330)"
+                }
+            ]
+        },
+        {
+            "question": "I was not able to do the earlier quine question on Hw8, even after reading through all the comments etc.  I was wondering which one to attempt first, this or the python one? And was also looking for clues on how to do this scheme quine.",
+            "follow-ups": [
+                {
+                    "feedback": "I think the Python one will make your head hurt less since Scheme expressions seem to generally be less intuitive to work out in your head. Try that first, then come back to the Scheme quine."
+                },
+                {
+                    "feedback": "Also, when it comes time for you to write the Scheme quine, take advantage of the fact that Scheme is built-upon the ideology of treating source code as data."
+                },
+                {
+                    "feedback": "I think that the scheme quine is a bit easier since there isn't any string processing involved!"
+                }
+            ]
+        },
+        {
+            "question": "Do we need to know how to write this for our final exam?",
+            "follow-ups": [
+                {
+                    "feedback": "Nope. Quines are out of scope for this course, and they don’t really have any useful functionality in the field of computer science as a whole, according to Professor DeNero."
+                },
+                {
+                    "feedback": "Yes they are out of scope, but they do come up in a few proofs in theoretical CS. But yeah, apart from that, it's just a cs puzzle."
+                },
+                {
+                    "feedback": "What does theoretical CS mean?"
+                },
+                {
+                    "feedback": "In general, theoretical CS refers to a subset of CS that focuses more so on the mathematical topics behind computation itself rather than real-world applications necessarily. For instance, if one were to go into a field such as mobile app development, they might not necessarily focus on the theoretical aspects of CS as much, but in other fields such as cryptography, it can have more useful applications, since math plays such a big part. (Someone correct me if I'm wrong)"
+                },
+                {
+                    "feedback": "Blergh. Theoretical cryptography is quite different from something like software engineering.  <https://eprint.iacr.org/2010/334.pdf>"
+                },
+                {
+                    "feedback": "No doubt about it."
+                }
+            ]
+        }
+    ]
+}

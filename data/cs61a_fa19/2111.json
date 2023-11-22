@@ -1,0 +1,127 @@
+{
+    "subject": "[HW 09] Q2: Accumulate",
+    "content": "<a href=\"https://cs61a.org/hw/hw09//#q2\">Q2: Accumulate</a>\n\n<p> Please post all questions you have below concerning Q2: Accumulate in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "we need a helper for this, right?",
+            "follow-ups": [
+                {
+                    "feedback": "Nope. Only for the tail version."
+                },
+                {
+                    "feedback": "I'd advise you just write the tail version right away and use it for both Q2 and Q3 since you'll have to write it for the next question anyway. But if you want to write a non-tail solution for practice (which is perfectly fine), try doing it without a helper."
+                },
+                {
+                    "feedback": "^ I guess that’s a fair point. I explicitly wrote the first one in a non-tail- recursive way for practice since I knew the next one would be asking for that."
+                },
+                {
+                    "feedback": "oh ok. Didn't see that the combiner was commutative. thanks!"
+                },
+                {
+                    "feedback": "you can do q3 without a helper as well!"
+                },
+                {
+                    "feedback": "Ohhh, you’re right! Thanks for pointing that out!"
+                }
+            ]
+        },
+        {
+            "question": "I think I do not understand question. Can Someone explain me?",
+            "follow-ups": [
+                {
+                    "feedback": "You are to take every integer from 1 to `n`, pass it through the `term` function to get all the terms, and combine all those terms plus `start` with `combiner` to get the final output, to sum it up simply."
+                },
+                {
+                    "feedback": "See the [accumulate](https://cs61a.org/hw/hw02/#q2) function in Q2 of HW 02 as a reference."
+                },
+                {
+                    "feedback": "Wow, I forgot that homework problem even existed."
+                },
+                {
+                    "feedback": "Thank you guys You both are amazing Hope to see you in future"
+                },
+                {
+                    "feedback": "Aw, thank you for the kind words! <3"
+                },
+                {
+                    "feedback": "does it start at 'start' or 1? I thought it could potentially start somewhere else? I'm getting an error:  Error: expected  # 120  # but got  # Traceback (most recent call last):  # ...  # SchemeError: operand 1 (()) is not a number  which I feel like might be because I'm trying to use start :("
+                },
+                {
+                    "feedback": "The initial value is `start`, but then you have to transform 1 using `term` and combine it with `start` using `combine`. Then, you transform 2 using `term` and combined it with the result of the previous evaluation using `combine`, and so on and so forth."
+                },
+                {
+                    "feedback": "start is just the value to start off combining. The natural numbers that we are feeding into the term function will always start at 1"
+                }
+            ]
+        },
+        {
+            "question": "I don't get what the tail recursive call for this would be",
+            "follow-ups": [
+                {
+                    "feedback": "See @2110"
+                },
+                {
+                    "feedback": "To answer the question, remember that `start` can be any value you want it to be—what if we just start at a different value when we make our tail-recursive call?"
+                }
+            ]
+        },
+        {
+            "question": "Why is there a need for the accumulate-tail function? I'm pretty sure you can solve this using only tail-recursive calls without using any helper functions or mutual recursion",
+            "follow-ups": [
+                {
+                    "feedback": "You don’t need helper functions, but you can still write it in a tail recursive way!"
+                },
+                {
+                    "feedback": "Oh I didn't read question 3 :)"
+                }
+            ]
+        },
+        {
+            "question": "I seem to get an \"int not callable: 120\" error. Any ideas on what might be causing this?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your function calls never come at the beginning of a larger Scheme expression, since that would mean you’re trying to use the result of the function as an operator, and integers can’t be used as procedures."
+                },
+                {
+                    "feedback": "Got it thank you!"
+                }
+            ]
+        },
+        {
+            "question": "So basically I have my base case for this one, but I cant seem to know what to return once it reaches the base case. I cant return one, because then that is hardcoding it for when the combiner is *. If it's + for example and my base case returns 1, then my output will be off my 1. What can I possible return in my base case that accounts for all possible combiners without hardcoding each specific case of combiners given in the tests????",
+            "follow-ups": [
+                {
+                    "feedback": "there is a start parameter"
+                },
+                {
+                    "feedback": "oh. I guess there is lol. Thanks, got it"
+                }
+            ]
+        },
+        {
+            "question": "Wondering potential solutions for \"SchemeError: Too many operands in form\"?",
+            "follow-ups": [
+                {
+                    "feedback": "Check all of your procedure calls - see how many operands they take in, and see how many you are passing in"
+                },
+                {
+                    "feedback": "I think this would be for special forms, no?"
+                },
+                {
+                    "feedback": "Yes, that error is raised specifically by `check_form`, which is only used in special forms."
+                },
+                {
+                    "feedback": "Oh, my mistake."
+                }
+            ]
+        },
+        {
+            "question": "Any ideas on \"# SchemeError: unquote outside of quasiquote\"",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps you have a stray comma somewhere?"
+                }
+            ]
+        }
+    ]
+}

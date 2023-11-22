@@ -1,0 +1,458 @@
+{
+    "subject": "[Lab0] Master Thread",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab00/\" target=\"_blank\">Lab 0</a> is due Friday, 9/6 at 11:59PM! Please put any questions below.</p>\n<p></p>\n<p></p>",
+    "threads": [
+        {
+            "question": "If I pass “the python 3 ok test”, Does it mean I could get full credit.",
+            "follow-ups": [
+                {
+                    "feedback": "Run `python3 ok --score` to make 100% sure!"
+                },
+                {
+                    "feedback": "You need to submit it, not just test it."
+                },
+                {
+                    "feedback": "You can submit using:                python3 ok --submit"
+                },
+                {
+                    "feedback": "Thanks!  after running python3 ok --score  it shows the following. why it shows Passed: 0, Failed: 0? I don't really understand it. It seems confusing.  Scoring tests  \\---------------------------------------------------------------------  Doctests for twenty_nineteen  >>> from lab00 import *  >>> twenty_nineteen()  2019  Score: 1.0/1  \\---------------------------------------------------------------------  Python Basics  Passed: 0  Failed: 0  [k..........] 0.0% passed  \\---------------------------------------------------------------------  Point breakdown  twenty_nineteen: 1.0/1  Python Basics: 0.0/0  Score:  Total: 1.0  Backup... 100% complete  Backup successful for user: liqifan@berkeley.edu  Checking for software updates...  OK is up to date  (base) liqifandeMacBook-Pro:lab00 liqifan$"
+                },
+                {
+                    "feedback": "You are fine. It's because python_basics is an unlocking test"
+                }
+            ]
+        },
+        {
+            "question": "My submission only displays the code for twenty_nineteen( ), not the \"tests\" from earlier in running the program. is this okay?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "yep that's normal as long as you see `python3 ok` passing all the test cases without any locked tests, you should be fine :)"
+                },
+                {
+                    "feedback": "If it's not printing out 2019, then it has an error. Otherwise, you should be good to go."
+                }
+            ]
+        },
+        {
+            "question": "I haven't been admitted to cs61a, how can I submit the homework?",
+            "follow-ups": [
+                {
+                    "feedback": "as in you are not enrolled on okpy? If so, please make a private post with your name, email and sid."
+                }
+            ]
+        },
+        {
+            "question": "I am having trouble finding the zip archive from the terminal and extracting the starter files. It keeps saying there is no file or directory  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzq2pqrv5gd4m8%2Fjzvz7snj60v9%2FScreen_Shot_20190828_at_5.48.40_PM.png) ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzq2pqrv5gd4m8%2Fjzvz8864auze%2FScreen_Shot_20190828_at_5.50.34_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "ok here's a quick demo of the commands.  On my computer, I am currently in sp17 directory and I want to see what other files / directories are in this directory. I do this by typing `ls` on my terminal. Then I see see something like  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fiy66seobzovf%2Fjzvzqnfkpu4w%2FScreen_Shot_20190828_at_6.07.48_PM.png)  This means that I have 3 directories under my current sp17 directory: HW, lab, and projects.  If I want to get to lab0, I need to go to lab directory, which I do by using cd command.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fiy66seobzovf%2Fjzvzs7op4kit%2FScreen_Shot_20190828_at_6.10.41_PM.png)     As seen above, I have successfully moved inside the lab directory!  Just like this, try to navigate to where you downloaded the zip file"
+                }
+            ]
+        },
+        {
+            "question": "After I all my cases for python basics were unlocked, my backup did not complete. It says backup 0.0% complete and says that the system is checking for software updates and with a network error. My network is good and I am not sure what software updates it is checking for, how can I complete my backup? I have already completed the twenty_nineteen part of the lab and that backup did complete."
+        },
+        {
+            "question": "I tried both automatically and manually installing the Git-Bash terminal and Python 3 for Windows, but when I open the git-bash terminal application, python3 doesn't work.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxic6u1i8pv11y%2Fjzvzhtp5346t%2FScreenshot_2.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Try `python`"
+                },
+                {
+                    "feedback": "Neither python nor py work. I have a lecture during the Friday office hours. Is there any other time I could come in for help?"
+                },
+                {
+                    "feedback": "you will need to add ur installed python to the system path since you are using windows... google this and try to fix on your own, otherwise we are here to help you :)"
+                },
+                {
+                    "feedback": "I vaguely remember someone using py3, but I don't think that's going to work.  Did you follow the instruction for downloading the python in lab? (did you check the box \"add Python 3.6 to Path?)"
+                },
+                {
+                    "feedback": "Hi Helen, please try Option #1 on @86 and seeing if that works for you. If not, feel free to let me know and I'll be happy to help you out. (I'm a former TA -- I wrote the automated installer.)"
+                },
+                {
+                    "feedback": "I tried uninstalling and re-installing, but the python installer says I already have another version of it so it can't install (yes, I checked the 'add to path' box). However, when I go to add/remove programs to uninstall python, it says 'no version of python 3.7 detected'.  I tried option 1 from @86, but it says I 'do not have permission to save in this location'. I went into my settings and made sure that I am an administrator with full control allowed, but I still can't save the python autodetect in the specified folder.  I've spent over 3 hours trying to solve different problems and I'm still completely stuck.  Is there anyone I can contact to set up an in-person meetup? I have lecture during office hours and I've already emailed [cs61a@berkeley.edu](mailto:cs61a@berkeley.edu) with no response."
+                },
+                {
+                    "feedback": "I might be able to meet you today or tomorrow afternoon -- would that work for you? (Feel free to also reach me at [mniknami@berkeley.edu](mailto:mniknami@berkeley.edu).)  [ **Update:** we followed up via email and resolved this in person. If you're in a similar boat, feel free to email me.]"
+                }
+            ]
+        },
+        {
+            "question": "My computer keeps saying this whenever I try to open the OK file in the lab00 folder. What should I do?  **The document “ok” could not be opened. The file isn’t in the correct format.**",
+            "follow-ups": [
+                {
+                    "feedback": "what operating system are you using? and which terminal/software to type the commands in?"
+                },
+                {
+                    "feedback": "Mac OS High Sierra, I'm using Terminal but it's connected to Python."
+                },
+                {
+                    "feedback": "You shouldn't need to open the ok file. You will work with .py files :)"
+                },
+                {
+                    "feedback": "try `file ok` in terminal, it will tell u the kind of file it is.... it seems it is an archive file which Apple Finder isn't yet capable of opening in a human readable format... its not an error, just that its not a readable file"
+                },
+                {
+                    "feedback": "I tried file ok in terminal just now but it keeps saying invalid syntax :("
+                },
+                {
+                    "feedback": "can you upload a picture?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7h3izj1l4zu%2Fjzw0bh475gzp%2FScreen_Shot_20190828_at_6.25.28_PM.png)"
+                },
+                {
+                    "feedback": "lol okay, I meant type 'file ok' in terminal (as said above) outside of python.. you are typing in python rn..."
+                },
+                {
+                    "feedback": "i did type it in terminal though?"
+                },
+                {
+                    "feedback": "when you type in `python` you are now in the python interactive console, everything you write should be python code when it shows `>>>` in the prompt... the 'file' command is for the terminal itself, its a system tool used to see the type and encoding of a file among other details about it... so basically use the command I gave you before you type `python` when you are in the directory"
+                },
+                {
+                    "feedback": "you are currently in a python interpreter (you know that because of >>> in the beginning of each line), you can get out by typing `exit()`!"
+                },
+                {
+                    "feedback": "You shouldn't need to open the file \"ok\" at all. It's a program we use to submit assignments and you don't really need to worry about what is inside it.      (If you're curious, look up okpy online, it's an open source project)"
+                },
+                {
+                    "feedback": "oh ok, so how would i go about submitting the lab then?"
+                },
+                {
+                    "feedback": "You can run the command `python3 ok --submit` on your terminal"
+                },
+                {
+                    "feedback": "also i just entered \"python3 ok -q python_basics -u\" into terminal but it shows this?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7h3izj1l4zu%2Fjzw0p2fdve0n%2FScreen_Shot_20190828_at_6.36.03_PM.png)"
+                },
+                {
+                    "feedback": "You are not in the right directory, you should move to the correct directory by using cd command. I put a quick demo on how to use the commands so you can scroll up to find that (lab also describes the similar procedure)"
+                },
+                {
+                    "feedback": "i still don't think i'm in the right directory...![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7h3izj1l4zu%2Fjzw14vdassoo%2FScreen_Shot_20190828_at_6.48.09_PM.png)"
+                },
+                {
+                    "feedback": "You need to type \"cd cs61a\" not just \"cs61a\". If you don't have a cs61a folder on your Desktop, then it's recommended to make it there."
+                }
+            ]
+        },
+        {
+            "question": "Hello,  I initially had python (3.7.3) and git bash (installed bc of a previous class) installed for my windows 10, but I had issues with the part where I had to input python3/python/py into gitbash. I tried uninstalling python and git bash and reinstalling through the automatic installer for windows, but I got this error  Installing Python: C:\\Users\\Levana\\AppData\\Local\\Temp\\python-3.7.4-amd64.exe /passive AssociateFiles=1 CompileAll=1 \"DefaultAllUsersTargetDir=C:\\Program Files\\Python 3.7\" InstallAllUsers=1 InstallLauncherAllUsers=1 Include_doc=0 Include_exe=1 Include_launcher=0 Include_lib=1 Include_pip=1 Include_tcltk=1 Include_test=0 PrependPath=0 Shortcuts=1   Error 1603 when installing: https://www.python.org/ftp/python/3.7.4/python-3.7.4-amd64.exe   Press ENTER to quit...  Does anyone know what's going on?",
+            "follow-ups": [
+                {
+                    "feedback": "OP here. Somehow the python files at least weren't completely uninstalled so through the manual python installer, I repaired the files, uninstalled python, then reinstalled it again. I also manually reinstalled git bash. Now git bash appears to work with python as expected! :)"
+                },
+                {
+                    "feedback": "How did you repair/uninstall the python files before re-installing? I also have windows 10. I also ran into the python3/python/py gitbash and tried to uninstall. I tried uninstalling python and re-installing, but I apparently didn't fully uninstall it; now I can't re-install python, but when I try to uninstall python from add/remove programs, it says no python 3.7 is detected."
+                }
+            ]
+        },
+        {
+            "question": "Hi!  I am having issues with most of the commands from the guide to set up our computers for this class. For example, the ls command does not work but dir does. Now the unzip command does not work. It seems the problem is the commands are not recognized by my windows 10 OS? How can I resolve this, if I do need to resolve it?",
+            "follow-ups": [
+                {
+                    "feedback": "The Windows command line is different from the Mac/Linux/Unix command line. If you are using a Windows computer, the lab00 page gives instructions to install Git Bash, which allows you to use a Unix command line."
+                },
+                {
+                    "feedback": "Thanks! that worked. I have a followup question. When I try to open lab00.py using the \"start .\" command as suggested by the lab 0 file, it does not open. a window resembling python opens then closes instantly. I also tried the command \"start lab00.py\" to no avail.  Any clues as to what I'm doing wrong?"
+                },
+                {
+                    "feedback": "I figured it out, my computer opened it with python by default so I just switched it to atom and it worked out."
+                },
+                {
+                    "feedback": "I am having the same issue and I am still not able to resolve it"
+                }
+            ]
+        },
+        {
+            "question": "Just to clarify a potential typo on the website, is project 0 due this Friday at 11:59pm or 12:00am? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fjzwahvf9cf9v%2FScreen_Shot_20190828_at_10.53.05_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "it's due at 11:59 pm, sorry for the confusion"
+                }
+            ]
+        },
+        {
+            "question": "Hi, if I don't have the CS61A row in my EECS Instructional WebAcct, to whom I should e-mail to? Thank you.",
+            "follow-ups": [
+                {
+                    "feedback": "Are you enrolled in the class?"
+                },
+                {
+                    "feedback": "Not yet"
+                },
+                {
+                    "feedback": "That's probably why. As long as you have your personal laptop, you should be fine without an instructional account."
+                }
+            ]
+        },
+        {
+            "question": "Hello! I finished the test cases, but when I submitted, this is what I received.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdiwe1l9o4s8%2Fjzwwqwtmx11s%2FScreen_Shot_20190829_at_9.32.02_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Looks like you didn’t edit the .py file"
+                },
+                {
+                    "feedback": "Were there instructions to edit the py file? I'm really confused and would be grateful if you clarified what you mean by editing the py file"
+                },
+                {
+                    "feedback": "Open the .py file in your text editor and change the blank in the \"return _____\" line to solve the problem. Ok is checking this code. But you said you finished the test cases, so maybe you just didn't save?"
+                },
+                {
+                    "feedback": "Jojo is correct. See the highlighted instructions for the exercise  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fis6pa43ssrn1d9%2Fjzx015n4ljkq%2FScreen_Shot_20190829_at_11.03.35_AM.png)"
+                }
+            ]
+        },
+        {
+            "question": "Hi! I am having trouble getting this section of the lab to work. I am entering this command into my terminal, but I am getting an error. How can I resolve this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnokt14ur1p5%2Fjzwxpdm7af1q%2FScreen_Shot_20190829_at_9.59.53_AM.png)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnokt14ur1p5%2Fjzwxq4kw5has%2FScreen_Shot_20190829_at_10.00.50_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I got it! Thanks for your help!"
+                },
+                {
+                    "feedback": "For anyone else who has this problem: make sure you are in the lab00 directory when you run the command"
+                }
+            ]
+        },
+        {
+            "question": "edited: made separate post about this"
+        },
+        {
+            "question": "OK shows that I am not enrolled as a student. I am still in the wait list, what should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "Please make a private post with your name, berkeley.edu email address and your SID!"
+                }
+            ]
+        },
+        {
+            "question": "I created an account in EECS Instructional WebAcct, but the purpose for this account is cs61b.  (I applied to CS 61B too, but neither of this two courses has approved yet)",
+            "follow-ups": [
+                {
+                    "feedback": "(What is your question? Is it that you need approval?)"
+                },
+                {
+                    "feedback": "My account name starts with cs61b, and I am not sure if I could submit homework successfully."
+                },
+                {
+                    "feedback": "you do not need an instructional account to submit assignments, but just to use the instructional machines in the Soda labs.  you can go to okpy.org to check if it was successful after trying to submit."
+                }
+            ]
+        },
+        {
+            "question": "I have already installed Ubuntu, Python3, Git and Pycharm before on my Windows computer.  What should I check whether everything goes well or not?",
+            "follow-ups": [
+                {
+                    "feedback": "also installed Sublime Text 3 already."
+                },
+                {
+                    "feedback": "You can download the lab00 zip file, follow the instructions on it and submit to Ok, then you can go to okpy.org and log in to make sure the submission was successful."
+                },
+                {
+                    "feedback": "Student answer above is correct"
+                }
+            ]
+        },
+        {
+            "question": "are the labs manually checked by TAs and AIs, or only by the Ok autograder?",
+            "follow-ups": [
+                {
+                    "feedback": "OK autograder except for special cases."
+                }
+            ]
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "Sometimes they change the server keys, especially (but not only) between semesters. So your ssh doesn't recognize it anymore and thinks it's trying to connect to a different server. It's one of those warnings that could theoretically indicate something very nasty, but practically almost never is."
+                }
+            ]
+        },
+        {
+            "question": "Hello, I have been stuck for a day right here. Does it look like I did not install correctly python?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5gkcbz6l4as%2Fjzxabfeapqxw%2FQQ%E6%88%AA%E5%9B%BE20190829154950.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "`ls `is a system command, but you are already inside Python (which is denoted by the three > signs). Python is correctly installed, but if you would like `ls` to work then you will have to exit the Python shell using the `exit()` command or ctrl-d on Mac. Try again once that's done"
+                },
+                {
+                    "feedback": "it's because you typed 1s rather than ls"
+                },
+                {
+                    "feedback": "^yes that too haha"
+                }
+            ]
+        },
+        {
+            "question": "it's because you typed 1s instead of ls."
+        },
+        {
+            "question": "Hello! I recently edited the lab00.py file and saved it. However, when running \"python3 ok\" on the text editor, I get the following error message.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk708t9w653%2Fjzxkgo16ut05%2Fpythonhelp.png)  Any idea on how I can fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Try redownloading the lab. That usually does the magic"
+                }
+            ]
+        },
+        {
+            "question": "Is it important to know/understand the mv command or moving files through terminal rather than doing it manually? (i.e. drag the folder onto Desktop and then drag it into the folder called cs61a) Because when I had tried doing it from terminal it hadn't worked.",
+            "follow-ups": [
+                {
+                    "feedback": "Nope, not that important for 61a. Feel free to manually move things"
+                },
+                {
+                    "feedback": "Not for this course, but if you're curious, it's not a bad idea to play around with them and figure out their idiosyncrasies if you have the time, since you'll use these a lot down the road. To illustrate with an example, something as simple as                mv a b  is actually ambiguous in what it does. Normally it moves `a` on top of `b`. But in its infinite wisdom, if `b` already exists as a directory, it will move a _inside_ b. So to prevent this on Linux you have to write `mv -T` (which is shorthand for `mv --no-target-directory`), but it's not standardized, so good luck getting consistent behavior on, say, a Mac. Playing around with these commands through different scenarios (existent vs. non-existent, trailing slash vs. not, file vs. directory, etc.) helps you see they can be deceptively confusing."
+                }
+            ]
+        },
+        {
+            "question": "So the lab says that floating point division (one /) results in an answer that has a decimal point no matter what. However, when I try to use some of the example commands (7/4, for example) I get a whole number answer.  Why is this the case?  Here is a screenshot of my terminal:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq0aka762v1%2Fjzxn9tjam93s%2FScreen_Shot_20190829_at_9.55.30_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you in Python2 or Python3?"
+                },
+                {
+                    "feedback": "Okay so when I type in Python, I get python2. How do I switch to python 3?"
+                },
+                {
+                    "feedback": "Okay, I figured it out, thanks!"
+                },
+                {
+                    "feedback": "If you’re in Mac, type “python3”  Windows, “py -3” I think      Also, make sure you install Python 3, not Python 2"
+                }
+            ]
+        },
+        {
+            "question": "I'm a concurrent student from Berkley City College, and I haven't enrolled in this course, pending administrative issues. As a result, I'm not enrolled in okpy, and I don't have a Calnet ID right now. How can I submit my first lab assignment?",
+            "follow-ups": [
+                {
+                    "feedback": "If you have berkeley.edu email address, please make a private post with your name and email."
+                }
+            ]
+        },
+        {
+            "question": "When I was testing Python Interpreter, whatever I typed, there was no response.  The strange thing is I have used Python for years and it runs well on my Pycharm, just confused why here it doesn't work.  I have both Python2 and Python3 on my PC.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fjzxrn9sd9xlt%2FTIM%E5%9B%BE%E7%89%8720190829235826.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "Try `py -3 `or `py`? I'm a bit confused what's going on because the syntax error suggests you are (sort of?) in the Python shell. Perhaps try dropping by the OH on Friday"
+                },
+                {
+                    "feedback": "can you try typing \"python -i\" instead of \"python\"?"
+                }
+            ]
+        },
+        {
+            "question": "Hello, I'm having trouble running the ok.py test. I was able to download and open lab00.py in sublime text 3 and altered it, however the command 'python ok' returns a message that there was an error importing lab00.py. When I attempt to import twentynineteen (from lab00 import *), I receive a message that there is a syntax error and only the title phrase \"twentynineteen()\" appears.",
+            "follow-ups": [
+                {
+                    "feedback": "are lab00.py and lab00.ok in the same directory? you should not need to insert an import statement for it to work."
+                }
+            ]
+        },
+        {
+            "question": "'unzip' doesn't work on windows 10?",
+            "follow-ups": [
+                {
+                    "feedback": "You can just use the built-in File Explorer to unzip the folder"
+                }
+            ]
+        },
+        {
+            "question": "I downloaded the lab00 file from cs61a.org, and it wasn't a zip file for me. It was already extracted. Also, there's an additional folder besides lab00.ok,, lab00.py, and ok: \"tests.\" Is this normal? I'm on macOS 10.14.5.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fjzyf6o9f2669%2FScreen_Shot_20190830_at_10.55.17_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Hm, I'm not sure why it didn't download as a zip file. I'm not familiar with MacOS so maybe it auto unzips?  As for your question about the \"tests\" folder, that is normal."
+                },
+                {
+                    "feedback": "It did the same for me and I was able to complete the lab, so it should be fine."
+                },
+                {
+                    "feedback": "Same issue here so what did you? Just skip the unzip part and move onto the moving files section?"
+                }
+            ]
+        },
+        {
+            "question": "Because I joined the course last semester and created an OK account, it is submitting it to the spring course and saying I cannot submit a late submission. How do I submit it to the new fall one?",
+            "follow-ups": [
+                {
+                    "feedback": "Please download a fresh copy of the lab from the current semester's website."
+                }
+            ]
+        },
+        {
+            "question": "![It says lab00 is not in there, but when i open the folder it is.](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjrb142l4s1d1fx%2Fjzyjcs8x5t7t%2Fpython.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It says lab00 is not in the directory, but when i open the folder, its in there"
+                },
+                {
+                    "feedback": "Your lab00 doesnt seem to be in a separate folder but instead in the general lab folder Try cd ~/Desktop/thegr/cs61a/lab"
+                }
+            ]
+        },
+        {
+            "question": "I would like to take 61A and 61B at the same time, but the lab instruction of each course asks me to do opposite things. What can I do?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvtpqmt16l1iw%2Fjzyqm5wn2hvl%2F2.PNG)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvtpqmt16l1iw%2Fjzyqjo7l7o2x%2F1.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "I'd recommend you use Windows' default console window - MinTTY's features should not be necessary for CS 61B usage, but rather, your window might just appear cosmetically different, whilst it's a necessity if you'd like to use Python with Git bash in CS 61A. However, it's ultimately up to you, as you can also use python via the Windows command prompt, bypassing Git bash for 61A entirely."
+                },
+                {
+                    "feedback": "If you choose MinTTY, you can still run Python, but instead of \"`python`\" or \"`python3`\", you will have to type \"`winpty python`\" every time (no quotes).  If you choose the Windows default console, the window will be less pretty and slightly less user-friendly, and might not display some non-English characters properly.  Either way, it's likely neither is a big deal, so choose whichever you find easier to deal with."
+                }
+            ]
+        },
+        {
+            "question": "I am a concurrent student who is not officially enrolled in this class.      I followed all the steps on the lab0 website, finished my lab0, uploaded to the OK page yesterday. However, when I checked it just now, it said that I haven't been added to this course.      I really want to take this course, what should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "Unfortunately, we have no control over concurrent enrollment itself. However, if you have your berkeley.edu email address and berkeley sid, you can make a private post with your name, berkeley.edu email and SID, and we can enroll you to okpy"
+                }
+            ]
+        },
+        {
+            "question": "I completed and submitted Lab00 before August 30 (Friday) 11:59pm, but why does it say here that it's not due until Friday, Sep 6? Are there two lab00s? Is it different from lab0?",
+            "follow-ups": [
+                {
+                    "feedback": "There is grace given for people who needed additional assistance to set everything up. Since you’ve already taken care of everything, you’re good."
+                }
+            ]
+        },
+        {
+            "question": "Which text editor should I use: Atom or Sublime Text 3? Would IDLE work?",
+            "follow-ups": [
+                {
+                    "feedback": "There’s a thread on this, but for simple programs it’s definitely ok to just use IDLE. However, it would be nice to have at least one of the text editors for when we start to do larger projects."
+                },
+                {
+                    "feedback": "Ok. So between Atom and Sublime Text 3, which one is recommended?"
+                },
+                {
+                    "feedback": "No recommendation-- personal preference"
+                }
+            ]
+        },
+        {
+            "question": "So, are the unlocking tests part and your answers to the questions submitted? I submitted my lab 0 a few days ago without doing the unlocking python basics part because I didn't see it. But I just went back and did them and submitted again but nothing has changed with my submission.",
+            "follow-ups": [
+                {
+                    "feedback": "The tests do not show on Ok. But I believe when you submit your lab, it should show 3/3 cases passed."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble unlocking the assignment. I'm in the lab00 directory but when i enter \"python3 ok -q python_basics -u\" I keep getting a message that says permission denied.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjmmk3400Apyd%2Fk07589ltsz2%2Fcs.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Please try Option #1 on [@86](/class/jziyku5gomy7aq?cid=86) and let me know if that works for you? I think that should resolve this."
+                },
+                {
+                    "feedback": "thank you! that worked"
+                }
+            ]
+        }
+    ]
+}

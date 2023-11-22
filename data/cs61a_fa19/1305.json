@@ -1,0 +1,46 @@
+{
+    "subject": "[Ants] Problem 8",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-8-1-pt\">Problem 8</a>\n\n<p> Please post all questions you have below concerning Problem 8 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk1kxekw3dy0k%2FScreen_Shot_20191010_at_9.37.50_AM.png)  I keep getting indentation error for these. Any clue?",
+            "follow-ups": [
+                {
+                    "feedback": "Fixed it"
+                }
+            ]
+        },
+        {
+            "question": "I am getting this error:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh172oqsk2r0%2Fk1lgew3ckzin%2FCapture.PNG)  I already tried making a new __init__ class, setting self.armor = 4, but it still gives me this error.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm got it fixed."
+                },
+                {
+                    "feedback": "Could you explain how you fixed so that that can help those who have the same issue."
+                },
+                {
+                    "feedback": "Simply do not have armor be a class attribute as the comment says (AKA do not create an armor attribute outside of the constructor of WallAnt)."
+                },
+                {
+                    "feedback": "I'm still confused as to how give` WallAnt` an armor value of 4, yet not have it be a class attribute. I've tried referencing the armor attribute of the `Insect` class and defaulting it to four in the `WallAnt`'s instance attributes, but it still says its an attribute."
+                },
+                {
+                    "feedback": "The Insect class itself does not have a class attribute called armor so that approach would not work. Notice that WallAnt inherits from Ant, and Ant's constructor is the place where the armor instance attribute is set, so we'd need to override the constructor to make that work."
+                },
+                {
+                    "feedback": "Thanks! I got it."
+                },
+                {
+                    "feedback": "If we need override the armor value set in Ant, why doesn't setting armor = 4 under class WallAnt also work, as we did to override the default armor value for the other classes of ant?"
+                },
+                {
+                    "feedback": "armor should not be a class attribute for any of the Ant classes (because each instance of the ant should have their own armor value). It should be an instance attribute set by the constructor of each of the Ant classes if it varies from the default value of 1. See FireAnt's constructor for an example of how changing the armor works (notice that it doesn't have a class attribute called armor)."
+                },
+                {
+                    "feedback": "why does setting armor=4 in the constructor input not work?"
+                }
+            ]
+        }
+    ]
+}

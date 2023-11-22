@@ -1,0 +1,25 @@
+{
+    "subject": "[Lab 09] Q8: No Repeats",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q8\">Q8: No Repeats</a>\n\n<p> Please post all questions you have below concerning Q8: No Repeats in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "what is the difference between the Q8 No Repeats and Q4 uniqe ?",
+            "follow-ups": [
+                {
+                    "feedback": "They're nearly identical, but `no-repeats` intends for you to use the `filter- lst` procedure that you created and is only expected to work with numbers. On the other hand, `unique` intends for you to use the `filter` built-in procedure (which should be identical in behavior to `filter-lst`) and is expected to work with any data type"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "I got the \"too few arguments to function call\" error, but I don't know where exactly is wrong. I used filter-lst function and passed in a lambda function to check if the current number is repeated and also a cdr of lst. Can somebody give me a hint?",
+            "follow-ups": [
+                {
+                    "feedback": "Check every single procedure call in your code and make sure you are passing in the correct arguments"
+                }
+            ]
+        }
+    ]
+}

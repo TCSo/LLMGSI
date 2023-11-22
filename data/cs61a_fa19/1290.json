@@ -1,0 +1,131 @@
+{
+    "subject": "[Lab 06] Q4: Making a Player",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab06/#q4\" target=\"_blank\" rel=\"noopener noreferrer\">Q4: Making a Player</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q4: Making a Player in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>\n<p></p>",
+    "threads": [
+        {
+            "question": "For the init constructor, how can I get to 1 for len(test_deck.cards), I keep only getting 5.",
+            "follow-ups": [
+                {
+                    "feedback": "I also keep getting 5."
+                },
+                {
+                    "feedback": "it appears that you are not drawing enough times from the deck to create your initial hand."
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "Hi, can you please explain how you solved this?"
+                },
+                {
+                    "feedback": "this is probably an error in the constructor - make sure you are follow the steps as outlined in the spec to create the deck and hand of a player."
+                }
+            ]
+        },
+        {
+            "question": "why does it tell us to draw one card only but then in all test cases it expects a hand length of six and a deck length of 0? doesnt that mean that 6 cards were drawn?",
+            "follow-ups": [
+                {
+                    "feedback": "the draw method should draw one card only, but 5 cards should be drawn when the player is initialized as the starting hand."
+                }
+            ]
+        },
+        {
+            "question": "When I call on deck.draw() in the draw definition, I keep getting an error that says name 'deck' is not defined. However I called the same thing in the __init__ definition with no name errors. Why is this?",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm, I realized that I needed to call on self.deck because it wasn't defined in the draw definition."
+                },
+                {
+                    "feedback": "Even when I call self.deck first, it still says deck is not defined, can anyone help?"
+                },
+                {
+                    "feedback": "Having same issue"
+                },
+                {
+                    "feedback": "Hmm okay for whatever reason, if you capitalize the D in Deck.draw it worked for me"
+                },
+                {
+                    "feedback": "make sure that the deck is defined in the __init__ function as well! please post a follow up if you are still experiencing difficulties, with more information on what you have tried in the meantime."
+                }
+            ]
+        },
+        {
+            "question": "It says I need to draw 5 cards, but when I draw five cards I get the assertion error that the deck is empty? I'm confused...",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably drawing too many cards in draw() or the constructor. The constructor should draw five cards, but the Player.draw() function should only draw one card."
+                }
+            ]
+        },
+        {
+            "question": "I'm using self.hand.pop() in my play function, however, it seems to be returning the whole value of ta1 as the result. Not sure how to understand about this, can anyone explain what I'm doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're calling `pop` with the correct index, and that you're returning the correct thing (the intended solution is very simplistic)"
+                },
+                {
+                    "feedback": "Isn't pop() just called on the card_index, and doesn't it always return the card?"
+                },
+                {
+                    "feedback": "`collection.pop(index)` will remove the element at `index` from `collection` and return that element. Returning the value of an expression of that form should be enough for a solution to this problem. If you experience issues with this, make a private post"
+                }
+            ]
+        },
+        {
+            "question": "I am trying to attempt this for Player.draw:                 self.hand = self.hand.append(Deck.draw(self.deck))      return self.hand  to get the new hand with an appended card from the player's deck. However, I got this error:                TypeError: object of type 'NoneType' has no len()  I think my error is where I try to append the drawn card to the self.hand, but I don't get why I would get this error. Also, does anyone have any hints on how to go about this?",
+            "follow-ups": [
+                {
+                    "feedback": "Why are you re-assigning the entire hand? You should just be removing the card at index `card_index` from the player's hand, and returning it. Look up the `.pop` method, it helps a lot"
+                }
+            ]
+        },
+        {
+            "question": "Tried to use the += to add another card but it gave an error that 'Card' object is not iterable. Having trouble understanding how this occurs, any help appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "If you're using += to add something to a list, then the right hand side of the equals sign should have a list or some other iterable."
+                },
+                {
+                    "feedback": "Consider using the `.append` method"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Whenever test_player.draw() is called, I get \"test: Staff, [100, 100]\", so it seems like it's not going through the loop to add more cards, but I still don't see why it's printing/returning. Any idea why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "why are you looping to add more cards? draw should just draw once, and add it to the player's hand. thus, there should also be no printing or returning in your code - make sure there are no statements that would cause that."
+                }
+            ]
+        },
+        {
+            "question": "For Player.__init__, how do I make it draw 5 cards for the hand? I've done self.hand = deck.draw(), but this keeps only drawing one card making the deck still having 5 cards.  What's the approach here?",
+            "follow-ups": [
+                {
+                    "feedback": "Make the player's hand a list, and consider using a list comprehension to have it be the result of drawing from the deck 5 times"
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I got an error in Player.play so I printed it and here's the result:                >>> from classes import *     >>> from cards import *     >>> test_player = Player(standard_deck, 'tester')     >>> ta1, ta2 = TACard(\"ta_1\", 300, 400), TACard(\"ta_2\", 500, 600)     >>> tutor1, tutor2 = TutorCard(\"t1\", 200, 500), TutorCard(\"t2\", 600, 400)     >>> test_player.hand = [ta1, ta2, tutor1, tutor2]     >>> test_player.play(0) is ta1     ta_1: TA, [300, 400]     False          # Error: expected     #     True     # but got     #     ta_1: TA, [300, 400]     #     False  Anyone knows what went wrong? Thanks a lot.",
+            "follow-ups": [
+                {
+                    "feedback": "I used the .pop method."
+                },
+                {
+                    "feedback": "this particular test is failing because it is also printing - did it not work even without the print statements?"
+                },
+                {
+                    "feedback": "For reference, even without the printing it would still not have worked because the evaluated value appears to have been False when it should've been True"
+                }
+            ]
+        }
+    ]
+}

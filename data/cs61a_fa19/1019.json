@@ -1,0 +1,696 @@
+{
+    "subject": "[Cats] Problem 7",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-7-3-pt\">Problem 7</a>\n\n Please post all questions you have below concerning Problem 7 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nHere are some tips if you&#39;re stuck:\n- Start by identifying the recursive structure: &#34;the edit distance between <code>start</code> and <code>goal</code> is either: (a) one more than the edit distance between <code>start</code> and all but the first character of <code>goal</code>, or (b) ...&#34;\n- There are (at least) two ways to approach the problem: (1) call edit_diff on shorter and shorter strings, or (2) define a recursive inner function that takes a position in start and a separate position in goal as arguments and have it call itself on larger and larger (or smaller and smaller) positions.\n- The recursive cases correspond to the edit operations (because you might need to apply more edit operations after the first), while the base cases handle things like empty strings.\n- Try solving the problem without limits first. Here&#39;s a template:\n<pre>\ndef edit_diff(start, goal):\n    &#34;&#34;&#34;A diff function that computes the edit distance from START to GOAL.\n\n    &gt;&gt;&gt; edit_diff(&#34;ash&#34;, &#34;hash&#34;)\n    1\n    &gt;&gt;&gt; edit_diff(&#34;roses&#34;, &#34;arose&#34;)     # roses -&gt; aroses -&gt; arose\n    2\n    &gt;&gt;&gt; edit_diff(&#34;tesng&#34;, &#34;testing&#34;)   # tesng -&gt; testng -&gt; testing\n    2\n    &gt;&gt;&gt; edit_diff(&#34;rlogcul&#34;, &#34;logical&#34;) # rlogcul -&gt; logcul -&gt; logicul -&gt; logical\n    3\n    &#34;&#34;&#34;\n</pre>",
+    "threads": [
+        {
+            "question": "How efficient should a solution to this problem be? My solution takes about 10 seconds to run all 100 test cases, which seems a bit slow.",
+            "follow-ups": [
+                {
+                    "feedback": "\"If the number of edits required is greater than `limit`, then `edit_diff` should return any number larger than `limit` **and should minimize the amount of computation needed to do so.** \"  One way to check your efficiency is to see if the following statements take equivalent time to execute (this is shamelessly copied from the project description):                >>> limit = 2     >>> edit_diff(\"rlogcul\", \"logical\", limit) > limit     True     >>> swap_diff(\"rlogculabcdefghijklm\", \"logicalnopqrstuvwxyz\", limit) > limit     True"
+                },
+                {
+                    "feedback": "I believe one of the tests checks that your code is \"efficient\" in that sense, so that shouldn't be an issue."
+                }
+            ]
+        },
+        {
+            "question": "I'm running into an issue with the following test case:                sum([edit_diff('hyper', 'yhbpexr', k) > k for k in range(7)])       # Error: expected     #     3  To my understanding, edit_diff('hyper', 'yhbpexr', k) should return 3 for all k greater than **or equal to** 3 as 3 edits are needed (remove y, change b to y, remove x). However the autograder expects 3 as the output, telling me that it wants the boolean to return True for values of k from 1 to 3. If the edit_diff function returns 3 for k = 3 (as the limit has not yet been **exceeded** ), shouldn't the expected return be 2, as the boolean should only hold True for k = 1 and k = 2?",
+            "follow-ups": [
+                {
+                    "feedback": "range(7) means range(0,7), so k begins at 0. What should edit_diff('hyper', 'yhbpexr', 0) return?"
+                },
+                {
+                    "feedback": "Got it! Thanks"
+                }
+            ]
+        },
+        {
+            "question": "Do \"three recursive calls\" are related to the \"three kinds of edit operations\"? How could we find out which edit operation to take, which leads to the minimum number of edit operations?",
+            "follow-ups": [
+                {
+                    "feedback": "There is a very simple function that will allow you to do this given the three values as inputs"
+                },
+                {
+                    "feedback": "Yes the three calls represent the three edit operations. Remember the leap of faith: if you trust that your 3 calls work, what would you do with the result of those 3 calls? (think about Cyrus’ hint too)"
+                },
+                {
+                    "feedback": "okk, thanks a lot !!!"
+                }
+            ]
+        },
+        {
+            "question": "Hi guys, For the \"three recursive calls\" does it mean to design three recursive helper functions (one for each case). Or does it mean to make three different recursive calls to the edit_diff function? Any help would be appreciated! I tried three recursive helper functions but got messy real fast",
+            "follow-ups": [
+                {
+                    "feedback": "The latter. You should see the followup above for more hints, but for this you won't need three helper functions. (In fact, this can be done without any helper functions.)"
+                },
+                {
+                    "feedback": "okay, thanks a ton!"
+                }
+            ]
+        },
+        {
+            "question": "I'm pretty stuck on this. Can I get some more hints or something? I read the other hints posted in this thread but I still don't know what to call, when to call, and what to do with the recursive calls.",
+            "follow-ups": [
+                {
+                    "feedback": "I was also a stuck on this for a bit, but ultimately it came down to thinking about how to do each part abstractly. (BTW if anyone has any other hints they wanna share, feel free to add them.)  It is given in the problem description that this is going to be a recursive function, so think first off about the base cases. Under what conditions can we immediately determine the edit difference? Think of things like the length of the strings as well as the limit when determining this. It's okay to have a lot at first. Add as many as you need to in order to have confidence in your function working as you can remove them later.  After you have the base cases, assume your function works (As in take the recursive leap of faith as described in the followup above). Now, we can think of ways to split the problem down into simpler parts. Look at the base cases you made, and try to determine what kinds of recursive calls will help you reach the base cases. This will help you think of strategies you can use to determine how to calculate each of the three possible choices in the template (adding, removing, and substituting. You could also think of doing nothing as a choice.). Think of how you can use recursion to make these choices. Once you have strategies for the three choices, think about what you would do once you have calculated them. That will be your return value."
+                },
+                {
+                    "feedback": "Thanks for your help! I have found the solution."
+                },
+                {
+                    "feedback": "I thought about this for a very long time and I feel like I've made zero progress. How do we split the problem into smaller parts? Do we need to identify which specific letter needs to be modified? If so, how？"
+                },
+                {
+                    "feedback": "The problem splitting is given to you in the problem description. There are 3 choices you can make at each step.  Think about count_partitions from lecture. On each step of recursion, we made 2 choices: include the biggest_number in a sum, or don't. We called recursively on our function accordingly. Here we have 3 choices: add, substitute, or delete. How does that translate into recursion? Substitute is easiest to think about first. If I gave you \"abc\" and \"def\" and we decided to make a substitution on the first letter, what are the two strings left to be analyzed? Pass those strings into the function"
+                },
+                {
+                    "feedback": "Oh. Finally got it. For those who are struggling, here's another hint: You don't need to find the exact characters that need to be added/removed/substituted. Good luck."
+                },
+                {
+                    "feedback": "But if start = \"abcdef\" and goal = \"bcdefg\", we should not use substitution but add and remove, how to fix this case?"
+                },
+                {
+                    "feedback": "you should still be checking for each of the three options for changes - the provided skeleton indicates this kind of structure in making some kind of check for an add, remove and substitute change."
+                }
+            ]
+        },
+        {
+            "question": "How do we keep track of the count without defining a helper function??",
+            "follow-ups": [
+                {
+                    "feedback": "If your limit is `n`, and you have to make a swap/addition/removal, your new limit after the move becomes `n - 1` \\- think how this would work in code"
+                },
+                {
+                    "feedback": "In that case, how would we return a number that is bigger than the original limit when limit becomes 0? As we update the limit, how would we keep track of the original limit so that we return a value that is for sure bigger than that?"
+                },
+                {
+                    "feedback": "If you have something like `1 + edit_diff( ... , limit - 1)` in your implementation, then the base case doesn't need to know what the original limit was. It can just return something higher than its limit, and that will be incremented by the caller's `1 + ...` expression."
+                }
+            ]
+        },
+        {
+            "question": "I am having a hard time setting up the base cases. How do we determine if the a letter are to be added, subbed, or removed? Basically, how do we account for each case?",
+            "follow-ups": [
+                {
+                    "feedback": "Try recursively figuring out the edit distance after making each type of move, and then using those distances, figure out which move to make"
+                },
+                {
+                    "feedback": "The base cases won't involve any more adding, subbing, or removing. Those are all recursive cases (because after you remove a letter, you might have to add/remove/substitute another one. Instead, the base cases should handle, for example, empty words."
+                }
+            ]
+        },
+        {
+            "question": "When testing my function, I make it all the way to this point:                Problem 7 > Suite 1 > Case 9          >>> from typing import edit_diff, autocorrect     >>> edit_diff('wake', 'sutra', 100)     6          # Error: expected     #     5     # but got     #     6          Run only this test case with \"python3 ok -q 07 --suite 1 --case 9\"  I am looking at this and can't think of a way of doing it that takes less than 6 edits manually. Can somebody explain to me how the transformation occurs in 5 steps? That may show me how the code that I made is doing it wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "Not the only way to do this, but here's one possible way:  Edit 1: 'sake' (Substitute w with s)  Edit 2: 'suke' (Substitute a with u)  Edit 3: 'sute' (Substitute k with t)  Edit 4: 'sutr' (Substitute e with r)  Edit 5: 'sutra' (Add a to the end)"
+                }
+            ]
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "me too"
+                }
+            ]
+        },
+        {
+            "question": "For the substitution step, are we supposed to call swap_diff()?",
+            "follow-ups": [
+                {
+                    "feedback": "No, since `swap_diff` is not mutually recursive with `edit_diff`, but your implementation may look similar to it"
+                },
+                {
+                    "feedback": "How is the implementation the same? I am very confused"
+                }
+            ]
+        },
+        {
+            "question": "Hi guys! So far I make it up to the roses and arose tester. However my code checks for if the length of the strings are the same and then adds or subtracts to make the strings the same length before substituting. I'm not quite sure how to approach the situation where the strings are the same length and the quickest route is removing and then adding a letter. Any help would be greatly appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "I figured out that question but am now getting gestate when I should be getting nest on the autocorrect(\"gest\",small_words_list, edit_diff,10) call?"
+                }
+            ]
+        },
+        {
+            "question": "Is it ok if I make a helper function that doesn't necessarily have the purpose of helping solve the problem, but just makes the code much more readable? I added comments and stuff explaining what it does in the code.",
+            "follow-ups": [
+                {
+                    "feedback": "Try to make your code readable without a helper function first, and as a last resort make a helper function - creating a helper function within a function is computationally-inefficient"
+                },
+                {
+                    "feedback": "I think I made my algorithm pretty efficient run-time wise. It finishes all the test cases correctly and almost instantly. The only problem is, the code is like 40 lines, when using a helper function and not including the comments added in the template. Is that too much? Would that warrant a rewrite of the code or is it fine?"
+                },
+                {
+                    "feedback": "Also, just to be clear, my helper function could very easily be pulled out of edit_diff. There is no self-referencing or recursion with it. It just condenses a basic computation that I was already doing multiple times in my edit_diff function."
+                },
+                {
+                    "feedback": "A helper would be fine, I think, but I think a typical implementation would be closer to 15 lines rather than 40, so there might be other opportunities to simplify. (A staff member did it in one line, but it was a *really* long line that wasn't terribly easy to read, so I don't recommend that.)"
+                }
+            ]
+        },
+        {
+            "question": "do we use swap_dif in our function? also are add_dif, remove_dif, etc functions?",
+            "follow-ups": [
+                {
+                    "feedback": "No and no"
+                },
+                {
+                    "feedback": "Basically, I need to find and store all of the possible combinations of adding the three class. and then returning the min. Is this correct? This seems quite complicated to me."
+                },
+                {
+                    "feedback": "That's the right idea. Recursion makes it easy."
+                },
+                {
+                    "feedback": "That's right. Each case is a different recursive call, so one line each. Returning the min is one more line."
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I feel as if I am missing a basic idea with the problem. I am stuck on the sum([edit_diff('hyper', 'yhbpexr', k) > k for k in range(7)]) call right now. Is this the part of the method that should be implementing the add_diff, remove_diff, and substitute diff? As I wrote my code without those and am very confused at the moment.",
+            "follow-ups": [
+                {
+                    "feedback": "This test is making sure your code is returning a value above `limit` whenever `limit` is exceeded."
+                },
+                {
+                    "feedback": "The edit distance between 'hyper' and 'yhbpexr' is 3, so `edit_diff('hyper', 'yhbpexr', k)` should return 3 for any `k >= 3`, but if `k` is 0 or 1 or 2, then your function can return any number larger than `k`."
+                },
+                {
+                    "feedback": "I'd recommend figuring out what your function does with a large limit on this example, and if it doesn't return 3, then the problem is unrelated to the limit."
+                },
+                {
+                    "feedback": "Okay, thanks a ton! I'll see what happens with a larger limit to see if that's the problem."
+                },
+                {
+                    "feedback": "I keep getting distance = 4 on this test. I keep altering the code, but can never get to 3. Are there some common mistakes I could have made here?"
+                }
+            ]
+        },
+        {
+            "question": "Can we use find method to check if string is substring of another string ?",
+            "follow-ups": [
+                {
+                    "feedback": "That is not recommended, as `find` hasn't been taught to us"
+                }
+            ]
+        },
+        {
+            "question": "Is using a helper function in this fine as long as my algorithm is efficient and passing all the tests?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, but it's not really necessary"
+                },
+                {
+                    "feedback": "I mean using a helper function is not bad practice at all; its actually a very typical solution to recursion problems so you're fine."
+                }
+            ]
+        },
+        {
+            "question": "Was anyone able to solve this using only the conditional statements provided? I had to add one condition to make it work, and I'm not sure how it works without it.",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, it's possible with just the conditionals provided"
+                },
+                {
+                    "feedback": "It's fine if you add more conditional clauses, though."
+                }
+            ]
+        },
+        {
+            "question": "I am confused about the 3 variables located in the else statement. Are they supposed to represent an operation on the string, or are they a recursive call, or are they something else entirely?",
+            "follow-ups": [
+                {
+                    "feedback": "They should be recursive calls that help figure out the edit differences of choosing the three different moves"
+                },
+                {
+                    "feedback": "Each of the variables is an edit distance (an integer) that describes the result of editing start into goal after taking a particular first action."
+                }
+            ]
+        },
+        {
+            "question": "My function works on remove and add , but I am confused about the substation part ?",
+            "follow-ups": [
+                {
+                    "feedback": "It’s extremely similar to the recursive call in question 6"
+                }
+            ]
+        },
+        {
+            "question": "How should we implement the three edit operation?I am really stuck for a long time....",
+            "follow-ups": [
+                {
+                    "feedback": "I mean if we should use lambda?..."
+                },
+                {
+                    "feedback": "NVM, figured it out."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk12g7k7buofo%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190927111649.png)  I have figured out this problem, but I am still confused. At first, I counted to the base point that there is one letter in the string, but I met the error above. Could anyone tell me why? Thanks a lot!",
+            "follow-ups": [
+                {
+                    "feedback": "The 3 edits are to remove \"y\", substitute \"y\" for \"b\", delete \"x\". Try tracking your code through those 3 edits"
+                },
+                {
+                    "feedback": "same problem. Could you tell me how to fix it? Thank you !"
+                }
+            ]
+        },
+        {
+            "question": "Oh my, it takes me more than one day to solve it. A helpful hint would be just don't think too much about the exact operations of this question. What I have been trying to do is 1. Find the general format of add_diff, remove_diff, and sub_diff. This should be the essential thing in the question. 2. I tried to list all the possibilities(10+ elif statements) of every outcome that applies to every case, which keeps giving me counterexample. And this is what I expected, because even though how many elif I made, I cannot avoid there must be some kinds of cases that create bug in my program. 3. The final solution I got, which passes the tests, is extremely short but pretty conclusive.",
+            "follow-ups": [
+                {
+                    "feedback": "tysm for the hint!!!!!!!! I was stuck on this for a whole day and your hint literally saved my life!!!!!!!!!!!!!! The final solution is indeed very conclusive 😂"
+                }
+            ]
+        },
+        {
+            "question": "I really need some help with this question. I was stuck on this for a whole day and basically made 0 progress. I still don't get how can I make add to add a character anywhere to the start instead of just the end??? For add, I thought it was supposed to be something like calling the edit_diff + 1 coz add represents one more step, but if I simply pass start and for example, goal with all but the last character, it doesn't work. Could anyone give me a hint??",
+            "follow-ups": [
+                {
+                    "feedback": "Well you're actually on the right track. You're not actually adding a character--you're just counting the number of edits required to get the strings to match. What you just said about 1 + edit_diff(...) and cutting off the last character of one of the strings is actually correct. So that's not the problem. However, there are many components to this question, so most likely your error is coming from your base cases or other recursive calls  Think about this: why did you cut off the last character? What does that represent? How can you use similar logic to count edits after adding a character? Substituting?"
+                },
+                {
+                    "feedback": "The anonymous poster from above (\"Oh my, it takes me more than one day to solve it\") has good hints as well"
+                }
+            ]
+        },
+        {
+            "question": "I' m still stucking on this problem. Should I use conditional statement to decide add, remove or substitute on each recursion, or simply figuring out all possible cases and the find the smallest value?",
+            "follow-ups": [
+                {
+                    "feedback": "The latter. Your base cases are the only conditionals you'll need for this.  Remember that we can use recursion to help us make decisions. Use the hints above to find ways of making the proper choice of adding, removing, or substituting with recursion."
+                },
+                {
+                    "feedback": "And do we need to use tree on this problem?"
+                },
+                {
+                    "feedback": "Wow, it's so hard, but I think I have solved this problem."
+                }
+            ]
+        },
+        {
+            "question": "Any hints for base cases? seem to be stuck on 'rose' and arose' but am having trouble implementing substitute.",
+            "follow-ups": [
+                {
+                    "feedback": "I have four base cases (lost track of how many the template initially had). I think the template had 2 base cases, so some of my cases may be repetitive or could fit into the cases.  My base cases deal with empty strings, limit, when not to go to the recursive calls (the else statement) and when the two words match. Hope it helps!"
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on the add_diff, remove_diff, and substitute_diff assignment statements. Are they supposed to make recursive calls and return a number? I also don't know how to \"decide\" whether something should be added, removed, or substituted.",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't really be deciding, instead you need to find all possible cases, and see which one requires the least amount of edits.  add_diff, remove_diff, etc, should return a number which is the number of edits required, you will need to use recursion for this, because at each possible step at which an edit may be required you have 3 options. Try making a tree."
+                },
+                {
+                    "feedback": "Read the tips above. Consider that `edit_diff` is supposed to return the minimum number of edits that will result in turning the first string into the second. Each of `add_diff`, `remove_diff`, and `substitute_diff` represents making a choice between each of the three types of moves. Given their (numerical) values, think how you would figure out which of the three moves is \"best\"."
+                },
+                {
+                    "feedback": "each variable should correspond to a recursive call that returns an integer because the problem states that you need 3 recursive calls. i was stuck on this for a while but what finally helped me understand the problem was the concept of the recursive \"leap of faith.\" dont try to trace what your function actually does--instead think in terms of what add_diff, remove_diff, and substitue_diff are supposed to compute"
+                }
+            ]
+        },
+        {
+            "question": "If I get this error:  Error: evaluation exceeded 10 seconds - check for infinite loops  Is it certainly the case that I have an infinite loop, or is my code just really slow and inefficient?",
+            "follow-ups": [
+                {
+                    "feedback": "No, it could very much be the latter"
+                },
+                {
+                    "feedback": "Is there any way for me to give the tester more time, just so I can be sure I'm not making a silly error?"
+                },
+                {
+                    "feedback": "10 seconds should be sufficient time to account for minor differences with the staff solution. The intended solution runs in less than a second."
+                },
+                {
+                    "feedback": "What at least happened in my situation is that one of the 3 main functions never terminated as there was no base case to satisy it, leaving it to recurse ad infinium"
+                }
+            ]
+        },
+        {
+            "question": "I got the right solution, and I have 3 base cases, with one recursive case, along with the 3 variable names. I understand why my base cases work, but I have no idea how add_diff, and sub_diff work exactly. I just based my solutions off of the one that we learned earlier in adding change. Is there something that can help make me understand the leap of faith better exactly?",
+            "follow-ups": [
+                {
+                    "feedback": "This is a question better left for office hours or in-person with your TA after discussion/lab as the diff counts are better shown on a whiteboard"
+                }
+            ]
+        },
+        {
+            "question": "Hello, I'm stuck on this case:  >>> autocorrect(\"abstrction\", small_words_list, edit_diff, 10)   # Error: evaluation exceeded 10 seconds - check for infinite loops  At the very beginning of my function, I have:  if limit < 0: return limit + 1  but that doesn't seem to be fixing the problem. My function works perfectly as intended, and even returns 1 + limit when the limit is exceeded, but it isn't helping with lowering the runtime. any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "what at least happened in my situation is that one of the 3 main functions never terminated as there was no base case to satisy it, leaving it to recurse ad infinium"
+                },
+                {
+                    "feedback": "I just found the solution! For people stuck, think about which recursive calls you want to call first before you make the rest of the \"recursive tree\". Don't make the tree if you don't have to!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble determining whether I should use [1:] or [:-1] when adding or subtracting. One seems to cover the case for adding/subtracting from the front of word vs the other does it to the tail. I would appreciate a hint in the right direction.",
+            "follow-ups": [
+                {
+                    "feedback": "for ex.  roses -> arose: subtract s from tail and add a to the front  vs.  swords -> word: subtract s from front and s from tail  Do we need to have two possible ways for adding and subtracting each?"
+                },
+                {
+                    "feedback": "Not sure if I am fully understanding your question, but you should be working from one direction to the other, keeping it consistent. For example, roses->arose can also be seen as add a to the front and then subtract s. And swords->word can be seen as subtract s from the front then the tail. Hope it helps!"
+                },
+                {
+                    "feedback": "Thank you, but how do we implement subtraction both from the front and the tail? Currently I'm slicing the two sequences, but in only one direction for both: \"adding\" a letter to the front of start, and \"subtracting\" a letter from the tail of goal. Sorry if that's confusing."
+                },
+                {
+                    "feedback": "You should slice in one direction (i.e., solely from the front of the string or the tail). If you slice in multiple directions I think that will introduce problems"
+                }
+            ]
+        },
+        {
+            "question": "The template provided a recursive based solution. I used a non-recursive solution, and all of the test cases passed.  Am I allowed to submit my non-recursive solution?",
+            "follow-ups": [
+                {
+                    "feedback": "That’s fine. Are you using a DP approach?"
+                },
+                {
+                    "feedback": "Yes. I am using a DP approach. Thanks for the info."
+                },
+                {
+                    "feedback": "Not relevant to this class, but I've been thinking about the following:  Recursion doesn't have to explore all pairs of strings but repeats computations.  DP doesn't repeat computations but has to store all pairs of strings.  Could we theoretically use Dijkstra (or A-Star) with a 0 edge if we substitute the same character (and a 1 edge otherwise) and stop when we find two strings are the same?  Thanks."
+                },
+                {
+                    "feedback": "Also, recursion won't prioritize the shortest paths as Dijkstra will."
+                },
+                {
+                    "feedback": "Yes, that is certainly possible. However, to create the graph you need to create all the vertices which means you need to emit all possible slices of the strings you're given (one for each vertex). This would introduce a lot of overhead in preprocessing (O($$M^{2} + N^{2}$$) just to emit the slices, not even considering creating the edges or creating the vertex objects), so much that I think it would make it slower than DP. Also, checking whether the two strings are the same at every vertex is extremely inefficient, as I think Python checks string equality character by character, not via pointers (I could be mistaken). For A* I would imagine any reasonable heuristic also checks the current % similarity between two strings, but again that's really inefficient in Python. And depending on your representation of the graph, you potentially miss out on a lot of cache benefits, which wouldn't really be a problem with DP.  It's a good idea though!"
+                },
+                {
+                    "feedback": "Thanks for the reply! Is it really necessary to create the graph? Since you can easily find the pairs of strings reachable from a current pair (the neighboring nodes), I was thinking along the lines of just starting with a priority queue containing the pair with the initial string and final string. Then I would keep taking the pair with the shortest distance off my priority queue, adding the pairs reachable from that pair to the priority queue along with their corresponding distances, and repeat until a node contains two of the same strings (I would also keep a visited array or dict). This way I would be able to generate the graph as I go. Could you let me know your thoughts on this approach? Thanks!"
+                },
+                {
+                    "feedback": "Maybe. Still, Dijkstra's would end up calculating the min distance to every vertex which is basically the same as DP. A-star would require a consistent heuristic. If you could find a heuristic that is quick, your approach would work, but I would think you'd use % similarity at the current node as a heuristic. % similarity necessarily requires checking each character individually and I think this might slow down the algorithm so much that it overshadows any speed we get from A-star. But the best way to know for sure is to try it yourself!"
+                }
+            ]
+        },
+        {
+            "question": "I didn't quite get what \"position\" means in the second approach in the note :  (2) define a recursive inner function that takes a position in start and a separate position in goal as arguments and have it call itself on larger and larger (or smaller and smaller) positions.  I guess it means the character of the string?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, an index"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble figuring out how what add_diff, remove_diff, and substitute_diff are supposed to be. I think add_diff would compare start and goal[1:], but this only works if a character is added to the beginning of start, not the end. I'm having a lot of trouble generalizing add_diff, remove_diff, and substitute_diff!",
+            "follow-ups": [
+                {
+                    "feedback": "Same, if you look above I posted the same question, and still haven't discovered what the right method should be. Derek said \"You should slice in one direction (i.e., solely from the front of the string or the tail). If you slice in multiple directions I think that will introduce problems.\" Let me know if you think of anything"
+                },
+                {
+                    "feedback": "for each of add_diff, remove_diff, substitute_diff, when thinking of how to split the problem, think of how to think of the problem as making the respective change to start (always at one end of the word), and finding the edit_diff of two strings. these two strings may be different depending on what kind of change you are considering."
+                }
+            ]
+        },
+        {
+            "question": "Do I need to change start to match goal while counting the number of changes from my code?",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't need to; think about how you can slice the lists to simulate a change to start."
+                }
+            ]
+        },
+        {
+            "question": "I was able to complete swap_diff without using a helper function but I do want to understand how to do it without it since it's required on edit_diff. My question is how would I return a number greater than the original limit if I'm constantly decreasing the limit each time",
+            "follow-ups": [
+                {
+                    "feedback": "think about what value limit would take if the number of edit operations exceeds limit--you shouldn't be returning the limit"
+                },
+                {
+                    "feedback": "Yes a base case for limit == 0 would suffice"
+                }
+            ]
+        },
+        {
+            "question": "I'm really stuck on this test case. The program returns 0, when it should return 3? Any idea why this could be happening?      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk16335rw3fu8%2FScreen_Shot_20190930_at_12.20.14_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Figured it out! I was decrementing limit in an edge case where I shouldn't have been."
+                }
+            ]
+        },
+        {
+            "question": "Where is the problem?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzw8xfv1bya23u%2Fk16pnfzeh6om%2F2I63WGLOKUEXDPIHANV.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Your solution likely does not reach a base case properly, which leads to an infinite loop"
+                },
+                {
+                    "feedback": "Hi, I have same problem here. Did you figure it out?"
+                }
+            ]
+        },
+        {
+            "question": "I'm probably not wrapping my head around this correctly, but I don't see how                edit_diff('life', 'endif', 100)  can terminate quickly because the function needs to effectively try every combination of three choices (to determine which is the shortest) to a a maximum limit of 100 which is, in the worst case scenario, the sum of 3^n from 0...100 which is HUGE.  Can anyone nudge me in the right direction? My implementation _works_ but it's not fast enough as it is trying to perform a ridiculously number of tests.",
+            "follow-ups": [
+                {
+                    "feedback": "Try to implement as many base cases as you can before you split into three choices. Remember that in each branch, you typically will be taking off a character from either/both strings, so you will quickly reach a case (in well under 100 iterations) where there is an empty string."
+                }
+            ]
+        },
+        {
+            "question": "How should I be splitting up the strings start and goal for the substitution call? In the first two test cases (wird,wiry) and (wird,bird) i'm finding that I need to somehow have the edit_diff() call for substitute work from two directions. If I were to shorten the strings from one end, it gets one test case correct but the other wrong. Am I interpreting the substitution call wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "The substitution call is extremely similar to the swap call in Q6"
+                }
+            ]
+        },
+        {
+            "question": "Should this question be a modified version of Q6?",
+            "follow-ups": [
+                {
+                    "feedback": "You use some parts of Q6 for it, yes."
+                }
+            ]
+        },
+        {
+            "question": "through each recursive call am I supposed to be changing 'start' so that eventually it will equal goal? or does the solution not require start to actually equal goal in the end?",
+            "follow-ups": [
+                {
+                    "feedback": "Your 3 recursive calls (add, remove, substitute) will all serve as different routes you can take. But yes, you'd want start and goal to be equal in the end because you'd end up with the goal word. Sometimes, though, you will be adding or subtracting characters off of either start or goal. The problem is just looking for the lowest edit number. A hint would be your substitution call is similar to what you're doing in #6, so what would remove and add do?"
+                },
+                {
+                    "feedback": "is the only point of add and remove is to get the strings to be the same length? and then from there substitute should take over?"
+                },
+                {
+                    "feedback": "That's one way to think about it yes. Your program is basically finding what is the best choice ( is it to add, remove or substitute a character? )."
+                },
+                {
+                    "feedback": "how do I made base cases so that add , remove stop calling once the strings are of equal length"
+                },
+                {
+                    "feedback": "You kind of just answered your own question. You would return something thats not any of those, right? Trying my best not to give out the answer."
+                }
+            ]
+        },
+        {
+            "question": "what does this error mean? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk1839qe1c1ua%2FScreen_Shot_20191001_at_9.58.19_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "ps my autocorrect function passed all the test cases"
+                },
+                {
+                    "feedback": "If your autocorrect function is working, then this implies that edit_diff is not calculating the difference correctly.  autocorrect will return the word with the smallest difference in that huge list (since 'speling' is not in the list, and there are words in there with an edit difference that is less than ten). It seems your edit_diff function is saying that 'peeling' has a lower difference than 'spelling' when we use the word 'speling' which is not correct.  'speling' -> 'spelling' (edit_diff should give 1 since you just need to add 1 letter)  'speling' -> 'ppeling' -> 'peeling' (edit_diff should give two since you need to do two swaps. You can do it in other ways, but there's no way to do it in less than two steps)"
+                }
+            ]
+        },
+        {
+            "question": "Can anyone please explain what this sentence, \"the edit distance between `start` and `goal` is either: (a) one more than the edit distance between `start` and all but the first character of `goal\", means?`",
+            "follow-ups": [
+                {
+                    "feedback": "Translating into pseudo-code (this is just one possibility, which is why it says \"either...or (b)...\"):                edit_diff(start, goal) = 1 + edit_diff(start, goal[1:])"
+                }
+            ]
+        },
+        {
+            "question": "I passed all the test cases but had a question regarding my recursive solution to the problem.  For the three recursive calls, I had a conditional check to determine whether elements of the start and goal strings matched so I could either substitute or skip (like in count_partitions). How would you implement this check via base case without recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "this kind of check could be one of your base cases - checking whether the first characters are equal, then \"skipping\" if that is the case into the next recursive call."
+                }
+            ]
+        },
+        {
+            "question": "How do I fix this? I used many if statements until my code run into this:  Problem 7 > Suite 1 > Case 5  >>> from typing import edit_diff, autocorrect  >>> sum([edit_diff('hyper', 'yhbpexr', k) > k for k in range(7)])  5  # Error: expected  # 3  # but got  # 5  I don't know if I'm applying add, remove, and sub correctly from what the question is asking. I decided to not use the template.",
+            "follow-ups": [
+                {
+                    "feedback": "I solved it. No help needed."
+                },
+                {
+                    "feedback": "Any clues on what the problem was?"
+                }
+            ]
+        },
+        {
+            "question": "#1: Inside the \"else\" block in the template, it necessary to have multiple if statements checking whether we add, remove, or substitute, or do we just call them all together?  #2: I don't understand how we return the min function without other conditionals because for example if there's only one change (if start = hat, goal = cat), then the min would be (1, 0, 0) and would return 0 instead of 1?",
+            "follow-ups": [
+                {
+                    "feedback": "1\\. No. You don’t really need an if statement to determine whether you add, remove, or subtract and you can call them together like the template does. I said this in a previous post, but think of how you can use recursion to make decisions. That will remove the need for the if statement.      2\\. Well suppose that you had the add_diff, remove_diff, and sub_diff computed correctly. These are numbers since they are edit differences, but what do the numbers mean? What do they represent? If they represent various choices for example, which one would represent the right choice and how do we select it? We want the minimum edit difference as a hint.      In your example, if we add, then we’ll surely get an edit_difference greater than 1 since adding the letter was kind of useless and we’ll need to remove it. Similarly, if we remove a letter, we’re going to eventually need to add a letter back to make them the same length so the edit difference if we remove will be greater than 1 as well. If we substitute, then that’s 1 difference (just change the h to a c). The min of 1 and two numbers greater than 1 is just 1."
+                }
+            ]
+        },
+        {
+            "question": "I am pretty sure I have the recursive part solved, but I am having a lot of trouble with the base cases; I don't really know how to move forward.",
+            "follow-ups": [
+                {
+                    "feedback": "I solved it, but added extra base cases."
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on this test case...                >>> big_limit = 10     >>> edit_diff(\"wird\", \"wiry\", big_limit)     1       >>> edit_diff(\"wird\", \"bird\", big_limit)     4     # Error: expected     #     1     # but got     #     4  I used print statements and figured out what was going on. So my recursive calls involved slicing off the last character of either goal/start. But that means if only the first character is different then it slices off every single character at the end until it reaches the very first one, \"w\" (thats why it returns 4, because bird/wird has 4 characters). I don't know where to go from here because I've been following the hints on the page for my recursive calls...",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you consider the possibility of swapping/substituting characters"
+                },
+                {
+                    "feedback": "In that case of substituting I cut off last character from both start and goal but it doesn't change the outcome of this testcase"
+                },
+                {
+                    "feedback": "Make sure you make the right choice between the three options. Also, if the last character of each string is equal, then what recursive call can you make to simplify the problem?"
+                }
+            ]
+        },
+        {
+            "question": "My solution failed the test:                >>> from typing import edit_diff, autocorrect     >>> small_words_list = [\"spell\", \"nest\", \"test\", \"pest\", \"best\", \"bird\", \"wired\",     ...                     \"abstraction\", \"abstract\", \"wire\", \"peeling\", \"gestate\",     ...                     \"west\", \"spelling\", \"bastion\"]     >>> autocorrect(\"speling\", small_words_list, edit_diff, 10)     # Error: evaluation exceeded 10 seconds - check for infinite loops  When I checked this test on my own it did give the expected output, but took awhile (>10s). I believe this is because my edit_diff compares 5 values: substitute_diff, 2 for add_diff, and 2 for remove_diff. The 2 values for add_diff are either using start[1:] or goal[1:], and start[:-1] or goal[:-1] for the values for remove_diff. However, if I use only three values then I fail different test cases depending on if I slice start or goal. How do I account for the possible adds/removes with only one call to edit for each so my code doesn't take an eternity?",
+            "follow-ups": [
+                {
+                    "feedback": "`add_diff` only needs to slice one of the strings, and `remove_diff `should slice the other. Make sure you are slicing in one direction (either comparing/removing the first character, or comparing/removing the last character)."
+                },
+                {
+                    "feedback": "Thank you. I'm still not completely understanding the conceptual (though it now works), why does it not matter which direction we slice in?"
+                },
+                {
+                    "feedback": "Think of it as working either backwards or forwards; the end result is the same. If you take any two strings and calculate their edit difference, then reverse each (character-wise) and calculate the new edit difference, you will get the same value:      dog -> swap  sdog -> swap (1)  swog -> swap (2)  swag -> swap (3)  swag -> swag (4)      god -> paws  pgod -> paws (1)  paod -> paws (2)  pawd -> paws (3)  paws -> paws (4)      This is equivalent to recursing through each string backwards instead of forwards"
+                }
+            ]
+        },
+        {
+            "question": "how can check for combinations of add, sub and rem??",
+            "follow-ups": [
+                {
+                    "feedback": "One of those is similar to what you implemented in problem 6. And asking for how to check the combinations is basically asking for the answer. Think of the 3 operations as choices in a tree recursion. And if you want to check if they're right then running the autograder would help."
+                }
+            ]
+        },
+        {
+            "question": "For #7 we can use while and for statements, correct? We just cant use them on #6.",
+            "follow-ups": [
+                {
+                    "feedback": "This is intended to be solved recursively"
+                }
+            ]
+        },
+        {
+            "question": "I am very stuck in how the implementation of sub diff is close to the implementation of swap diff? How are we supposed to think about the function recursively if we have to iterate through the string",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean? swap_diff is a recursive function."
+                },
+                {
+                    "feedback": "In a previous post it states that the implementation of sub diff is similar to swap diff but I'm confused in how that is supposed to work"
+                },
+                {
+                    "feedback": "sub is shorthand for substitute and swap also means substitute so they are very similar and so their implementation could be very similar as well. The meat of this problem is in the base cases imo"
+                },
+                {
+                    "feedback": "That is not what I am asking, I am confused in how the reursive case for sub diff is close to swap diff"
+                },
+                {
+                    "feedback": "Swap diff involves a recursive call, sub diff is a recursive call. I don't get the confusion. The recursive calls do the same thing so they are very similar. Note that I am trying to not explicitly give out the answer."
+                },
+                {
+                    "feedback": "I understand that the recursion calls do the same thing but I don't understand how the recursive call in sub diff is implemented and how it is similar to swap diff"
+                },
+                {
+                    "feedback": "Think about what you're accomplishing when you swap in swap_diff. The 3 operators you have in this problem each have a purpose. One adds, one removes and one substitutes a character. Swapping a character is the same as substituting so its implementation is probably very similar. And note swap diff involves a recursive call while sub diff is a recursive call; and if the functionality of the calls are the same then wouldnt it make sense that both implementations are similar?"
+                },
+                {
+                    "feedback": "I can't see how to write a recursive line which is similar to swap diff, since my swap diff is quite long, at least can't accommodate into one line. I have a helper function in swap diff."
+                },
+                {
+                    "feedback": "In problem 6, you should only have a set recursive call. I think you're getting confused between the actual function and the recursive calls you're making in that function."
+                }
+            ]
+        },
+        {
+            "question": "Could add diff, remove diff, and sub diff all be the same?",
+            "follow-ups": [
+                {
+                    "feedback": "The same? No, but very similar yes. Think about what role each function plays. They're not doing the same thing three times, else we would just multiply the result of the first one by three.      Remember that we don't actually care _what_ the added/subtracted/swapped letters are, rather we just need to keep track of how many changes must be made.  Adding/subtracting letters will cause the size (for the sake of future comparisons) of one of the arrays to change, but not the other. Swapping however is very similar to the case in which the letters were the same to begin with, the only difference being you must add an additional change to the total."
+                },
+                {
+                    "feedback": "No, they all accomplish different things. A hint that I could give is that: sub_diff is similar to recursive call in swap_diff."
+                },
+                {
+                    "feedback": "Do I need to def a helper which takes the index as one of the arguments?"
+                },
+                {
+                    "feedback": "That could be helpful, another method could involve decrementing the limit. But a helper function is perfectly fine!"
+                }
+            ]
+        },
+        {
+            "question": "Are we able to use memoization? I continue to have timeouts whenever I run my code.",
+            "follow-ups": [
+                {
+                    "feedback": "From experience, timeouts likely mean you have an infinite loop in your code. It's very unlikely that Python is actually taking that long to process."
+                },
+                {
+                    "feedback": "Student is correct. Memoization is not necessary to pass the time requiremetn"
+                }
+            ]
+        },
+        {
+            "question": "Can you use For loops in this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Considering its intended to be a recursion problem, probably not the best idea to use for loops."
+                }
+            ]
+        },
+        {
+            "question": "I am stuck on this error. I've made all the changes imaginable over the past three days, even nonsensical ones. Can anyone give me some clues on what the error could be and how to solve it?  >>> sum([edit_diff('hyper', 'yhbpexr', k) > k for k in range(7)])   4  # Error: expected   # 3   # but got   # 4",
+            "follow-ups": [
+                {
+                    "feedback": ">>> edit_diff('leach', 'leah', 100)   2   >>> edit_diff('xanax', 'xcadnadx', 8)   4   >>> edit_diff('bouge', 'oueewu', 100)   3   >>> edit_diff('tosh', 'toh', 4)   2   >>> edit_diff('guano', 'u', 100)   5"
+                },
+                {
+                    "feedback": "Nevermind, got it. I messed up one of the base cases."
+                },
+                {
+                    "feedback": "How did you get passed this test case?"
+                },
+                {
+                    "feedback": "In my case, edit_diff('hyper', 'yhbpexr', k) returned 4 when it was supposed to return 3. Consequently, [edit_diff('hyper', 'yhbpexr', k) > k for k in range(7)], returned [False, False, False, False, True, True True], and sum=4.  One of my base cases was messed up, and passed all the tests but this one (and a few later suites.) My base case for when you reach the last characters in either of the strings was not set up correctly. I incorrectly assumed that if you had more than one character left in one of the strings you should just return 1. After fixing this base case, all tests passed."
+                }
+            ]
+        },
+        {
+            "question": "Here are some of the other case which fail all with one more than the expected edit_diff,  >>> edit_diff('leach', 'leah', 100)   2   >>> edit_diff('xanax', 'xcadnadx', 8)   4   >>> edit_diff('bouge', 'oueewu', 100)   3   >>> edit_diff('tosh', 'toh', 4)   2   >>> edit_diff('guano', 'u', 100)   5"
+        },
+        {
+            "question": ">>> edit_diff('hyper', 'yhbpexr', 0) > 0   True   >>> edit_diff('hyper', 'yhbpexr', 1) > 1   True   >>> edit_diff('hyper', 'yhbpexr', 2) > 2   True   >>> edit_diff('hyper', 'yhbpexr', 3) > 3   True   >>> edit_diff('hyper', 'yhbpexr', 4) > 4   False  so the sum should be 0 + 1 + 2 + 3 = 6?  sum([edit_diff('hyper', 'yhbpexr', k) > k for k in range(7)])",
+            "follow-ups": [
+                {
+                    "feedback": "No, the sum is True + True + True + True = 1 + 1 + 1 + 1 = 4"
+                }
+            ]
+        }
+    ]
+}

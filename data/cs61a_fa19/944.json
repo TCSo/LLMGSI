@@ -1,0 +1,28 @@
+{
+    "subject": "[HW 03] Q5: Towers of Hanoi",
+    "content": "<a href=\"https://cs61a.org/hw/hw03/#q5\">Q5: Towers of Hanoi</a>\n\n<p> Please post all questions you have below concerning Q5: Towers of Hanoi in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "If a function doesn't **return** itself but instead just **calls** itself(i.e. in cool_function(), it simply \"cool_function()\" instead of \"return cool_function\"), is it still considered a recursive function? I had this whim, but I believe it is still recursive because in algorithms like merge sort, it also calls, instead of return, itself. I just wanna figure it out semantics- wise.",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, it is recursive. From the textbook section 1.7: \"A function is called _recursive_ **if the body of the function calls the function itself** , either directly or indirectly.\" It's not a requirement to precede this call with a return statement."
+                },
+                {
+                    "feedback": "Yeah, this very clause is where I based my assumption upon as I remember reading it. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Take a leap of faith",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fis6pa43ssrn1d9%2Fk0t1vsbu8far%2Fgiphy.gif)"
+                },
+                {
+                    "feedback": "Lol LMAO"
+                }
+            ]
+        }
+    ]
+}

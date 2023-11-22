@@ -1,0 +1,1221 @@
+{
+    "subject": "[Scheme] Problem 19",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-19-2-pt\">Problem 19</a>\n\n<p> Please post all questions you have below concerning Problem 19 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Quick tip, if you're having trouble finding expressions in a tail context, perhaps rewrite existing code to contain tail contexts",
+            "follow-ups": [
+                {
+                    "feedback": "Do you mean rewriting the do_form function? Or there are other possibilities?"
+                },
+                {
+                    "feedback": "Basically, some of the tail contexts are *only* if it is the last element in a multi-expression body, so you may have to add additional checks for checking if a certain expression is the last expression and only evaluating it in a tail context if this is so."
+                }
+            ]
+        },
+        {
+            "question": "I am kinda understanding how tail-call works, but I have a question that might seem obvious to some: is python, or in this case, the interperater that we have build without having implemented any optimization features, already smart enough to handle tail-recursion for us(i.e. it knows to kill idle frames when it senses it's a tail-call) or this is something that we are coding for?(i.e. killing idle frames!). I understand what makes a recursive function tail- recursive is something like writing factorial(n-1, total*n) instead of n*factorial(n-1, total), but I don't know if all we have to do is to code in this fashion, or we will have to code to enable that optimization. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "You have to basically manually “activate” frame re-use on certain scheme_eval calls; it’s your job to determine which existing scheme_eval calls are in a tail context, and add a True parameter to them. Even if other scheme_eval calls in your code aren’t in a tail context, you might be able to rewrite those calls to be tail-recursive, and then pass in the additional True parameter."
+                }
+            ]
+        },
+        {
+            "question": "For this problem, are we implementing tail recursion so that it applies to tail contexts to our actual python implementation of scheme, or tail contexts in scheme code that gets written in the interpreter? For example, would the interpreter have be able to tell the difference between a scheme lambda function that uses tail recursion and one that doesn't?",
+            "follow-ups": [
+                {
+                    "feedback": "If you handle tail contexts within the Python implementation, that basically handles tail contexts within Scheme implicitly - since your Python code is just a \"wrapper\" of sorts of the inputted Scheme code"
+                },
+                {
+                    "feedback": "If the new scheme_eval function returns a Thunk instance, which needs to be \"evaluated in an environment,\" how does one evaluate it without just opening another recursive frame?"
+                },
+                {
+                    "feedback": "We don't worry about that - it's implemented for us within the provided `complete_apply` method"
+                },
+                {
+                    "feedback": "What could be the reason I'm getting <scheme.Thunk object at 0x000001E46A80D978> instead of the evaluated value in the interpreter/test cases if the object's evaluation is supposedly implemented?"
+                },
+                {
+                    "feedback": "You probably didn't implement this part properly:  The `Thunk` class represents a [thunk](http://en.wikipedia.org/wiki/Thunk), an expression that needs to be evaluated in an environment. When `scheme_optimized_eval` receives a non-atomic expression in a `tail` context, then it returns an `Thunk` instance. Otherwise, it should repeatedly call `original_scheme_eval` until the result is a value, rather than a `Thunk`."
+                }
+            ]
+        },
+        {
+            "question": "Usually scheme _eval returns a completely evaluated expression. How is it gonna work by returning a Thunk object? Doesn't this mean anything that's a tail call doesn't get evaluated at all, because it just gets a thunk object instead of an evaluated expression?",
+            "follow-ups": [
+                {
+                    "feedback": "This is why the following method is given and utilized under-the-hood for us:                def complete_apply(procedure, args, env):         \"\"\"Apply procedure to args in env; ensure the result is not a Thunk.\"\"\"         val = scheme_apply(procedure, args, env)         if isinstance(val, Thunk):             return scheme_eval(val.expr, val.env)         else:             return val"
+                },
+                {
+                    "feedback": "Keep in mind that `original_scheme_eval` is written so that it calls `scheme_eval` within it, so even if you go into `original_scheme_eval`, it will eventually call `optimized_scheme_eval` at some point, so a `Thunk` might be returned quite a few times before it is finally evaluated to a value."
+                },
+                {
+                    "feedback": "Where is this method used? It's baffling seeing a \"Thunk\" just magically turns into an expression at the end, lol"
+                },
+                {
+                    "feedback": "It was part of Problem 4; see its problem description:  You'll have to recursively call `scheme_eval` in the first two steps. Here are some other functions/methods you should use:    * The `check_procedure` function raises an error if the provided argument is not a Scheme procedure. You can use this to check that your operator indeed evaluates to a procedure.   * The `map` method of `Pair` returns a new Scheme list constructed by apply ing a _one-argument function_ to every item in a Scheme list.   *  **The`scheme_apply` function applies a Scheme procedure to some arguments.**"
+                },
+                {
+                    "feedback": "I am confused by **original_scheme_eval** , it doesn't exist in my code as a function. What are you guys referring to?"
+                },
+                {
+                    "feedback": "It is a parameter to `optimize_tail_calls`, and since `optimized_eval` is defined within `optimize_tail_calls`, it can (and should) be utilized within your `optimized_eval` solution."
+                },
+                {
+                    "feedback": "THANKS!"
+                }
+            ]
+        },
+        {
+            "question": "Will I also need to rewrite functions other than the optimize_tail_calls function? Or did the rewrite mean the three lines within the function.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm got it"
+                },
+                {
+                    "feedback": "Did you end up rewriting functions?"
+                },
+                {
+                    "feedback": "“Rewriting” function is exaggerating it a little. What you really have to do is just find all the parts of your code that handle tail contexts and setting `tail = True` in your call to `scheme_eval` when it is a tail context. Remember that tail contexts are the following: * The last body sub-expression in a lambda expression * Sub-expressions 2 & 3 in a tail context if expression * All non-predicate sub-expressions in a tail context cond * The last sub- expression in a tail context and, or, begin, or let Pay special attention to the ones where only the **last** statement is a tail context, because you will have to implement extra checks for that."
+                },
+                {
+                    "feedback": "Does this mean that the only modifications we have to make to optimized_scheme_eval is the Thunk, result, value loop and then modify functions like do_if_form elsewhere?"
+                },
+                {
+                    "feedback": "Will I need to modify calls to do_cond_form, do_if_form, etc. in Scheme_reader.py so that scheme_read/read_tail can recognize and alert the interpreter that there are tail contexts?"
+                },
+                {
+                    "feedback": "The only thing you need to modify is the indicator that `optimized_eval` can delay evaluation for tail contexts, done by setting `tail = True`. `scheme_read` and `read_tail` don’t need to know anything about tail recursion, so you don’t need to touch those."
+                },
+                {
+                    "feedback": "Thanks for the fast reply on a Sunday, much appreciated!"
+                }
+            ]
+        },
+        {
+            "question": "TIP: You don't need to call complete_apply!",
+            "follow-ups": [
+                {
+                    "feedback": "Is it because we will take care of the case of thunks in optimized_eval, so we don't need to handle thunks in places like scheme_eval?"
+                },
+                {
+                    "feedback": "The actual evaluation is still done by the `original_scheme_eval` function, which will call `scheme_apply` when it needs to. `optimized_scheme_eval` is just there to delay evaluation and manage iteration until it’s needed, but application is still handled by `original_scheme_eval`."
+                },
+                {
+                    "feedback": "Could you please elaborate on how the optimized_scheme_eval \"is just there to delay evaluation and manage iteration\""
+                },
+                {
+                    "feedback": "Normally, whenever `scheme_eval` is called, it branches off into a bunch of new functions and continues creating new Python frames until we hit a recursion error. However, `optimized_eval` will just immediately return a `Thunk` when it can, so we avoid this issue. Eventually, however, the `Thunk` is something that is passed into `optimized_eval` with `tail = False`, so we know that the interpreter will need its actual value in order to perform further calculations. However, instead of branching into new frames deeper and deeper, we just keep “unwrapping” the `Thunk`s in a while loop in the same frame, so we don’t get errors. Evaluation is delayed, and we end up using iteration rather than recursion from the interpreter’s perspective."
+                }
+            ]
+        },
+        {
+            "question": "I'm only able to get around 350 iterations before a maximum recursion depth is passed. This means that I am Thunking but not enough. I've touched scheme_apply, optimized_apply, and do_if_form. Is there any other part of the code that could be causing me to not return from recursive calls of scheme_apply? Maybe from an incorrect implementation of one of the previous problems? I've passed all tests up to this point.  I'm currently just trying to get the `sum` test case to pass.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember what all the tail contexts are:    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let  Make sure you’re hitting all of those."
+                },
+                {
+                    "feedback": "To add on to what Nicholas said, if your current code doesn't contain tail contexts in those forms, re-write it to do so, then pass in True in the relevant `scheme_eval` calls."
+                },
+                {
+                    "feedback": "Turns out there's some boilerplate code that I missed. The case I missed was \"All non-predicate sub-expressions in a tail context cond\""
+                },
+                {
+                    "feedback": "Does lambda need to be evaluated as well?"
+                },
+                {
+                    "feedback": "The last statement in a `lambda` body (and other procedure bodies) is in a tail context. See the first bullet point in the above list."
+                },
+                {
+                    "feedback": "Is an assignment statement a tail context?"
+                },
+                {
+                    "feedback": "No."
+                },
+                {
+                    "feedback": "Cyrus when you say pass in True for the relevant scheme_eval calls, do you mean scheme_eval or optimized_eval? I'm confused which one should be used...also because in order to access optimized_eval I would need to call optimize_tail_calls first right?"
+                },
+                {
+                    "feedback": "Remember that `scheme_eval` is rebound to the function `optimized_eval`, so any call to `scheme_eval` is really a call to `optimized_eval`. Remember that functions are just variables, and we can always change them to point to something else, like another function."
+                }
+            ]
+        },
+        {
+            "question": "Warm Reminder: When rewriting your code, remember to check if your code still functions for previous problems.",
+            "follow-ups": [
+                {
+                    "feedback": "To build on this, running `python3 ok` without specifying a question is a good way to make sure all the previous tests are working, as well. If it says the test failed on the problem after the one you’re working on, then you know all the tests before that passed. For example, if I just finished question 7, I would run `python3 ok` and hope to see that the tests failed on question 8."
+                },
+                {
+                    "feedback": "Wow! Thank you both for these great tips! Really appreciate it!"
+                },
+                {
+                    "feedback": "I changed do_or_form and it made the extra credit problem work but nothing else does now... what should i do?"
+                },
+                {
+                    "feedback": "resolving follow ups related to the Scheme project since it is now past due - please post a new follow up if you still have questions about the assignment!"
+                }
+            ]
+        },
+        {
+            "question": "When a Thunk is returned, how is the evaluation able to keep going? Where else in the program does the evaluation gets called?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that everywhere `scheme_eval` is called, we instead call our `optimized_eval` implementation, instead. So if the `optimized_eval` function ever receives a `Thunk`, it will continue to try to evaluate the expression and environment contained within the `Thunk`, which will either return another `Thunk` or an actual value. We keep trying to repeatedly evaluate these `Thunk`s until we get an actual value, at which point we return that value, so the `Thunk` is never seen by the rest of the code."
+                },
+                {
+                    "feedback": "Let's say in apply_all, at some point the expr meets the condition of a tail, so we call scheme_eval on the expr with the third argument set to True. But that would just return a Thunk object. So I don't understand how do we eval that. I could call schem_eval on that object but isnt that just the same with calling scheme_eval on the expr with no third argument at the first place? bc we are making it a thunk object and evaluating the object right way. I'm just really confused about how we eval the Thunk object in the eval-all function"
+                },
+                {
+                    "feedback": "resolving follow ups related to the Scheme project since it is now past due - please post a new follow up if you still have questions about the assignment!"
+                }
+            ]
+        },
+        {
+            "question": "Could someone tell me where do I determine if a call is a tail call or not? (in other words, where do i put the parameter `tail` to `True`",
+            "follow-ups": [
+                {
+                    "feedback": "See what Nicholas wrote above"
+                }
+            ]
+        },
+        {
+            "question": "So I'm getting the error                RecursionError: maximum recursion depth exceeded while calling a Python object  All the environments of the Thunks being made have Global as a parent, so it seems like somehow I've made python fall into a recursive loop instead of scheme? I'm using a `while` loop in my `optimized_eval` function, so I think the recursion spiral might be somewhere else in my program, but I have no idea where to look. Any suggestions would help a lot.",
+            "follow-ups": [
+                {
+                    "feedback": "Have you enabled the tail call optimization for every tail context in your code? Remember that you have to enable it for all the following tail contexts:    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let"
+                }
+            ]
+        },
+        {
+            "question": "Without tail call optimization, this line of code evaluates correctly to (+ 1 2). However, with the optimization, this test case from Problem 18 doesn't pass anymore. Why? My code passed all the test cases for Problem 19.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyb9apunibn3a%2Fk2u985h0r0nk%2FScreen_Shot_20191111_at_1.54.11_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Have you implemented the code which asks you to repeatedly evaluate the `Thunk` until you get a value that isn’t a `Thunk`? You have to keep repeatedly evaluating the returned `Thunk`s until you get an actual value, since `Thunk`s don’t make sense to any part of the rest of the code."
+                },
+                {
+                    "feedback": "Yes, I believe that's how all my other test cases passed. The test cases only seem to fail in Problem 18"
+                },
+                {
+                    "feedback": "I think what we’ve started to find with this project is that the test cases aren’t exhaustive when it comes to making sure everything functions completely correctly. Neither the statement that you are using to return the result of `(let-to-lambda '(+ 1 2))` nor the statement that returns the symbols `+` and atoms `1` and `2` is in tail contexts, so you should never even be using the `Thunk`s at all. I suspect you have added too any `, True` statements when solving problem 19."
+                },
+                {
+                    "feedback": "Thanks so much!"
+                },
+                {
+                    "feedback": "Not OP but I am still getting this issue, except for both 17 and 18. I believe I am only using True when its in tail context, so I don't think I am adding True too often. One thing I've noticed is that if I don't include true on the last part of eval_all, it passes. How can I fix this?"
+                },
+                {
+                    "feedback": "The problem is only caused by adding `tail = True` when it isn’t supposed to be true or by not fully evaluating `result` to a value before returning it in `optimized_eval`. Have you checked both those places and also implemented your other functions so that `tail` is only set to `True` on the **last** expression?"
+                },
+                {
+                    "feedback": "Yes, I believe I have done both of these because the only time I set tail to True is in tail contexts, and for optimized_eval I loop through result until it isn't Thunk"
+                },
+                {
+                    "feedback": "Nvm, I accidentally added it somewhere it shouldn't have been"
+                }
+            ]
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "Marking this resolved since there doesn’t seem to be a question here."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk2uddfl0icvu%2FScreen_Shot_20191111_at_3.54.18_AM.png)  Can anyone explain why I might be getting this error? I am doing as the question asks, calling original original_scheme_eval until the expression becomes a thunk instance and then I changed the code for what I thought were tail recursion cases.",
+            "follow-ups": [
+                {
+                    "feedback": "You’re supposed to call `original_scheme_eval` on a `Thunk` instance and keep evaluated the returned `Thunk` instances until you receive a value rather than another `Thunk`, at which point you return the value.   It shouldn’t affect the functionality of your code at all, so if you’re passing all the cases up to question 19 (including `test.scm`) without the optimization, then the problem lies somewhere in your `optimized_scheme_eval` code."
+                },
+                {
+                    "feedback": "I'm having this problem too, and I'm still confused/stuck. Are there any additional tips on how to approach/fix it?"
+                },
+                {
+                    "feedback": "There isn’t much I can directly suggest other than debugging techniques. Figure out if and when all your statements are getting evaluated and try to figure out why the return values don’t match up. Printing debugging lines are extremely helpful in debugging, and you should be able to work your way towards the bug if you use enough of them and a bit of intuition. Sorry that I can’t really give a better answer, since there are so many possible causes. Good luck, though!"
+                }
+            ]
+        },
+        {
+            "question": "Once optimized_eval returns a thunk instance, where do you evaluate that thunk instance?",
+            "follow-ups": [
+                {
+                    "feedback": "If `optimized_eval` is not called in a tail context (if `tail = False`), then you should take the `result` `Thunk` and repeatedly evaluate it using `original_scheme_eval` until it is no longer a `Thunk`."
+                },
+                {
+                    "feedback": "Are we supposed to modify scheme_eval (original_scheme_eval) so that it can take in Thunk instances?"
+                },
+                {
+                    "feedback": "Nope. The `original_scheme_eval` function isn’t even supposed to know about `Thunk`s. However, remember that `original_scheme_eval` still calls the function bound to the name `scheme_eval`, which points back to our `optimized_eval` function. It should call those with `tail = False` so that `optimized_eval` only ever gives it a proper value. The only place we should set `tail = True` are in tail contexts, because then we know that `optimized_eval` is the only function that will handle the resulting `Thunk`s when `tail` is later set to `False`, and we need to perform all our evaluation."
+                },
+                {
+                    "feedback": "I'm a bit confused by what you mean when you say evaluate the Thunk instance with original_scheme_eval if original_scheme_eval isn't supposed to know about Thunks?"
+                },
+                {
+                    "feedback": "`Thunk`s contain an `expr` and an `env`, which is what you need to call `original_scheme_eval`. `original_scheme_eval` eventually returns the value of some other function such as `eval_all` or `do_if_form`, which can be `Thunk`s if they are in a tail context, but `original_scheme_eval` doesn’t know that—it’s only returning the values that the other functions returned, and those functions just returned the result of calling `scheme_eval`, which points to `optimized_eval`, which *can* return `Thunk`s.      Whenever `optimized_eval` is called with `tail = False`, however, it must necessarily return a value rather than a `Thunk`, because `tail = False` implies that further evaluation has to be done with a value, and since the rest of the code can’t handle `Thunk`s, it must repeatedly evaluate until it gets a value."
+                },
+                {
+                    "feedback": "Would we need to use a loop that constantly checks whether results will be a Thunk and a recursive call?"
+                },
+                {
+                    "feedback": "Maybe not a recursive call, since that ruins the point of the tail recursion, but iteration with a loop is a great idea!"
+                }
+            ]
+        },
+        {
+            "question": "I changed up my do_if_form, do_and_form, and my do_and_form so that it the 3rd argument of scheme_eval is set to True should it follow the rules for a tail context. However, whenever I use the new optimized call, I receive recursion error .",
+            "follow-ups": [
+                {
+                    "feedback": "You’re forgetting your function that handles multiline bodies such as `define` and `lambda`. Which function handles all those and then returns the value of the last expression? Don’t forget the last expression in those functions is a tail context."
+                },
+                {
+                    "feedback": "Where would a lambda expression be evaluated, it seems that the do_lambda procedure only returns the expression but does not evaluate it"
+                },
+                {
+                    "feedback": "Multiline bodies use the `eval_all` function, right? And if it is the last line of the body, it is a tail context, right?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk2vcr5c3wvol%2FScreen_Shot_20191111_at_8.24.51_PM.png)  Any idea why I might be failing this? I modified my eval_all so that the last expression is a tail call"
+                },
+                {
+                    "feedback": "Can you include the traceback so I can see the error?"
+                },
+                {
+                    "feedback": "I recieve a maximum recursion error"
+                },
+                {
+                    "feedback": "This means that either your `do_and_form` or your `eval_all` functions still aren’t handling tail recursion correctly, since those are the ones used in the test. Double check those to make sure they are implemented correctly, and if not, then go to OH or make a private post with your code so the instructors can check it for you."
+                }
+            ]
+        },
+        {
+            "question": "I'm looking inside the code of do_if_form, and I know we need to set tail = True for the 2nd and third subexpressions only in the case that the if statement is in a tail context. But by the time you are within the body of do_if_form, you don't have access to the rest of the code. So you have no idea whether if your if statement is in the middle of some code or if it is at the end (ie in tail context). I can't change the parameters and pass this information along somehow to do_if_form since that would mess up the tests... any hints on how to get past this?  Also what's the point of complete_apply? Are we supposed to use it somewhere somehow? I did a search across all files in the project and it's not called at all (except in the extra procedures and in define_macro, but no where in the core code).",
+            "follow-ups": [
+                {
+                    "feedback": "If your `if` statement itself is not in a tail context, then whatever statement is evaluating the `if` statement should call `scheme_eval` (which is really `optmized_eval` with `tail = False`. That means that even if the `if` statement itself returns a `Thunk` since it evaluated its consequent or alternative with `tail = True`, the outer expression which evaluated the `if` statement with `tail = False` will still get a proper value, since `optimized_eval` will never return a `Thunk` with `tail = False`. This is why you have to make sure to repeatedly evaluate and “unwrap” `result` until you get a result that isn’t a `Thunk`."
+                },
+                {
+                    "feedback": "We don't have to use `complete_apply` anywhere - it's implemented and utilized under the hood."
+                },
+                {
+                    "feedback": "Also, in general, you can add parameters with default values so that prior tests don't fail and you can still utilize the extra info if it's present."
+                },
+                {
+                    "feedback": "The default value for `tail=False` should already be set for you. This is also why the original `scheme_eval` has the `_=None` set in its header—it’s because it needs a third argument so that its signature matches that of `optmized_eval`, so it doesn’t cause any errors when you switch between using tail call optimization and not using it."
+                },
+                {
+                    "feedback": "Yep, that's a good example."
+                },
+                {
+                    "feedback": "Ok thanks guys, I think I understand it better now and I'm going to take another crack at it"
+                },
+                {
+                    "feedback": "Alright, best of luck!"
+                },
+                {
+                    "feedback": "^"
+                },
+                {
+                    "feedback": "Hey Nicholas, I know what I need to do in order to make \"do_if_form\" in tail context based on the posts I've read. But if I didn't misread your first post to this thread. Why would we pass tail=False when evaluating the if condition? Couldn't the condition for the if statement be in tail context? Sorry if I'm making you repeat what you said above, but I just want to fully understand this."
+                },
+                {
+                    "feedback": "In `do_if_form` we are not directly returning the value of evaluating the if condition, so that evaluation is not in tail context."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhi4mfvg3zg%2Fk2xyawbn8r58%2FScreen_Shot_20191113_at_4.03.42_PM.png)  I've added True as a parameter to all tail contexts but I keep getting a runtime error. Not sure why nothing completes. The else statement in optimized_eval returns value after a while loop. Can someone give me some tips?",
+            "follow-ups": [
+                {
+                    "feedback": "It sounds like you are getting stuck in the while loop, since there is no recursion error but a timeout error. Double check and make sure you eventually exit."
+                },
+                {
+                    "feedback": "Different anon here. I'm having the same error and it seems like I'm not exiting the loop. After printing the type of result, it seems that result is always a thunk but not sure why that is happening. Any advice?"
+                },
+                {
+                    "feedback": "I wasn't reassigning result with the if statement :) now I have a different error to deal with!"
+                },
+                {
+                    "feedback": "what is the error that you are getting?"
+                }
+            ]
+        },
+        {
+            "question": "when i tried to submit (without EC) it said maximum recursion depth exceeded for problem 19. Are questions 1-18 fine if 99 test cases are past?",
+            "follow-ups": [
+                {
+                    "feedback": "As long as you are passing question 1–18 and also 116 `tests.scm` cases (run with `python3 ok -q tests.scm`), you should get full credit for the project."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected       #     501501       # but got       #     Traceback (most recent call last):       #       ...       #     RecursionError: maximum recursion depth exceeded while calling a Python object              Run only this test case with \"python3 ok -q 19 --suite 1 --case 1\"",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you accounted for all the following tail-recursive cases (list courtesy of Nicholas above):    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let"
+                },
+                {
+                    "feedback": "where to check the 4 items?"
+                },
+                {
+                    "feedback": "What do you mean?"
+                },
+                {
+                    "feedback": "Where to check the following items? inside the function optimize_tail_calls?    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let"
+                },
+                {
+                    "feedback": "Check the parts of your code that handle the tail contexts, such as `do_if_form` for the `if` statements or `eval_all` for `begin` and the body of a `lambda`"
+                }
+            ]
+        },
+        {
+            "question": "I'm not quite sure exactly what optimized_eval is suppose to do. What I have in mind so far is using a while loop (while result is still a Thunk) and calling original_scheme_eval each time. I'm not sure what else is there to do? What am I missing?",
+            "follow-ups": [
+                {
+                    "feedback": "Finishing that part of the code means that `optimized_eval` will never return a `Thunk` when `tail = False`, but you still have to figure out in what cases you can set `tail = True`. Setting that means that the Scheme interpreter doesn’t have to evaluate those calls right away and return a `Thunk` instead, and it will just wait until the `Thunk`s are passed to some call of `scheme_eval` with `tail = False` to unwrap all the `Thunk`s and evaluate them. Those places where you need to set `tail = True` are your tail contexts. The list of all tail contexts has been posted several times on this thread already, so I won’t post them again, but you need to find the parts of your code that handle those contexts and add `, True` to the end of the `scheme_eval` call."
+                },
+                {
+                    "feedback": "So if tail is False, I should keep evaluating the result until it is not a Thunk, and return the result?"
+                },
+                {
+                    "feedback": "The part of your code is the part where it is assumed `tail = False`, since the `tail = True` case was already handled for you above. Sorry if this wasn’t clear in my first response, but it sounds like you already implemented `optimized_eval` correctly; you just need to set `tail = True` in the right places."
+                },
+                {
+                    "feedback": "Oh I see, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "If my code keeps returning recursion error, is it due to the fact that the tail calls in the other parts of the code aren't implemented yet?",
+            "follow-ups": [
+                {
+                    "feedback": "It probably means you haven’t enabled tail optimization in all the tail contexts. The list of contexts is somewhere on this thread, so you will have to go to the part of the code that handles each of those and enable it in those places."
+                }
+            ]
+        },
+        {
+            "question": "When I changed my do_and_form, nothing is returned at all when I try the original test cases. I think this could be because of the way I implemented optimized_eval, because it had originally worked without changing scheme_eval to the optimized version. The only thing I added to optimized_eval is that if tail is False, constantly call original_scheme_eval on the result if is still an instance of Thunk. Then I returned it at the end of the loop. Am I missing something in this function?",
+            "follow-ups": [
+                {
+                    "feedback": "Notice how there is already an `if tail` statement in the code template, so by the time the code gets to the part that you’re supposed to write, you already know that `tail = False`, so you don’t need to explicitly check for it. Make sure that after you finish evaluating all the `Thunk`s and finally get a value that you return that value."
+                }
+            ]
+        },
+        {
+            "question": "I am failing this test with a maximum recursion error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2zs4vtogt66%2FScreen_Shot_20191114_at_10.37.43_PM.png)  I know it either has to do with my eval_all or my do_and_form function based on the above posts. I had edited these functions so that there are tail calls in the proper context and that they still worked with the original cases. However, I had to rewrite my do_and_form so that it was in tail context. Can anyone double check that my new do_and_form sounds correct?  I first check if the given argument is empty (to which I return True), then if the rest is empty, I use the tail call. And the rest of the function would be the regular recursive calls to do_and_form, checking to return False, etc.",
+            "follow-ups": [
+                {
+                    "feedback": "Your logic makes sense. Did you also re-write the other functions Nicholas pointed out above?"
+                },
+                {
+                    "feedback": "Did you also rewrite your `do_or_form`? Your logic for `do_and_form` sounds correct."
+                },
+                {
+                    "feedback": "Don’t forget `do_if_form` while you’re at it, as well."
+                },
+                {
+                    "feedback": "Oh I had forgotten to rewrite my do_or_form, but it works now! Thank you both! :)"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "\"A successful implementation will require changes to several other functions, including some functions that we provided for you.\"      I'm honestly very confused on how to begin approach this problem. Are there any clues as to recognizing that a function needs to be changed?",
+            "follow-ups": [
+                {
+                    "feedback": "The tail contexts are as follows (courtesy of Nicholas above):    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let  So you'll need to rewrite functions such as `do_or_form`, `do_and_form`, etc. in such a way that `scheme_eval` gets called with an additional True parameter wherever execution is in a tail-context."
+                },
+                {
+                    "feedback": "Let me see if I understand this correctly. As is, functions such as do_or_form and do_and_form currently evaluate with scheme_eval normally. In those functions, we need some sort of if statement/check to see if our function is in a tail context, and if so, call scheme_eval with the True parameter on it?"
+                },
+                {
+                    "feedback": "Precisely!"
+                },
+                {
+                    "feedback": "Even though it says “require changes to several other functions,” all it really means is that you have to add the `True` in some places. It’s not like any code has to be super majorly refactored (unless you wrote weirdly to begin with)."
+                },
+                {
+                    "feedback": "In my case, I didn't write functions such as `do_or_form` and `do_and_form` recursively to begin with, so it took a little more effort, but it wasn't too bad."
+                },
+                {
+                    "feedback": "do the functions do_or_forma and do_and _form have to be recursive?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk30mhyzg8c7d%2FScreen_Shot_20191115_at_12.56.48_PM.png)  I'm getting this error, and I'm not sure what it means or why its happening? I assume it's because of something wrong I did in my optimize_tail_calls function, but I'm not sure what.",
+            "follow-ups": [
+                {
+                    "feedback": "Currently, my approach to that problem is to keep checking if result is a Thunk, and if it is, evaluate it using original_scheme_eval. When it is not, I return result. Is that the right way to be thinking about that problem?"
+                },
+                {
+                    "feedback": "Make sure you are repeatedly evaluating the result until it isn't a Thunk."
+                },
+                {
+                    "feedback": "How do we know if something is a non-atomic expression in a tail context?"
+                },
+                {
+                    "feedback": "Also, I believe that code was given to us?"
+                },
+                {
+                    "feedback": "No, you have to implement that loop from scratch. You don't have to worry about that determination - if your code reaches the #BEGIN and #END section, you will have a non-atomic expression in a tail context."
+                },
+                {
+                    "feedback": "Sorry, I means the check for a non-atomic expression was implemented. I did the loop as mentioned in my first reply, is there something flawed with my logic?"
+                },
+                {
+                    "feedback": "Notice how the above `if` statement is `if tail and not scheme_symbolp(expr) and not self_evaluating(expr)`. This means that if that code doesn’t run, you are guaranteed that the part of the code that you are writing will be handling only statements not in tail contexts and that are not atomic expressions. You don’t need to explicitly check for that."
+                },
+                {
+                    "feedback": "Sorry, perhaps I phrased my question poorly. I understand how the if statements are implemented for us and what they do. This is how I go about implementing my loop:      I keep looping so long as result is a Thunk. Every time inside the loop, I evaluate it using original_scheme_eval. When result is no longer a loop, I simply return it.      What is wrong with this approach?"
+                },
+                {
+                    "feedback": "Your approach sounds valid, but it looks like you’re somehow ultimately returning `Thunk`s when you aren’t supposed to, anyway. Have you added `True`s for calls to `scheme_eval` where you weren’t supposed to?"
+                },
+                {
+                    "feedback": "List of tail contexts is as follows:    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let"
+                },
+                {
+                    "feedback": "@Nicholas, so far I have modified do_if_form, do_and_form, do_or_form, and eval_all to utilize scheme_eval with True passed in. Are any of these wrong?"
+                },
+                {
+                    "feedback": "Those are fine. Could you remove all True parameters and see if it still returns the same error? If not, add them back in one by one until one is erroneous."
+                },
+                {
+                    "feedback": "Have you implemented a check to make sure `do_and_form`, `do_or_form`, and `eval_all` call `scheme_eval` with `tail = True` **only** when it is evaluating the last expression?"
+                },
+                {
+                    "feedback": "I removed every single True inside a scheme_eval statement and still get the same error @Cyrus."
+                },
+                {
+                    "feedback": "Then your loop in `optimized_eval` must be the issue. How are you checking whether `result` is a `Thunk`?"
+                },
+                {
+                    "feedback": "I use isinstance with result and Thunk"
+                },
+                {
+                    "feedback": "You are re-assigning `result` within the while loop and returning `result` after the while loop, right?"
+                },
+                {
+                    "feedback": "Yes, result = original_scheme_eval(result, env) inside the loop"
+                },
+                {
+                    "feedback": "`original_scheme_eval` takes in an expression and an environment. You are passing in a Thunk (`result`) as the expression. Also, be careful of which environment you are passing in. Remember that Thunks have an expression and an environment of their own, which you can utilize in your `original_scheme_eval` call."
+                },
+                {
+                    "feedback": "The `Thunk` **contains** the `expr` to be evaluated and `env` to evaluate it in, but it’s not the object itself that is to be evaluated."
+                },
+                {
+                    "feedback": "Thanks! I got it. But now, I'm getting a maximum recursion error. I looked at the other responses and tried my best to figure it out, but am having trouble. I submitted a private post if you would be able to help me out. Thank you!"
+                },
+                {
+                    "feedback": "Neither Nicholas nor I can see private posts (we are not course staff) but keep trying and if you need additional assistance that wouldn't require posting your code, feel free to post a new follow-up to this thread with whatever issue you are experiencing."
+                },
+                {
+                    "feedback": "This is the general structure of my do_and_form:                if expressions is empty, return True       set a variable named value equal to scheme_eval, with True passed in       if value is false, return it       if the length of expressions is 1 and value is true, return value       else, call do_and_form with expressions.rest     Is something wrong with this approach?"
+                },
+                {
+                    "feedback": "_(Does pseudocode count as posting code…? Nah, I don’t think so.)_ You can only use tail recursion for `do_and_form` if you are evaluating the last expression, but your current implementation uses tail recursion for every single expression in `and`, which is an issue."
+                },
+                {
+                    "feedback": "Although, if you’re getting a maximum recursion error instead of a `TypeError` or something for a `Thunk` appearing where it’s not supposed to, then you probably still have issues in other parts of the code of not implementing tail recursion when you’re supposed to. Double check all the expressions that the test cases uses and make sure you hit all of those properly. I don’t think it’s just an issue with the `do_and_form` code."
+                },
+                {
+                    "feedback": "The only other function used for this sum test case is eval_all, right? This is my approach to that function:                if expressions is nil, return None       if the rest is nil, return scheme_eval of first with True passed in       else, call scheme_eval on first without True, and then return eval_all of expressions.rest  Where did I go wrong here?"
+                },
+                {
+                    "feedback": "That's fine, but remember `do_if_form` has tail contexts as well."
+                },
+                {
+                    "feedback": "I think my do_if_form is fine?                     check_form to make sure its valid       if scheme_eval (no True) of first is true, return the appropriate scheme_eval call (no True)       elif expression's length is 3, return scheme_eval call (with True)"
+                },
+                {
+                    "feedback": "Both of your return statements are in tail contexts, so when you say \"return the appropriate scheme_eval call (no True)\" that should actually be True"
+                },
+                {
+                    "feedback": "Fixed, that, still no dice! Anywhere else I could be failing?"
+                },
+                {
+                    "feedback": "Adding True to my scheme_eval check (the second line of my recent reply) stops this error, but no I get 0 as my sum."
+                },
+                {
+                    "feedback": "I fail problem 5 now:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk30vyej7l0lu%2FScreen_Shot_20191115_at_5.21.29_PM.png)"
+                },
+                {
+                    "feedback": "(This is only when I uncomment the scheme_eval = optimize line). It passes otherwise."
+                },
+                {
+                    "feedback": "No, they’re not, but `define` bodies use `eval_all` as well. What environment are you passing into `original_scheme_eval`?"
+                },
+                {
+                    "feedback": "result.env"
+                },
+                {
+                    "feedback": "I think this may be a problem with my do_and_form. The problem is, I don't know how to only call True in some places, and not in others. If I do it differently, I'll be calling the function too many times. Any suggestions?"
+                },
+                {
+                    "feedback": "I don’t think that specific issue is caused by `do_and_form` since that test case doesn’t use `and` at all. It’s possible that `area` is actually being assigned to the `Thunk` and then only being evaluated whenever `area` is evaluated with `tail = False`, which is why the `area` changes when `radius` is changed to `100`. I think the problem might still be in your `eval_all`. You’re basically going to have two places where you call `scheme_eval`: one where there are more expressions after the current one you’re evaluating and one where there isn’t. You would essentially check if `expressions.rest` is `nil`. If there are expressions left, you have to call `scheme_eval` with `False`, but if there aren’t, you can call it with `True`."
+                },
+                {
+                    "feedback": "That's exactly what I do! I have no idea what else to try :("
+                },
+                {
+                    "feedback": "Should I not be doing this recursively anymore?"
+                },
+                {
+                    "feedback": "You could also try manual debugging. Fire up the Python interpreter by running `python3 -i scheme.py` and then immediately running `(exit)` to get to the Python interpreter. From there, you can do `gf = create_global_frame()` and `scheme_eval(read_line([line]), gf)` to see what is returned when you try certain things. You can certainly still do this recursively—I did. I’m afraid I don’t think there’s much else we can do for you, unfortunately. You can probably make a private post to the instructors or go into office hours for help with debugging, but it’s too hard for us students since we’re not allowed to see the code itself. Sorry about that. (You haven’t added any `True`s in `do_define_form`, have you?)"
+                },
+                {
+                    "feedback": "I have not added True to do_define_form, no. Can I explain my code for eval_all one more time, just in case? Here goes:                     if expressions is nil, return None       if rest is nil, return scheme_eval of first with True passed in       else, call scheme_eval of first with no True passed in, and return eval_all on the rest"
+                },
+                {
+                    "feedback": "That logic sounds exactly like it’s supposed to be. I don’t really have any ideas, unfortunately."
+                },
+                {
+                    "feedback": "Are any other modified functions used for this test case?"
+                },
+                {
+                    "feedback": "No, not really. I’m not sure I can provide any more advice for you, unfortunately."
+                },
+                {
+                    "feedback": "If you still haven’t been able to figure it out, I’ll be in the Unit 1 Central building outside the APR for most of today and probably for the next couple days, as well. See @2114."
+                },
+                {
+                    "feedback": "I'm still very stuck! I'm unfortunately back home for the weekend. Will you be available Monday?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpui8zyi2q5%2Fk33uk310ijlk%2FScreenshot_2.png)I've passed all the test cases for problem 19, but now my project is broke on problem 13"
+                },
+                {
+                    "feedback": "Is this problem 13 or 12? Ok is saying that this is problem 12. Either way, make sure you aren’t accidentally evaluating anything twice due to the changes you made to enable tail recursion."
+                },
+                {
+                    "feedback": "Jason, consider looking at your implementation of question 12 again to see if you coded it correctly originally, such that it allows for tail recursive functionality. It turns out that there are ways to write question 12 that pass the ok tests but end up not working with problem 19."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure if I'm taking the right approach to the Thunk part. Am I right in running through a loop while my result is an instance of Thunk and rebinding result to the result returned by original_Scheme_Eval? Eventually returning the result when it isn't an instance of Thunk?",
+            "follow-ups": [
+                {
+                    "feedback": "Yep!"
+                },
+                {
+                    "feedback": "This doesn't seem to be working for me. I'm using a while loop with one statement that rebinds result to the result returned by original_Scheme_eval of result and env. Returning result after the while loop. I keep hitting the 'malformed list' error"
+                },
+                {
+                    "feedback": "Malformed list happens because you pass in the wrong things to original_scheme_eval. Look at the Thunk class, and you’ll quickly realize how to fix it."
+                },
+                {
+                    "feedback": "Remember that Thunks have an expression and an environment of their own, which you should utilize in your `original_scheme_eval` call."
+                },
+                {
+                    "feedback": "Oh thanks! I still seem to be hitting the maximum recursion depth though. I modified my do_if_form, just to see if I could pass the first test case. Any suggestions for this?"
+                },
+                {
+                    "feedback": "You need to change more functions than that in order to get test cases to pass."
+                },
+                {
+                    "feedback": "Got it! Thanks so much for the help!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "If we have a special form like (define <symbol> <expression>), why is <expression> not in a tail context? Doesn't the expression that gets evaluated the last always belong in a tail context? Or should we only follow the guidelines in lecture regarding identifying tail contexts?",
+            "follow-ups": [
+                {
+                    "feedback": "In `do_define_form`, we aren't returning the result of evaluating the expression, but rather we are returning the symbol, so we can't discard the frame."
+                },
+                {
+                    "feedback": "ok thanks cyrus!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk2uddfl0icvu%2FScreen_Shot_20191111_at_3.54.18_AM.png)I got the same this error but I don't know what is wrong. I know there is a post before, but I still don't understand how to fix it. I use a while loop and when the result is still a Trunk, I call original_scheme_eval on the expr and the env of the Trunk instance. How can I fix my code?",
+            "follow-ups": [
+                {
+                    "feedback": "You likely set the True parameter for a scheme_eval call that isn't in tail- context"
+                },
+                {
+                    "feedback": "I change the eval_all, and function do_if_form, do_or_form, and do_and_form?"
+                },
+                {
+                    "feedback": "Those are functions that need to be changed, but you may have done it wrong. Remember the list:    * The **last** body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The **last** sub-expression in a tail context and, or, begin, or let"
+                },
+                {
+                    "feedback": "Thanks! I find the problem!"
+                },
+                {
+                    "feedback": "Great!"
+                }
+            ]
+        },
+        {
+            "question": "After I write 19, whenever what inputs I make, scheme just keeps considering as a str instead of a Pair instance. Can anyone help me?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnopgqcuu1sa%2Fk317b6906usg%2F%E6%8D%95%E8%8E%B7.JPG)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you making sure to completely evaluate the `Thunk` using `original_scheme_eval` until a value is returned? I’m wondering if you’re just returning `result.expr` or something."
+                }
+            ]
+        },
+        {
+            "question": "A little tip from one just struggle through problem 19:  There are basically only 2 things you need to do:    * **Modify previous do__x__form:** add True in scheme_eval to those who are processing the last element in an expression like \"expression and expression is Null\"   *  **In optimized_eval:** use a while statement to constantly call original_scheme_eval until the result is not an instance of Thunk. (They should be within 10 lines)",
+            "follow-ups": [
+                {
+                    "feedback": "I am really confused on how Thunk instances become values after evaluation. How does this work exactly??"
+                },
+                {
+                    "feedback": "That’s what the optimized_eval part of the question is for"
+                },
+                {
+                    "feedback": "A `Thunk` just stores an expression to be evaluated and the environment in which to evaluate that expression. We have delayed the evaluation of that until we can evaluate all at once in one `while` loop so we save frames, but we can only do this in tail contexts because otherwise, the value would have to be used by the Scheme interpreter right away somewhere else, and the rest of the code isn’t equipped to handle `Thunk`s. These `Thunk`s are eventually evaluated when they are passed to a call to `optimized_eval` with `tail = False`, at which point it will evaluate the `expr` and `env` stored in the `Thunk` result until you end up evaluating to something that isn’t a `Thunk`. This is your value."
+                }
+            ]
+        },
+        {
+            "question": "For the first case, I have set tail to True in do_if_form however, I am still getting maximum recursion depth. Any help would be appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "The four tail contexts are as follows: * The last body sub-expression in a lambda expression * Sub-expressions 2 & 3 in a tail context if expression * All non-predicate sub-expressions in a tail context cond * The last sub- expression in a tail context and, or, begin, or let You need to hit every part of your code that handles each of these contexts and set `tail = True` in those places. Pay special attention to the ones where only the **last** statement is a tail context, because you will have to implement extra checks for that."
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhpmj4d9436%2Fk320r3z2slpu%2FScreen_Shot_20191116_at_12.23.19_PM.png)  I am getting this error. I did not change anything but optimize_tail_calls and the parameters of calls to scheme_eval. Even so, when I comment the line which replaces the original scheme_eval, my code doesn't pass the tests for earlier questions.",
+            "follow-ups": [
+                {
+                    "feedback": "Did you change the parameters other than just adding `, True` to the calls to `scheme_eval`? If not, then you probably have other problems with your implementations to previous problems."
+                },
+                {
+                    "feedback": "Having the same problem too, how did you fix this?"
+                },
+                {
+                    "feedback": "Same ^"
+                },
+                {
+                    "feedback": "Just figured out my problem, I did not implement the recursive version of eval_all correctly"
+                }
+            ]
+        },
+        {
+            "question": "Are we checking whether code in python we are writing is in tail context or whether the inputted scheme code that a user enters is in scheme context? So when checking for \"Sub-expressions 2 & 3 in a tail context if expression\", are we literally looking at our python code in scheme.py and changing calls to scheme_eval in if statements or are we changing do_if_form and checking to see if we are calling scheme_eval on sub-expressions 2 and 3? Any help greatly appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "You essentially need to make sure that any time you call `scheme_eval`, if it is in a tail context, then you call it with `tail = True`. For example, in the `eval_all` function which handles lambda bodies and whatnot, I would need to implement a check to see whether this is the last expression, and if it is, then I would call `scheme_eval` with `tail = True` on that last expression. Otherwise, I would have to call it with `tail = False` (which is the default)."
+                },
+                {
+                    "feedback": "Got it, thanks for clearing it up."
+                }
+            ]
+        },
+        {
+            "question": "What's the purpose of using map in the body of the loop?",
+            "follow-ups": [
+                {
+                    "feedback": "There isn’t really a point to using `map` at all for this problem."
+                },
+                {
+                    "feedback": "Were you thinking of a different question?"
+                },
+                {
+                    "feedback": "Yea my fault. I saw your response to someone else and just realized it was for problem 4."
+                },
+                {
+                    "feedback": "No worries, some of these super-long followup chains can be very hard to follow along with!"
+                }
+            ]
+        },
+        {
+            "question": "How should we handle the body of the optimized_eval? I keep running into an \"unknown identifier define\" error.",
+            "follow-ups": [
+                {
+                    "feedback": "Keep evaluating/re-assigning result until it isn't a Thunk, and return it"
+                }
+            ]
+        },
+        {
+            "question": "Why is define not being recognized?",
+            "follow-ups": [
+                {
+                    "feedback": "Picture didn't post, trying again"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwv9nnux6wn2gv%2Fk3280nw9lyiz%2FScreen_Shot_20191116_at_3.46.57_PM.png) Why is the define function not being recognized? I can't seem to figure out why this would be an issue. (+ 1 1) runs properly.",
+            "follow-ups": [
+                {
+                    "feedback": "Are you still passing tests for prior questions?"
+                },
+                {
+                    "feedback": "How are you implementing `optimized_eval`? Are you repeatedly calling `original_scheme_eval` on the contents of `result` until it no longer returns a `Thunk`?"
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (sum n total)     ....   (if (zero? n)     ....       total     ....       (sum (- n 1) (+ n total))))     sum     scm> (sum 1001 0)     Traceback (most recent call last): maximum recursion depth exceded  I am getting this error. So far, I have complete the isinstance(Thunk, result) loop and modified the do_if_form so that it calls scheme_eval with the optional parameter as true but I am not passing this test case. Is there more to this test case that I must modify?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that tail contexts are the following: * The last body sub-expression in a lambda expression * Sub-expressions 2 & 3 in a tail context if expression * All non-predicate sub-expressions in a tail context cond * The last sub- expression in a tail context and, or, begin, or let Pay special attention to the ones where only the **last** statement is a tail context, because you will have to implement extra checks for that."
+                }
+            ]
+        },
+        {
+            "question": "I managed to pass the EC test cases but now 17 and 18 aren't passing and for both of them I get a return value similar to this instead of the desired result:                (<scheme.Thunk object at 0x103e80668> <scheme.Thunk object at 0x103e83b00> <scheme.Thunk object at 0x103e83b38>)  Can someone help me understand why?",
+            "follow-ups": [
+                {
+                    "feedback": "Two things could be happening: 1\\. You could be failing to completely evaluate the `Thunk`s passed into `optimized_eval` when `tail = False`. Make sure you complete evaluate `result` using `original_scheme_eval` until you no longer get a `Thunk` but a value. 2\\. You may have added `True` where you shouldn’t have added true. Make sure the only places where you set `tail = True` are tail contexts."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk33jongys63q%2FScreen_Shot_20191117_at_1.59.46_PM.png)  Any idea as to why I could be failing this test case now? I am positive all of my functions are optimized for a tail context now. This wasn't happening before when I had the following commented out:                scheme_eval = optimize_tail_calls(scheme_eval)",
+            "follow-ups": [
+                {
+                    "feedback": "You are getting this likely because you are passing in True as an additional parameter to scheme_eval in a place that isn’t in a tail-context. Make sure you check with the list that has been posted several times above."
+                },
+                {
+                    "feedback": "So far I've edited eval_all, do_if_form, do_and_form, and do_or_form to utilize True. Anything I've missed?"
+                },
+                {
+                    "feedback": "Did you make sure that `do_and_form`, `do_or_form`, and `eval_all` only call it in a tail context for the last expression, not all of them? I know someone else was having this issue a while ago, but we weren’t able to figure out the issue."
+                },
+                {
+                    "feedback": "Here's the general logic behind those 3 functions:  eval_all:                if expr is nil, return None       elif rest is nil, call scheme_eval in a tail context       else call scheme_eval regularly, then call eval_all on rest  do_and_form:                if length of expr is 0, return True       elif rest is nil, call_scheme_eval in a tail context       else       \tif scheme_eval of first is false, return it       \telse return do_and_form of rest  do_or_form:                if length of expr is 0, return False     elif rest is nil, call_scheme_eval in a tail context     else     \tif scheme_eval of first is true, return it     \telse return do_or_form of rest"
+                },
+                {
+                    "feedback": "If these look correct, could it perhaps be an issue with my `optimize_tail_calls?`"
+                },
+                {
+                    "feedback": "That is possible. You could maybe try to add a debug `print` statement right before you return to see the type of `result` and make sure it isn’t a `Thunk`?"
+                },
+                {
+                    "feedback": "I'm getting False for `isinstance(result, Thunk)`. Did the functions I posted above make sense?"
+                },
+                {
+                    "feedback": "Yes, they make sense. We weren’t able to help the other person having this issue over Piazza—if you live around Unit 1, I have unofficial “office hours” to help debug people in Unit 1 Central outside the APR if you wish. Otherwise, you can go into OH on Monday or make a private post to the instructors."
+                },
+                {
+                    "feedback": "Perhaps if we only work on q 19 that would help? I'm getting an infinite recursion error on the sum test."
+                },
+                {
+                    "feedback": "That means that you haven’t quite put `tail = True` everywhere that it should be put. Also make sure your `do_if_form` and `do_cond_form` are edited to work appropriately, as well"
+                },
+                {
+                    "feedback": "I edited do_if_form previously, but not do_cond_form. Do we have any tail contexts there? I'm not seeing any."
+                },
+                {
+                    "feedback": "I’ve posted this list way too many times already, but… * The last body sub- expression in a lambda expression * Sub-expressions 2 & 3 in a tail context if expression * All non-predicate sub-expressions in a tail context cond * The last sub-expression in a tail context and, or, begin, or let"
+                }
+            ]
+        },
+        {
+            "question": "What happens when optimized_eval receives a Thunk object as a parameter? Would we end up making a Thunk object with expr attribute being a Thunk object?  I would appreciate a simple example run through of how the optimized_eval function works. I'm unclear on the logic behind it.",
+            "follow-ups": [
+                {
+                    "feedback": "`optimized_eval` only receives Scheme expressions, just like the original `scheme_eval`. Overall, `optimized_eval` works by delaying evaluation of tail calls until absolutely necessary, returning `Thunk`s when it is otherwise able to. These `Thunk`s are eventually passed upwards to a call to `scheme_eval` where `tail = False`, which means that it finally has to evaluate all of those `Thunk`s until it gets a value. That value is returned to whatever function called it, and whoever called `scheme_eval` with `tail = False` had no idea the `Thunk`s even existed in the first place."
+                },
+                {
+                    "feedback": "I realize it’s a bit tough to explain over Piazza, so I hope that explanation made some semblance of sense."
+                },
+                {
+                    "feedback": "So when the Thunk objects are passed upwards where tail = False, at some point we end up at the line result = Thunk(expr, env). So in this case, is expr a Thunk object?"
+                },
+                {
+                    "feedback": "`expr` is a Scheme expression that needs to be evaluated, so at that point in the code, we evaluate it and keep evaluating it until we reach a value that isn’t a `Thunk`, at which point we return it."
+                }
+            ]
+        },
+        {
+            "question": "This is a question out of curiosity. For `do_and_form` and `do_if_form`, why do we not need to use `optimize_tail_calls` for short circuited cases? How are those different than when the last value is being evaluated? Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "It’s not that we don’t *need* to use as it as much as it is that we *can’t* use it. A tail call essentially discards everything in that frame, moving into the deeper frame without preserving the last call. However, if, for example, we enter the second-to-last expression for `and`, we have no idea if that expression is going to return true or false. If it does return false, we still have to evaluate the last expression, so we can’t throw it away. However, if we’re in the last expression, the value of `and` depends only on the value of the expression, so since its return value doesn’t depend on anything else, we can safely discard the information in that frame."
+                }
+            ]
+        },
+        {
+            "question": "I have implemented optimized_eval and made edits to other appropriate functions in my code. Any idea why I am not receiving the correct output?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuylep9lz600%2Fk33ndzxq9xha%2FScreen_Shot_20191117_at_3.42.35_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are passing True into `scheme_eval` somewhere that you shouldn't."
+                },
+                {
+                    "feedback": "@OP, I am also getting exact same error and I have not been able to find a wrongfully passed `True` statement in one of my `scheme_eval` calls. I am starting to wonder if one of my functions is designed incorrectly.  Any luck?"
+                },
+                {
+                    "feedback": "Do you guys fail any earlier test cases (before Q19)?"
+                },
+                {
+                    "feedback": "Found the error! Hint: Make sure to revisit the tail case contexts."
+                },
+                {
+                    "feedback": "Glad you found it! Hopefully the other Anon is able to as well haha"
+                },
+                {
+                    "feedback": "@OP are you referring to lecture slides? If so, I have rechecked all cases bunch of times already.  That's why I am thinking that one of my functions must have been structured in some odd way.  @Cyrus, I am passing all test cases up to this point."
+                },
+                {
+                    "feedback": "**Follow up:** my `do_and_form` and `do_or_form` were implemented using a while loop. That worked for all test cases until Problem 19. I rewrote above mentioned functions using recursion and now Problem 19 works great."
+                },
+                {
+                    "feedback": "Excellent."
+                }
+            ]
+        },
+        {
+            "question": "Problem 20 (EC) > Suite 1 > Case 1          scm> (define (map f lst)     ....         (if (null? lst)     ....             nil     ....             (cons (f (car lst)) (map f (cdr lst)))))     scm> (define-macro (for formal iterable body)     ....               (list 'map (list 'lambda (list formal) body) iterable))     for     scm> (for i '(1 2 3)     ....      (if (= i 1)     ....          0     ....          i))     DEBUG: <scheme.Thunk object at 0x10f815208>     DEBUG: (list (quote map) (list (quote lambda) (list formal) body) iterable)     # Error: malformed list: <scheme.Thunk object at 0x10f815208>          # Error: expected     #     (0 2 3)     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: malformed list: <scheme.Thunk object at 0x10f815208>  I complete question 20 before completing 19, but now 20 doesn't work. I've been trying to debug, but I haven't found the reason.",
+            "follow-ups": [
+                {
+                    "feedback": "Did you pass all Q19 tests? Double check your `optimized_eval` implementation - make sure you are passing in the current result's expression and environment as your parameters to `optimized_scheme_eval` when you're repeatedly calling it."
+                },
+                {
+                    "feedback": "kind of have a similar issue. What's happening for me is that the value of the expr in my Thunk is another Thunk, and that can't be evaluated in scheme_eval, which throws an error. I haven't been able to figure it out yet though, sorry!"
+                },
+                {
+                    "feedback": "That’s what the while loop is for: You need to repeatedly evaluate using `original_scheme_eval` in order to keep evaluating the `Thunk`s until you finally arrive at something that isn’t a `Thunk`. However, if you mean that the `result.expr` *itself* is a `Thunk`, then you’ve got another issue, because `result.expr` should only ever be a Scheme expression. Check to make sure your `optimized_eval` only ever returns values when `tail = False`. (Actually, I guess it is the same issue, in a way, then.)"
+                },
+                {
+                    "feedback": "yeah I meant the second issue. I'll try to do some more debugging to check if I'm accidentally returning a Thunk somehow. The thing is, this problem never came up until I did the macros problem, and the code for the new eval is pretty straightforward since the while loop condition just checks for thunk."
+                },
+                {
+                    "feedback": "Does your `optimized_eval` only ever return values when `tail = False`?"
+                },
+                {
+                    "feedback": "by that you mean that it returns non-thunks when tail = False, right? if so, then yeah"
+                },
+                {
+                    "feedback": "The other reason that problem could happen is if you have set `tail = True` somewhere you shouldn’t, and then the interpreter freaks out when encounters a `Thunk` where it should have seen a value."
+                },
+                {
+                    "feedback": "I've passed all the problem 19 cases. I just confirmed that I have the same problem as Akshit; the expression in the thunk is another thunk"
+                },
+                {
+                    "feedback": "Double check all the places where you set `tail = True` and make sure those are appropriate places to set it. Pay special attention to `and`, `or`, and `eval_all`, since those can only be called with `tail = True` if it’s for the **last** expression."
+                },
+                {
+                    "feedback": "Found the bug! In the question 20 hint, it said to use apply_macro (not scheme_apply) if you're implementing tail recursion."
+                },
+                {
+                    "feedback": "nice! @nicholas, it seems that the problem was with not calling complete_apply, which evaluates the expr in the Thunk. Do you know why this was necessary just for macros? The implementation of complete_apply could just be a call to scheme_apply, which works fine for all the other problems."
+                },
+                {
+                    "feedback": "Take a look at the complete_apply implementation:                def complete_apply(procedure, args, env):         \"\"\"Apply procedure to args in env; ensure the result is not a Thunk.\"\"\"         val = scheme_apply(procedure, args, env)         if isinstance(val, Thunk):             return scheme_eval(val.expr, val.env)         else:             return val  Not only does it apply the procedure, but it also evaluates the result before returning it if the result is a Thunk."
+                },
+                {
+                    "feedback": "Yeah i know that, but why is it only necessary for macros?"
+                },
+                {
+                    "feedback": "Sorry, completely misread your question. My guess is that it has something to do with macros being the only procedures that are applied to _unevaluated_ operands, meaning Thunks probably have to be accounted for more explicitly."
+                },
+                {
+                    "feedback": "yeah that sounds about right"
+                }
+            ]
+        },
+        {
+            "question": "Here's a potential tip for people stuck on the do_and_form/do_or_form tail recursive cases.  When I attempted to implement tail recursion for these forms, my original problem 12 stopped passing its ok grader test cases. It turned out that my original implementation of problem 12 was fundamentally flawed in that it didn't work with tail recursion (despite the fact that it passed the original question 12 ok tests when I originally solved it).  So make sure you understand how question 12 works, and don't be afraid to rewrite it if you think it may be flawed. Good luck!",
+            "follow-ups": [
+                {
+                    "feedback": "This happened to me too, and I would sort of expect this to be true for a lot of other people as well."
+                },
+                {
+                    "feedback": "I've ran into a similar issue so I'll re-post my tip:  My `do_and_form` and `do_or_form` were implemented using a while loop. That worked for all test cases until Problem 19. I rewrote above mentioned functions recursively and now Problem 19 works great."
+                }
+            ]
+        },
+        {
+            "question": "What does the tail context condition \"All non-predicate sub-expressions in a tail context cond\" mean?",
+            "follow-ups": [
+                {
+                    "feedback": "Within `do_cond_form`, evaluation becomes in tail context when the following condition is true, and `eval_all` is subsequently called/returned (as part of your Q13 solution, presumably):                if scheme_truep(test):  This means you will have to alter `eval_all` in some way."
+                }
+            ]
+        },
+        {
+            "question": "I don't know what to do...  Seems that after evaluating (zero? n) to False, the loop ends because the result False is not a Thunk :(  I use `isInstance(result, Thunk) `as the loop condition, do I need to change it?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fk34vyiw9fqz6%2FTIM%E6%88%AA%E5%9B%BE20191118123230.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, fixed it.  The tip above Brandon is really helpful, I rewrote my do_or_form and it works."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyga1q8dp76637%2Fk34wpvxa4b43%2Fissue.PNG)  I seem to be running issues with defining variables after modifying my code for #19...anyone have an idea what could be causing this? I haven't made any changes to do_define_form, so do I need to modify that for this case to work again?",
+            "follow-ups": [
+                {
+                    "feedback": "No, you shouldn’t have to modify `do_define_form` at all. The point of `optimized_eval` is that the rest of the interpreter isn’t supposed to even know that anything has even changed—you only need to modify certain parts of the code that handle tail contexts and set `tail = True` to allow tail recursion. Are you making sure to evaluate `result` in the correct frame?"
+                },
+                {
+                    "feedback": "Yeah I've been looking through my code and whenever the function takes in an `env`, I make sure to include that `env` in any `eval_all` or `scheme_eval` calls. So I'm not sure why it's not evaluating in the correct frame."
+                },
+                {
+                    "feedback": "Have you made sure that you're using the environment from the Thunk instead of the global frame?"
+                },
+                {
+                    "feedback": "The reason this error occurred is because scheme_eval was called twice in do_or_form."
+                }
+            ]
+        },
+        {
+            "question": "I can't find where I would change the implementation for how lambdas would function tail recursively. I can't even really find where lambdas are evaluated",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the last expression in the body of a lambda is a tail context, and we wrote `eval_all` to handle multi-line bodies for lambdas as well as `begin` and `define`. Try modifying that.."
+                }
+            ]
+        },
+        {
+            "question": "Where are the functions original_scheme_eval and scheme_optimized_eval defined? We can't find them, we can only find optimized_eval and scheme_eval in the scheme.py file.",
+            "follow-ups": [
+                {
+                    "feedback": "`original_scheme_eval` is a parameter of `optimize_tail_calls`, meaning it is accessible in the `optimized_eval` method defined within. `scheme_optimized_eval` isn't a thing."
+                }
+            ]
+        },
+        {
+            "question": "result = Thunk(expr, env)  What is the purpose of this line in the optimized-eval function?",
+            "follow-ups": [
+                {
+                    "feedback": "They have basically just created the `Thunk` for you so that you can just write the loop without worrying about having to assign a variable to the first evaluation and then checking if it’s a `Thunk`. It’s to simplify the code you have to write a bit. All you need to worry about is repeatedly evaluating `result` until you get a value."
+                }
+            ]
+        },
+        {
+            "question": "When we are altering our functions, do we add \"tail = True\" or just \"True\" as a third argument to each call to scheme_eval? So this means that we are only adding that rue to calls with scheme_eval, not to the def parameter headings of other functions?",
+            "follow-ups": [
+                {
+                    "feedback": "Just `True`. And yes to your second question."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1gnzqvd2zr%2Fk357w3pjycjv%2FScreen_Shot_20191118_at_6.06.31_PM.png)  We keep getting the above error. We have added tail = True to our scheme_eval calls in do-define-from and do-if-form. Is there an error in our optimized- eval or are some of the functions not in tail context?",
+            "follow-ups": [
+                {
+                    "feedback": "1\\. When you encounter a thunk in your optimized eval, do you repeatedly evaluate it until it is not a thunk? (this is stored in the result variable) Make sure to only return a Thunk if you are in a tail context.  2\\. You will need to eventually add some more True's. Here's the tail contexts pasted from above:    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let  you also should not need to modify do-define-form. take a look at eval-all"
+                }
+            ]
+        },
+        {
+            "question": "what makes apply_macro unique? I know that we pass in the raw operand in Scheme_eval but what’s actually happening with the apply_macro function?",
+            "follow-ups": [
+                {
+                    "feedback": "The `apply_macro` function essentially just immediately applies the operands to itself using `complete_apply`. Because we never evaluated the operands, the raw expressions are evaluated in the body of the macro essentially like a normal `lambda` function. This result is returned back from `apply_macro`, and then we evaluate it in `scheme_eval` and then call `scheme_apply` ourselves."
+                }
+            ]
+        },
+        {
+            "question": "dumb question but for the first case why is (sum 1001 0) equal to 501501?",
+            "follow-ups": [
+                {
+                    "feedback": "It’s summing all the integers from 0 to 1001."
+                },
+                {
+                    "feedback": "1001+1000+999....= 1001/2 * (1001+1)"
+                },
+                {
+                    "feedback": "^ The general formula for the sum of all integers from 1 to n is n*(n+1)/2."
+                }
+            ]
+        },
+        {
+            "question": "I'm sorry if this was already answered, but I couldn't find it. How can we determine whether the tail context is actually a recursive call? Like for example how do we know that the 2nd condition of an \"and\" special form is a recursive function call and not just the call of some random function?",
+            "follow-ups": [
+                {
+                    "feedback": "Tail calls don’t necessarily have to be recursive. All a tail call is is a call with delayed evaluation since we don’t necessarily care about the value right way. If it _is_ tail recursion, then we may not evaluate the value for a long while, but if it is just a short tail call that immediately gets evaluated, it still works for our purposes. Basically, it doesn’t matter if it’s recursive or not in order for it to be a tail call."
+                }
+            ]
+        },
+        {
+            "question": "I know this was posted already but the offered solutions didn't help me. I keep getting the \"malformed list\" error, which is interfering with almost all my previous test cases from earlier problems. I think my loop is only returning after it reaches a non-thunk value like it's supposed to (but I wouldn't know because I'm stuck on the first test case). Why is the error being thrown and how can I fix it? Even this case from problem 2 is giving an error:                scm> +     # Error: malformed list: +          # Error: expected     #     #[+]     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: malformed list: +",
+            "follow-ups": [
+                {
+                    "feedback": "Can you add a debug to output the `type` of `result` right before it’s returned? That way, you can see exactly what is being returned and then work from there to further debug."
+                }
+            ]
+        },
+        {
+            "question": "I'm running into some weird issues as I try to implement problem 19. Currently, I pass 5 test cases for 19, but it seems enabling tail calls leads to me failing 16, 17, and 18. I find this result weird because looking at 16, I am pretty sure I used only the functions that worked in the first 5 passed cases for 19. As such, I'm wondering what might be causing all 3 problems to fail and if I could get some pointers as to what I should perhaps look into or consider as I debug this issue.",
+            "follow-ups": [
+                {
+                    "feedback": "If your failed test outputs contain unevaluated `Thunk`s, then it's likely an issue with your `optimized_eval` implementation. If it's something else, it's likely that you enabled tail-call optimization somewhere that isn't in tail- context."
+                },
+                {
+                    "feedback": "Well it doesn't return a Thunk, but when I run each of these 3 problems I get that the functions are unknown identifiers. I cannot find an issues with my implementation of functions like scheme_apply or do_define_form, and these functions seem to work when they are used in the first 5 cases of 19.  For example with problem 16:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxutv1i35i6%2Fk367ndc844ni%2FScreenshot_from_20191119_101540.png)"
+                },
+                {
+                    "feedback": "Did you modify your `do_define_form` at all? That should not have been edited at all when applying tail-call optimization, since multiline bodies are all handled by `eval_all` only."
+                },
+                {
+                    "feedback": "No I did not change anything in my do_define_form."
+                },
+                {
+                    "feedback": "Bump I have the same issue - my code for 19 works but it causes problems 16-18 to fail"
+                },
+                {
+                    "feedback": "resolving follow ups related to the Scheme project since it is now past due - please post a new follow up if you still have questions about the assignment!"
+                }
+            ]
+        },
+        {
+            "question": "I'm still stuck on the first test case. I'm getting a recursion error, which means that there is an issue in either eval_all or do_if_form (or both). It seems I haven't written them with a tail context the right way, though I'm not sure how to fix that.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you have also uncommented the `scheme_eval = optimize_tail_calls(scheme_eval)` line that enables tail-call optimization in the first place. If you have done that, then make sure you have hit **all** the parts of the code for all the tail contexts: * The last body sub- expression in a lambda expression * Sub-expressions 2 & 3 in a tail context if expression * All non-predicate sub-expressions in a tail context cond * The last sub-expression in a tail context and, or, begin, or let"
+                },
+                {
+                    "feedback": "will it not work until I do all of them even though the test case only deals with a few?"
+                },
+                {
+                    "feedback": "The first case deals with 'if' and 'last body sub-expression'. Should work if you do those, so I'm not sure why it's not. The first ~ 5 cases work for me with just if and eval_all."
+                },
+                {
+                    "feedback": "In eval_all, make sure you pass True to the last expression evaluation. In if, make sure you pass True to both of the possible expressions that you could evaluate."
+                },
+                {
+                    "feedback": "I've done both of those but it's still not working. Based on my understanding, eval_all covers begin, cond, and let -- is that correct?"
+                },
+                {
+                    "feedback": "sorry this is so late, but yeah eval_all covers those. I hope you were able to solve your problem!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq6pzyei2zl%2Fk367g6hyyakl%2FScheme_Problem_19_Recursion_Depth_Error_in_Comparison.JPG)  Hey guys,  I am passing all test cases from problem 1 to 18 and I have modified my code to fit the tail contexts as outlined on some of the Piazza posts. However, I get stuck here because I get a maximum recursion depth error **in comparison.** What does this mean and what are some possible ways to get around this? Thank You",
+            "follow-ups": [
+                {
+                    "feedback": "Ultimately, at the end of the day, this is still just a RecursionError, so you must not have hit all the cases where tail call optimization should have been enabled. I’m sure you’ve seen the list many times already, but here it is one more time:    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let  Double-check those and make sure you haven’t missed any of them. Also make sure that you enable tail call optimization by uncommenting the line that reassigns scheme_eval."
+                },
+                {
+                    "feedback": "Thank You Nicholas, you were right :)"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpeua98g2di%2Fk36adgjsbdsp%2FScreenshot_at_Nov_19_120352.png)  I keep running into this error and I am not sure why. In my eval_all function, I call scheme_eval with tail context = True for the last expression.",
+            "follow-ups": [
+                {
+                    "feedback": "Are you passing in and using the correct environment when dealing with Thunks?"
+                }
+            ]
+        },
+        {
+            "question": "I got 19 to work, but my 16, 17, and 18 no longer work. I am very confused how this could be since all the functions that would be used in 16, 17, or 18 are tested in 19. What's more is that when I try to define things in my interactive scheme interpreter I get Thunks. This would explain why my 16, 17, and 18 don't work, but I don't get how my 19 could work with the presence of this issue. I 99% sure that my optimized_eval is correct, so I am not sure what else could be causing me trouble.",
+            "follow-ups": [
+                {
+                    "feedback": "This is very likely caused by passing in True into scheme_eval from places that are not tail contexts. Make sure, for example, that you are not passing True from do_define_form. Here's a list of tail contexts from above:    * The last body sub-expression in a lambda expression   * Sub-expressions 2 & 3 in a tail context if expression   * All non-predicate sub-expressions in a tail context cond   * The last sub-expression in a tail context and, or, begin, or let"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg8hbla3yl%2Fk36di00uur6j%2FScreen_Shot_20191119_at_1.31.19_PM.png)  All test cases on 19 pass except for when \"add\" is defined within the \"sum\" procedure and does not involve a begin statement. I am sure that optimized_eval() is implemented correctly since all of the other test cases have passed. I showed my implementation of do_define_form to a TA, and I was reassured that the error is not in the do_define_form method. I am not sure what is causing this error.",
+            "follow-ups": [
+                {
+                    "feedback": "Are you passing in and using the correct environment when dealing with Thunks?"
+                }
+            ]
+        },
+        {
+            "question": "Can somebody give some hint on how to solve this error?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk36f3ijag75r%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191119_%E4%B8%8B%E5%8D%882.14.40.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you somehow trying to evaluate the symbol that the new function is supposed to be assigned to?"
+                }
+            ]
+        },
+        {
+            "question": "Which function needs to be modified to deal with lambdas?",
+            "follow-ups": [
+                {
+                    "feedback": "Multiline lambda bodies are handled by `eval_all`."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyllz9tf607%2Fk36je5drppig%2FScreen_Shot_20191119_at_4.15.35_PM.png)  not sure why its not able to call scheme eval...  Also don't completely understand what this error signifies.",
+            "follow-ups": [
+                {
+                    "feedback": "I think `scheme_eval` is trying to use `scheme_eval` as an operator in a Scheme expression, which doesn’t work very well. I wouldn’t be able to tell you how you did that, though."
+                },
+                {
+                    "feedback": "Thanks, youre a god"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh17r0d902rl%2Fk36ks8rxaxg0%2Fhelp.png)  I have completed Problem 19. However, when I try to submit the project as a whole, I fail a test case in an earlier problem. The thing is, it's the _only_ test case failure out of the entire project:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh17r0d902rl%2Fk36kvqgp3gpw%2Fhelp2.png)  I assume it is a problem with `do_let_form`, and therefore` eval_all`.",
+            "follow-ups": [
+                {
+                    "feedback": "I wonder if it’s an issue with how you’re handling your frames. Can you debug to output which frame you’re trying to evaluate that final `z` in? That might bring you closer to finding your problem."
+                },
+                {
+                    "feedback": "I got it, it was an issue with splitting the bindings up. I `eval_all` when i should've `scheme_eval`."
+                },
+                {
+                    "feedback": "Great!"
+                }
+            ]
+        },
+        {
+            "question": "I think I understand how the Thunks would get re-evaluated in most cases, but if the expression being evaluated has a tail call in it directly and not nested in anything, how does that turn into a non-Thunk? For example, how do we make (and #t (> 3 4)) turn into a value, if the final call is a tail call that returns a Thunk? Does it have to do with how we implement the and special form?",
+            "follow-ups": [
+                {
+                    "feedback": "The initial call to `scheme_eval` from some other part of the interpreter that handles input from files and from the interactive interpreter calls `scheme_eval` on your inputs with `tail = False`, so ultimately, at the end of everything, the `Thunk`s will still get evaluated to their values."
+                },
+                {
+                    "feedback": "My attempt so far does not evaluate Thunks in these cases and instead returns a Thunk value. I am doing the challenge version of this, which might be the issue, but currently my scheme_eval function will repeatedly evaluate any Thunk that is input until it returns a non-Thunk and will always return a Thunk if the expression is called in tail context. Any possible insight as to what might be going wrong?"
+                },
+                {
+                    "feedback": "In general, it should always return a `Thunk` when `tail = True` and never return a `Thunk` when `tail = False`. If that is working successfully and you are still getting `Thunk`s in your final output, then you are evaluating with `tail = True` somewhere where you aren’t supposed to."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk36n5hytuvkl%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191119180123.png)  I am not sure where is wrong...How do we deal with the tail call in define?",
+            "follow-ups": [
+                {
+                    "feedback": "Multi-expression bodies such as those in `lambda` and `define` are dealt with in `eval_all`, so check there to enable tail recursion."
+                }
+            ]
+        },
+        {
+            "question": "All of the changes we make for problem 19 will be in the scheme.py file, correct?",
+            "follow-ups": [
+                {
+                    "feedback": "Yep!"
+                }
+            ]
+        },
+        {
+            "question": "Hello, I'm having a weird issue with the submission of this project. When I type \"python3 ok -q tests.scm\" I get this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk36z2bwygeh0%2Fscheme_sub_1.png)  Also, if I do                python3 ok -q 01  or                python3 ok -q 01 -u  on every single problem (including ec) it says all tests passed/unlocked. However, when I go to submit the project, I get this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk36z61molklb%2Fscheme_sub_2.png)  I'm confused as to why it says there are still locked tests. Can someone please try to explain?",
+            "follow-ups": [
+                {
+                    "feedback": "You need to run `python3 ok -q eval_apply -u`"
+                },
+                {
+                    "feedback": "lol thanks Cyrus"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        }
+    ]
+}

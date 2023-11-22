@@ -1,0 +1,99 @@
+{
+    "subject": "[HW 04] Weights",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q2\" target=\"_blank\" rel=\"noopener noreferrer\">Q2: Weights</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q2: Weights in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>\n<p></p>",
+    "threads": [
+        {
+            "question": "I am confused about what \"length\" and \"size\" means.",
+            "follow-ups": [
+                {
+                    "feedback": "Taken from the problem description:  A [mobile](http://upload.wikimedia.org/wikipedia/commons/7/7e/Modern_mobile- art_mobiles_mobius.jpg) is a type of hanging sculpture. A binary mobile consists of two sides. Each side is a rod of a certain length, from which hangs either a weight or another mobile.  We will represent a binary mobile using the data abstractions below.    * A `mobile` has a left `side` and a right `side`.   * A `side` has a positive length and something hanging at the end, either a `mobile` or `weight`.   * A `weight` has a positive size.  So in the context of this problem, `length` refers to the length of a `side`, and `size` refers to the numerical magnitude of a `weight`"
+                },
+                {
+                    "feedback": "Does length refer to the count of all the sides and weights in this side?"
+                },
+                {
+                    "feedback": "No, it just refers to the length of one side at a time"
+                }
+            ]
+        },
+        {
+            "question": "I don't really understand how to implement the size selector, any tips on how to conceptualize it and get started?",
+            "follow-ups": [
+                {
+                    "feedback": "To provide more detail on my issue, I keep getting \"AssertionError: must call size on a weight\" but I'm not sure what to pass in for size's parameter, if that is the correct approach"
+                },
+                {
+                    "feedback": "Take a look at the is_weight() function. This function determines the criteria for whether or not something is a weight.  The first check they do is see if type(w) == list, which implies that weights under the hood are lists. We also have that len(w) == 2, meaning that since w is a list, it must have exactly 2 elements in it. Lastly, the function checks if w[0] == 'weight' which tells us that the first entry of this list must be the string 'weight'.  If any one of these criteria are not met, then an object, by definition, is not a weight. In your implementation of size() and weight() you need to make it so it follows these conditions."
+                },
+                {
+                    "feedback": "okay, so i believe my implementation for weight follows those guidelines, and when I go to run the code, i get this return value: \"['weight', 2, 'weight', 1]\" i'm not sure how to fix this"
+                },
+                {
+                    "feedback": "You probably aren't getting the size correctly since it seems like your weight objects are not giving an error in is_weight().  If w is a weight, that means it is a two element list (at least in this implementation of weight). The first element is the string 'weight', so what is the second element supposed to represent? Think of that when you write size()."
+                },
+                {
+                    "feedback": "okay, thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "Is the size parameter that the weight function takes in an integer? I am getting a type error: TypeError: '>' not supported between instances of 'list' and 'int'. When I tried to index size there was an issue saying it was an integer, but the error shows it as a list.",
+            "follow-ups": [
+                {
+                    "feedback": "`size(w)` will always return a numerical value"
+                }
+            ]
+        },
+        {
+            "question": "Doctests for total_weight          >>> from hw04 import *     >>> t, u, v = examples()     >>> total_weight(t)     Traceback (most recent call last):       File \"/Users/luisnavarreterios/Desktop/cs61a/homeworks/hw04/hw04.py\", line 110, in total_weight         return total_weight(end(left(m))) + total_weight(end(right(m)))       File \"/Users/luisnavarreterios/Desktop/cs61a/homeworks/hw04/hw04.py\", line 107, in total_weight         return size(m)       File \"/Users/luisnavarreterios/Desktop/cs61a/homeworks/hw04/hw04.py\", line 79, in size         s = weight(w)       File \"/Users/luisnavarreterios/Desktop/cs61a/homeworks/hw04/hw04.py\", line 71, in weight         assert size > 0     TypeError: '>' not supported between instances of 'list' and 'int'          # Error: expected     #     3     # but got     #     Traceback (most recent call last):     #       ...     #     TypeError: '>' not supported between instances of 'list' and 'int'  Keep receiving these errors, not sure why this is happening. I used python tutor to see where I went wrong, I saw that of the most part,def size was able to get the int value for def weight when constructing the mobile. This happens after 200 executions near the end of the mobile.",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the same issue. How did you get past this?"
+                },
+                {
+                    "feedback": "it seems that the line of code s = weight(w) does not appear in the original skeleton code. make sure that you did not change the original lab code as you downloaded it."
+                }
+            ]
+        },
+        {
+            "question": "How are we supposed to select a size given the weight?",
+            "follow-ups": [
+                {
+                    "feedback": "That is literally the problem statement--we can't give away the answer!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt98r2lhfl2v2%2Fk1il39f93xv8%2Fbalanced.png)  how is this balanced?",
+            "follow-ups": [
+                {
+                    "feedback": "1) hopefully it's clear that mobile c is balanced just by eyeballing it  2) Total weight of Mobile C is 4. It is attached to mobile B by a length 2 edge. So the torque of the right side of Mobile B is 4 * 2 = 8. The left side of Mobile B also has torque 8 because it has a weight of 2 and edge length 4.  3) The total weight of Mobile B is 6. 2 + 2 (from both ends of Mobile C) + 2 (from left side of Mobile B). Edge length 5 on the left of Mobile A. So total torque on the left side of mobile A is 6 * 5 = 30. Total torque on the right side is edge length 3 * weight of 10 = 30. So Mobile A is balanced. And so are all its sub-mobiles."
+                }
+            ]
+        },
+        {
+            "question": "I'm confused. What does size(w) do exactly? What is w? How does it relate to weight(size)?",
+            "follow-ups": [
+                {
+                    "feedback": "size selects the weight of a terminal node in the mobile. weight(size) creates a terminal node in the mobile. You can think of size as being like `label` except it only works on leaves."
+                }
+            ]
+        },
+        {
+            "question": "Could someone pls explain what it means to get an Assertion Error? I keep getting this error for all 3 of the mobile-related questions. Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "You are calling 1 or more of the methods with an invalid parameter"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjbhgcj5er%2Fk1pftoixeqmg%2Fwen.PNG)  It just gives me this error, and it makes no sense! I deleted my entire code, and just did the Weights question, and it still gives me the error!",
+            "follow-ups": [
+                {
+                    "feedback": "take a look at the series of functions being called in your error - you are calling the side function, and it is failing the assertion statement that checks what should be passed into the function."
+                }
+            ]
+        }
+    ]
+}

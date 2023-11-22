@@ -1,0 +1,29 @@
+{
+    "subject": "Midterm 2 Video Walkthroughs Are Up!",
+    "content": "<p>Playlist: <a href=\"https://www.youtube.com/playlist?list=PLx38hZJ5RLZdHxEDnfbr8bWjHHtPKga5l\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.youtube.com/playlist?list=PLx38hZJ5RLZdHxEDnfbr8bWjHHtPKga5l</a></p>",
+    "threads": [
+        {
+            "question": "**Question 1 WWPD:**  _2:15 timestamp_  __  _![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnomiq8d21qc%2Fk2wudofxitix%2F1.jpg)_  __  I don't understand why we are taking `self.x` from `Class C` and are putting it into `self.x` in `instance C`.` Class C `has no` __init__` and therefore` instance C` has no` self.x` so we should be changing` self.x` in` Class C` and **not** in` instance C`. Why does `instance C` even have an `x` if it's a class variable?` `  __  __",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that when we try to look up an instance attribute that doesn’t exist, the next step is to try to look up the class attribute for the class of that instance. Take this example:   ```   class Foo():   bar = 'class'      def set_bar(self):   self.bar = 'instance'   ```   And some cases:   ```   >>> Foo.bar   'class'   >>> foo = Foo()   >>> foo.bar   'class'   >>> foo.set_bar()   >>> foo.bar   'instance'   >>> Foo.bar   'class'   ```   Before we set the instance attribute of `bar`, `foo.bar` refers to the class attribute `Foo.bar`. After we set it, however, `foo.bar` now points to that instance attribute.   Also note that if a class has no constructor, it uses the parent’s constructor, instead."
+                },
+                {
+                    "feedback": "> ...when we try to look up an instance attribute that doesn’t exist, the next > step is to try to look up the class attribute for the class of that > instance..  I am tracking so far.  > After we set it, however, `foo.bar` now points to that instance attribute.  This is where I am lost. `foo` has no (instance) attribute `bar` to begin with 🤷‍♂️  We should be modifying `Foo.bar` because that's what we looked up do to the lack of `foo.bar`."
+                },
+                {
+                    "feedback": "Looking up is different from setting. The instance attribute `foo.bar` is set when we called `foo.set_bar()`, which took in `self` and set the instance attribute with `self.bar = 'instance'`. `self.bar` used to be nonexistent, which is why lookups for `foo.bar` got directed to the class attribute `Foo.bar`, but now that that value **exists**, we just return its value, instead, no redirecting to the class attribute necessary."
+                },
+                {
+                    "feedback": "Please correct me if I am wrong; I'll try to rephrase what you're saying.    1. We have Class values and Instance values. Latter are defined in `__init__`.   2. If we look up a value within an instance and it does not exist - we will return the looked up value from its parent Class (getter case).   3. If we are setting a non-existent instance value - it will be created within an instance and our parent Class value will be left untouched (setter case)"
+                },
+                {
+                    "feedback": "You’ve got it."
+                },
+                {
+                    "feedback": "Thank you."
+                }
+            ]
+        }
+    ]
+}

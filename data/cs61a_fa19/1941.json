@@ -1,0 +1,831 @@
+{
+    "subject": "[Scheme] Problem 18",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-18-2-pt\">Problem 18</a>\n\n<p> Please post all questions you have below concerning Problem 18 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Does this line \"(define quoted? (check-special 'quote))\" has to do with how I implemented quoted in my code? (quoted? expression) doesn't seem to be able to catch '(+ 1 2) as a quoted form. I think my implementation of quote was correct since it passed all the tests, and the check-special function is nowhere to be seen in the project.",
+            "follow-ups": [
+                {
+                    "feedback": "Writing `'(+ 1 2)` is the equivalent of passing in the literal `(+ 1 2)`, which does not count as quoted. Writing `''(+ 1 2)` is what falls under the `(quoted? expression)` branch, since it's the equivalent of passing in `'(+ 1 2)`"
+                }
+            ]
+        },
+        {
+            "question": "Suite 2 case 1 has the test `(let-to-lambda '(lambda (x) a (let ((a x)) a))). `Don't lambda's only have one body? how is `: a (let ((a x)) a) `legal? what does it do?",
+            "follow-ups": [
+                {
+                    "feedback": "`lambda`, `define`, and `mu` are a special form that can all take in an arbitrary length body, and they are defined to return the result of the final statement in the body."
+                },
+                {
+                    "feedback": "How would you make it so that you only return the final result in the body?"
+                },
+                {
+                    "feedback": "You have already defined a function that will evaluate a list of expressions and return the value of the last one, back in problem 7."
+                },
+                {
+                    "feedback": "Would I use begin? How would I make the list of body statements into the special form for begin?"
+                },
+                {
+                    "feedback": "Function definitions are already special forms with a list of expressions as a body. You don’t need to wrap it in a `begin` procedure."
+                },
+                {
+                    "feedback": "Sorry, I am still confused as to how I should get my function to evaluate both expressions in the body of the lambda function. I tried calling let-to-lambda recursively on the body but that doesn't seem to be working. The result is that the first part executes correctly but the body gets returned as it is . Any suggestions as to what the error might be or how to fix it?"
+                },
+                {
+                    "feedback": "The body is basically a list of expressions. The procedure you are writing is itself a procedure that takes an expression and returns a version of the expression with `let` statements removed. I think a recursive leap of faith may be the solution here—try it with the `map` function, as well."
+                },
+                {
+                    "feedback": "Got it. Thank you so much."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpps6alw2lg%2Fk2sd7n0lilbl%2FCapture.PNG)  Not sure why I am getting this error...",
+            "follow-ups": [
+                {
+                    "feedback": "and how to fix it. Thanks in advance :)"
+                },
+                {
+                    "feedback": "Make sure you’re passing a list into the `map` function, not a string. You’re manipulating a lot of lists, so make sure the thing that gets passed in is ultimately a list rather than a symbol."
+                },
+                {
+                    "feedback": "So I got this same issue, and I'm confused about the `let` function. For the test `(let-to-lambda '(lambda (let a b) (+ let a b)))`, I thought the parameters for let should be a list of lists, right? Like `(let ((a b)))`. The error I'm running into is that I'm trying to call `zip` on values and when `values` is just a, it tries to `map` a `str` which results in an error.  How would this be resolved?"
+                },
+                {
+                    "feedback": "`let` in this case is actually just being used as a formal parameter passed into the `lambda`, so it’s just a symbol in this case. This only works because `lambda` is a special form."
+                },
+                {
+                    "feedback": "I'm kind of confused how to evaluate whatever comes after let. Because when it is just one expression (like in the above case), I can't use zip to extract the parameter names and their values into two separate lists. So do I have to handle the two cases separately? One variable versus multiple variables?"
+                },
+                {
+                    "feedback": "Whatever comes after the `let` and after the bindings is the body of the `let`, but it’s going to be the same as the body of the `lambda`. You just have to also make sure that every expression in the body doesn’t have any `let` statements either—consider a recursive leap of faith for that (and a well-placed `map` function)."
+                },
+                {
+                    "feedback": "Ok I see my confusion - I thought the let was a separate function and not just another parameter for the lambda. Just a follow up - should I be calling let- to-lambda on the params of a lambda function as well as its body? Or just the body? Because here, it would seem that if I did map of let-to-lambda on the params, it would read the \"let\" as a let expression...but that's not what we want here, right?"
+                },
+                {
+                    "feedback": "You do need to call it on the parameters as well."
+                },
+                {
+                    "feedback": "My code is mapping let-to-lambda simply on the body and it keeps erroring? I'm confused how I can construct this map statement and not really sure how to start.  Nvm all good I figured it out. My else case wasn't properly done, and was attempting to simply cons the result of let-lambda on the car of the expression with the cdr of the expression."
+                }
+            ]
+        },
+        {
+            "question": "My code is doing the same thing that I do in the interactive interpreter, so why am I getting a different result?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy0gbms85m4%2Fk2tnbrldyxwp%2FSharedScreenshot.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "The test is calling `(let-to-lambda '(quote (let ((a 1) (b 2)) (+ a b))))`, not just `'(quote (let ((a 1) (b 2)) (+ a b)))`. It looks like your `let-to- lambda` function is accidentally stripping away the `quote` procedure when it encounters one. When you encounter a `quote` procedure, you are supposed to not evaluate anything at all and return the expression as-is."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjae0xob5cx%2Fk2ttpz766u8k%2Fletlist2.png)  I am confused that for (+ a b), these is one more list rather than the list directly?",
+            "follow-ups": [
+                {
+                    "feedback": "`(+ a b)` is the third element in the Scheme expression. Since it is a list, its element will contain an arrow that points to the nested list."
+                }
+            ]
+        },
+        {
+            "question": "Did anyone use conditionals inside the 'let' statements?",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn’t need to. All you are doing is extracting a list of symbols and evaluated values from `bindings` and then creating a child frame with them. The most you should need is either a loop or recursion. Ultimately, however, the implementation is up to you."
+                }
+            ]
+        },
+        {
+            "question": "What will lambda and define function return? The original function?                ((or (lambda? expr)            (define? expr))",
+            "follow-ups": [
+                {
+                    "feedback": "The `lambda` procedure returns the procedure that it generates, which, if printed directly to the console, will look like the expression it was called with. The `define` procedure returns the symbol of the newly defined variable."
+                }
+            ]
+        },
+        {
+            "question": "How would \"let-to-lambda\" treat operators like \"+\"?  Specifically, I am asking about the \"else\" case in the function. I believe it is intended for cases like                (let-to-lambda '(+ 1 2))  as well as some crazy cases it gets when evaluating lambda functions recursively, e.g.,                (let-to-lambda '(a (let ((a x)) a)))  For the second case, I believe we should run \"let-to-lambda\" over each element in the list. However, if \"else\" case does this, it would have to evaluate                (let-to-lambda '+)  for the first case. Then what should the function do?",
+            "follow-ups": [
+                {
+                    "feedback": "Or maybe the \"else\" case is just intended for the first case (for which it returns whatever it receives), and the second case is taken care of in \"(let? expr)\" case, right?"
+                },
+                {
+                    "feedback": "In the case of `(let-to-lambda '+)` then `+` should be returned since the input to let-to-lambda will be the literal `+` and will not need to be modified."
+                },
+                {
+                    "feedback": "Thanks. Then where should I implement this case for \"+\"? In the \"else\"?"
+                },
+                {
+                    "feedback": "It doesn't fall under the else clause, but rather already gets caught for you in the `(atom? expr)` condition since the literal + is considered atomic."
+                },
+                {
+                    "feedback": "That said, `(let-to-lambda '(+ 1 2))` does fall under the `else` clause, and you are right that you will need to call `let-to-lambda` on all elements of the quoted expression. `(let-to-lambda '+)` will fall under the `(atom? expr)` clause."
+                },
+                {
+                    "feedback": "Oh yes. I should have test-run `(let-to-lambda '+)`. Thanks a lot."
+                },
+                {
+                    "feedback": "Why doesn't `(let-to-lambda '(+ 1 2))` fall under the quoted clause?"
+                },
+                {
+                    "feedback": "It seems counterintuitive, but `let-to-lambda` sees this as the expression `(+ 1 2)`, which isn't quoted in and of itself. This is because the operand `'(+ 1 2)` evaluates to the expression `(+ 1 2)` before `let-to-lambda` gets applied. The quoted clause applies to calls such as `(let-to-lambda ''(+ 1 2))`, which let-to-lambda sees as `'(+ 1 2)`"
+                },
+                {
+                    "feedback": "It’s hard to differentiate these things between macros and normal functions sometimes, but the key is basically that macros will read the operands as they are as if they were quoted (as raw expressions), while normal procedures will only do that if you quote the expression first, so the quote gets evaluated to just the raw expression following. It’s confusing; I know."
+                },
+                {
+                    "feedback": "But if the let-to-lambda sees this as (+ 1 2) why doesn't it just see it as 3? Does it not evaluate the expression?"
+                },
+                {
+                    "feedback": "The operand expressions are only evaluated once. The operand expression is `'(+ 1 2)`, and since this is quoted, the evaluated operand is the list `(+ 1 2)`, so that is what is passed in. On the other hand, if you did something like `(let-to-lambda (eval '(+ 1 2)))`, then you would be passing `3` into `let-to-lambda`, since we explicitly told the interpreter to `eval` the operand one more time. `'(+ 1 2)` is evaluated to `(+ 1 2)`, which is passed into `eval`. `eval` is a function which evaluates, so `(+ 1 2)` is evaluated to `3`, which is then passed into `let-to-lambda`."
+                },
+                {
+                    "feedback": "Oh ok I see. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "When we run                ;; An let-to-lambda procedure that does not use 'let'!      (define let-to-lambda-without-let (let-to-lambda let-to-lambda-code))  , do we need the interpreter to know \"let\"? (I guess yes, right?)",
+            "follow-ups": [
+                {
+                    "feedback": "Yep! Your template code should already have a `cond` expression with all the checks you need."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure why I'm getting this error. What I'm doing is first using zip to get the 2 lists for the parameter variables and the actual parameters to be called. Then I create a list with a created lambda function using one of the lists, and mapping let-to-lambda to the body. The only place I'm calling car is on the result of calling zip on values.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2usofo13zrs%2FScreen_Shot_20191111_at_11.00.07_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Check that your implementation of `zip` handles the base case correctly."
+                },
+                {
+                    "feedback": "In my base case, I just return nil if the argument is an empty list. Should it be something else?"
+                },
+                {
+                    "feedback": "Try firing up the interactive interpreter with `python3 scheme.py -i questions.scm` and double-checking that your implementation of `zip` works correctly. If you’re calling `(zip '((a 1) (b 2)))` and getting an empty list, then that would lead to your issue of getting an error when trying to call `car` on `nil`."
+                },
+                {
+                    "feedback": "Ah, I ended up completely changing my zip function so it didn't need a base case and it worked. Thank you for the advice!"
+                },
+                {
+                    "feedback": "I was about to make a comment on how you had to have a base case for recursion until I realized there was a much more elegant solution which you probably discovered. So thanks for making me think about the question more!"
+                },
+                {
+                    "feedback": "any hints on how to do it without a base case?"
+                },
+                {
+                    "feedback": "Consider the `map` function."
+                },
+                {
+                    "feedback": "I feel like my current zip function has too much going on, even though it works. It has a helper function, lots of list, car, cdr and append calls.  Is that how most people approached it or..?"
+                },
+                {
+                    "feedback": "Try using the `map` function for the `zip` function. You have a list of lists, and you essentially need to get the `car` of every pair and the `cadr` of every pair. How would you do that with `map`?"
+                },
+                {
+                    "feedback": "I have a rough idea of the function i'd map onto the list of lists but what I'm really confused with is that how would I keep track of what's already been zipped and what's going to be zipped as I go forward mapping. Are you using define or something to keep track ?"
+                },
+                {
+                    "feedback": "You can totally implement the `zip` function in one line. For example, if I wanted to get the first element from every list in the list `((1 2) (3 4) (5 6))`, I would have to get the `car` of every list. I could do this with the `map` function: ``` scm> (map car '((1 2) (3 4) (5 6))) (1 3 5) ```"
+                },
+                {
+                    "feedback": "You know thats really smart. Thanks a lot, makes my zip function way cleaner."
+                },
+                {
+                    "feedback": "So I get how you can use map and car to get the first element from every list in the list...but I'm having trouble proceeding with the recursive case. I thought initially that you would cons the `map car` part with the `zip` of the `map` of `cdr` of the list...but I keep getting this error that `argument 0 of car has wrong type (nil).`  So do you need a base case to handle the case where each smaller list is `nil?`"
+                },
+                {
+                    "feedback": "Instead of using `cdr`, consider using `cadr` to extract the second element from each inner list. Remember that the `cdr` of a list is either a list or `nil`.                scm> (define x (list 2 3))     x     scm> (car x)     2     scm> (cdr x)     (3)     scm> (define (cadr x) (car (cdr x)))     cadr     scm> (cadr x)     3"
+                },
+                {
+                    "feedback": "Can we assume that we will be dealing only with two-element inner lists?"
+                },
+                {
+                    "feedback": "Yep! Also, in case you're concerned, the following base case actually gets handled for you because of the way map is implemented (assuming you use it in correct fashion):                scm> (zip '())     (() ())"
+                }
+            ]
+        },
+        {
+            "question": "What is this (lambda parameters not affected but body affected), how to get rid of these parenthesis in body?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdje8twst5in%2Fk2uuhwruzxfp%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111115239.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Keep in mind that whenever you encounter a quote, you know that the entire quoted expression is going to be completely untouched, so you should never even be changing whatever is inside the quotes      However, if you were converting an actual `let` statement, your error looks like your body is contained within the third element instead of being the `rest` of the elements after the formal parameters. Think of the difference between `(1 2 3)` and `(1 (2 3))`, where `2` and `3` are the body statements."
+                },
+                {
+                    "feedback": "I'm having the same error. I thought I could solve it by using 'car' to just get the first item out of the list, but the next case errors if I do. I think I'm lost with handling the body as a whole, although I did try to use the map function."
+                },
+                {
+                    "feedback": "Essentially, we need to transform every expression of the body into another, equivalent expression that doesn’t use `let` forms. We currently are writing a procedure that will transform an expression into an expression that doesn’t use let, so try combining `map` and a recursive leap of faith to rewrite all your body expressions at once."
+                },
+                {
+                    "feedback": "I'm having the same issue! When you map and cal let-to-lambda on each expression in the body, map returns a list in itself, so even though each expression in the body has been evaluated according let-to-lambda, wouldn't you still get that extra set of parenthesis?"
+                },
+                {
+                    "feedback": "Well, yes, you essentially have a list of expressions. Think: What is the difference between ``` (lambda (x) (print x) (+ x 1)) ``` and ``` ((print x) (+ x 1)) ``` ? _(Hint: How would you mutate one to get the other?_"
+                },
+                {
+                    "feedback": "The second is the cddr of the first? I don't see how that helps with finding a way to remove the parentheses"
+                },
+                {
+                    "feedback": "given that the map returns a list of expressions, how could you then combine so that you end up with a list of expressions resembling a lambda (i.e. the first code block in Nicholas's follow up above)?"
+                }
+            ]
+        },
+        {
+            "question": "When I try to put a list that should represent the parameters in the lambda function, it can't refer to the variable I defined before using zip. I also tried putting the code to get the parameter list directly into the lambda function, but that also did not work. Is there a way to get around this? I know there has to be a lambda function made but I can't get put in the values needed.  Expected:                ((lambda (a b) (+ a b)) 1 2)  Got:                ((lambda (parameters) (...))) 1 2) ;the (...) representing other code that showed up in the result that may reveal parts of the answer   where (parameters) was a list I defined that was (a b)",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean you can’t refer to it? Try building a list with the complete lambda expression as the first element and the arguments as the remaining arguments using the `cons` procedure. For example, if `the_lambda` contained your new expression, and `args` was the list of your arguments, you would put it all together with `(cons the_lambda args)`."
+                }
+            ]
+        },
+        {
+            "question": "For the let? part, I'm trying to return the call to a lambda function but I'm getting a funky error.  To create the lambda function, I do the following.                (lambda (car (zip values)) (let-to-lambda body))  However, this gives me the following error.                SchemeError: non-symbol: (zip values)  My zip procedure works correctly as I've tried printing it out and it gives me the desired values.",
+            "follow-ups": [
+                {
+                    "feedback": "I think you use some quotation so that Scheme isn’t actually trying to create a `LambdaProcedure`. Remember that `let-to-lambda` returns an *expression*, so some quotation is going to be needed somewhere."
+                },
+                {
+                    "feedback": "The `lambda `special form works the following way:                (lambda ([param] ...) <body> ...)  Params are like arguments in a Python function: they should be symbols. In your example, `lambda `has two parameters: `car `and `(zip values)`. And `(zip values)` is not a symbol, but a call-expression. If you want to a lambda without arguments, this should work:                (lambda () (car (zip values)) (let-to-lambda body))"
+                },
+                {
+                    "feedback": "Evgenii is correct, but I believe the issue is that you’re trying to create a lambda rather than return the expression that **evaluates** to a lambda. It’s analogous to the difference between these two statements:   ```   scm> (+ 2 2)   4   scm> (list '+ 2 2)   (+ 2 2)   ```"
+                },
+                {
+                    "feedback": "I got the same issue \"non-symbol: (car (zip values))\" but I'm still stuck on how to fix it. I created a lambda function and cons it with the cdr of zip values as the return to return. How could I do so without creating a lambda function but rather return the expression that evaluates to a lambda?"
+                },
+                {
+                    "feedback": "think of the same logic that we used when working with macros - we do not want to make the lambda itself, but the list of expressions that if evaluated would evaluate to a lambda expression."
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to write the zip function but keep running into this error. Can anyone explain why using \"caar\" returns a list recursively while \"cadr\" returns a list of lists![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpjx2nu92h9%2Fk2wn1qqk4ib2%2FScreen_Shot_20191112_at_5.57.55_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "What error are you encountering? Remember, `(caar x)` is `(car (car x))` and `(cadr x)` is `(car (cdr x))`"
+                },
+                {
+                    "feedback": "I don't understand why when I use the \"cdar\" I get a list of lists while when I use the \"caar\" I get a simple list. It's messing up my recursive calls b/c when I run zip I get ((1 3 5) ((2) (4) (6))) instead of ((1 3 5) (2 4 6))."
+                },
+                {
+                    "feedback": "You said cadr earlier - are you asking about cadr or cdar"
+                },
+                {
+                    "feedback": "Oh, sorry. My bad - I used cdar."
+                },
+                {
+                    "feedback": "cdar either returns a pair or nil because cdr returns the rest of car combined into one list; even if there's only one element remaining, the result will be a one-element list with that element. caar returns whatever value is in the first spot of the first element of the input list, so it doesn't have to be a pair.                scm> (define x '((1 2) (3 4) (5 6)))     x     scm> (car x)     (1 2)     scm> (cdr (car x))     (2)     scm> (car (car x))     1  I'm just using `(cdr (car x)) = (cdar x)` and `(caar x) = (car (car x))`"
+                },
+                {
+                    "feedback": "Oh... Thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk0ifnw5z0%2Fk2wwc1ji5x61%2Fschemeq18.PNG)Any clue how to kind of unlist (1 2) to become 1 2?",
+            "follow-ups": [
+                {
+                    "feedback": "Try the `append` procedure.<https://cs61a.org/articles/scheme- builtins.html#append> EDIT: Do not actually do this. This is a bad idea that will lead to nowhere."
+                },
+                {
+                    "feedback": "Thanks for replying, I am not sure how append would be able to help in this case. Append would add lists together, but in this case, I don't want a list at all but instead two numbers. How would append return something like two numbers?"
+                },
+                {
+                    "feedback": "Try treating the whole line as something append would return"
+                },
+                {
+                    "feedback": "Let’s say I have `a` as `(1 2)` and `b` as `(3 4)`. I want to create the list `((1 2) 3 4)`. If I did something like `(list a b)`, I would end up with `((1 2) (3 4))`, since `a` would be the first element of my list, and `b` would be the second element of my life. If, however, I did something like `(cons first second)`, that means that `a` is the first element of my list, and `b` is the **rest** of my list—it contains all the values after the first value. Thus, I would end up with `((1 2) 3 4)`. See how you can adapt it for your solution."
+                },
+                {
+                    "feedback": "Cool thank you guys!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (let-to-lambda '(+ 1 2))       ? 3       -- Not quite. Try again! --              ? '(+1 2)       -- Not quite. Try again! --              ? (+1 2)       -- Not quite. Try again! --              ? (3)       -- Not quite. Try again! --",
+            "follow-ups": [
+                {
+                    "feedback": "You have to place spaces between your operators and your operands in Scheme. Try putting a space after the `+` in the returned expression."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "# Error: expected     #     (lambda (let a b) (+ let a b))     # but got     #     (lambda (let a b) (+ let a b) ())     # Error: expected       #     (lambda (x) a ((lambda (a) a) x))       # but got       #     (lambda (x) a ((let ((a x)) a)))  I can't figure out how to fix this. I have tried to use car to get rid of the extra list, but then I get the following error                # Error: argument 0 of car has wrong type (nil)",
+            "follow-ups": [
+                {
+                    "feedback": "It doesn’t look like you are quite constructing the lambdas correctly. You don’t need to introduce an `x` to your `lambda` call; remember that `(let ((a 1) (b 2)) (+ a b))` is equivalent to `((lambda (a b) (+ a b)) 1 2)`. The formals for the `lambda` are the same as the first symbols in the bindings for `let`. Remember that you can always append two lists together with `append` and prepend a single value to a list using `cons`: ``` scm> (append '(1 2) '(3 4)) (1 2 3 4) scm> (cons 1 '(2 3)) (1 2 3) ```"
+                },
+                {
+                    "feedback": "I am trying to do this recursively by calling let-to-lambda on the let expression in                (let-to-lambda '(lambda (x) a (let ((a x)) a)))  but since                (let? ((let ((a x)) a)))  is not true, it just goes straight to the else case of the let-to-lambda method instead of constructing the lambda. Should I not be using recursion for this?"
+                },
+                {
+                    "feedback": "You should use recursion. The key is that each element of the body of the lambda needs to be changed using `let-to-lambda`, as well, since lambda functions can have multi-expression bodies. How would you do this recursively? (Hint: Consider what function you would use to take a list of expressions and transform each element into another list of expresisons.)"
+                },
+                {
+                    "feedback": "Got it, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Does my zip procedure have to handle sub-lists of any arbitrary length?      Specifically a case like                scm>(zip '((1 2 7) (3 4 8) (5 6 9)))       ((1 3 5) (2 4 6) (7 8 9))         My current non-recursive zip code (with the help of map) can handle sub-lists of length 2.",
+            "follow-ups": [
+                {
+                    "feedback": "Nope, at least not for the purposes of `let-to-lambda`. `let` bindings are always lists of length 2, so you only need to handle sub-lists of length 2. If you really want to, though, just for fun, go ahead an implement it for arbitrary-length lists!"
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected     #     ((lambda (a b) (+ a b)) 1 2)     # but got     #     ((lambda (a b) ((+ a b))) 1 2)  My partner and I aren't sure what's causing the additional quotes, and like where the nesting is coming from. Thank you in advance:))",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you’re appending the body to the `(lambda (a b))` list and not just making it the third element, since the body should be the **rest** of the list. It looks like the body is a list in the third element right now."
+                },
+                {
+                    "feedback": "Thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "I don't see a description of the zip function, what does it exactly do?",
+            "follow-ups": [
+                {
+                    "feedback": "The description you are given is its expected output: ``` scm> (zip '((1 2) (3 4) (5 6))) ((1 3 5) (2 4 6)) scm> (zip '((1 2))) ((1) (2)) scm> (zip '()) (() ()) ``` To interpret this, `zip` takes in a list of two-element lists and returns a list containing a list of all the first elements and a list of all the second elements."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk2ziw6er7vz4%2FScreen_Shot_20191114_at_6.27.49_PM.png)  It's quoted, so why isn't the above answer correct? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "By quoting the let expression, the let expression itself is being passed into `let-to-lambda`, just un-evaluated. That let expression needs to be converted to a lambda expression."
+                },
+                {
+                    "feedback": "Also note the problem description: \"If we **quote** a `let` expression and pass it into this procedure, an equivalent `lambda` expression should be returned\""
+                },
+                {
+                    "feedback": "I think what you’re asking about is when you have a quote in the expression that is passed in, which would basically look like a second layer of quoting. In such a case, then the expression is returned untouched."
+                },
+                {
+                    "feedback": "Thanks Cyrus and Nicholas!"
+                }
+            ]
+        },
+        {
+            "question": "Hi,  I seem to be unable to form the lambda expression correctly. Right now, I'm using zip to find the values for the parameters and body, and trying to pass them into the lambda![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk2zpl0gk1z2u%2FScreen_Shot_20191114_at_9.32.38_PM.png)  Not sure how to go about this right",
+            "follow-ups": [
+                {
+                    "feedback": "If you’re using a quasiquote, don’t forget to unquote the symbols whose values you want to retrieve. For example, ``` scm> (define x '(print 1)) x scm> `(lambda () x) (lambda () x) scm> `(lambda () ,x) (lambda () (print 1)) ```"
+                },
+                {
+                    "feedback": "I wasn't using a quasiquote, but that fixed it up! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "In my define/lambda part, I am basically appending a list with the form name to params and body. But I'm getting this error  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk309couhdk9e%2FScreen_Shot_20191115_at_6.48.32_AM.png)  I tried appending (list params) but that doesn't work either.",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, remember that the formal names actually go in a list in the second element of the expression. Try constructing that list first by concatenating all the form names together in one list, and then you can insert that list into the larger lambda expression."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqqtm5zhzdb5wg%2Fk30tnjy3ovxp%2Fmissing.PNG)  Hi, I'm not sure how to get the missing parenthesis into my output, and help would be greatly appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "It sounds like you are able to properly construct the list `(lambda (a b) (+ a b))`. What I would do then is to just put that into the larger list of arguments with the `cons` procedure or something like that. For example, `(cons lambda-expr args)`."
+                },
+                {
+                    "feedback": "hmm okay, thanks a ton I'll give that a go! (also thanks for the speedy reply!!!)"
+                },
+                {
+                    "feedback": "You’re welcome. Best of luck!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi52fmpc4c0%2Fk3256w3j1eds%2FScreen_Shot_20191116_at_2.16.03_PM.png)  Not sure if this is an issue with the appending in the let? condition or lambda?/define? condition. I'm fairly certain the latter is implemented correctly, so I'm guessing that it has to do with my recursion in the former. Possibly I am hardcoding somewhere since the earlier test cases passed but I'm now failing the more complicated expressions. Please let me know your thoughts.",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re rewriting the top-level expression correctly. Now you just need to make sure that the recursion is working. Remember that `let` statements can be nested inside other `let` statements, so after you rewrite the `let` itself, you need to make sure the `let` body is also cleared of `let` procedures itself. A recursive leap of faith and application of the `map` function may come in help, here."
+                },
+                {
+                    "feedback": "Thank you! I figured it out."
+                },
+                {
+                    "feedback": "I got the same error, but used map on a lambda expression that performs a recursive call on body. Can you explain what I'm doing wrong?"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error                # Error: argument 0 of cdr has wrong type (str)  and I think it might have something to do with how I'm calling cdr on a zipped list. Just to be clear, (cdr (zip any_list)) should return the rest of any_list, i.e. a list, right?",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, got it. Didn't save the questions.scm file."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2FjlhcpvdbpCqy%2Fk32kxwyd2rm2%2FScheme_error_2.PNG)Hello, I am not sure as to why I am receiving this error, could anyone help?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re only returning the first expression in the body of any lambda expression. Make sure every expression in the body is rewritten and then returned—try a recursive leap of faith and use of the `map` procedure."
+                },
+                {
+                    "feedback": "got it! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm a little confused as to how to begin this problem. What is the point /function of defining zip? It seems to just take whatever expression is passed in and turn it into two lists within a list",
+            "follow-ups": [
+                {
+                    "feedback": "the purpose of zip is to convert the arguments from the let to the format that the lambda takes. For example, ((a 1) (b 2)) (which is what is passed into let) can turn into (a b) (1 2). This is the way the lambda will take the arguments, with the form of the final expression being roughly ((lambda (a b) (body) 1 2)."
+                }
+            ]
+        },
+        {
+            "question": "Why doesn't `(let-to-lambda '(+ 1 2))` fall under the quoted cond? Why is it under the else clause? Someone answered this earlier but the description was confusing...",
+            "follow-ups": [
+                {
+                    "feedback": "The outer quote is just to make sure you pass an expression into `let-to- lambda`, not the evaluated expression. Anything inside that first quote (which means it’s actually part of the expression passed in) is actually a case which would fall under the `quote?` condition."
+                },
+                {
+                    "feedback": "To add, remember that `let-to-lambda` is _not_ a macro, meaning its operands get evaluated _before_ it gets applied. `'(+ 1 2)` evaluates to the list `(+ 1 2)` which does not count as a quoted expression. If you had something like `''(+ 1 2)` that would evaluate to `'(+ 1 2)` and would therefore fall under the `quote?` condition."
+                },
+                {
+                    "feedback": "Any hint on what we should do in the quoted case? I'm a little confused as to why the user would enter something like ''(+ 1 2) in the first place, and in that scenario what we really should do? So far all I can think of is possibly evaluating ''(+ 1 2)?       Thanks!"
+                },
+                {
+                    "feedback": "This could arise in a call such as (let-to-lambda ‘(let (x ‘(let (y 0) y)) x)) - you’d want to just return the expression as is without doing anything to it."
+                }
+            ]
+        },
+        {
+            "question": "We keep getting an extra set of parentheses around our body (+ a b) and we don't know why. How can we fix this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1gnzqvd2zr%2Fk33mxscmlq87%2FScreen_Shot_20191117_at_3.31.02_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the body is a collection of lists. So it would be something like ((+ a b)). If you use the list constructor, then ((+ a b)) will just be another element in the list and display like your output does. Instead, the way you can deal with this is by having the body be the second element of a cons, which expects a pair. This will get rid of the parentheses.  For example, note the difference here:                scm> (cons 1 '(2))     (1 2)     scm> (cons 1 '(2 3 4))     (1 2 3 4)     scm> (list 1 '(2))     (1 (2))     scm> (list 1 '(2 3 4))     (1 (2 3 4))  Alternatively, if you're combining two lists, you can use append like so.                scm> (append '(1) '(2 3 4))       (1 2 3 4)"
+                }
+            ]
+        },
+        {
+            "question": "For some reason, I've been getting this error: ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk33nv3hh19yc%2FScreen_Shot_20191117_at_3.57.10_PM.png)  When I run python3 ok -q 18 -i and try to run zip on an example function, the exact same error message pops up. What am I doing wrong? Map seems to not be working for me (my 2 values in the cons are both map calls).",
+            "follow-ups": [
+                {
+                    "feedback": "This looks like a python error, so I'm guessing something wrong in the interpreter code. Maybe this is in scheme_eval, where we frequently used expr.first and you are accidentally treating a str object as a pair object by accessing it's first attribute."
+                },
+                {
+                    "feedback": "I'm having the same problem, but I do not know how to solve it. It comes from the make_child_frame method. Anyone has an idea on how to go about fixing this?"
+                },
+                {
+                    "feedback": "I agree with Akshit; check your interpreter where the errors are coming from and make sure that you have implemented the problem correctly. This might involve making sure you have correct `check_form` and `check_formals` checks in the right place."
+                },
+                {
+                    "feedback": "I passed the cases for Problem 10 (the make_child_frame method) where my error seems to come from. I have not used check_form / check_formals, where should I use it? Within the method?"
+                },
+                {
+                    "feedback": "Keep in mind that passes the cases does not necessarily mean that your code is completely correct—that seems to be a common theme throughout this project.   Anyway, I don’t think this issue that you’re encountering is specifically because you aren’t checking any forms or formals (not sure why I said that earlier), but it’s still something you should do.       In any case, with regards to your issue, you could try debugging where the error is coming up and seeing what string your interpreter is trying to call `.first` on, and once you figure it out, try to see how you can solve the problem."
+                }
+            ]
+        },
+        {
+            "question": "Anyone have any idea why I might've gotten this error? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjgnofkd5ka%2Fk33tgui23p7g%2Flambda_issue.PNG)I've been looking at this problem for a while now...",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry, didn't see the previous post. For anyone else who was wondering about this, ctrl + f \"Keep in mind\", and you'll find what you're looking for."
+                }
+            ]
+        },
+        {
+            "question": "I. simply. cannot.  I think that there is an issue this with either my _let?_ function or my _lambda?_ function. It has to do with the number of parentheses in the output. But how to fix?  Our approach: we're using recursion in the body where we use (map let-to- lambda body). When we use (car body) we pass one test but fail the other, when we don't use (car body) we fail a different one!!! :-)  ![haha help](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk42b1b862f%2Fk33v3sdfunje%2FScreen_Shot_20191117_at_7.18.07_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that `body` is a list of expressions, and the form of `lambda` is to have the first two elements of the list be the form and the parameters and the rest of the function be the body. This basically means that you have to prepend the form of the procedure and the parameters of the procedure to the list that is the body—that can be done with either `cons` or `append`."
+                },
+                {
+                    "feedback": "Thank you for your quick response! I'm still a little lost... I've modified the `lambda?` __ procedure using the `list` procedure and now I'm getting the same error. Any advice?"
+                },
+                {
+                    "feedback": "Actually, it wasn't an identical error... now the error reads:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk42b1b862f%2Fk33wjlsqs7jl%2FScreen_Shot_20191117_at_7.18.07_PM.png)"
+                },
+                {
+                    "feedback": "The error looks the exact same - did you mean to upload a different screenshot?"
+                },
+                {
+                    "feedback": "You're right, they are the same I'm sorry! I'm just really bad at counting parenthesis."
+                },
+                {
+                    "feedback": "I'm having the exact same problem, and I've tried everything! Could you let me know what you used to solve this issue?"
+                },
+                {
+                    "feedback": "I think what helps students out with this example is drawing it out as a box and pointer. There's a lot going on in this problem and it helps to break it down this way, see the list you're creating and what not. Maybe double check what you wrote under the <code>lambda?</code> part of the code. I've deleted it above because we shouldn't share code."
+                }
+            ]
+        },
+        {
+            "question": "Let me start out by thanking Cyrus and Nicholas for being the absolute best. I really appreciate how much time and effort y'all put into Piazza!  Now, I'm stuck on one of the test cases that I'm having trouble getting past. Any advice you can give would be amazing!![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk42b1b862f%2Fk33zxgxnfhwf%2FScreen_Shot_20191117_at_9.35.48_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How are you handling the case where the body has more than one expression? Keep in mind that the body is essentially a list of expressions, and there is a pretty elegant solution involving a recursive leap of faith and the `map` function to rewrite all the body expressions at once. It looks like you’re only keeping one of the body expressions right now."
+                },
+                {
+                    "feedback": "^ also thank you for the kind words!"
+                },
+                {
+                    "feedback": "^"
+                },
+                {
+                    "feedback": "In the `lambda?` function, I'm doing `(map let-to-lambda body)`.  Then in the `let?` function, I've changed it to `(map let-to-lambda body)`. This change resulted in the following error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk42b1b862f%2Fk34157my6i1m%2FScreen_Shot_20191117_at_10.09.59_PM.png)  And keep up the good effort yall!"
+                },
+                {
+                    "feedback": "I think this is relevant:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk42b1b862f%2Fk341m5cjr20h%2FScreen_Shot_20191117_at_10.23.09_PM.png)"
+                }
+            ]
+        },
+        {
+            "question": "How to convert a list of names into lambda parameters?  from zip we get something like (a b)  how can it be used as lambda (a b)?  Should we treat code as list?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, all Scheme expressions are lists, and all lists are manipulable by Scheme. That’s the fun part about Scheme. Anyway, for example, if I wanted to construct a `lambda` procedure, I would quote certain things to make the whole thing work: ``` scm> (list 'lambda '(a b) '(+ a b)) (lambda (a b) (+ a b)) ``` Obviously, you’ll have to figure out how to make such a simple example work with your code, but I hope it’ll get you started in a direction."
+                },
+                {
+                    "feedback": "scm> (list 'lambda '(a b) '(+ a b))     (lambda (a b) (+ a b))  The thing returned here is a list, not a lambda procedure."
+                },
+                {
+                    "feedback": "Yes, but the result of the expression is supposed to be an expression (which is a list), not the result of evaluating the expression (which would be a procedure)."
+                }
+            ]
+        },
+        {
+            "question": "Not sure how to fix this issue?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi5ew7if4c9%2Fk340tdsxqccn%2FScreen_Shot_20191117_at_9.58.38_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How are you outputting the new lambda's parameters?"
+                },
+                {
+                    "feedback": "It looks like your using `cons` between the form `lambda` and the list of formals `(let a b)`: ``` scm> (define form 'lambda) form scm> (define formals '(let a b)) formals scm> (cons form formals) (lambda let a b) scm> (list form formals) (lambda (let a b)) ```"
+                },
+                {
+                    "feedback": "hmm okay so i changed the cons to list but now it's outputting                ((lambda (a b) (+ a b)) (1 2))  instead of                ((lambda (a b) (+ a b)) 1 2)"
+                },
+                {
+                    "feedback": "Nicholas posted this earlier which was very helpful for me to get the solution!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk42b1b862f%2Fk341m5cjr20h%2FScreen_Shot_20191117_at_10.23.09_PM.png)"
+                },
+                {
+                    "feedback": "thank you i'll try this!"
+                }
+            ]
+        },
+        {
+            "question": "_[removed]_"
+        },
+        {
+            "question": "define expressions returns the symbol.  How can it be callable in the next expressions?  What do lambda and define have in common that they are grouped together?",
+            "follow-ups": [
+                {
+                    "feedback": "They have a list of formals and a body. That is enough that the code handling both of those should essentially be identical. You don’t care about the return value, only the expression itself."
+                },
+                {
+                    "feedback": "You can follow the exact same procedure on both define and lambda expressions to get rid of all let expressions within them. It's just that for your final output, you have to remember which type of expression we are working with, which is why the `form` variable is given for us to use."
+                },
+                {
+                    "feedback": "Then how is the next (let? expr) suite ever going to be executed if it is already dealt with here?"
+                },
+                {
+                    "feedback": "You have one suite that deals with `lambda` and `define` and a separate suite that deals with `let`. Check the predicates for the template that they have given you."
+                },
+                {
+                    "feedback": "Isn't only the first clause whose predicate is true has the expression evaluated and returned?"
+                },
+                {
+                    "feedback": "Yes. If the expression is a `let` expression, it will run the suite under the `let?` predicate. If the expression is either a `lambda` or a `define` expression, it will run the suite under the `lambda?` or `define?` predicate."
+                }
+            ]
+        },
+        {
+            "question": "I'm having some trouble implementing zip. I think it should involve a recursive call to (zip (cdr pairs)) at some point, but an unsure how to integrate that with the creation of the paris that zip is supposed to return",
+            "follow-ups": [
+                {
+                    "feedback": "Actually, you don’t need a recursive call at all. Think about how you could utilize the `map` procedure to solve it in a more elegant fashion. If it helps you to think about it, we essentially want two lists: one with the `car` of every list, and one with the `cadr` of every element."
+                },
+                {
+                    "feedback": "To add, this is because the `car` of a two-element list is its first element, but the `cdr` of a two-element list is a one-element list containing the second element, so to extract the second element, instead of `cdr`, we have to take the `car` of the `cdr`, which is the `cadr`."
+                }
+            ]
+        },
+        {
+            "question": "if form is defined as (car expr), then if the expr is a lambda or define, form would be either lambda or define. So why don't we need to quote form? Is it because form evaluates to lambda or define itself and therefore lambda doesn't get evaluated?",
+            "follow-ups": [
+                {
+                    "feedback": "Quoting form would evaluate to the symbol form, instead of its value, which is the symbol lambda or define."
+                },
+                {
+                    "feedback": "Remember that finding the value of a symbol is itself an entire evaluation step. If a symbol pointed to another symbol, I would have to evaluate twice in order to get the value. ``` scm> (define x 'y) x scm> (define y 'z) y scm> (define z lambda) z scm> x y scm> (eval x) z scm> (eval (eval x)) lambda scm> (eval (eval (eval x))) Error: unknown identifier: lambda scm> `(,(eval (eval x)) (a) (+ a 1)) (lambda (a) (+ a 1)) ``` Okay, that example was a little verbose, but since we want to return the `lambda` expression and not the lambda procedure itself, we leave it as the symbol and return it that way."
+                }
+            ]
+        },
+        {
+            "question": "I have no idea why \"form\" is being returned-- any ideas? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjgnofkd5ka%2Fk3544bkn6dkk%2Flambda_returning_form.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "This falls under the `((or (lambda? expr) (define? expr))` clause - check to see what you're returning in that case?"
+                },
+                {
+                    "feedback": "Make sure that any values you want to actually evaluate are unquoted: ``` scm> (define form 'define) form scm> `form form scm> `,form define ```"
+                },
+                {
+                    "feedback": "Thanks everyone! I'm able to pass this test case now."
+                },
+                {
+                    "feedback": "Great!"
+                }
+            ]
+        },
+        {
+            "question": "i'm lost on how to use zip. any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "and how zip relates to the function in general"
+                },
+                {
+                    "feedback": "Let's look at a let expression such as `(let ((x 2) (y 4) (z 6)) (+ x y z))`. We want the output of `let-to-lambda` in this case to look like `((lambda (x y z) (+ x y z)) 2 4 6)`. In the original expression, the list of values (which is calculated for us in the provided code) is `((x 2) (y 4) (z 6))`. We want to extract `(x y z)` to form our parameters list for the new lambda and then once we've constructed our lambda, we need to extract `(2 4 6)` to call the new lambda with. Try to see what calling `zip` on `((x 2) (y 4) (z 6))` does."
+                },
+                {
+                    "feedback": "I understand how to extract `(x y z)` but I'm getting something of the form `((lambda (x y z) (+ x y z)) (2 4`` 6))`. How do I extract` (2 4 6)`?"
+                },
+                {
+                    "feedback": "Use `cons` to create a list such that `(lambda (x y z) (+ x y z))` becomes the first element and `(2 4 6)` becomes the rest - this will in effect \"flatten\" `(2 4 6)`"
+                },
+                {
+                    "feedback": "Thanks! It worked."
+                }
+            ]
+        },
+        {
+            "question": "For my (let? expr) clause I am trying to create a lambda function with its parameters being the result of mapping let to lambda over the first list in the list returned by zip values, and the body being the result of mapping let to lambda over body. I am getting an error that says non-symbol: (car (zip values)) on the fourth item in suite 1 case 1, and I don't know why. I have also tried it differently, with a begin and two defines defining params and inputs as car and cadr respectively of (zip values), and then using those in my lambda function, but that returned ((+ a b)) and I don't know why. Any suggestions or guidance?",
+            "follow-ups": [
+                {
+                    "feedback": "The first value of zipping the bindings is going to be all the symbols; we want to leave those untouched. We really want to map `let-to-lambda` over the second value of zipping the bindings, which are all the values. And you are correct in also mapping `let-to-lambda` over all the body. You’re almost there; you just need to change what you’re mapping over with `let-to-lambda` for the bindings and also figure out how to build the finished expression and return it. Remember that the entire `lambda` expression is just the `lambda` symbol and the formals lists prepended to the rest of the body, and then we can put that as the first element of a larger list with the values as the rest of the list to actually call the function."
+                },
+                {
+                    "feedback": "Thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp1702wm22s%2Fk35mrhjltzvi%2FScreen_Shot_20191119_at_1.02.15_AM.png)  I dont know if having above output will be an issue, but how should it be handled?",
+            "follow-ups": [
+                {
+                    "feedback": "The second input in the screenshot gives the correct output, but the other output indicates to me that your zip function‘s output contains excess nils/empty lists. You should modify your zip function to not output these extra nils, although for the sake of problem 18 specifically I don’t believe it’ll hurt the behavior of the intended solution since you only need to access the first and second element of zip’s output for it anyway."
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "My zip function is getting this error:  scm> (let-to-lambda 1)  1  scm> (let-to-lambda 'a)  a  scm> (let-to-lambda '(+ 1 2))  (+ 1 2)  scm> (let-to-lambda '(let ((a 1)  .... (b 2))  .... (+ a b)))  # Error: argument 0 of car has wrong type (nil)  # Error: expected  # ((lambda (a b) (+ a b)) 1 2)  # but got  # Traceback (most recent call last):  # ...  # SchemeError: argument 0 of car has wrong type (nil)  Run only this test case with \"python3 ok -q 18 --suite 1 --case 1\"  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case  On my zip function, I have a base case where the pairs = nil, so I return a list containing two nil elements. Otherwise, I make a list with the first element as the first item of the first list in pairs, and the second element as the car of zip recursively called on (cdr pairs). The second list is similar, but the first element is the second item of the first list in pairs. The second element is the cadr of zip recursively called on (cdr pairs). I use the append keyword when constructing the two lists.  I suspect that the error I'm getting happens when I find the second item of the first list in pairs (for my second list), but I can't see why it would encounter nil since I already handled nil in the base case.  Also, in my main lambda function, what should I put in the else case? Should it just raise an error since the type is unknown? Right now I'm just returning the expression unmodified.",
+            "follow-ups": [
+                {
+                    "feedback": "Update: I noticed that calling zip twice in it's own body made it accidentally tree recursive. I changed my implementation slightly so it does basically the same thing, but only has 1 recursive call. I also changed my base case to check if the car of pairs is null in additional to checking if pairs is null, because when pairs contains two empty lists it is still technically not null. Despite these fixes, I am still getting the same error.  What my zip function is trying to do is take a list ((a b) (c d) (e f)), and create two temporary variables a & b. Then it uses a recursive call to make ((c e) (d f)). Finally, it appends (a) to (c e) and (b) to (d f), and uses cons to turn those both into ((a c e) (b d f)). If the input is () or (()()), then it returns (()())."
+                },
+                {
+                    "feedback": "Try simplifying your function by integrating the `map` function somehow. Remember that we are trying to get the `car` of every element as the first list and the `cadr` of every element as the second list."
+                },
+                {
+                    "feedback": "I've changed my implementation to use map. I'm getting a different error now:  scm> (let-to-lambda 'a)  a  scm> (let-to-lambda '(+ 1 2))  (+ 1 2)  scm> (let-to-lambda '(let ((a 1)  .... (b 2))  .... (+ a b)))  b str  # Error: cdr can only be a pair, nil, or a promise but was b  # Error: expected  # ((lambda (a b) (+ a b)) 1 2)  # but got  # Traceback (most recent call last):  # ...  # SchemeError: cdr can only be a pair, nil, or a promise but was b  Run only this test case with \"python3 ok -q 18 --suite 1 --case 1\"  \\---------------------------------------------------------------------  I tried running (print (zip '((1 2) (3 4) (5 6)))) to see what it would print out, and this is what I saw:  3 int  Error: cdr can only be a pair, nil, or a promise but was 3  My function stores two lists as variables throughout, updates them and returns them both at the end (as the two elements of a bigger list). The map function I'm using takes a different two-element list, and uses append to add the first element to the current version of the first list, and adds the second element to the current version of the second list."
+                },
+                {
+                    "feedback": "The `zip` procedure can be written as a simple function if you use `map`. Remember that we are essentially just trying to get the `car` of every list and then the `cadr` of every list, so using two mapping procedures might make it pretty concise.       Once you have achieved that, try working out exactly how one function has to be rewritten to another. For example, in a `lambda`, the body expressions could have `let`s within them, so you have to somehow rewrite all the body expressions to not use `let`. Think about how a recursive leap of faith and, again, `map` can come in handy here."
+                }
+            ]
+        },
+        {
+            "question": "im having a hard time w/ zip pls help.. im trying to use map and I know that I have to use (car pairs) and (cadr pairs) but I dont understand how to make sure that map will continue adding to the original list rather than making a new one for each number",
+            "follow-ups": [
+                {
+                    "feedback": "You can use map to generate one list containing the first element of each pair and one list containing the second element of each pair. All that’s left to do is to create a new list where the first element is the first list and the second element is the second list."
+                },
+                {
+                    "feedback": "omg thank you sm"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "Can somebody give me some hint on what does the else case return? I've been stuck there for a while.",
+            "follow-ups": [
+                {
+                    "feedback": "The else case applies to lists. You will want to recursively map let-to-lambda onto each element of the inputted list/expression."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk36c2d4ihpvg%2Fscheme_q18.png)  I've been stuck on this for a while, does anyone have any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're able to extract all values from the values list, not just the first one - does your zip function work properly?"
+                },
+                {
+                    "feedback": "It may be my zip function. for my zip function, I create a list. The first value in the list is 'map car pairs' and the 2nd value is 'map cdr pairs'."
+                },
+                {
+                    "feedback": "Remember that the cdr of a list/pair is also a list, so if you want to extract the second element of a list, you need to call car on its cdr, which is the cadr, instead of just its cdr."
+                },
+                {
+                    "feedback": "I tried using cadr earlier, but I kept getting this error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk36d6xguvauu%2Fscheme_zip.png)"
+                },
+                {
+                    "feedback": "Can you isolate this issue to your zip function? Test it separately"
+                },
+                {
+                    "feedback": "Thanks for your help Cyrus! For anyone else with a similar issue: I was using 'cons' before to construct my list in my zip function. I changed it to construct a list using 'list', and it's now working."
+                }
+            ]
+        },
+        {
+            "question": "Hello! What does #[=] mean? I've been getting this error for a while. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "this is what happens when you evaluate the `=` symbol - it is the built-in function corresponding to checking equality."
+                }
+            ]
+        },
+        {
+            "question": "I am confused as to why this is happening when it passed the first test of this case...  Any ideas on why and tips on how to fix it?  Thank you!!  Problem 18 > Suite 2 > Case 1  scm> (load 'questions)  scm> '(lambda parameters not affected but body affected)  (lambda parameters not affected but body affected)  scm> (let-to-lambda '(lambda (let a b) (+ let a b)))  (lambda (let a b) (+ let a b))  scm> (let-to-lambda '(lambda (x) a (let ((a x)) a)))  (lambda (x) (a (let ((a x)) a)) (a ((lambda (a) a) x)))  # Error: expected  # (lambda (x) a ((lambda (a) a) x))  # but got  # (lambda (x) (a (let ((a x)) a)) (a ((lambda (a) a) x)))  Run only this test case with \"python3 ok -q 18 --suite 2 --case 1\"",
+            "follow-ups": [
+                {
+                    "feedback": "here it looks like you are incorrectly converting let statements found inside the body of lambda functions - make sure that part of your let-to-lambda is constructing appropriate lambda function properly using the evaluated sub- expressions."
+                }
+            ]
+        },
+        {
+            "question": "I got this problem but I honestly don't know why.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk36fcurvpwu3%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191119_%E4%B8%8B%E5%8D%882.23.04.png)",
+            "follow-ups": [
+                {
+                    "feedback": "@1959 from Ryan Day, this occured because he had not fully closed his parentheses in the let-to-lambda function."
+                }
+            ]
+        },
+        {
+            "question": "I keep running into a \"argument 0 of car has wrong type (str)\" error. Any ideas how to solve this?",
+            "follow-ups": [
+                {
+                    "feedback": "As the error describes, this means you are calling car on a string. For example, something like                (car 'lambda)  would cause this error.  You can try printing out the value that you call car on beforehand and debug like that. For reference, you can call print procedure like this                (print body)  on a variable body.  I'm not sure where exactly the error is being caused in your code, but I hope that helps!"
+                }
+            ]
+        },
+        {
+            "question": "Can someone help me explain how to solve this problem? I used cons to put (list 'lambda (map..) (map...)) and a cdr of zip values together, but I'm getting one more set of parentheses for the second map and the cdr.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk36h828ni2qa%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191119_%E4%B8%8B%E5%8D%883.09.17.png)",
+            "follow-ups": [
+                {
+                    "feedback": "the map expression for the body would be ((+ a b)). This is because its a list of all of the statements in the body. More generally, it's (statement 1, statement 2, ...). You want to display this as (lambda (a b) statement1 statement 2) and so you can't simply create a list with lambda and the mapped body (this leads to what your code displays). What you can do is use append or cons to combine them. You could append '(lambda (a b)) with '((+ a b)) and that would lead to (lambda (a b) (+ a b)). You could cons them and that would also lead to the same thing since the second param of cons is a list. The same logic will apply to your zipped values."
+                }
+            ]
+        },
+        {
+            "question": "Just finished #18 and tried submitting the project, and got this:  Is something wrong with my ode or is it because of the EC?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk36k69z7q1iu%2FScreen_Shot_20191119_at_4.37.38_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Submitting the project runs all test cases including EC, and it appears as if you've passed all test cases up until the EC, so you're fine."
+                },
+                {
+                    "feedback": "Problem 19, which you didn’t implement, deals with recursion errors, so if you didn’t implement it, you won’t pass it. However, as long as you are passing 1–18 and 116 tests in test.scm, you should be good. Good work!"
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to figure out how to correctly formulate my recursive calls within let-to-lambda, because I realize they have to be quoted, but also evaluated, and I'm not sure how to make that work.",
+            "follow-ups": [
+                {
+                    "feedback": "^ The parameters have to be quoted, I mean."
+                },
+                {
+                    "feedback": "Remember that finding the value of a variable is itself an evaluation step. I would then have to evaluate the result of evaluating that symbol in order to actually evaluate the expression, so you should be fine: ``` scm> (define a '(+ 1 2)) a scm> a (+ 1 2) scm> (eval a) 3 ```"
+                },
+                {
+                    "feedback": "I think then what I'm struggling with is let-to-lambda isn't recognizing what I'm recursively passing in as an atom. For example, my recursive call (let-to- lambda body) when body is equal to _(a (let ((a x)) a)),_ is going straight to the else case, skipping (atom? expr) even though the car of body is a symbol."
+                },
+                {
+                    "feedback": "Consider mapping `let-to-lambda` onto all body expressions instead of just calling `let-to-lambda` on the entire body as a whole"
+                },
+                {
+                    "feedback": "^ `let-to-lambda` only deals with single expressions, not lists of expressions, which is why just passing the body directly to a recursive call doesn’t work."
+                }
+            ]
+        }
+    ]
+}

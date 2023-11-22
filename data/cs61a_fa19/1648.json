@@ -1,0 +1,47 @@
+{
+    "subject": "[Lab 08] Q10: Generate Permutations",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q10\">Q10: Generate Permutations</a>\n\n<p> Please post all questions you have below concerning Q10: Generate Permutations in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can someone help explain this! I am having trouble comprehending the solution.",
+            "follow-ups": [
+                {
+                    "feedback": "This is how their solution gets the permutations.      The solution they use uses recursion. As their base case, they're checking if the list is the empty list. If that is the case, they yield `[ [] ]` as that is the only permutation of a list with no elements.  As for the recursive case, they use this trick to get the permutations:  Suppose you had the permutations of `[ 2, 3 ]` and you wanted to get the permutations of `[ 1, 2, 3 ]`.                >>> sorted(list(generate_permutations([2, 3]))) #Imagine you could get this     [[2, 3], [3, 2]]     >>> sorted(list(generate_permutations([1,2,3]))) #And we want to find this out     [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]  The idea is to take the 1 (or the first element of the list), and add it to every possible position in each of the permutations of the rest of the list ([2,3]). If we rearrange the output a little, it might make more sense.                generate_permutations([2, 3])  -> [            [2, 3]             ,             [3, 2]             ]     generate_permutations([1,2,3]) -> [[1, 2, 3], [2, 1, 3], [2, 3, 1], [1, 3, 2], [3, 1, 2], [3, 2, 1]]  So in this case, we begin with [2,3]. First we put 1 in the first spot to get [1,2,3]. This is one permutation. Now we continue and put 1 in the next position to get [2,1,3]. This is another permutation. Lastly, we do [2,3,1] to get the last permutation for the first element of generate_permutations([2,3]). We then repeat this for the rest of the elements in generate_permutations([2,3]) (which is just [3,2] in this case) and yield every single time we add the first element to a different position."
+                },
+                {
+                    "feedback": "That makes sense, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Why can't you use perm.insert? It gives an error.",
+            "follow-ups": [
+                {
+                    "feedback": "Got it; you can't yield/return anything from insert. I would need an extra line."
+                },
+                {
+                    "feedback": "It depends what your values of `perm` are based on your outer `for` loop. However, keep in mind that `list.insert` doesn’t actually return a copy of the list with the inserted value—it simply mutates the list."
+                }
+            ]
+        },
+        {
+            "question": "I was trying to understand the provided solution for this problem (because my own code kept giving me an error, NoneType has no attribute len, because I was checking the len of the perm in permutations for the second for loop), but I really could not figure out why the provided solution's code works for the case of permutations([100]).  I've attached the python tutor screenshot that shows how calling permutations([100]) calls permutations([ ]), which returns an empty list. So how does the first for loop (<< for perm in permutations( [seq[1: ] ) >>) even iterate if the generator yields an empty list?? Shouldn't it stop iteration?? since perm is the value inside the empty list, which does not exist??![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcnuz7nd1vd6m1%2Fk22xy7f3g45y%2FScreen_Shot_20191023_at_12.08.28_AM.png)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcnuz7nd1vd6m1%2Fk22xyntz5ojh%2FScreen_Shot_20191023_at_12.12.31_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "permutations() is a generator function. Hence, the only time the for loop would not run is if it never hits a yield when it does permutations([seq[1:]]). However, it does hit a yield on line 3 when we pass in the empty list. Because something is yielded, we do not get a StopIteration and the for loop is allowed to run.  You are probably thinking that permutations([]) can be substituted with the empty list when we call it, but that's not true because the first call returns a generator object, and not the empty list. So the for loop is iterating through the generator and not the list.                >>> def yield_empty_sequences():       ...     \"\"\"Function that yields some empty sequence objects. Will it work with a for loop?\"\"\"       ...\tyield ()       ...\tyield []       ...\tyield {}       ...       >>> m = yield_empty_sequences()       >>> type(m) # m is a generator object, NOT an empty sequence. Hence we can iterate over it.       <class 'generator'>       >>> for i in m: # Notice that i takes on the values yielded, even if they are empty sequences.       ...\tprint(i)       ...       ()       []       {}       >>> next(m) # Does m have anything left? No.       StopIteration"
+                },
+                {
+                    "feedback": "Thanks a lot! That makes sense now!"
+                }
+            ]
+        },
+        {
+            "question": "My code (below) is identical to the solution except for the first line (conditional statement), but results in infinite recursion. Can someone help me understand the difference between my code and the solution?                     if seq == []:             yield []         else:             for perm in permutations(seq[1:]):                 for i in range(len(seq)):                     yield perm[:i] + [seq[0]] + perm[i:]",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, realized that any iterable can be passed in -- not just lists."
+                }
+            ]
+        }
+    ]
+}

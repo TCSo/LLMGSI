@@ -1,0 +1,423 @@
+{
+    "subject": "[Scheme] Problem 4",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-4-2-pt\">Problem 4</a>\n\n<p> Please post all questions you have below concerning Problem 4 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am wondering how to use the map function in this problem? It seems to me that there are no functions that can just take in one argument?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps create a version of an existing function, that only takes in one argument"
+                },
+                {
+                    "feedback": "So are we supposed to create a new function in this Q?"
+                },
+                {
+                    "feedback": "got it"
+                },
+                {
+                    "feedback": "I'm also a little confused by this... do we need to create a separate version of scheme_eval in scheme_eval that takes in env as a default value?"
+                },
+                {
+                    "feedback": "When in doubt, test it out"
+                },
+                {
+                    "feedback": "I did... But I wasn't able to iterate over the rest using map, and got an int not callable error. Any tips for the syntax?"
+                },
+                {
+                    "feedback": "You should be able to call `map` on `rest` normally - perhaps check the body of your lambda?"
+                },
+                {
+                    "feedback": "How are you able to call map on rest? It says that the Pair Object is not iterable"
+                },
+                {
+                    "feedback": "`map` is a method of the `Pair` class"
+                },
+                {
+                    "feedback": "I am getting the same error with Pair object not iterable. Any suggestions on the fix?"
+                },
+                {
+                    "feedback": "^nvm I get an int not callable now."
+                }
+            ]
+        },
+        {
+            "question": "How should I evaluate the operator? How to understand the prompt \"which should evaluate to an instance of Procedure\"? Am I supposed to actually write it out or should I just believe the recursive leap of faith?",
+            "follow-ups": [
+                {
+                    "feedback": "Take a recursive leap of faith"
+                },
+                {
+                    "feedback": "If i take recursive leap of faith, then I get '+' object is not callable for '(+ 1 2)'."
+                },
+                {
+                    "feedback": "I see. Thank you!"
+                },
+                {
+                    "feedback": "I'm still unsure of how I should evaluate it, and ideas?"
+                },
+                {
+                    "feedback": "You need to use a function that will evaluate the given expression to its value. That happens to be the function you’re trying to write right now, which implies you’re going to have to recursively call it."
+                },
+                {
+                    "feedback": "Thank you for the clarification, I meant to ask about evaluating the operator"
+                },
+                {
+                    "feedback": "The operator is itself an expression just like any expression, so it is evaluated like any other Scheme expression, using a recursive leap of faith."
+                }
+            ]
+        },
+        {
+            "question": "Does anyone know how to implement the check_procedure function?",
+            "follow-ups": [
+                {
+                    "feedback": "`check_procedure` should already be implemented for you. If you’re asking how to _use_ `check_procedure`, then after you’ve evaluated your operator, you just call it like `check_procedure(operator)`, and it will either succeed or throw an error, but you don’t have to write anything to handle that."
+                }
+            ]
+        },
+        {
+            "question": "If i wanna use scheme-apply function, it takes argument procedure. How yo create a procedure and eval it? Could anyone give me some hints? I have no idea.",
+            "follow-ups": [
+                {
+                    "feedback": "The form of a call expression, which is what you are dealing with, is always that the first subexpression is the operator, and the rest of the subexpressions are operands. You are guarenteed that `expr` is a list built from `Pair`s since the checks for atomic expressions are already handled for you, so see how you can manipulate the `expr` `Pair` to evaluate operators and operands contained within. (Also keep in mind you have to _evaluate_ the operators and the operands, as well. Recursion will help.)"
+                }
+            ]
+        },
+        {
+            "question": "I am passing many of the test cases, but for the following test case,                ((/ 1 0) (print 5))  I keep on getting a TypeError: unhashable type: 'Pair', instead of a SchemeError. I believe that I am evaluating the operator incorrectly, but it works for a lot of the other test cases. Any ideas on what I might be doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Be sure to note this from the spec:  \"The check_procedure function raises an error if the provided argument is not a Scheme procedure. You can use this to check that your operator indeed evaluates to a procedure.\""
+                },
+                {
+                    "feedback": "Otherwise, perhaps make a private post with what you've tried if the above doesn't help."
+                },
+                {
+                    "feedback": "I am getting the same error, it seems that ( / 1 0) is not evaluated. I only checked if check_procedure is true.  Any ideas?  Instead of SchemeError, I am getting:  TypeError: unhashable type: 'Pair'"
+                },
+                {
+                    "feedback": "specifically for this test case, in order to figure out if (/ 1 0) is an operator or not, we need to evaluate it first - see if that is the case in your code!"
+                },
+                {
+                    "feedback": "figured it, thanks!"
+                },
+                {
+                    "feedback": "I'm getting the same error. What does \"TypeError: unhashable type: 'Pair'\" mean?   Why can't we env.lookup(first) for the operator instead of recursively calling scheme_eval?"
+                },
+                {
+                    "feedback": "You don’t know what the value of the operand is until you look it up. You need to evaluate it and then check if it’s a procedure, not the other way around."
+                },
+                {
+                    "feedback": "In order for something to be a key of a dictionary, it should be “hashable”, meaning that there should exist a function that assigns a hash value to this object. Since there is no such function for the Pair class, it is unhashable, and therefore it cannot be a key of a dictionary. If you get this error, you are probably refering to a Pair object as to a key in a dictionary."
+                }
+            ]
+        },
+        {
+            "question": "how does the map method of pair work? do we do (object of pair).map(lambda function)?",
+            "follow-ups": [
+                {
+                    "feedback": "got it!"
+                },
+                {
+                    "feedback": "I use (object of pair).map(lambda function), but I get no return value, can you help me?"
+                },
+                {
+                    "feedback": "Are you sure that your pair is not nil?"
+                },
+                {
+                    "feedback": "Figured it out!"
+                }
+            ]
+        },
+        {
+            "question": "what does check procedure do? Does it evaluate call expressions as well if we are given a call expression in the operator? To handle the case when the operator is a call expression, do I need if/else statement?",
+            "follow-ups": [
+                {
+                    "feedback": "No, it doesn't evaluate its input on-the-fly. You need to evaluate the operator and then make sure the result is a valid procedure."
+                },
+                {
+                    "feedback": "I passed all the cases, but didnt use check_procedure anywhere. Is it necessary to use it?"
+                },
+                {
+                    "feedback": "Seems fishy, unless you implemented raising an error yourself. Even if you passed all test cases for now, you might run into esoteric problems down the line. \"The `check_procedure` function raises an error if the provided argument is not a Scheme procedure. _You can use this to check that your operator indeed evaluates to a procedure_.\""
+                },
+                {
+                    "feedback": "No, I didnt implement anything else. Just now, I added check_procedure just to avoid errors in the future. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "how do i get the operator of the expression. i think i'm confused on where to start for this question.",
+            "follow-ups": [
+                {
+                    "feedback": "expr is a scheme list of all the tokens (aka key elements) of the inputted scheme expression. The docstring gives an example of this; the add expression (+ 2 2) is inputted and expr is a scheme list.  All expressions follow a format similar to the docstring, so think about the placement of the operator!"
+                }
+            ]
+        },
+        {
+            "question": "No matter what I do, I keep getting this error:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2oh463yn6jm%2FScreen_Shot_20191107_at_12.52.37_AM.png)  Any ideas why this could be happening?",
+            "follow-ups": [
+                {
+                    "feedback": "I've got this error, too!"
+                },
+                {
+                    "feedback": "Hmmm. Keep in mind that the procedure is only the result of evaluating the `+`, not the entire list. Evaluate the operand, and then evaluate all the operands and put them in their own Scheme list. Finally, apply the single operator to the list of operands."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzwa9tw9to36rd%2Fk2p5evu9qlge%2F%E6%8D%95%E8%8E%B7.PNG)  Hi, I got this kind of error in q3 and I changed the argument, but this time it doesn't work on q4. And I am confused about this error. Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you aren’t successfully evaluating each of your operands. They need to be evaluated before they can be used."
+                }
+            ]
+        },
+        {
+            "question": "I'm a little confused on what's the difference between the map function and the scheme_apply function in this problem. It seems to me that they both apply the operator to the operands.",
+            "follow-ups": [
+                {
+                    "feedback": "the map function takes in _any_ one-argument function and applies that function to every element of the scheme list, so it does not necessarily apply the operator to the operands. You can pass in any function that you deem helpful. In contrast, scheme_apply applies the scheme procedure (operator) to some operands."
+                },
+                {
+                    "feedback": "am i supposed to use check_procedure IN map or is that wrong"
+                },
+                {
+                    "feedback": "I'm not sure what kind of function would be helpful to use in map. My original idea was to simply evaluate the operator with check_procedure, then use scheme_apply to apply that procedure to the rest of Pair."
+                },
+                {
+                    "feedback": "Remember that there's 3 steps to evaluating a call expression: evaluating operator, evaluating operands, and applying the operator to operands. We know that map applies a function to multiple arguments. Think about which of the above steps might involve multiple arguments, and what would be an appropriate function to apply to the arguments."
+                }
+            ]
+        },
+        {
+            "question": "When testing my code, it throws a \"str not callable: +\" error when it reaches the check_procedure function call. I'm only calling that function with the first of Pair, so shouldn't that be the appropriate way to check if it is a procedure.",
+            "follow-ups": [
+                {
+                    "feedback": "Just an update: I managed to pass the cases without using check_procedure, because I saw how scheme_apply already checks the procedure and I thought of another way to evaluate the operator. Is this considered wrong?"
+                },
+                {
+                    "feedback": "Perhaps what you might be doing is trying to check if the string `'+'` is a procedure rather than the actual procedure that `'+'` evaluates to. Make sure you’re doing things in the right order."
+                }
+            ]
+        },
+        {
+            "question": "How do I get rid of the SchemeError: str is not callable: + error?",
+            "follow-ups": [
+                {
+                    "feedback": "Frame.lookup"
+                },
+                {
+                    "feedback": "nvm ^. \"You'll have to recursively call `scheme_eval` in the first two steps.\""
+                }
+            ]
+        },
+        {
+            "question": "I passed all tests, but I was failing tests on (+) , (*), (-) , to fix this I used if statement to check for these. Any idea why I am failing the tests and is my fix fine?  Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "You should not be manually checking for them - what was the error exactly?"
+                },
+                {
+                    "feedback": "I'm getting the same problem the first error I get is when (+) is tested:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk2q4mj8tdvqe%2FScreen_Shot_20191108_at_4.34.51_AM.png)"
+                },
+                {
+                    "feedback": "so i fixed the problem by calling map on the instance instead of using Pair.map but why does that fix it? what's the difference?"
+                },
+                {
+                    "feedback": "this is equivalent to calling a class's method from the class, or from an instance of the class. what is the difference between these two ways of calling a class's method (think about methods that take in an argument \"self')?"
+                },
+                {
+                    "feedback": "Could someone further elaborate on the solution to this problem please? I'm having the same issue"
+                },
+                {
+                    "feedback": "Nvm I got it"
+                },
+                {
+                    "feedback": "There are three steps:   1\\. Evaluate the operator. The operator is in the first position in the list, and you can evaluate it with a recursive leap of faith.   2\\. Evaluate the operands. The operands are the rest of the list. You will also need a recursive leap of faith, and there is an easy one-liner that involves the `map` function. (Hint: Map every function to its evaluated value.)   3\\. Apply the operator to the operands      Follow these steps exactly, and you should have solved the problem, no `if` statements necessary."
+                }
+            ]
+        },
+        {
+            "question": "Since scheme_apply already calls check_procedure(procedure), why do I need to call it in scheme_eval?",
+            "follow-ups": [
+                {
+                    "feedback": "in this function, we would not want to evaluate the operands unless we know that the operator is valid. the check in scheme_apply then in this context is a redundant check."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble understanding what the use of map is here, given that we have a function that already applies the operator to operands(scheme_apply). What is the use of map here? It seems I can't pass the tests without using it, but I can't understand its usage",
+            "follow-ups": [
+                {
+                    "feedback": "The thing is that you have to evaluate _every_ operand, so the key to use to the `map` function to call a particular function on every element in the operand list."
+                },
+                {
+                    "feedback": "Oh so you don't use map when applying the function, rather, map is used to evaluate the operands list?"
+                },
+                {
+                    "feedback": "The `map` function returns a version of the list with the specific function applied to it. If you want to evaluate all the operands at once, what function should you pass into `map`?"
+                },
+                {
+                    "feedback": "ohh I see, thanks alot!"
+                },
+                {
+                    "feedback": "No problem!"
+                },
+                {
+                    "feedback": "I am still a bit confused. I get the part as to where I have to use the map function but I am having trouble determing which function to use. Specifically, which _**one argument** _function to use.   Any hints/tips/suggestions?"
+                },
+                {
+                    "feedback": "You need to evaluate all your operand expressions, right? What one-argument function do you know that will evaluate a given expression?"
+                },
+                {
+                    "feedback": "So the function that I used to evaluate the **operator** cannot be used here because it is not one-argument function."
+                },
+                {
+                    "feedback": "Sorry, I spoke too soon. But remember that you can always curry a function. Remember this example:   ```   def add(x, y):   return x + y      add_two = lambda x: add(x, 2)   ```   We turned the `add` function into a one-argument function:   ```   >>> add_two(3)   5   ```"
+                },
+                {
+                    "feedback": "Oh. Got it. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Could you please explain these four sentence? I do not know understand what are the functions scheme_symbolp and self_evaluating                if scheme_symbolp(expr):           return env.lookup(expr)       elif self_evaluating(expr):           return expr",
+            "follow-ups": [
+                {
+                    "feedback": "The first if statement checks for symbols which are essentially single variables that evaluate to a value, which was either manually defined (using the `define` procedure) or built-in (such as `*` or `+`). The second if statement checks for atomic expressions (such as numbers). These are already handled for you in the template, so you only have to write the code that handles evaluating call expressions, or lists."
+                },
+                {
+                    "feedback": "how come when the input is Pair('+', Pair(2, Pair(2, nil))) does scheme_symbolp(expr) return false?"
+                },
+                {
+                    "feedback": "A symbol represents a single variable, but the input you listed is a full Scheme list, not a single symbol. The +, on the other hand, for example, would be a symbol."
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why (1 2) is SchemeError",
+            "follow-ups": [
+                {
+                    "feedback": "Anything within parentheses is a call expression (unless it’s quoted). The first expression inside the parentheses is the operator, and the remaining expressions are the operands. `(1 2)` is an expression with `1` as the operator and `2` as the operand, but `1` isn’t a callable function, so it should error. You can check whether a given value is a procedure using the `check_procedure` function."
+                },
+                {
+                    "feedback": "If you wished to create a list with the elements 1 and 2, you could either write `(list 1 2)` or `'(1 2)` and neither of those would give syntax errors."
+                }
+            ]
+        },
+        {
+            "question": "I am using the map function on a lambda with a pair object but keep getting the error int is not callable: 2. Any suggestions on how to fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are checking that your operator (the first element of the expression) is a valid procedure before applying the operator to the operands. Once you’ve evaluated the operator, you can check whether it’s a valid procedure with the `check_procedure` function."
+                }
+            ]
+        },
+        {
+            "question": "when I check if first is a procedure I get this error:  SchemeError: str is not callable: +  what am I doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you evaluate the operand before you check if it is a procedure."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting the SchemeError \"scheme_builtins.SchemeError: unknown identifier: +\", and I don't know how to fix it. (I think it might have something to do with the resulting \"env.lookup(expr)\" call when scheme_eval is called on (+ 2 2) ?) Any suggestions on how to approach this error would be appreciated...",
+            "follow-ups": [
+                {
+                    "feedback": "Are you properly evaluating the operator? You need to make sure you evaluate the operator, and evaluation of the symbol `+` should be handled by the part of the code that’s already written for you, since that’s self-evaluating. Make sure you take your recursive leap of faith, as well."
+                },
+                {
+                    "feedback": "Yes, I've taken the recursive leap of faith, but I still don't understand why my recursive call would make the \"if scheme_symbolp(expr)\" evaluate to true."
+                },
+                {
+                    "feedback": "A symbol is really just a variable that evaluates to a value. These can be built-in, like the `+` procedure, or they can be defined using the `define` procedure. Evaluating the operand means evaluating the `+` symbol, which will evaluate to that built-in summing procedure."
+                },
+                {
+                    "feedback": "Hm, I see. However, when I run the code interactively within the terminal, I still get:                >>> expr.first       '+'       >>> scheme_eval(expr.first, create_global_frame())       Traceback (most recent call last):         File \"<console>\", line 1, in <module>         File \"C:\\Users\\Owner\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 24, in scheme_eval           return env.lookup(expr)         File \"C:\\Users\\Owner\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 102, in lookup           raise SchemeError('unknown identifier: {0}'.format(symbol))       scheme_builtins.SchemeError: unknown identifier: +"
+                },
+                {
+                    "feedback": "It sounds like you haven’t implemented problem 2 correctly, then. Are you passing all the test cases for it?"
+                },
+                {
+                    "feedback": "Didn't realize I accidentally got rid of a chunk of Problem 2-- it works now. Thanks so much for your help!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2toxwmaxo4c%2FScreen_Shot_20191110_at_4.29.46_PM.png)  Any ideas on how to fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "When are you assigning the `operator` variable? Make sure it has a value before you try to do anything with it, and make sure your scoping is correct."
+                },
+                {
+                    "feedback": "Fixed it! I just got rid of an if-statement and fixed the indentation! Thank you!"
+                },
+                {
+                    "feedback": "No problem! Best of luck with the rest of the project!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnplo6l3t2i6%2Fk2uy64h2vl3u%2FScreen_Shot_20191111_at_1.36.35_PM.png)  I am getting this error, but I only call scheme_eval on first once in my code. Any pointers?",
+            "follow-ups": [
+                {
+                    "feedback": "The `#[+]` procedure returns `0` when it doesn’t receive any operands. Maybe you’re somehow accidentally dropping your operands?"
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191111_at_2.25.14_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhm5o2cg41h%2Fk2uzxh5hfaba%2FScreen_Shot_20191111_at_2.25.14_PM.png)  The final + call is not aggregating the individual call expressions 4 4 4 and adding them together. How would I go about solving this issue?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like your operands are accidentally transformed into `None` before you apply them to the `+` operator. Evaluating atomic expressions should already be handled for you, so I’m not entirely sure where the issue is coming from. Are you properly evaluating your operands, and is your `scheme_read` function working as intended?"
+                },
+                {
+                    "feedback": "Nevermind figured it out! Was missing a return in problem 3"
+                }
+            ]
+        },
+        {
+            "question": "Can someone give me a hint? I have no idea where to start",
+            "follow-ups": [
+                {
+                    "feedback": "Use the procedures listed in the problem description:    * The `check_procedure` function raises an error if the provided argument is not a Scheme procedure. You can use this to check that your operator indeed evaluates to a procedure.   * The `map` method of `Pair` returns a new Scheme list constructed by apply ing a _one-argument function_ to every item in a Scheme list.   * The `scheme_apply` function applies a Scheme procedure to some arguments.  Remember that evaluation should be recursive!"
+                },
+                {
+                    "feedback": "Am I supposed to use try and except for check procedure?"
+                },
+                {
+                    "feedback": "No, you just need to call it properly."
+                }
+            ]
+        },
+        {
+            "question": "Any Ideas of what might be happening here? I checkprocedure, and then I am returning scheme apply, with the scheme eval and the rest. I get this though.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjbhgcj5er%2Fk342waeycey3%2Fwhat.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you only evaluate the operator once (i.e. that you aren't calling `scheme_eval` on the same expression multiple times). If you need to use the result of evaluation more than once, then store it as a variable, and reference that variable."
+                },
+                {
+                    "feedback": "oo nice. turns out i was calling scheme_eval 2 times. Storing it in a variable and referencing it those 2 times fixed it. Thanks a lot!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdj480i0p51u%2Fk36j60jdabj8%2FThe_Scheme_Project_Is_Hard.png)  It's times like these I really start to worry about myself.",
+            "follow-ups": [
+                {
+                    "feedback": "Happens to the best of us. I literally could not figure out why $$8 \\times 2$$ was not equal to $$32$$ for almost ten minutes in a project I was working on a while ago."
+                },
+                {
+                    "feedback": "Oh man, at least I'm not alone then :)"
+                },
+                {
+                    "feedback": "At a certain point, your brain fries enough to fail at simple arithmetic."
+                }
+            ]
+        }
+    ]
+}

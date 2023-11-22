@@ -1,0 +1,86 @@
+{
+    "subject": "[HW 10] Q1: Size of Dogs",
+    "content": "<a href=\"https://cs61a.org/hw/hw10//#q1\">Q1: Size of Dogs</a>\n\n<p> Please post all questions you have below concerning Q1: Size of Dogs in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Any insight as to how to approach this problem? I'm pretty lost.",
+            "follow-ups": [
+                {
+                    "feedback": "I figured out the solution but I'm not really sure as to why it works :/"
+                },
+                {
+                    "feedback": "When the FROM part of our clause has more than one table, think of it as generating all the combinations of elements from those tables. Then, the WHERE part filters through those combinations as desired. Finally, the SELECT part will take in those filtered combinations and produce some desired output. In this case, we want to select the name and size from all combinations of dogs and sizes where the size's min and max values fit with the dog's height value."
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why i'm getting this error  # Error: expected  # abraham  # eisenhower  # fillmore  # grover  # herbert  # but got  # near \"and\": syntax error  # no such table: size_of_dogs  any help?",
+            "follow-ups": [
+                {
+                    "feedback": "You have a syntax error in your statement that is resulting in size_of_dogs failing to be constructed."
+                },
+                {
+                    "feedback": "Make sure compound conditionals are always written with the form `SELECT [columns] FROM [tables] WHERE [condition 1] AND [condition 2];`."
+                },
+                {
+                    "feedback": "okay i found that error but my function only returns every other dog now :/  # Error: expected  # abraham  # eisenhower  # fillmore  # grover  # herbert  # but got  # abraham  # fillmore  # herbert"
+                },
+                {
+                    "feedback": "What output do you get if you try printing the output of `SELECT * FROM size_of_dogs;`?"
+                },
+                {
+                    "feedback": "you might not be checking a <= condition. a dog must be over the `min` and **less than or equal** to the `max`"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected       #     abraham       #     eisenhower       #     fillmore       #     grover       #     herbert       # but got       #     abraham       #     abraham       #     barack       #     barack       #     clinton       #     clinton       #     delano       #     delano       #     eisenhower       #     eisenhower       #     fillmore       #     fillmore       #     grover       #     grover       #     herbert       #     herbert              Run only this test case with \"python3 ok -q size_of_dogs --suite 1 --case 1\"       ---------------------------------------------------------------------       Test summary           0 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you filter your table joins using the `WHERE` clause so no rows match up that aren’t supposed to be matched up. It looks like you’re just joining them without filtering right now."
+                },
+                {
+                    "feedback": "[ code removed ]"
+                },
+                {
+                    "feedback": "I was using `WHERE`"
+                },
+                {
+                    "feedback": "**Please do not post your code to Piazza publicly.** Consider simplifying how you are comparing the height to the min and max columns."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting grover twice in my table because his size is both the max if toy and min of mini, and I'm not sure how to filter one out",
+            "follow-ups": [
+                {
+                    "feedback": "Read the instructions carefully: max is inclusive, min is exclusive."
+                }
+            ]
+        },
+        {
+            "question": "Despite following the structure correctly, I don't seem to be getting any output? Anyone have any idea why this might be happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Try running `SELECT * FROM size_of_dogs` in the interactive SQL interpreter and seeing if you get any output. If you get an error that the table doesn’t exist, you probably have a syntax error (check semicolons?). If you are just getting no rows, then it is an implementation error."
+                }
+            ]
+        },
+        {
+            "question": "I have no idea where I can replace it \"REPLACE THIS LINE WITH YOUR SOLUTION\".  Is there certain commands or file?",
+            "follow-ups": [
+                {
+                    "feedback": "You should be editing `hw10.sql` in order to write your solutions. The lines you should replace are in there."
+                }
+            ]
+        },
+        {
+            "question": "Where is this \"CREATE\": syntax error coming from? # Error: expected # abraham # eisenhower # fillmore # grover # herbert # but got # near \"CREATE\": syntax error # # abraham # eisenhower # fillmore # grover # herbert Gives the CREATE error for every possible query, including (for example): CREATE TABLE size_of_dogs AS SELECT * FROM dogs, sizes; (produces) # but got # near \"CREATE\": syntax error # # abraham # barack # clinton # delano # eisenhower # fillmore # grover # herbert # abraham # barack # clinton # delano # eisenhower # fillmore # grover # herbert",
+            "follow-ups": [
+                {
+                    "feedback": "Did you forget a semicolon?"
+                }
+            ]
+        }
+    ]
+}

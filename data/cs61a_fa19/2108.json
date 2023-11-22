@@ -1,0 +1,1022 @@
+{
+    "subject": "[HW 09] Q5: NondecreaStream",
+    "content": "<a href=\"https://cs61a.org/hw/hw09//#q5\">Q5: NondecreaStream</a>\n\n<p> Please post all questions you have below concerning Q5: NondecreaStream in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "The python3 ok command is not correct.  [4005529D73A44A5799BD21469D5B07A1.jpeg](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzxir9t86u9%2Fk32724xmgmhn%2F4005529D73A44A5799BD21469D5B07A1.jpeg)",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, we'll update this shortly, tyty!"
+                }
+            ]
+        },
+        {
+            "question": "Actually want some idea how can I start it, is the returning element in the stream list?",
+            "follow-ups": [
+                {
+                    "feedback": "I don’t quite understand your question, but your first step should be figuring out what the first sequence of integers you want to return is—that is, finding the nondecreasing sequence of integers and stopping when it does decrease. This list is the first element of your stream, and then you can use recursive leaps of faith to get the rest of the code working."
+                },
+                {
+                    "feedback": "is a helper function necessary to find the first non-decreasing sequence?"
+                },
+                {
+                    "feedback": "It depends on your approach, but you’re probably going to need a helper function _somewhere_ regardless of how you decide to implement the function. I’m sure you could figure out another way if you wanted to."
+                },
+                {
+                    "feedback": "Yes each element of the stream is a scheme list, not a stream. But the whole thing is a stream.      While you can do it with a helper function, I think it's easier without a helper function and using the **leap of faith**. It just depends on how you want to do it."
+                }
+            ]
+        },
+        {
+            "question": "My recursive call isn't letting me skip over the elements I've already added (see screenshot). Any idea what I might be doing wrong?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy93d3z7mqh5nt%2Fk32aovl1onms%2Fnondecreastream.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Yeah, I definitely had to think about how to deal with this problem for a while. You essentially just need to find a way to return a stream with the first n elements removed, not just the first as you would get with `cdr- stream`. Consider writing a helper function for that. *(I’m not actually sure if there’s a more elegant solution than that, but that’s the approach I took.)*"
+                },
+                {
+                    "feedback": "Remember that if the next element in the stream is greater than the current element, you have to build a list. However, you shouldn't be creating a new stream with that list since you might have to add more elements to that list. I used a helper function in my solution as well"
+                },
+                {
+                    "feedback": "Well, you’re doing more than mutating a stream or mapping elements, so you’re essentially building a new stream."
+                },
+                {
+                    "feedback": "Yeah -- my bad, I worded my comment above poorly lol. I meant to say that you should continue building the list until the next element of the input stream is smaller than the current element, which in that case, you would build a new stream with that list. However, if the next element is greater than or equal to the current one, then you should continue to build the list, not necessarily creating a new stream with that list yet"
+                },
+                {
+                    "feedback": "Okay so I've made the helper function for skipping the first n elements of a stream, but now I'm having a hard time trying to figure out how to count the number of elements I've added in the previous list."
+                },
+                {
+                    "feedback": "Try the built-in `length` procedure: <https://cs61a.org/articles/scheme- builtins.html#length>"
+                },
+                {
+                    "feedback": "I tried to pass in the result of my first helper function (finding the first non-decreasing sequence) into built-in length to get the number for skipping the first n elements, but keep getting this error? Any suggestions?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk341cw6ojfsc%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191117_%E4%B8%8B%E5%8D%8822.15.19_%E4%B8%8B%E5%8D%88.png)"
+                },
+                {
+                    "feedback": "Are you sure the output of your first helper function is a list and does not contain any streams?"
+                },
+                {
+                    "feedback": "Did you solve the problem? I created a helper function to remove the first n element of a list, but get the same error, can anyone give a clue?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk35hjga5xsua%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191118_%E4%B8%8B%E5%8D%8822.35.59_%E4%B8%8B%E5%8D%88.png)"
+                },
+                {
+                    "feedback": "Make sure you measure the length of the first nondecreasing subsequence and use that as your number of elements to skip"
+                },
+                {
+                    "feedback": "thank you Cyrus! yes, I did measure that passing the result I get from the first helper function into length, but error still occurs."
+                }
+            ]
+        },
+        {
+            "question": "Is it safe to assume the list that is passed in as a parameter is not infinitely increasing?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                },
+                {
+                    "feedback": "To clarify, it can be infinite, but it is guaranteed to decrease at some finite point."
+                }
+            ]
+        },
+        {
+            "question": "How can I end a list and simultaneously start a new one? As in:  (cons element (recursive call to some function))  and i want the function to both return nil, closing that list, and simultaneously start a new list?",
+            "follow-ups": [
+                {
+                    "feedback": "I don’t quite understand your question, but I would start by breaking the question down into parts: 1\\. How can we identify the sequence of numbers that you need to return as a list? That is, the nondecreasing sequence. 2\\. How can we isolate that list so that we can return the list as the first element of the stream? 3\\. How can we implement the recursive call to make the function work as intended?"
+                },
+                {
+                    "feedback": "For me, I implemented two helper functions (one for determining the nondecreasing sequence and one for determining the rest of the stream for the recursive call) though I am not sure if both are necessary."
+                },
+                {
+                    "feedback": "i have the same question. because i am not sure how to stop making the list then return it while starting a new list"
+                },
+                {
+                    "feedback": "@Luke, I used the same approach as you. I haven’t though of a more elegant solution, but that doesn’t mean there isn’t one!"
+                },
+                {
+                    "feedback": "@Anon, you probably want to rely on a recursive leap of faith here to handle the rest of the lists after the first list."
+                },
+                {
+                    "feedback": "As a little hint for the first helper function (finding the first non- decreasing sequence) make sure it returns a list and not a stream (although it should take _in_ a stream). Otherwise, you’ll end up with a bunch of unforced promises in your output."
+                },
+                {
+                    "feedback": "So currently I'm able to return the first non-decreasing list from a stream (this is my implementation of a helper function), but I don't know how to get the rest of that stream. My plan is to recursively build a stream from each one of these lists that are created from my helper function."
+                },
+                {
+                    "feedback": "Consider making another helper that given a stream and a number (let’s call it n), returns a “skipped” version of that stream that excludes the first n elements."
+                },
+                {
+                    "feedback": "There’s a followup above that addresses this paradigm."
+                },
+                {
+                    "feedback": "Thank you, I'll let you know if I don't figure it out."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk33payy5patd%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191117163824.png)how to deal with this problem? I think it may because that we would use cdr for finite sequence, but cdr-stream for infinite sequence.",
+            "follow-ups": [
+                {
+                    "feedback": "By the way, how to track the \"rest\" s in cons-stream?"
+                },
+                {
+                    "feedback": "Were you able to implement the first helper successfully (finding the first non-increasing sequence)?"
+                },
+                {
+                    "feedback": "If (car s) is larger than (car cdr s) then return nil, else return cons with a helper in it?"
+                },
+                {
+                    "feedback": "Remember that s is a stream, so to get the rest of it, you should use cdr- stream"
+                },
+                {
+                    "feedback": "Yes, it’s a typo. I do call cdr-stream."
+                },
+                {
+                    "feedback": "where is your SchemeErorr being thrown from? I don't see that anywhere in the project, so I'm guessing you throw it yourself somewhere?"
+                },
+                {
+                    "feedback": "@Akshit it's within scheme_builtins.py, not a custom implementation:                def check_type(val, predicate, k, name):         \"\"\"Returns VAL.  Raises a SchemeError if not PREDICATE(VAL)         using \"argument K of NAME\" to describe the offending value.\"\"\"         if not predicate(val):             msg = \"argument {0} of {1} has wrong type ({2})\"             raise SchemeError(msg.format(k, name, type(val).__name__))         return val"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this error that I'm not sure what is causing it or exactly what it means: \"operand 0 (#[promise (not forced)]) is not a number\"  So far in my implementation, I created 2 helper functions: one for getting the first non-decreasing sequence in the stream and one for modifying the stream to take out that sequence. Then I create a cons-stream with the first sequence and the recursive call with the modified stream. Any ideas on what could be causing it?",
+            "follow-ups": [
+                {
+                    "feedback": "With the helper for getting the first sequence, make sure you return a list and not a stream"
+                },
+                {
+                    "feedback": "Yea I am"
+                },
+                {
+                    "feedback": "Try testing out each helper independently - pull them out of the procedure and run the console, and run something like `(your-helper-name finite-test- stream)`"
+                },
+                {
+                    "feedback": "When testing on the second helper function which modifies the stream, it results in:                (#[promise (not forced)] . #[promise (not forced)])"
+                },
+                {
+                    "feedback": "Hmmm, that’s definitely not an output you should be having. Are you ever accidentally using `cdr` rather than `cdr-stream`? `cdr-stream` should automatically force the promises for you. Although, I’m not entirely sure how `cdr` would result in that, as well."
+                },
+                {
+                    "feedback": "Oh I had fixed my error already but I should probably say how I fixed it before marking resolved. What I had done in my second helper function was (cons (cdr-stream s) nil) instead of just (cdr-stream s). I saw how it was unnecessary in my code and though I'm not entirely sure how it is different from (cdr-stream s), it worked."
+                },
+                {
+                    "feedback": "Glad you got it sorted out, and thank you for sharing your solution."
+                }
+            ]
+        },
+        {
+            "question": "Having trouble with this error: \"SchemeError: argument 0 of cdr-stream has wrong type (Pair)\"  I tried running a simple program to simply iterate over and reconstruct a given stream (below), but this still returns an error. My main issue is that my code does not produce an error when run on the code.cs61a.org interpreter; it only does so when run in the terminal.                (define (helper1 stream)         (if (null? (cdr-stream stream))             (cons (car stream) nil)             (cons (car stream) (helper1 (cdr-stream stream)))             ))          (define (nondecreastream s)         (helper1 (cons-stream 1 (cons-stream 2 nil)))         )  I feel like I'm missing something obvious here...",
+            "follow-ups": [
+                {
+                    "feedback": "I am not getting any error when I run your example code. Could you post a screenshot of exactly what you pasted into your interpreter?"
+                },
+                {
+                    "feedback": "Figured it out. My issue was that the above error was being thrown when I ran the tests, but that's because the tests expect a stream to call cdr-stream on and not the list my helper function returns."
+                }
+            ]
+        },
+        {
+            "question": "I pass the infinite case, and only get a little mistake in the finite case, may you please tell me something about this?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxdyae8r2t748%2Fk33svucybxex%2F%E6%88%AA%E5%B1%8F20191117%E4%B8%8B%E5%8D%886.18.26.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You might have an issue with your base cases. If you split the problem into parts, make sure the part that finds the string of non-decreasing numbers never just returns an empty list."
+                },
+                {
+                    "feedback": "yes, I found that. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting SchemeError: pair is not callable: ((1 2 3) . #[promise (not forced)])  Any ideas why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you might have accidentally put the stream (or the `cdr-stream` of a stream) into the beginning of a Scheme expression, so it’s checking if the stream it’s a procedure and failing since it isn’t."
+                },
+                {
+                    "feedback": "I got the same error. How to solve it?"
+                },
+                {
+                    "feedback": "Make sure you aren’t accidentally putting a stream as the first element of a larger Scheme expression. Something like `(s (...))` would fail because it sees the stream `s` as an operator and fails."
+                }
+            ]
+        },
+        {
+            "question": "i'm stuck on creating a helper function to find a way to return a stream with the first n elements removed (for example, if we have 1 2 3 4 1 2..., how do i get rid of 1 2 3 4 so that i can continue on to 1 2... and check for a non- decreasing sequence?).",
+            "follow-ups": [
+                {
+                    "feedback": "Let's assume your helper takes in a stream `s` and a number `n`. The result of removing the first `n` elements is the same as the result of removing the first `n-1` elements from the rest of `s`. Knowing this, the only additional thing left to do is to implement a base case for when `n = 0` (i.e. when no elements are to be removed) and you're set."
+                },
+                {
+                    "feedback": "oh thank you!"
+                },
+                {
+                    "feedback": "@Cyrus How can we get the number n? Is there a way to store the n which can be calculated in the first help function and use it in the second help function?"
+                },
+                {
+                    "feedback": "You can get the length of a list with the `length` procedure: ``` scm> (length '(a b c d)) 4 ```"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk34uxw8dn7c4%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191117194703.png)  I am wondering how to fix this error. There are two helper functions in my code. The first will construct a nondecrease list, which checks if (car s) > (car (cdr-stream s)), then return nil, else return cons( car s helper). the second return the rest stream, which checks if there is a decrease, then return cdr-stream. Finally, construct the stream using the first helper and a recursive call on the rest. Is there any problems with my coding? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "The logic for your first helper sounds reasonable, although I don’t really follow the wording of your description for the second helper. Ideally, now that you have the list of non-decreasing integers, you want to remove those from the beginning of the stream so that you can have a recursive call on the shortened stream. right now, it looks like you might be trying to pass in the wrong type of argument for `car`—make sure whatever you pass into `car` is a list."
+                },
+                {
+                    "feedback": "How does one remove elements from the beginning of a stream? This has been something I have been stuck on."
+                },
+                {
+                    "feedback": "You should create a helper function for that. Let's assume this helper takes in a stream `s` and a number `n`. The result of removing the first `n` elements is the same as the result of removing the first `n-1` elements from the rest of `s` (you can access the rest of a stream using `cdr-stream`). Knowing this, the only additional thing left to do is to implement a base case for when `n = 0` (i.e. when no elements are to be removed) and you're set."
+                },
+                {
+                    "feedback": "How is \"The result of removing the first `n` elements is the same as the result of removing the first `n-1` elements from the rest of `s\"`"
+                },
+                {
+                    "feedback": "Removing one element from `s` would just be the `cdr-stream` of `s`, or `(cdr- stream s)`. So removing, say, 7 elements from `s` is the same as removing 6 elements from a version of `s` with one element removed, or removing 6 elements from `(cdr-stream s)`."
+                }
+            ]
+        },
+        {
+            "question": "Any idea why I keep getting the following error?                SchemeError: unknown identifier: or",
+            "follow-ups": [
+                {
+                    "feedback": "This is the statement inside `cond` that seems to be tripping it up:                (or (null? (cdr-stream s)) (= n 0) nil)"
+                },
+                {
+                    "feedback": "You probably have `or` somewhere that isn’t the beginning of a list, which causes an error since `or` is actually a special form, not a procedure, so it doesn’t have a value when you try to look it up as something other than the operator."
+                },
+                {
+                    "feedback": "Mismatched parenthesis! Thanks."
+                },
+                {
+                    "feedback": "Do you use `or` anywhere else? That first statement is syntactically correct (although it will always return a true value since you have `nil` at the end), so you shouldn’t be getting that unknown identifier error."
+                },
+                {
+                    "feedback": "Sorry, responding on the phone on Piazza is slow. Glad you figured it out!"
+                }
+            ]
+        },
+        {
+            "question": "Can someone help me through the logic of this? Currently, I have a helper that counts the number of elements until a decrease happens, and another helper that returns a stream after n calls to cdr-stream. Is there anything else I need? If not, can someone give me a hint as to how to put this all together?",
+            "follow-ups": [
+                {
+                    "feedback": "You are almost there. You just need to extract the first n elements from the stream and put them into a list, put that list as the beginning of your returned stream, and use a recursive leap of faith with your reduced-by-n stream as the rest of the stream."
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk350vzghayvt%2FScreen_Shot_20191118_at_2.50.37_PM.png)  Any idea what could have gone wrong here?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk350zl8vabwy%2FScreen_Shot_20191118_at_2.53.26_PM.png)  I've fixed it a little but, but I don't know why 3 keeps repeating."
+                },
+                {
+                    "feedback": "You might be skipping 1 fewer element in the stream each time than you should be."
+                },
+                {
+                    "feedback": "If I try to skip 1 more time, it says:                SchemeError: argument 0 of cdr-stream has wrong type (nil)"
+                },
+                {
+                    "feedback": "Your helper functions / main function might need a base case for nil input then."
+                },
+                {
+                    "feedback": "All of them do. My first check is if the cdr-stream of s is null or n=0, just return nil. Is this incorrect?"
+                },
+                {
+                    "feedback": "My second test case with infinite-test-stream works, it's just this finite one that doesn't."
+                },
+                {
+                    "feedback": "If you are getting the error that you’re trying to pass `nil` to `cdr-stream`, that means one of your checks for `nil` has to be failing. Double check them, since there wouldn’t be any other way to get the error otherwise."
+                },
+                {
+                    "feedback": "This is a part of my function that returns the number of elements to include in the list. This seems to be the problematic line:                (or (null? s) (> (car s) (car (cdr-stream s)))) n  Do you see any issues with this?"
+                },
+                {
+                    "feedback": "Ah. So you check if `s` is `nil`, and if it isn’t, then you try to retrieve the value of `(car (cdr-stream s))`. While `s` is not `nil`, it is still possible that `(cdr-stream s)` is `nil`, and trying to get the `car` of that would cause an error."
+                },
+                {
+                    "feedback": "That's true! I'm really close to solving this now. The infinite stream still works, but the finite stream now does this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk354152ha66q%2FScreen_Shot_20191118_at_4.18.17_PM.png)  I'm not sure why this would happen, would it be an issue with the way I'm constructing my cons-stream at the end?"
+                },
+                {
+                    "feedback": "It’s probably still an issue with your base cases. Make sure that at some point, the second value passed into `cons-stream` evaluates to `nil` if it’s a finite stream."
+                },
+                {
+                    "feedback": "Trying to do that with an if statement at the end, but now I get this:                SchemeError: result of forcing a promise should be a pair or nil, but was None"
+                },
+                {
+                    "feedback": "Ok I fixed it. I'm super close now. This is what I'm getting:                ; Expected: ((1 2 3) (1 2 2) (1))     ; Actual  : ((1 2 3) (1 2 2))"
+                },
+                {
+                    "feedback": "It still looks like an issue with your base cases. I would think carefully about what *precisely* your base cases should be and what *precisely* your return values in such instances should be. In your case, make sure that you are just checking if the stream is `nil`, not its `cdr-stream` or something."
+                },
+                {
+                    "feedback": "I separated my if with a cond into 3 cases and it worked. Thank you so much Nicholas, I appreciate your help!"
+                }
+            ]
+        },
+        {
+            "question": "Has anyone successfully done this without using helper functions? If so, I would appreciate some tips.",
+            "follow-ups": [
+                {
+                    "feedback": "Pretty sure a solution to this without _any_ helper functions would be quite verbose and hard to come across; for reference, Nicholas and I both utilized no less than two helper functions."
+                },
+                {
+                    "feedback": "The solution without any helper functions is pretty awesome imo because it really tests your trust in the leap of faith LOL. It's kind of verbose because you can't store your recursive call in a variable or else it'll evaluate it, and if you have an infinite stream, it'll be infinite recursion. But, it's still shorter than the helper function version and more elegant (although not as interpretable).  Tips:  Work out an example. Use the leap of faith and see how you can add to the leap of faith to get the solution you want."
+                },
+                {
+                    "feedback": "Ooh, interesting"
+                },
+                {
+                    "feedback": "whoa!"
+                },
+                {
+                    "feedback": "That _is_ cool, but I do like my code to be more readable than “cool” (which I hope is a common sentiment shared by many people)."
+                },
+                {
+                    "feedback": "🎤💧"
+                },
+                {
+                    "feedback": "I did my solution using one helper function, and I felt that it was pretty readable. Any hints about the one without any helper functions?"
+                },
+                {
+                    "feedback": "I managed to pass the first test case without using the helper function, but it raises the infinite recursion error when the infinite stream test comes up. Does anyone know how I can fix this?"
+                },
+                {
+                    "feedback": "nvm its cuz one of my recursive calls was outside the context of the cons- stream! got it"
+                },
+                {
+                    "feedback": "Why must the recursive call not be stored in a variable? Would it affect the lazy evaluation?"
+                },
+                {
+                    "feedback": "My understanding is that in order to calculate the value of the variable, you would need to perform the recursive call which would then perform a recursive call for the next variable and so on infinitely. One workaround would be to store the quoted recursive call and then call eval on the quoted expression when it is needed."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhoqo6b842s%2Fk36hni2vkah%2FScreenshot_20191119_152740.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Can anyone explain why #[promise (forced)] is being returned instead of the list elements"
+                },
+                {
+                    "feedback": "nvm i got it lmao"
+                },
+                {
+                    "feedback": "for others, make sure you're using cdr-stream to get elements in a stream instead of cdr"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk36id85ve6mm%2FScreen_Shot_20191119_at_3.47.34_PM.png)  I don't understand why I'm getting this error if my code so far doesn't have a car statement?",
+            "follow-ups": [
+                {
+                    "feedback": "This error means you are constructing a Pair where the first argument evaluates to NoneType (check what your first argument is)"
+                },
+                {
+                    "feedback": "what even evaluates to NoneType though? (begin) doesn't seem to work in the interpreter"
+                },
+                {
+                    "feedback": "Honestly, that's probably a bug in the interpreter, but regardless the first argument in a cons call is likely the issue since it should evaluate to an actual value (at least, it did in my solution). I think Samah may have discovered a weird edge case"
+                },
+                {
+                    "feedback": "I haven't constructed a Pair yet. So far I have a cond statement with two clauses. The first clause checks if s is null and if so return nil. The second clause checks if the cdr-stream of s is null and if it is I return s."
+                },
+                {
+                    "feedback": "While this problem is technically doable without helper methods, it is much easier and more readable with them. Think: What helper methods would be useful to you in the process of solving this problem? Start with that before you tackle the larger problem."
+                },
+                {
+                    "feedback": "Alright, I'll try to do it that way. Thanks for the help guys!"
+                },
+                {
+                    "feedback": "Descriptions of what the helper methods could be are available somewhere else on this thread if you want a bit of a jumpstart, but I encourage you to try to figure them out yourself, first! It’s much better to break a problem down into bite-sized pieces, first."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt98r2lhfl2v2%2Fk36ig5dbdxfk%2FScreenshot_from_20191119_154922.png)II keep getting this error. Don't really know what's happening?",
+            "follow-ups": [
+                {
+                    "feedback": "How are you attempting to access the rest of the stream?"
+                },
+                {
+                    "feedback": "i'm defining a variable that contains the recursive call."
+                },
+                {
+                    "feedback": "You somehow have the stray symbol `rest` in your code somewhere - check anywhere in your code that word is referenced?"
+                }
+            ]
+        },
+        {
+            "question": "Actually wondering what why i got this error: SchemeError: pair is not callable: (1)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdje8twst5in%2Fk36iu3zo4pic%2Ferror.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps you have an extra pair of parentheses somewhere that results in `(1)` being evaluated."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt98r2lhfl2v2%2Fk36kzbdejgpj%2FScreenshot_from_20191119_170024.png)how did you unfold the rest of the list? because it is giving me an error when I cons.",
+            "follow-ups": [
+                {
+                    "feedback": "Try using `cons` when you first build your list of increasing integers to continually prepend numbers to the list you’re building. It looks like you might accidentally be using `list` or quoted forms at some point."
+                }
+            ]
+        },
+        {
+            "question": "I got this error when running the test:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdje8twst5in%2Fk36l0ekqptiq%2FCapture1.JPG)  but when I run (nondecreastream finite-test-stream), i got the expected result:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdje8twst5in%2Fk36l2h6hjmw3%2FCapture2.JPG)  anyone has a clue?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are outputting a stream and not a list"
+                }
+            ]
+        },
+        {
+            "question": "How can this problem be solved without helper function? I understand what the output should look like but don't know where to start from?",
+            "follow-ups": [
+                {
+                    "feedback": "I think you should definitely tackle this problem using helper functions before you take a stab at trying to do it without them. As Cameron said, it is possible but verbose since you have to put everything into one expression, and I think you would understand the problem better if you did it with helper methods, first."
+                },
+                {
+                    "feedback": "Thank you Nicholas Wondering if we should create 2 helper functions one to put all increasing numbers in the list and other to create new list"
+                },
+                {
+                    "feedback": "Seems like a valid approach to me."
+                },
+                {
+                    "feedback": "The descriptions for the helper methods Cyrus and I independently came up with (not that that makes them objectively right, but it’s generally a good sign) are available somewhere above, but we basically had one helper method that returned the list of non-decreasing integers and another one that removed n elements from a stream and returned what was left of the stream."
+                },
+                {
+                    "feedback": "^ Try whatever you are thinking of, and if you get stuck or it doesn't work out, you can try implementing it the way we did!"
+                }
+            ]
+        },
+        {
+            "question": "Hi. I have written two helper functions -   1\\. One that returns a stream by skipping a certain number of elements      2\\. One that gets the first non decreasing sequence in the form of a scheme list      <Then I use the functions and combine them together in some fashion> and I end up getting this error.      [Screen_Shot_20191119_at_8.10.21_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzjhvhwz6li%2Fk36rvj7sy9hr%2FScreen_Shot_20191119_at_8.10.21_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Please don't post your solution (even if it's wrong), it's against course policies. I've removed and summarized the code you wrote. Feel free to re-edit it to convey more information **without code please**. I believe the problem isn't in the helper functions. Perhaps you're calling a recursive call too many times. *Update:* After going through the problem again, it's probably because of 2 things, one of them being a helper function. Take Nicholas's advice and use some examples to test your helper functions, make sure everything is working. Then check you're not doing multiple calculations outside the helper functions. For instance, if `s` is something, then you return something, otherwise return another thing. I've seen students seem like they return something, but really they're returning something different (typically a recursive call that will keep going). This has sometimes led to the error happening."
+                },
+                {
+                    "feedback": "I am having similar errors and I am confused."
+                },
+                {
+                    "feedback": "I called the cons stream function in the end with helper 2 being the first argument and the second argument to be a recursive call to non decreastream with the first helper function. How do I handle the case for a finite stream? I even have a condition to check if the stream is nil in non decreastream. Not sure why it isn't working"
+                },
+                {
+                    "feedback": "[Screen_Shot_20191119_at_8.10.21_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzjhvhwz6li%2Fk371zejqziec%2FScreen_Shot_20191119_at_8.10.21_PM.png)  This is the error I am getting now"
+                },
+                {
+                    "feedback": "It looks like the helper function you are using to get the non-decreasing sequence may not be returning the right values, and this might also cause it to accidentally continually return nil. Double-check its functionality."
+                },
+                {
+                    "feedback": "Yes! It was my second helper function's base cases! I have managed to fix it. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm wondering how to check for the end of the stream? When I run my code and check what's in the code for finite stream I get the correct lists. However, when it gets to the end it throws up a SchemeError: argument 0 of cdr-stream has wrong type (nil). However, I am very confused as my base case in my helper function that is building the list checks if the stream is null it returns nil. Is this not how we should be doing it??",
+            "follow-ups": [
+                {
+                    "feedback": "If a stream if empty, it will be `nil`. Make sure all your helper functions as well as your main function all have checks for `nil`, since each of those functions serves a different purpose."
+                }
+            ]
+        },
+        {
+            "question": "Can somebody explain why I cannot call (car s) in nondecreastream in order to get 1?  Here is my code  (define (nondecreastream s)  (car s)  )  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyf20y5pyas38e%2Fk36z0v23rffb%2FScreen_Shot_20191119_at_11.33.30_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This happens if you're feeding in an int instead of a stream into your helper"
+                },
+                {
+                    "feedback": "Thank you for your reply. Is there any way I can call the first stream value in nondecreastream?"
+                },
+                {
+                    "feedback": "You shouldn’t be calling any of the values in the stream, since they are all integers, which error if you try to call them as a procedure. If you mean trying to retrieve the first value, using `(car s)` is correct."
+                }
+            ]
+        },
+        {
+            "question": "Im getting this error: ; Actual : SchemeError: argument 0 of car has wrong type (nil)  My code utilizes 2 helper functions, both of which work perfectly, it passes the infinite case but messes up on the finite one.",
+            "follow-ups": [
+                {
+                    "feedback": "On each helper and the main, I've checked if the stream is nil and returned nil if so."
+                },
+                {
+                    "feedback": "You probably still have some part of your code that you can still reach if the stream is nil—it’d be impossible for you to get that error if you didn’t have somewhere where it was falling through. Double-check your base cases and make sure the checks are correct; you can try firing up the interactive interpreter and manually testing your functions to help you debug."
+                }
+            ]
+        },
+        {
+            "question": "I have already built tow helper functions that delete first n elements and another one that finds the first nondecreastream parts.  My thought by far is    1. find the first nondecrease list   2. delete elements of the length of step 1 from overall s  But they just handle the normal list and how can deal with that and how can I utilize these two helper functions I have written?",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk05igwxkhykld%2Fk372cej8jgck%2FSnipaste_20191120_010650.png)"
+                },
+                {
+                    "feedback": "You are very close. The first non-decreasing list of integers is the first element of your stream, so you will probably be returning that as the first argument in a `cons-stream`. You also need to somehow make a recursive call except with certain integers removed from the original stream. Since your helper removes `n` elements, a hint I will give you is that you can get the length of any list using the built-in `length` procedure."
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk05igwxkhykld%2Fk37nlqesfcsz%2FSnipaste_20191120_110132.png)Now, I passed the second test and the first looks closely. But it keeps yield all 100 '() no matter how I modify the base cases. Could you please give some hint?"
+                },
+                {
+                    "feedback": "Oh!! It turns out I should add a base case outside the two helper functions instead of keeping trying modifications inside these two helpers!!  I solve that!! Thanks!!"
+                },
+                {
+                    "feedback": "How do we make the second helper function which removes \"n\" elements from the stream"
+                },
+                {
+                    "feedback": "you could have a base case for n is 0, and then your recursive call can be with n - 1 and the cdr-stream of s"
+                },
+                {
+                    "feedback": "Is the second helper just removing the elements or actually returning the shortened stream?"
+                },
+                {
+                    "feedback": "We haven’t done any mutation stuff in Scheme, so it would just take the stream and return a version of the stream with the first n elements removed."
+                }
+            ]
+        },
+        {
+            "question": "My code have a RecursionError: maximum recursion depth exceeded in comparison. How do I know from the hint that I have direct recursive calls in my code?  \"Hint: avoid any direct recursive calls outside the context of a second part of a call to `cons-stream`, otherwise your solution won't work for infinite streams!\"",
+            "follow-ups": [
+                {
+                    "feedback": "You essentially have to make sure the first argument passed into `cons-stream` does not contain any recursive calls, since that’s evaluated immediately. Recursive calls should go in the second argument, whose evaluation is delayed."
+                },
+                {
+                    "feedback": "You also can’t do anything like      (define part2 (nondecreastream (helper2 s n)))  (cons-stream part1 part2)      Since this forces evaluation of nondecreastream recursively rather than delaying it. This causes problems with infinite input streams. The following works, however:      (cons-stream part1 (nondecreastream (helper2 s n)))"
+                },
+                {
+                    "feedback": "Just to add on to Cyrus’s comment, tou could, however, do something like this:   ```   (define part2 (delay (nondecreastream (...)))   (cons-stream part1 (force part2))   ```Since you delay the recursive call in your definition and then force it only in the second part of `cons-stream`, you don’t run into recursion error.    Hmmm… Actually, this could be a good way to make a not-too-verbose version of the function without helper methods… Don’t dwell on that too long, though… @Cameron"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpyjgr9t2tk%2Fk37oqrgosjt6%2Fcs61a_help.png)  So I'm trying to create my first helper function that gets the first nondecreasing subsequence from a list s (For testing purposes I'm assuming s is a regular list rather than a stream, I'll be changing all the cons to cons- stream and cdr to cdr-stream later).  This error only appears when I return (car s) when I check if the first element is greater than the second element of s. But if I change (car s) to nil, then I get no error, but the list is correct except that the last element that should be in the output is missing.  Any ideas as to why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "When you return `(car s)` that returns an int, when this helper should always be returning a list. Consider wrapping `(car s)` within a list using `cons`."
+                },
+                {
+                    "feedback": "This worked! Thanks!"
+                },
+                {
+                    "feedback": "Awesome, no problem!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpyjgr9t2tk%2Fk37r30ntql79%2Fcs61a_help_2.png)  I have succesfully created my 2 helper functions (they both work correctly), and my main function utilizes the form:                (cons-stream (helper 1 call) (nondecreastream (helper 2 call)))  I've read some of the previous followups that had similar errors to mine and added in base cases for returning nil if the stream s was empty in both helper functions as well as the main function. However, I'm still getting this error.  Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "In your helpers, if you utilize taking the `car` of the remainder of a stream, you may also need to check if the remainder of the stream is `nil`."
+                },
+                {
+                    "feedback": "I'm having this same issue, and I am not sure what to do."
+                },
+                {
+                    "feedback": "Ok, I fixed it with one base case."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6p9a9igl4s3vq%2Fk37th505frwb%2FScreen_Shot_20191120_at_1.44.52_PM.png)  I would be very grateful for any help with ideas for trouble-shooting this. I created 2 helper functions as suggested per above and think the problem is in my second base case in my first helper function (which finds the non- decreasing sequence) where I check if the cdr-stream of the stream is null then I return cons-stream of stream and nil if this is the case...seems like what I need is maybe a normal cons but then I run into argument type errors.. :(",
+            "follow-ups": [
+                {
+                    "feedback": "Your first helper should be returning a list, so `cons` would be what you should use for all return cases. Also, if your helper takes in a one-element stream, it should return a one-element list consisting of just the first element of that stream, since a stream of a single element is by definition non-decreasing."
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to debug my helper function to find the first non-decreasing subsequence, but what does this mean?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk37ufwtcoicq%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191120_%E4%B8%8B%E5%8D%8814.12.55_%E4%B8%8B%E5%8D%88.png)",
+            "follow-ups": [
+                {
+                    "feedback": "What are you using `force` for? If you're attempting to find the first non- decreasing subsequence, your helper should take in a stream and output a list. The use of `force` and `delay` keywords is not required."
+                },
+                {
+                    "feedback": "I wrote nothing of Force or Delay in my code, but it happened when I run both of my helper functions using the python3 editor.  My logic of helper1 is:  check if s is null, return nil  if cdr-stream s is null, then return s  otherwise, if (car s) is larger than (car(cdr-stream s)) then (cons (car s) nil),  if not then cons (car s) with the rest part by recursively call helper 1 on cdr-stream s.  I change to another interpreter and now got the error:  argument 0 of cdr-stream has wrong type (Pair)"
+                },
+                {
+                    "feedback": "Your issue is that you are returning `s` in the case that `(cdr-stream s)` is null. You need to instead convert and return `s` into a one-element list consisting of `s`'s first element (which you already have done successfully elsewhere in your code)."
+                },
+                {
+                    "feedback": "thank you so much Cyrus! that's really helpful! Stuck in this problem for a long time and finally fixed it!"
+                },
+                {
+                    "feedback": "No problem. Just to elaborate, this is because we want the first helper to always be returning a list, but there was just that one edge case present that returned a stream instead of a list."
+                },
+                {
+                    "feedback": "I have the same problem that \"argument 0 of cdr-stream has wrong type (Pair)\", what do you mean that the code is successfully done somewhere else?"
+                },
+                {
+                    "feedback": "You will get that error if you try to pass a **list** into `cdr-stream`. Make sure you are using `cdr` when you are dealing with lists and `cdr-stream` when you are dealing with streams, and double check your functions to make sure they return the correct type. The “somewhere else” happens to be your function that will return the non-decreasing sequence of integers from a stream, since non-decreasing list of integers from the stream containing 1 is just the list containing 1."
+                },
+                {
+                    "feedback": "When I said \"which you have already done successfully elsewhere in your code\" I was referring to the pseudocode the other Anon wrote out where it contains a snippet that matches the following problem statement: how can you construct a one-element list, using `cons`, where the only element is the first element of a stream `s`?"
+                },
+                {
+                    "feedback": "So based on the pseudocode given above, would the second base case be useless as it would be covered by the rest of the code?"
+                },
+                {
+                    "feedback": "It can be potentially merged with another case, using an or statement, yes."
+                },
+                {
+                    "feedback": "scm> (find-first nil) ()  scm> (find-first infinite-test-stream) (1 2 2)  scm> (find-first (cons-stream 1 nil)) (1) scm>  These cases pass yet I still cant figure out why I get the \"argument 0 of cdr- stream has wrong type (Pair)\" can anyone help?       I followed the outline above and it still doesnt work"
+                },
+                {
+                    "feedback": "Open the interactive interpreter and make sure that your functions that are supposed to return lists return lists and that your functions that are supposed to return streams return streams. You will get that error if you try to use `cdr-stream` to read a list. For example, `(cdr-stream (find-first infinite-test-stream))` would fail because `find-first` returns a list."
+                }
+            ]
+        },
+        {
+            "question": "For the second helper function, how can we get the number n? Is there a way to store the n which can be calculated in the first helper function and use it in the second helper function?",
+            "follow-ups": [
+                {
+                    "feedback": "You can maybe use let."
+                },
+                {
+                    "feedback": "`let` works, but assuming you are utilizing the first helper function as calculating the first non-decreasing subsequence, I would suggest you store the result of calling your first helper on s as some variable using `define`. Not only does this make your return expression neater, but it also means you can then access the length of this subsequence using the built-in `length` procedure, i.e. `(length variable-name-here)`"
+                },
+                {
+                    "feedback": "How can we define a variable in the if clause? I mean if I'm using if, it should be two () bracketed clauses after if. If we add a define statement in the middle of the two clauses and change the original second clause to return the defined value, wouldn't the whole if be screwed up?"
+                },
+                {
+                    "feedback": "I defined my variable _before_ the if clause to avoid this problem."
+                },
+                {
+                    "feedback": "Cyrus is correct. I just wanted to add that you could also use the `begin` form to contain multiple expressions in a single `begin` expression in cases like `if` or other forms that only take a single expression."
+                },
+                {
+                    "feedback": "+1 it's a matter of personal preference and that's a completely valid way of solving the issue as well"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this as my output and I'm not sure how to fix it to make it work. I'm fairly sure my logic is right. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq2tdpwo2ww%2Fk37vye4h5efz%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm I got it"
+                }
+            ]
+        },
+        {
+            "question": "\"argument 0 of cdr-stream has wrong type (Pair)\" what does this error mean? when I return just a stream, I don't get this error, however, attempting to append a stream or cons' ing it gives this error",
+            "follow-ups": [
+                {
+                    "feedback": "Have you tested your helpers independently?"
+                },
+                {
+                    "feedback": "Are you using cons-stream? Seems like you’re trying to get cdr-stream of something that’s not a stream."
+                },
+                {
+                    "feedback": "This error will occur if you try to get the `cdr-stream` of a list rather than a stream: ``` scm> (cdr-stream '(1 2)) Error: argument 0 of cdr-stream has wrong type (Pair) ```"
+                }
+            ]
+        },
+        {
+            "question": "I implemented the discussions on piazza using two helper functions but got this error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fk37zc92ura93%2FTIM%E6%88%AA%E5%9B%BE20191120162930.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you accidentally putting your call to your non-decreasing integers as the first element of a larger list? This would cause the error since it evaluates the function call to a list and then tries to use it as an operator since it is in the first position of a larger Scheme expression."
+                }
+            ]
+        },
+        {
+            "question": "I am trying to use the built-in length function on the result of calling my first helper on s which should generate the first list in non-decreasing. I tried my helper function and got and an output of (1 2 3). However when I went to take the length of that I get an error of \"argument 0 of length has wrong type (Pair)\". I believe that I am creating a list in my first helper function. How should fix this error?",
+            "follow-ups": [
+                {
+                    "feedback": "You will get that error if you try to pass a stream into `length`. Could you try debugging and printing the output of your first helper method and making sure it is, in fact, a list?"
+                },
+                {
+                    "feedback": "Make sure that your first helper does not ever return its input directly, nor ever call `cons-stream`"
+                },
+                {
+                    "feedback": "Then should I be using cdr-stream or cons-stream at all in my first helper function? Because when I use cdr-stream on s, it errors because s is a list"
+                },
+                {
+                    "feedback": "Using `cdr-stream` should work (I used it in my implementation) since the input s should always be a stream. If you're inputting a list for s in your recursive call, consider not doing that."
+                },
+                {
+                    "feedback": "Your first helper takes in a stream and returns a list, so it would use `cdr- stream` to read from the streams and `cons` to build the list with your recursive call."
+                },
+                {
+                    "feedback": "Got it. I used cons when building the list and cdr-stream for the recursive calls. So now I am getting a different error saying \"argument 0 of car has wrong type (int)\". Does this mean that my base cases are not catching something?"
+                },
+                {
+                    "feedback": "It means that you’re probably accidentally returning an integer rather than a list from one of your functions then trying to get the car of it. Double check the return values of your functions."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an arguement 0 of car has wrong type Promise error. Does anyone know what this means?",
+            "follow-ups": [
+                {
+                    "feedback": "It means you are not passing a list or a stream into car."
+                },
+                {
+                    "feedback": "You’re probably using `cdr` instead of `cdr-stream` somewhere. Getting the `cdr` of stream will just return the promise for the rest of the rest of the stream, while `cdr-stream` will force that promise into the actual rest of the stream."
+                }
+            ]
+        },
+        {
+            "question": "How do I convert a stream into a list? I keep trying different things and it gives me errors. My helper function works if i use cons-stream, but when I replace it with cons and put list over my code it gives me an error like 'SchemeError: argument 0 of cdr-stream has wrong type (Pair)'.",
+            "follow-ups": [
+                {
+                    "feedback": "If the stream is finite, you would create a recursive function which takes in a stream and constructs a list from the first element of the stream on each recursive call, so you are passing in a smaller stream each time."
+                },
+                {
+                    "feedback": "I am already doing that, but when I call length on the helper function that gives me the first stream it tells me I have the wrong type (Pair). This means I am somehow not converting my stream to a list, so I am confused on how I should do that"
+                },
+                {
+                    "feedback": "If your helper function should take in a stream and return a list, and calling length on the return value of calling helper function on a stream errors, then your code is bugged."
+                },
+                {
+                    "feedback": "I'm also having this same issue. Where when using cons gives me errors and con-stream doesn't. I made sure my base cases are returning lists and the my recursive call is a (cons (helper)). Why is a list being passed into cdr- stream when my recursive call is (helper (cdr-stream s))?"
+                },
+                {
+                    "feedback": "This is too vague for me. I suggest making a private post if you haven't done so already."
+                },
+                {
+                    "feedback": "Remember that you always use `cons` and `cdr` for building and reading from lists and that you only use `cons-stream` and `cdr-stream` for building and reading from streams. For example, for your helper function that takes in a stream and returns the non-decreasing **list**, I would use `cdr-stream` when I want to get the rest of the stream but use `cons` for building the list to be returned. `length` only works with a list, not a stream, so make sure whatever methods that are supposed to return lists return lists, and whatever methods that are supposed to return streams return streams."
+                }
+            ]
+        },
+        {
+            "question": "im so confused what do i do with the two helper functions",
+            "follow-ups": [
+                {
+                    "feedback": "See followups above in this thread for their potential uses."
+                }
+            ]
+        },
+        {
+            "question": "Once I have made my helper functions, I am not sure how to use them together in order to get the answer? Are there any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "Which helpers have you made?"
+                },
+                {
+                    "feedback": "One to find the first nondecreasing list, and the second is a skipper function"
+                },
+                {
+                    "feedback": "Your final result will be a list of nondecreasing lists. It follows that the first list within that result will be the first nondecreasing list. To get the rest of the lists, take a recursive leap of faith, using your skipper function, to obtain all nondecreasing lists of the original stream with the first nondecreasing list skipped."
+                },
+                {
+                    "feedback": "It may be helpful to obtain the length of the first nondecreasing list using the built-in `length` procedure."
+                },
+                {
+                    "feedback": "Ok I think I'm on track now, thanks Cyrus!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "Advice on why this is possibly saying this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk388axe59tdw%2FScreen_Shot_20191120_at_8.41.22_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like whatever method you are trying to use to generate the list of non-decreasing integers is instead returning just a stream. Make sure your first element in `cons-stream` is a **list**, and if you are using a helper function to generate it, make sure that that function returns a list itself."
+                },
+                {
+                    "feedback": "Now im getting this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk38ah89hl93g%2FScreen_Shot_20191120_at_9.41.56_PM.png)"
+                },
+                {
+                    "feedback": "First of all, how are you approaching this problem?"
+                },
+                {
+                    "feedback": "im not using helper functions.  i have my two base cases if s is null, and if cdr-stream s is null then they both return nil  then i have my condition if (> (car s) (car (cdr-stream s))) making a cons- stream with the lists  then an else statement cons-streaming everything together  im just confused on how to distinguish between making a new list when if (> (car s) (car (cdr-stream s))) is true"
+                },
+                {
+                    "feedback": "For one, if `cdr-stream` is nil, that means there is still one element in the stream, and a one-element stream is by definition non-decreasing, so you should really be returning a stream that emits a one-element list containing that element. However, I would *strongly* recommend implementing this with helper methods to improve clarity and understanding on how exactly something like this should be handled. While it is *technically* possible to do it without helper methods, you really should be using them if you want to solve this problem in a way that doesn’t make your head spin. Refer to some previous threads to see some ideas on what helper methods you could use, but also try figuring out what they are on your own, first!"
+                }
+            ]
+        },
+        {
+            "question": "My helper function has 3 arguments (stream prev list-so-far) and it returns the first nondecreasing sub-list of the stream.  so (helper '(1 2 3 1) 0 nil) should give (1 2 3).  And I return list-so-far when (car s) is less than prev.  But I keep getting errors: (1 2 3) is not callable  Why is that?",
+            "follow-ups": [
+                {
+                    "feedback": "Ultimately, this will happen if you try to put a list as the first expression of a larger Scheme expression. For example, a call like `((helper '(1 2 3 1) 0 nil) (nondecreastream (...)))` would error because it sees the result of `helper` as the first element of a Scheme expression, checks if it’s a procedure, and fails because the returned list of `helper` is not a procedure. You essentially will just have to check your parentheses and make sure you always use `list`, `cons`, or `cons-stream` when you are trying to build lists and streams."
+                },
+                {
+                    "feedback": "oh sorry, the error is Pair is not callable (1 2 3)"
+                },
+                {
+                    "feedback": "My answer still stands. Make sure all your calls to helper functions are never in the first position of a larger Scheme expression, since none of them return procedures and will thus error."
+                },
+                {
+                    "feedback": "Thanks so much"
+                }
+            ]
+        },
+        {
+            "question": "Hi,  I have implement this function for a list , now do u think by replacing all lists by streams(cdr by cdr-stream) , my function would behave the same?  Thank you!!",
+            "follow-ups": [
+                {
+                    "feedback": "It depends on how you implemented your solution - try it and see for yourself"
+                }
+            ]
+        },
+        {
+            "question": "I am getting two different issues, first, my output is reversed and it is all included in one nested list. Any ideas why this might be happening?                # Error: expected     #     ((1 2 3) (1 2 2) (1))     # but got     #     ((1 2 2 1 3 2 1))",
+            "follow-ups": [
+                {
+                    "feedback": "How did you attempt to solve the problem?"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected   # ((1 2 3) (1 2 2) (1))   # but got   # ((1 2 3) 1 2 2 1)  How do I avoid the parentheses getting taken off my subsequent elements in the new stream?",
+            "follow-ups": [
+                {
+                    "feedback": "How are you defining the rest of your returned stream?"
+                },
+                {
+                    "feedback": "I'm returning it as the original stream with the first few elements chopped off (the length of the first non-decreasing list) using a helper function."
+                },
+                {
+                    "feedback": "You should run this trimmed-down original stream back through `nondecreastream` so that you join together all the nondecreasing subsequences."
+                },
+                {
+                    "feedback": "I did that as well after asking this question, but now I get the following error:  # Error: expected   # ((1 2 3) (1 2 2) (1))   # but got   # Traceback (most recent call last):   # ...   # SchemeError: argument 0 of car has wrong type (nil)"
+                },
+                {
+                    "feedback": "Make sure all your helpers and main function have base cases for nil"
+                }
+            ]
+        },
+        {
+            "question": "I passed the infinite-case test but in the finite-case test, I got an error saying \"SchemeError: argument 0 of car has wrong type (nil)\"  The way I approached this question is that I have a helper function to find one non-decreasing list and another helper to remove the non-decreasing I generated. In both of the helpers, i checked if the list is null? and return nil if it is null.",
+            "follow-ups": [
+                {
+                    "feedback": "You should also check for nil in your main function"
+                },
+                {
+                    "feedback": "You should really be checking for nil in three places: the two helpers and the main function itself. If you are still getting the error, try to determine exactly which part of the function is trying to call something on nil, and make sure that the check for that specific part of the code never falls through."
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (first-k s k) (if (or (null? s) (= k 0)) nil (cons (car s) (first-k (cdr-stream s) (- k 1)))))  scm> (first-k (nondecreastream finite-test-stream) 100)  # Error: nil is not callable: ()  # Error: expected  # ((1 2 3) (1 2 2) (1))  # but got  # Traceback (most recent call last):  # ...  # SchemeError: nil is not callable: ()  Run only this test case with \"python3 ok -q nondecreastream --suite 1 --case 1\"  \\---------------------------------------------------------------------  The main logic of my fuction checks if s is null, and if it is, returns nil. Then if the cdr-stream of s is null (or if the current element of is is bigger than the next), it creates a stream (meant to hold all the lists) and starts a list inside it with the current car of s, then to start the next list it makes a recursive call to nondecreastream with cdr-stream of s passed in for s.  If none of these are true, it defines a variable called \"place\" for nondecreastream called on cdr-stream of s. Place essentially represents all the lists that will come after the immediate next one. Then I start a new list by cons-ing the car of s with Place, and finally call cons-stream on two things: the list when it's finished creating, and \"Place.\"  I'm not totally sure how to go about the problem, so this is my best guess as of now. I figure that I should, at all times, either be constructing an \"outer\" stream where each element is a list , or an \"inner\" list where each element is an int, and then jump between the two when prompted.",
+            "follow-ups": [
+                {
+                    "feedback": "I think your logic for the function might be a little convoluted, and even if it ultimately ends up working, there is still a better methods. You could start by defining certain helper methods that will help break the entire process into more understandable steps (see some other threads on this post if you want some guidance on what methods you could possibly use). Right now, I think you are trying to do too many things at once in one function, and that is contributing to the convolution. For your specific error, it looks like you might have accidentally put the result of a recursive call at the beginning of a larger Scheme expression, causing the interpreter to try to use nil as an operator, which fails. Overall, think about how you could break the problem down into small chunks, first, then see how you could put those smaller blocks together to achieve what you’re ultimately trying to do."
+                }
+            ]
+        },
+        {
+            "question": "I'm really stuck on how to get the parentheses working. Can somebody give me some hint?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk39d8qwu9utx%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191121_%E4%B8%8B%E5%8D%883.33.13.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How are you approaching this problem? If you use helper functions, make sure they use lists, and make sure you aren’t accidentally appending them together."
+                }
+            ]
+        },
+        {
+            "question": "What does the SchemeError: argument 0 of cdr-stream has wrong type (Pair) mean?",
+            "follow-ups": [
+                {
+                    "feedback": "cdr-stream expects a stream as its argument. You are probably accidentally constructing a list somewhere instead of a stream, for example by using cons instead of cons-stream."
+                }
+            ]
+        },
+        {
+            "question": "How do you chop off a stream while keeping it as a stream?  I'm using cdr-stream s in my second helper function to chop off the original list but when I pass it back into nondecreastream I get an error of wrong type.",
+            "follow-ups": [
+                {
+                    "feedback": "`(cdr-stream s)` will also return a stream, so your error is probably occurring somewhere else. Check to make sure all your helper functions (if you have them) return lists if they are supposed to return lists and return streams if they are supposed to return streams."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain to me what this error means? I am using (cdr-stream s) but what is being returned is causing an error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrnr38o44ew%2Fk39eh0r7106s%2FScreen_Shot_20191121_at_4.18.07_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are somehow passing an integer into the second argument of `cons`, which only accepts lists. Most likely, you have a recursive call or a helper function call that is returning an int, and you are putting that in the second argument to `cons`. Double check the return values of your functions."
+                }
+            ]
+        },
+        {
+            "question": "So I have a single helper function with a conditional statement inside where it checks if the stream is null or if the cdr-stream is null, if not I appended the current list with the first element of the stream should it be nondecreasing. If it is not nondecreasing then I created a new list. Where could my code be failing? It seems that I created a new list for only the first element.                ((((1 2 3) (1) 2 2) (1)))          # Error: expected     #     ((1 2 3) (1 2 2) (1))     # but got     #     ((((1 2 3) (1) 2 2) (1)))",
+            "follow-ups": [
+                {
+                    "feedback": "I don’t think you can have the same code that either appends to the current list or creates a new list in the same function, since the latter case has to be lazily evaluated later, when we try to get the next value in the returned stream of lists. Try breaking the problem down into pieces which are a little more manageable (I used two helper functions, for example), solve those first, then build back up to the original problem. There are suggestions for what the helpers could be elsewhere in this thread if you need a clue."
+                }
+            ]
+        },
+        {
+            "question": "how does this happen. i am so confused. my code passes the other test case.                ; Expected: ((1 2 3) (1 2 2) (1))       ; Actual  : ((1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3) (1 2 3))",
+            "follow-ups": [
+                {
+                    "feedback": "I don’t know how it happens. What is your approach? If you are using helper methods, make sure that they return the right values and that your recursive call is appropriate."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected     #     ((1 2 3) (1 2 2) (1))     # but got     #     (1 2 3 1 2 2 1)  I've been stuck on this error for an hour. I looked at other posts of people with the same error but the advice doesn't seem to help for me. I have 3 helper functions which I've tested independently and they all seem to function correctly, but it feels like no matter what I change in terms of list formatting, I can't seem to get my increasing values to be bundled into lists. I do a recursive call at the end of my function which does cons-stream on my helper function to make the increasing list, as well as a recursive call to nondecreastream whose passed in variable is the stream with the first elements removed by another helper function. From what I've tested, I feel like the function should work as intended but it always returns this flattened list.",
+            "follow-ups": [
+                {
+                    "feedback": "Your logic sounds reasonable, so it has to be an implementation issue either with your recursive calls or your helper methods. Since you say you are using `cons-stream`, you should be getting back nested lists after the autograder converts your list to a stream, but you are getting no nested lists, only single numbers, so I suspect there still is an issue with your helper methods. You will have to just work to debug (the interactive interpreter is a great place to do this), since there are many possible causes for this issue. If you still get stuck, you can make a private post to the instructors or go into office hours (which I believe go until 8:00 PM? I might be wrong)."
+                }
+            ]
+        },
+        {
+            "question": "would it make sense to have two helper functions? maybe one to return string and another to keep track of the nondecreasing numbers? I don't know I'm confused how to approach this problem and any advice would be helpful",
+            "follow-ups": [
+                {
+                    "feedback": "Take a look at the other followups to this thread for inspiration - there are several methodologies shared, the majority of which utilize two helper functions."
+                }
+            ]
+        },
+        {
+            "question": "Is it possible to call the length function on a stream? or would it error because the cdr values of a stream are not computed yet?",
+            "follow-ups": [
+                {
+                    "feedback": "No, you should be calling length on a pair/list. So if you're using the common solution mentioned throughout this thread (one helper for calculating the first nondecreasing subsequence, another for skipping elements of a stream), your first helper should return a list, not a stream."
+                }
+            ]
+        },
+        {
+            "question": "When I just type (car s) in my function, I get a SchemeError: argument 0 of car has wrong type (int). Why can't I call car on the stream?",
+            "follow-ups": [
+                {
+                    "feedback": "as the error describes, you are accidentally calling car on an int."
+                },
+                {
+                    "feedback": "It probably means that one of your helper functions (if you are using a helper function) is returning an int rather than a stream as it should. Double check the return values of your functions."
+                }
+            ]
+        },
+        {
+            "question": "Ask for the help, thanks!   Error: expected   # ((1 2 3) (1 2 2) (1))   # but got   # (1 2 3)",
+            "follow-ups": [
+                {
+                    "feedback": "You seem to just be returning the first nondecreasing subsequence. Consider integrating this behavior inside of a helper function, and then using another helper and a recursive call to finish it off. Scroll through this thread for ideas if you’re stuck!"
+                }
+            ]
+        },
+        {
+            "question": "So I have three helper functions, one that cuts the stream after n times. The 2nd helper function creates a non-decreasing list and my 3rd helper function acts somewhat as the bridge, as it takes the lists from my 2nd helper function and then creates a cons-stream with it. It seems I am failing somewhere with the construction of lists. I have tried every possible combination but still, have no luck.                # Error: expected     #     ((1 2 3) (1 2 2) (1))     # but got     #     ((((1 2 3) 1 2 2) 1))",
+            "follow-ups": [
+                {
+                    "feedback": "I think you are close. It looks like you’re just `cons`ing all the lists together (since `(cons '(1 2) '(3 4))` would get you `((1 2) 3 4)`, which is a similar structure) rather than using `cons-stream` properly, so make sure that the second argument passed into `cons-stream` is the proper rest of a stream (probably a recursive leap of faith)."
+                },
+                {
+                    "feedback": "How would one use cons-stream? When I try implementing it, I received:                # Error: expected     #     ((1 2 3) (1 2 2) (1))     # but got     #     (((((1 2 3) . #[promise (not forced)]) . #[promise (not forced)]) . #[promise (not forced)]))"
+                },
+                {
+                    "feedback": "Where exactly are you placing your recursive call and your call to your helper method? Right now, it looks like you’re `cons`ing the non-decreasing list with the next non-decreasing list."
+                },
+                {
+                    "feedback": "Hello Nicholas,  Thank you for your help so far, I took some of your advice and managed to get the following output which is really close to the desired result.                # Error: expected     #     ((1 2 3) (1 2 2) (1))     # but got     #     (((1 2 3) (1 2 2)) (1))  It seems that I have created a nest list when I do not want so. I use cons where my args is my list so far and my 2nd argument is a recursive call."
+                },
+                {
+                    "feedback": "resolving this follow up now that it is past due - sorry that we were not able to address it before the deadline. if you have questions about this homework, please post a new follow up!"
+                }
+            ]
+        },
+        {
+            "question": "Asked for help! Really closed to the correct one  I passed the infinite test but always have small problem on finite test:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6ny980gxbfzc%2Fk39sats1ud9l%2FScreen_Shot_20191121_at_10.48.47_PM.png)  Then I change one basic condition to:  **((null? (cdr-stream s)) (list s))**  ****  Then there is an error: **SchemeError: argument 0 of cdr-stream has wrong type (Pair)**",
+            "follow-ups": [
+                {
+                    "feedback": "I'm not sure why this error didn't occur earlier but this likely means s is not being constructed using cons-stream or you're calling cdr-stream somewhere else on a list (not a stream).  Also, I would use a more general base case that checks if s is nil instead of checking cdr-stream of s."
+                },
+                {
+                    "feedback": "Is this statement added in your main function or your helper? Either way, I don't know why you're returning a list containing the stream. If in the helper, you'd return a list containing the first element of s. If in the main function, you'd return a stream whose first element is a list containing the first element of s.  Again, it would be a lot simpler if you just checked for s being nil because in that case you just have to return nil :)"
+                },
+                {
+                    "feedback": "It is my main function. Actually I do not use a helper in my code."
+                },
+                {
+                    "feedback": "hmm, in that case, I don't think I'd be able to help with the details of the implementation as I used helpers. The reason for the original error (argument 0 of cdr-stream has wrong type (Pair)) should still be what I said above, though."
+                }
+            ]
+        },
+        {
+            "question": "Not sure why this is happening... any ideas?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjgnofkd5ka%2Fk39shstx3inr%2Fnondecreastream_question.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm got it"
+                }
+            ]
+        },
+        {
+            "question": "[error.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhgdjbqv3yn%2Fk39t9mszfwut%2Ferror.png)  Anyone Know What Is Wrong??  I Feel As If Am So Close.",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhgdjbqv3yn%2Fk39t9mszfwut%2Ferror.png)"
+                },
+                {
+                    "feedback": "does your base case in the main function check if s is nil and return nil?"
+                },
+                {
+                    "feedback": "Fixed it in my base case of my first helper to check if the rest of s was null i wasnt returning the first value of s i was return all of s"
+                }
+            ]
+        },
+        {
+            "question": "tfw your logic and keywords are 100% correct and your errors are all from parenthesis mismatch",
+            "follow-ups": [
+                {
+                    "feedback": "F"
+                }
+            ]
+        }
+    ]
+}

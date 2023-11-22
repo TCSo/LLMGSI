@@ -1,0 +1,403 @@
+{
+    "subject": "[HW 04] Joint Account",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q8\" target=\"_blank\" rel=\"noopener noreferrer\">Q8: Joint Account</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q8: Joint Account in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "[redacted]",
+            "follow-ups": [
+                {
+                    "feedback": "[redacted]"
+                },
+                {
+                    "feedback": "Do not post your code to Piazza"
+                },
+                {
+                    "feedback": "why"
+                },
+                {
+                    "feedback": "From the Piazza Etiquette:  If you have a strange bug in your code, **or have a question that involves posting your solution to a problem** , please **post it separately and mark it as private** , and an instructor will get to it when they can. There's no guarantee we will answer your question in time when you post it close to the assignment deadline, however.    * If you need help debugging your code, please make a private post with:      * A screenshot of the code you believe to be the issue, or your code pasted in a code block     * A screenshot of the tests you are currently failing     * A brief description of your thought process so far, and what you believe may be wrong with your code"
+                },
+                {
+                    "feedback": "If you post your code publicly, then someone else can easily copy. Then you (and the people who copied) will be flagged for cheating and possibly expelled from the University"
+                },
+                {
+                    "feedback": "your code to Piazza"
+                }
+            ]
+        },
+        {
+            "question": "Should we define a new function inside? And how do we get \"Incorrect password\", if there is no input for the new function?",
+            "follow-ups": [
+                {
+                    "feedback": "A new function should be defined inside, as:  The `make_joint` function returns a `withdraw` function that provides additional access to the original account using _either_ the new or old password.  In regard to the second part of your question, the new function should have the same two parameters as the withdraw function, which can be seen in the doctests."
+                },
+                {
+                    "feedback": "for function withdraw, it requires two inputs: balance and password. So say that we could use new_password in the place for password but what are we gonna put for the balance?"
+                },
+                {
+                    "feedback": "Actually `withdraw` takes in `amount_to_withdraw` and `password`. `withdraw` is not the same as `make_withdraw`"
+                },
+                {
+                    "feedback": "But that still doesn't answer the question of how just a call to the `make_joint` returns a string when it should return a function. The problem description says:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyl6vrdwz3u6ag%2Fk1n25u3rawph%2FScreen_Shot_20191011_at_9.26.30_PM.png)  So the `make-joint` function should return a function. However, the doctests show that it returns a string:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyl6vrdwz3u6ag%2Fk1n27gglbx1w%2FScreen_Shot_20191011_at_9.27.52_PM.png)  How is this possible?"
+                },
+                {
+                    "feedback": "Also, as Matthew said, a new function should be defined within `make_joint. But how will that new function have` access to the `balance` in the `make_withdraw` function?"
+                },
+                {
+                    "feedback": "It returns a string in that case because the given old password is incorrect, so access to the account should be denied. This is where the hint below (copied from the problem description) comes in:  The key is to call `withdraw` with the right password and amount, then interpret the result. You may assume that all failed attempts to withdraw will return some string (for incorrect passwords, locked accounts, or insufficient funds), while successful withdrawals will return a number.  Use `type(value) == str` to test if some `value` is a string."
+                },
+                {
+                    "feedback": "Ok, so in case the `old_password` is not the same as the password in the function `make_withdraw` whose returned function `withdraw` is passed as a parameter to `make_joint`, the function `make_joint` should return the error output string accordingly. But in case the password is correct, what do we do then?"
+                },
+                {
+                    "feedback": "If the old_password is correct, then we want to return a function. Similar to the previous problem, this new function should take in an amount and password attempt."
+                }
+            ]
+        },
+        {
+            "question": "How can we get access to the parameters taken by 'withdraw'?",
+            "follow-ups": [
+                {
+                    "feedback": "How can I access password from the withdraw function?"
+                },
+                {
+                    "feedback": "Figured it out"
+                },
+                {
+                    "feedback": "Need your help!!!"
+                },
+                {
+                    "feedback": "How can this function return something when the nested function takes in no argument?"
+                },
+                {
+                    "feedback": "i'm also having trouble with getting the original parameters!"
+                },
+                {
+                    "feedback": "You do not need access to the values within your withdrawal function, you should merely interpret the result of calling withdraw with certain parameters."
+                }
+            ]
+        },
+        {
+            "question": "The function that make_joint returns can take in no parameter or take in parameters, how can it be?",
+            "follow-ups": [
+                {
+                    "feedback": "The function that `make_joint` returns takes in an amount to withdraw as well as a password guess."
+                },
+                {
+                    "feedback": "Is the function that `make_joint` returns a new function or the same function that's passed in as `withdraw`? If it's a new function, do we have to define a new nested function inside the body of `make_joint`? And if it's the same function, how can we change the functionality of the passed in function from another function in a different frame/environment?"
+                },
+                {
+                    "feedback": "We can't change the functionality of the passed in function, so we'd have to create a new function."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure if I'm approaching this problem correctly.  It seems like I should make a list of all the possible passwords and then in my inner function, check the inputted password against that list. But then when the homework website says \"The key is to call `withdraw`` `with the right password and amount, then interpret the result.\" But couldn't you just return the result of calling `withdraw` without worrying about what the result is? If it's a string, then you just print the string, and if it's the balance remaining then you would print that as well, right?",
+            "follow-ups": [
+                {
+                    "feedback": "think about how the account is first created - you need to make a joint account with the correct old password before making other calls."
+                }
+            ]
+        },
+        {
+            "question": "withdraw function would be called no matter what happens,  just when the input password is the same as new_password, we need to give it an extra admission. Is that correct?",
+            "follow-ups": [
+                {
+                    "feedback": "I think so."
+                }
+            ]
+        },
+        {
+            "question": "Hi there! Is this question just about setting multiple conditions and calling withdraw function within the body of the nested function? When calling the withdraw function, how to set the arguments? My code seems to return a function, not really sure how to access the old withdraw function...",
+            "follow-ups": [
+                {
+                    "feedback": "I got the same problem. My code also returns a function and I’m still stuck. But I think you’re on the right track with the logic. It is to figure out the conditions where new_password is equal to what is input, old_password is equal to what is input and when either of them equal to what is input."
+                },
+                {
+                    "feedback": "You want the make_joint function to return a function when old_password is the correct password for calling withdraw on. When it is not passed the correct password, you want to return the same output that the withdraw function returns, in order to be able to lock yourself out."
+                },
+                {
+                    "feedback": "First, think about how you can make sure the old_password in the make_joint call is correct. If you pass 0 as the amount and the correct password in withdraw, what do you get? Do you get a string or an integer? Now, what would happen if you pass in an incorrect password? Do you get a string or an int? You could use these ideas with: \"Use `type(value) == str` to test if some `value` is a string.\"  Then in the body of the nested helper function, can you simply use withdraw (the function you passed in make_joint) with the amount and the correct password? If the password does not match the new password, can you still use that withdraw?"
+                }
+            ]
+        },
+        {
+            "question": "How do I know what amount to pass to withdraw?",
+            "follow-ups": [
+                {
+                    "feedback": "The output of withdraw for any incorrect password will always be the same, regardless of what amount you attempt to withdraw. The helper function inside of make_joint should take in an amount to call withdraw on."
+                }
+            ]
+        },
+        {
+            "question": "Should we use “type(value) == str” in our code?",
+            "follow-ups": [
+                {
+                    "feedback": "you can if you think you need it!"
+                }
+            ]
+        },
+        {
+            "question": "How do we return whatever withdraw is supposed to return? It says a function is returned when I simply do “return withdraw(*args)”.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you’re passing in the right parameters to withdraw"
+                },
+                {
+                    "feedback": "I passed in the same parameter as the helper function do(an amount and a password input)"
+                },
+                {
+                    "feedback": "you should not need *args for this question."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fixzb1fkviohmw%2Fk1ij5wbacd16%2Fcs61a_hw04_issue.png)  I'm getting this error for the last doctest and I'm not sure what's going on or how to approach this? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Before returning a helper function you need to be checking  1) whether the old password is even valid  2) whether we've already exceeded 3 guesses"
+                },
+                {
+                    "feedback": "Derek, please explain why do we have to check return condition from _withdraw()._ __  __  _withdraw()_ should return exactly the output we are looking for. From what I can tell, we should only check to make sure provided password matches either old or new password and then just pass old password to withdraw() which returns correct string or integer.  Thanks."
+                },
+                {
+                    "feedback": "Sort of. If I do                x = make_joint(...)  Then `x` will have the behavior that you mentioned. However, when you call `make_joint` you are creating an illegal joint account if the provided `old_password` does not match any of the previous valid passwords. If the account is illegal, then you need to return the error string from the withdraw function. Hence, _before_ returning a helper function you need to check the 2 things I mentioned. But if you've already returned the helper function then it acts the way you described"
+                }
+            ]
+        },
+        {
+            "question": "How should I call withdraw with the new password so that the old password also has access? Should I not be calling withdraw with the newpassword at all?",
+            "follow-ups": [
+                {
+                    "feedback": "You should not be calling withdraw with the new password because the old withdraw function does not recognize the new password as being valid. make_joint, however, recognizes the new password as being valid. Think about how you can use old_password and the old withdraw function together when make_joint sees new_password (does the old withdraw function recognize old_password?)"
+                },
+                {
+                    "feedback": "Hi, could you just elaborate on that little more? I still don't understand what you mean."
+                },
+                {
+                    "feedback": "how could you use old password with old withdraw function when you are not putting any argument into the old withdraw function?"
+                },
+                {
+                    "feedback": "You _are_ passing an argument into the old withdraw function (my hint is that you _should_ be calling old withdraw function, so you should therefore be passing something to it)"
+                }
+            ]
+        },
+        {
+            "question": "**![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcr0x7u5roF9%2Fk1iy83o66wgr%2FCapture.JPG)**  I'm not sure why I'm getting this error when it worked for the previous test cases.",
+            "follow-ups": [
+                {
+                    "feedback": "take a look at your DEBUG statement - it looks like there are three wrong passwords recorded, even though you've only make two incorrect attempts."
+                },
+                {
+                    "feedback": "I think I figured out what was wrong, the first doctest calls w(25, 'secret') before 'secret' is added as a joint account, so it labels it as an incorrect password. Is there a way I can remove 'secret' from the list of incorrect passwords when I add it to the account with make_joint"
+                },
+                {
+                    "feedback": "I'm not sure if this is causing the error or if it's something else"
+                }
+            ]
+        },
+        {
+            "question": "I am still confused on how to approach this question, I know that I have to basically create access to the original account but I am still puzzled on how to do that without a balance argument on the make_joint account.",
+            "follow-ups": [
+                {
+                    "feedback": "try calling the withdraw function provided as one of the parameters of the make_joint function to access the balance and list of incorrect words"
+                },
+                {
+                    "feedback": "and how would you do that?"
+                },
+                {
+                    "feedback": "withdraw(<your argument here>)  No need to do any nonlocal magic unless you're trying to modify a variable from another frame. Calling withdraw works just fine without nonlocal"
+                }
+            ]
+        },
+        {
+            "question": "All of my make_widthdraw test cases passed, but then I get this:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk1jozkoubavu%2FScreen_Shot_20191009_at_12.53.53_PM.png)      If I try to put funds as a higher check in my if statements in problem 7, the problem 7 test cases no longer work. Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "Specifically, I'll fail the following problem 7 test case if I check for funds before a valid password:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk1jp3c5gdynk%2FScreen_Shot_20191009_at_12.57.20_PM.png)"
+                },
+                {
+                    "feedback": "Never mind, I read this wrong. However, if my problem 7 test cases are passing, how could 'Insufficient funds' be returned before 'Incorrect password' here?"
+                },
+                {
+                    "feedback": "I have the same problem too"
+                },
+                {
+                    "feedback": "It's possible (and recommended) to implement `make_joint` without ever explicitly returning `'Incorrect password'` or `'Insufficient funds'`. Instead, let `make_withdraw` handle the password checking and balance checking logic, and have `make_joint` just call the `withdraw` function that's passed in."
+                },
+                {
+                    "feedback": "But why do we even need the `type(<exp>) == str` statement when all we have to do is return what the `withdraw` function returns? If it returns a string, we return the string. If it returns a valid number, we return that. Why do we need to condition at all?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1jxrb1mp8te%2FScreen_Shot_20191009_at_5.00.07_PM.png)  I'm keep getting this error that I need an argument inorder to run the function.",
+            "follow-ups": [
+                {
+                    "feedback": "if the value you pass in for the old_password parameter of the make_joint function isn't actually the \"old password,\" you need to return 'Incorrect password'"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1jyvvbekcjn%2FScreen_Shot_20191009_at_5.31.27_PM.png)  new update, I got it upto here but why is it keep saying that it can not return str?"
+                },
+                {
+                    "feedback": "If you return a string in make_joint, it can't be called in j(25, 'secret')"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "How do we keep the list of allowed passwords the same when calling make_joint again? My problem is that I get an error with j = make_joint(w, 'hax0r', 'secret'), and then have j2 = make_joint(j, 'secret', 'code'), where my list of passwords gets overrided when I call make_joint again.",
+            "follow-ups": [
+                {
+                    "feedback": "I have the same problem. I thought of 2 solutions that are not very good:  1\\. Use a global list to store allowed passwords, which obviously made passwords public and not private  2\\. When accessing withdraw with amount = 0, return balance and a list of passwords. It sounds workable but still a bit sketchy.  Since when calling make_joint again another frame will be created, we can't access the stored password list through nonlocal. Or can we?"
+                },
+                {
+                    "feedback": "Try using the provided `withdraw` function."
+                },
+                {
+                    "feedback": "**@ Derek Wan** could you please elaborate? I am also having the same issue as OP.  _withdraw_ function stores single password."
+                },
+                {
+                    "feedback": "A `make_withdraw` function stores one password. However, note in the test cases we can pass in another `joint_account` as a `withdraw` function. Since `joint_account`s can store multiple passwords, the `withdraw` function can actually hold multiple passwords"
+                },
+                {
+                    "feedback": "**@ Derek Wan** I can not understand following statement: ...we can pass in another `joint_account` as a `withdraw` function.  _joint_account_ is not a function within _hw04.py_. Perhaps you're referring to student defined function within _make_joint_. In that case I still don't understand \"as a _withdraw_ function\" part. The way I read the code, _withdraw_ function only holds one (original) password. We can possibly store and check extra passwords within _make_joint_. But I don't know how to remember third password when _make_joint_ is called a second time."
+                },
+                {
+                    "feedback": "Yes, my bad--I meant `make_joint`, not `joint_account`.  The part of the test cases I'm referring to is                >>> w = make_withdraw(100, 'hax0r')     ...     >>> j = make_joint(w, 'hax0r', 'secret')     ...     >>> j2 = make_joint(j, 'secret', 'code')  We created a joint account called `j`. Then we passed in `j` as the `withdraw` function into `j2`. In the first joint account (j), the `withdraw` function (w) only holds one password. However, in the second joint account (j2), the `withdraw` function (j) holds two passwords. Therefore, the `withdraw` function can hold one or more passwords"
+                },
+                {
+                    "feedback": "If that is confusing, another way to think of this is that every account holds one password as you suggested. `w` holds \"haxor\", `j` holds \"secret\", and `j2` holds \"code\". But `j2` can fall back on `j` if it's given something other than \"code\" and `j` can fall back on `w `if given something other than \"secret\""
+                },
+                {
+                    "feedback": "**@ Derek Wan** function _j_ is actually a _join_withdraw_ function returned from _make_joint_ which calls _withdraw_ in its return statement. _j_ is not a _withdraw_ function itself."
+                },
+                {
+                    "feedback": "From the HW page:  \"The `make_joint` function returns a `withdraw` function ...\" This means that in the following line:                j = make_joint(w, \"haxor\", \"secret\")  `j` is going to be bound to the return value of `make_joint`. Since \"`make_joint` function returns a `withdraw` function\" `j` is therefore a withdraw function. j2 is also a withdraw function."
+                },
+                {
+                    "feedback": "**@ Derek Wan** does this mean we are not to create _\" new\" withdraw_ function (which makes a call to actual _withdraw_ ) within _make_joint_?"
+                },
+                {
+                    "feedback": "You are supposed to create a new withdraw function, yes. The new withdraw function can call the old withdraw function. The withdraw function j2 can call the passed-in withdraw function j, for example"
+                },
+                {
+                    "feedback": "Wait, we need to make a _LIST?!!_ So that's how you're storing all passwords? IN A LIST?!"
+                },
+                {
+                    "feedback": "No, you do not need a list. Read the hints."
+                },
+                {
+                    "feedback": "But the hint is only given for the case if the old_password is not equal to one of the valid passwords."
+                },
+                {
+                    "feedback": "Calling `withdraw` implicitly stores the guess, as the `withdraw` function keeps track of guesses"
+                },
+                {
+                    "feedback": "Also, from what Derek said, I inferred this:  If the password passed is the `new_password`, then we call the `withdraw` function with that `password` and the `amount`. But in the case the `password` doesn't match, we call the previous `withdraw` function with the same arguments. But how do we access the previous `withdraw` function when there is always only one `withdraw` function in `make_joint`?"
+                },
+                {
+                    "feedback": "Copy pasting my feedback from below: \"You are probably not passing in the correct parameters to the withdraw function. **It 's not enough to just call the passed in withdraw function with whatever guess is made, because the passed in withdraw function has no idea what the new password is.**\""
+                }
+            ]
+        },
+        {
+            "question": "how can I get the wrong attempts from the old account before I joint it with a new password? Can I use the finished function in last question? If so, how can I joint the two list of wrong passwards?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider calling `withdraw()` and interpreting the output"
+                },
+                {
+                    "feedback": "Hey Cyrus, does that mean we need to return a list of passwords when checking the old_password? Not sure if it's a good idea."
+                },
+                {
+                    "feedback": "Not sure what you mean. I used a call to withdraw() in conjunction with the following hint:  The key is to call `withdraw` with the right password and amount, then interpret the result. You may assume that all failed attempts to withdraw will return some string (for incorrect passwords, locked accounts, or insufficient funds), while successful withdrawals will return a number.  Use `type(value) == str` to test if some `value` is a string."
+                }
+            ]
+        },
+        {
+            "question": "I tried to solve this by making a heper function that ran the original withdraw function (with its input as the old password) whenever either the old password or new password was eneterd, unfortunately, for some reason, I can't get my function to remember the first password that was used."
+        },
+        {
+            "question": "Is it alright if my solution passes the doctests without using nonlocal?",
+            "follow-ups": [
+                {
+                    "feedback": "yes"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjl4ou34e9e25ax%2Fk1mhn4ndjfhy%2Ferror.PNG)  Hi! I'm a bit confused as to what could be causing this error; is it an issue with my make_withdraw function?",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably not passing in the correct parameters to the withdraw function. It's not enough to just call the passed in withdraw function with whatever guess is made, because the passed in withdraw function has no idea what the new password is."
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error that says that amount is not defined. however, I passed in amount into my inner withdraw function and referred to it inside. why is this?",
+            "follow-ups": [
+                {
+                    "feedback": "Try tracing the inner method with an environment diagram"
+                }
+            ]
+        },
+        {
+            "question": "Is the function that `make_joint` returns a new function or the same function that's passed in as `withdraw`? If it's a new function, do we have to define a new nested function inside the body of `make_joint`? And if it's the same function, how can we change the functionality of the passed in function from another function in a different frame/environment?",
+            "follow-ups": [
+                {
+                    "feedback": "It's a new function that you define within `make_joint`"
+                },
+                {
+                    "feedback": "How does the new function store the passwords for the older functions? I understand that if the new function can learn to store and use the password of the previous `withdraw` function, then every subsequent function would be able to use the passwords from the `withdraw` functions before them (j2 can use its own password and all those stored by j, j can use its own password and all those stored by w, etc).  But how do we implement that? Do we use the concept of mutable functions? Do we have to use nonlocal? But I don't see how we can use nonlocal when it's not for a variable in a different function altogether"
+                },
+                {
+                    "feedback": "You don't need to explicitly store passwords. The behavior you suggest will arise naturally, as long as you implement the functionality properly"
+                },
+                {
+                    "feedback": "This new function doesn't need to store passwords for the older functions. Instead, we can call `withdraw. `As a hint, think about what passwords work/don't work when we call `withdraw`"
+                }
+            ]
+        },
+        {
+            "question": "I am sort of confused. Do we use the `make_withdraw` function we defined in the previous question? I don't see how you're able to return strings without using string literals unless you use that function as well as how the solution is less than 10 lines? Do we use the previous question's `make_withdraw` function?",
+            "follow-ups": [
+                {
+                    "feedback": "The first parameter of `make_joint` is `withdraw`, which is a function that is the result of calling `make_withdraw. `We can call `withdraw `within `make_joint. `Calling `withdraw` either returns a string or a number as we saw in the previous question"
+                }
+            ]
+        },
+        {
+            "question": "I am passing all the test cases, but then when I run python ok to submit it say's I fail a doctest?  Doctests for make_joint      >>> from hw04 import *   >>> w = make_withdraw(100, 'hax0r')   >>> w(25, 'hax0r')   \"Your account is locked. Attempts: ['hwat', 'a', 'n00b']\"      # Error: expected   # 75   # but got   # \"Your account is locked. Attempts: ['hwat', 'a', 'n00b']\"",
+            "follow-ups": [
+                {
+                    "feedback": "This might be an implementation specific issue. Please make a private piazza post with your implementation for make_withdraw.  My guess is that your password list in q7 is not being reset inside of make_withdraw. Ok runs the questions in order, so this might be the issue. Make sure that your password list is not a global variable."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  So this problem is a little confusing and I have something so far, but I don't know what exactly it is im missing. This is what I have for my doctests so far. Could anyone draw some type of conclusion as to what I am missing from this last doctest? Thanks.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk1pfzs30b3ws%2FScreen_Shot_20191013_at_1.29.10_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "'secret' is a valid password for the account `j` but your code is saying it's an incorrect password."
+                },
+                {
+                    "feedback": "Since 'my' is duplicated, you may have tried to withdraw twice within one call of make_joint."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm using the old withdraw function for this problem, but I'm getting an error saying that amount is not defined. Any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "There could be a couple possibilities but can't be sure without seeing your code.  Errors give a line number. Make sure that when you've defined the variable amount before using it in the current frame."
+                }
+            ]
+        }
+    ]
+}

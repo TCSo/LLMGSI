@@ -1,0 +1,30 @@
+{
+    "subject": "[Lab 13] Q5: Price Check",
+    "content": "<a href=\"https://cs61a.org/lab/lab13//#q5\">Q5: Price Check</a>\n\n<p> Please post all questions you have below concerning Q5: Price Check in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Any hints on how to start this problem? I'm lost.",
+            "follow-ups": [
+                {
+                    "feedback": "Try aggregating the MSRP with the `AVG` aggregator and grouping by the product category."
+                }
+            ]
+        },
+        {
+            "question": "How do you rename a column? or How do you name a column while in the process of creating a table?",
+            "follow-ups": [
+                {
+                    "feedback": "You can alter the column name of the resulting table with the `AS` keyword. For example, `SELECT MSRP AS price FROM products;` would return a list of MSRPs as a column named `price`."
+                }
+            ]
+        },
+        {
+            "question": "Is there a specific file we are supposed to do this problem in?",
+            "follow-ups": [
+                {
+                    "feedback": "Just kidding, didn't see the spaces for writing the code at the bottom of the lab13.sql file"
+                }
+            ]
+        }
+    ]
+}

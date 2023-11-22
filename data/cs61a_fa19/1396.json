@@ -1,0 +1,155 @@
+{
+    "subject": "[HW 05] Q4: Store Digits",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q4\">Q4: Store Digits</a>\n\n<p> Please post all questions you have below concerning Q4: Store Digits in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Do you need to use any of the methods from the Link class for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "I only used the Link constructor."
+                },
+                {
+                    "feedback": "When I call Link.rest or Link.first it says that 'Link' has no attribute 'rest'"
+                },
+                {
+                    "feedback": "Yes because the Link class has no attribute called first or rest. First and rest are instance attributes, so you need to call them on an instance of the Link class."
+                }
+            ]
+        },
+        {
+            "question": "I keep get nothing returned in python interpreter. I don't know where exactly to start debugging my code. Can somebody give me a hint?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are returning something in every case you may have! For example, if you have something like                if ...:       \t...       else:       \t...  as the body of your function, make sure you have return statement for both if and else case"
+                }
+            ]
+        },
+        {
+            "question": "How can I store the linked list in reverse (starting from the left most digit instead of the right)?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1phax1dzkz9%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191013_%E4%B8%8B%E5%8D%882.04.57.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Do what you are currently doing, but in reverse. For instance, if you are linking each digit at the end of the number to the current link, consider switching which one is the first and which is the rest."
+                },
+                {
+                    "feedback": "when I did this I got an assertion error: assert rest is Link.empty or isinstance(rest, Link) AssertionError"
+                },
+                {
+                    "feedback": "I would check to see the method that this assertion is being raised in, and see how you could be calling that method with the invalid argument."
+                }
+            ]
+        },
+        {
+            "question": "Whenever I try to order the digits from left to right, I run into the problem of nesting the Links in the wrong end of the Link. Any hints on trying to overcome this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk1pugz03as55%2FScreen_Shot_20191013_at_8.14.36_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I have the same problem and I'm still stuck. I think it may be the recursive call to blame. Have you figured it out?"
+                },
+                {
+                    "feedback": "Make sure your `first` is always an integer"
+                },
+                {
+                    "feedback": "When I try to make the first parameter an integer, it messes with my base case, so I'm not sure how to keep it from nesting Links are the start."
+                },
+                {
+                    "feedback": "Try to solve this using a loop instead of recursion - the solution may be more clear"
+                },
+                {
+                    "feedback": "I am also having the same problem.  My first is always a function call which resolves to a _Link_. This what's causing this \"triple link\" effect. But I am not sure how to resolve this as I need to be returning a _Link_ overall.  @Cyrus the loop solution seems to be even more complicated."
+                },
+                {
+                    "feedback": "The loop solution is a lot simpler and easy to understand. Think of the idea of how we solved summing digits of a number in the past. Once this condition is not true, exit the loop and just return what we've made."
+                }
+            ]
+        },
+        {
+            "question": "I did this problem before watching lecture, so the way I did it was by defining two function and using the concept of composition to do this.  I am unsure on how to solve this problem using instance attributes. Should I start by creating Link(1) first and calling recursive calls on Link.rest or the other way around. Not sure how I would do it the other way since accessing the first (leftmost) digit of a sequence is harder.",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to use instance attributes actually, the Link constructor should be enough"
+                }
+            ]
+        },
+        {
+            "question": "I got this error when I try to update s.rest to a Link. It seems like I'm not adding each one of them. Any hints on how to do so?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1r0q9piinwb%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191014_%E4%B8%8B%E5%8D%883.56.24.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you loop through all the digits, and perhaps insert a debug print statement in your loop so you can see how your link changes every iteration"
+                }
+            ]
+        },
+        {
+            "question": "I solved this without using Link Constructor, should I redo my code to find a solution that uses the Constructor?",
+            "follow-ups": [
+                {
+                    "feedback": "No, as long as you pass all tests"
+                }
+            ]
+        },
+        {
+            "question": "I keep seeing that we should use a loop for this problem, but I don't see it, however, when I use recursion I get close but the lining up of the parentheses is incorrect as well. Can someone clear up how exactly we would use a loop? I created a list of the digits in \"n\" but I don't get how to create a Link from that.",
+            "follow-ups": [
+                {
+                    "feedback": "If you use a loop, there is no need to create a list. Remember from earlier in the course how we can use a loop to examine a number digit-by-digit"
+                },
+                {
+                    "feedback": "You would convert the number using str(n) right? Then iterate through that?"
+                },
+                {
+                    "feedback": "No; that's not how we were taught to do so, and that is very computationally inefficient. Think of previous examples such as when we had to sum up all the digits in a number with a loop"
+                },
+                {
+                    "feedback": "Oh got it thank you"
+                }
+            ]
+        },
+        {
+            "question": "what does the empty=() suppose to do inside the Link class?",
+            "follow-ups": [
+                {
+                    "feedback": "We need a way to represent an empty Linked List, and the empty tuple was chosen as the definition. So that line just sets a class attribute called empty to the empty tuple so we can refer to it as what it means for a Linked List to be empty."
+                }
+            ]
+        },
+        {
+            "question": "I saw that we should be using a loop for this problem rather than recursion, but I don't exactly see how we can construct a linked list in this way without any recursive calls. Any thoughts?",
+            "follow-ups": [
+                {
+                    "feedback": "Here's an example of how to construct a Linked List using iteration:                >>> l = Link.empty #Start with an empty list       >>> for i in range(5): #We'll add 0-4 for this example       ...\tl = Link(i, l) #Make a new link with the old list as the rest and the new number as the first element       >>> print(l)       <4 3 2 1 0>  The idea in the code above is to build the linked list up in reverse with the first number in the for loop (0) at the end of the list and the last number (4) at the front of the list. Recursion is a bit easier to understand with Linked Lists, but it is certainly possible to build Linked Lists using iteration as the example above shows. It's not too different than how you would do it with recursion since you are just building the list starting from the end and going to the front.  The question now is, how could you \"iterate\" through the digits of an integer using a loop? (If you can figure this out, then adding it to the Linked List should follow from the example above) It is quite similar to how you would do it recursively, except you'll need some extra variables."
+                },
+                {
+                    "feedback": "This helped a lot! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I used a solution involving math.log --> has anyone solved the question without this? Just curious because I'm confident a more elegant solution exists than what I came up with",
+            "follow-ups": [
+                {
+                    "feedback": "Follow-up my solution was recursive"
+                },
+                {
+                    "feedback": "You can definitely solve this question without this"
+                }
+            ]
+        },
+        {
+            "question": "For some reason, my code can't pass the doctest despite returning what seems to be the correct output. I can't figure out what I'm doing wrong, and I'd appreciate some input.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnprppse72nw%2Fk227dogxhtis%2FScreen_Shot_20191022_at_11.48.59_AM.png) [ code removed ]",
+            "follow-ups": [
+                {
+                    "feedback": "**please do not post code publicly - if you plan on posting code, you must make a private post.   **  otherwise, please try redownloading the hw, copying over the code, and making a new submission. if that does not work, please post a new follow up!"
+                },
+                {
+                    "feedback": "My bad! Figured that because the doctest showed that my output and expected output seemed identical, I would have to post code to get help with what exactly wasn't working.  Also, I just did exactly that and it still doesn't work. I'm going to try restarting my computer, and if that doesn't work I'll try on a friend's computer later today."
+                }
+            ]
+        },
+        {
+            "question": "I have switched computers and redownloaded the homework, and I still get the same result -- my function appears to pass the doctest, but returns as a failed test case.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnprppse72nw%2Fk22p3cnxa0as%2FScreenshot_from_20191022_20.05.05.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I've figured it out! It was 100% due to a really silly mistake; when I copied my code over, I copied my doctests as well; there was a tab at the end of the doctest that I must have written in by accident."
+                }
+            ]
+        }
+    ]
+}

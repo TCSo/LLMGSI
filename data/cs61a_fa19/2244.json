@@ -1,0 +1,148 @@
+{
+    "subject": "[HW 10] Q2: By Parent Height",
+    "content": "<a href=\"https://cs61a.org/hw/hw10//#q2\">Q2: By Parent Height</a>\n\n<p> Please post all questions you have below concerning Q2: By Parent Height in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I'm stuck on how to sort by the parents' heights. Any advice?",
+            "follow-ups": [
+                {
+                    "feedback": "You should try to utilize columns from two tables: the parents table and the dogs table. Once you obtain each parent dog (use a WHERE statement for this), you can sort by those dogs's heights, and then select the child column to get each parent's child."
+                },
+                {
+                    "feedback": "I still dont get how"
+                },
+                {
+                    "feedback": "You will need to join together `parents` and `dogs` tables in order to be able to refer to the height of the parent. For example, you would probably want the parent in `parents` to match the name in `dogs`, since that will also mean that you can get the parents’ heights from `dogs`."
+                }
+            ]
+        },
+        {
+            "question": "I keep on getting the following error, but I'm not sure why. Does anybody know what it might mean? # Error: expected ordered output # herbert # fillmore # abraham # delano # grover # barack # clinton # but got # no such column: child # # herbert # fillmore # abraham # delano # grover # barack # clinton",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure one of the tables you are selecting from has the child column"
+                },
+                {
+                    "feedback": "Hmm, I'm selecting from the parents table which has child in it and joining that with the dogs table in my From statement. Why does it still give me \"no such column: child\" still?"
+                },
+                {
+                    "feedback": "That's weird. Could you describe the rest of your logic?"
+                },
+                {
+                    "feedback": "I'm trying to select child and I joined both dogs and parents in a table. I then filtered using a where statement to check if parent=name and ordered by the height."
+                },
+                {
+                    "feedback": "When I say I joined both dogs and parents in a table, i mean I joined them together after the from statement"
+                },
+                {
+                    "feedback": "That's exactly what I did, not sure what's going on here especially since the correct output seems to show up after the error message. Sorry!"
+                },
+                {
+                    "feedback": "Do I need to use aliases or anything?"
+                },
+                {
+                    "feedback": "No, I didn't use aliases. I selected the child from all combinations of entries in parents and dogs such that parent=name and ordered by descending height."
+                },
+                {
+                    "feedback": "Joining should look like this: `SELECT ... FROM table1, table2 WHERE ...`"
+                },
+                {
+                    "feedback": "That's strange, my solution seems to be of the same form and logic. Did you use any other statements besides From, Where, and Order By?"
+                },
+                {
+                    "feedback": "Oh never mind, i accidentally changed my solution to Q1 so it was giving me the error from running that. Once I fixed my solution to Q1 my solution to Q2 worked. Thank you for the help!"
+                },
+                {
+                    "feedback": "Gotcha, no problem! Glad it's sorted out"
+                },
+                {
+                    "feedback": "Would it also be correct to select name instead of child?"
+                },
+                {
+                    "feedback": "No, that would get all the parents instead of all the children."
+                },
+                {
+                    "feedback": "Just to clarify, the DOGS table includes dogs but the PARENTS table includes only parent dogs?"
+                },
+                {
+                    "feedback": "The dogs table includes all dogs. The parents table includes all parent-child dog pairs. Even if a dog isn't a parent, it could still show up as a child inside of the parents table."
+                }
+            ]
+        },
+        {
+            "question": "For some reason it tells me this  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjx3lyh25yyw4o5%2Fk3h1lpk9fo2t%2Fhelp.JPG)",
+            "follow-ups": [
+                {
+                    "feedback": "You have a syntax error in your solution that is preventing the `by_parent_height` table from being constructed. Remember your solution should be of the form `SELECT ... FROM ... WHERE ... ORDER BY ...;`"
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "I tried  SELECT a.child FROM parents AS a, dogs AS b WHERE b.name = a.parent ORDER BY b.height  but it's not working. how can I order child by parent's height?",
+            "follow-ups": [
+                {
+                    "feedback": "**Please don’t paste SQL code snippets publicly on Piazza.** You should order from greatest to least, which can be done with `ORDER BY [column] DESC`."
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "Are you able to edit your post to remove the code?"
+                },
+                {
+                    "feedback": "I'm so sorry I can't find any \"edit\" or \"delete\" botton!"
+                },
+                {
+                    "feedback": "Hmmm. Leaving unresolved so maybe an instructor can edit it."
+                },
+                {
+                    "feedback": "Anon's can't edit posts unfortunately, weird Piazza quirk."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk3r1it9sghay%2FScreen_Shot_20191204_at_12.39.17_AM.png)  why am i getting something like this?",
+            "follow-ups": [
+                {
+                    "feedback": "How have you attempted to solve the problem?"
+                },
+                {
+                    "feedback": "It kind of looks like you are joining tables without filtering anything. Make sure you use `WHERE` in order to only join rows that you are supposed to join, such as each row in a `dogs` table to have the same name as the `child` in the `parents` table so that you can then refer to the name of the parent."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected ordered output  # herbert  # fillmore  # abraham  # delano  # grover  # barack  # clinton  # but got  # herbert|delano|herbert|delano|long|46  # fillmore|eisenhower|fillmore|eisenhower|short|35  # abraham|fillmore|abraham|fillmore|curly|32  # delano|fillmore|delano|fillmore|curly|32  # grover|fillmore|grover|fillmore|curly|32  # barack|abraham|barack|abraham|long|26  # clinton|abraham|clinton|abraham|long|26  help,,,",
+            "follow-ups": [
+                {
+                    "feedback": "got it ! i thought you had to use the * to join ,,,"
+                }
+            ]
+        },
+        {
+            "question": "Why do we use parent = name?",
+            "follow-ups": [
+                {
+                    "feedback": "You need to join the `dogs` table to the `parents` table so that you can lookup the parent for a child and lookup the height for that parent. Joining on `WHERE parents.parent = dogs.name` means that `dogs.height` will refer to the parent’s height for a given `parents.child`."
+                }
+            ]
+        },
+        {
+            "question": "I am sorting by height, but I got the reverse order from what I was looking for. How do I inverse the ordering?",
+            "follow-ups": [
+                {
+                    "feedback": "You can order in descending order using `ORDER BY [key] DESC`."
+                },
+                {
+                    "feedback": "Another way is to negate the key, i.e `ORDER BY -[key]`; both work perfectly fine."
+                }
+            ]
+        }
+    ]
+}

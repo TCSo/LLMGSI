@@ -1,0 +1,640 @@
+{
+    "subject": "[Ants] Problem 5",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-5-3-pt\">Problem 5</a>\n\n<p> Please post all questions you have below concerning Problem 5 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Nevermind, didn't read the first few lines.",
+            "follow-ups": [
+                {
+                    "feedback": ""
+                }
+            ]
+        },
+        {
+            "question": "What is the 'special bonus' 'when it's damage drops to 0'?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm actually read the question"
+                },
+                {
+                    "feedback": "I had the same question!  \"``  Implement the `FireAnt`, which does damage when it receives damage. Specifically, if it is damaged by `x` armor units, and does not die, it does a damage of `x` to all bees in it's place (reflected damage).  If it dies, it does an additional amount of damage, which is specified by its `damage` attribute.  To implement this, we have to override the `FireAnt`'s `reduce_armor` method. Normally, `Insect.reduce_armor` will decrement the insect's `armor` by the given `amount` and remove the insect from its place if `armor` reaches zero or lower. However, `FireAnt` also does damage to all the bees in it's place when it receives damage, with a special bonus when it's damage drops to 0, before being removed from its `place`.  \""
+                },
+                {
+                    "feedback": "I'm still confused by this. We know that you have to do x damage if you're still alive and x+ self.damage damage if you die. But what do you do with regards to this clause?"
+                },
+                {
+                    "feedback": "nvm"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhmdqsjg41n%2Fk1i6z0zneh51%2FScreen_Shot_20191008_at_11.42.09_AM.png)  just wondering what I'm doing wrong there....",
+            "follow-ups": [
+                {
+                    "feedback": "You're not using the reduce_armor method correctly on an insect ( bee or ant ) or not using it at all as it does not detect any insects dying. I believe it tells you in comment on one of the lines of the test case run."
+                },
+                {
+                    "feedback": "what does it mean for \"using the method correctly on an insect\"? i did applied the method whenever I could. is it possible because I didn't use the death call method or do i not need it at all?"
+                },
+                {
+                    "feedback": "Look at the implementation of reduce_armor and try to place it in your code. You're most likely reducing armor manually as opposed to using the method to do it. And you should not use deathcall since it's included in the reduce_armor method."
+                },
+                {
+                    "feedback": "I am not able to get this right! I made a copy of the list and reduced each bee's armor and the ant's. and if the armor is less that 0 I remove the insect and iterate through the list again to reduce the damage"
+                },
+                {
+                    "feedback": "You should try calling the reduce_armor method defined in the Insect class to handle the case where the Ant dies and you remove it from the place. You should not be writing code in this method to remove the Ant from the place. The data abstraction we created in the Insect class will handle it for us. I suggest calling this method first, then dealing with the remaining cases. If the FireAnt dies after calling reduce_armor (how would we know this?), then we must deal self.damage + amount damage to each bee in the current Ant's place. Now if the ant is dead, we may no longer have access to the place attribute, so think of a way to get around that. In the case that the FireAnt is still alive after calling reduce_armor, then we just deal amount damage to each bee in the place."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I was working through it, but got an error like this:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzwa9tw9to36rd%2Fk1iawyy3d2jb%2F%E6%8D%95%E8%8E%B7.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're reducing the armor of the FireAnt *after* you damage the bees so the FireAnt's place doesn't get set to None if it dies."
+                },
+                {
+                    "feedback": "Thank you so much! Got it!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrluf8714ds%2Fk1iq7otnkyq%2FScreen_Shot_20191008_at_8.39.43_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Hi, what does a hardcoded 3 mean? I don't get why this test would be failing."
+                },
+                {
+                    "feedback": "They are checking to see if you did not hardcode the value of 3 as the FireAnts damage, and instead used the FireAnt damage attribute.  In this example, they changed the damage of the FireAnts to deal 49 damage rather than the standard 3. Therefore, the Bee in this example should have 50 health left after it attacks the FireAnt (1 damage from the reflect and 49 damage from the FireAnt dying). However, your code makes it so the Bee only takes 4 damage."
+                }
+            ]
+        },
+        {
+            "question": ">>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # Testing fire does damage to all Bees in its Place  >>> place = colony.places['tunnel_0_4']  >>> fire = FireAnt(armor=1)  >>> place.add_insect(fire) # Add a FireAnt with 1 armor  >>> place.add_insect(Bee(3)) # Add a Bee with 3 armor  >>> place.add_insect(Bee(5)) # Add a Bee with 5 armor  >>> len(place.bees)  >>> place.bees[0].action(colony) # The first Bee attacks FireAnt  >>> fire.armor  **> >> place.bees[0].armor # What is the armor of the remaining Bee?**  **Why is the answer not 2?**",
+            "follow-ups": [
+                {
+                    "feedback": "Hint: \"If it dies, it does an additional amount of damage, which is specified by its **`damage`** attribute.\""
+                },
+                {
+                    "feedback": "But the armor of ant is 1 and when 'place.bees[0]' damage 1 to the fireant, fireant will reflect 2 damage to bees. It is not right?"
+                },
+                {
+                    "feedback": "If you mean 2 total damage across both bees, then yes, that's right. But you have to consider whether or not the bonus damage upon `fire`'s death is applied."
+                },
+                {
+                    "feedback": "But this 2 damage include the bonus damage. The damage from the first bee is 1. Then this fireant die. So it will reflect 2 damage across both bees. So first bee will remain 1 armor. and the second one will have 3. Why is it wrong?"
+                },
+                {
+                    "feedback": "The bonus damage by default is 3, is it not?"
+                },
+                {
+                    "feedback": "Thanks"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdidg2pg14gw%2Fk1jnxhv9h03c%2FScreen_Shot_20191009_at_12.24.27_PM.png)  I'm not sure why I'm getting 2 and not 1.",
+            "follow-ups": [
+                {
+                    "feedback": "The fire bee died, so the bonus should be added onto its attack"
+                },
+                {
+                    "feedback": "hmm, how do you go about adding the bonus? thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I am little confused on how to properly work with the lists in this Q.  I created a new list, which is a replication of the bees list.  I am iterating through the new list, and calling reduce armor, but once it kills a bee, the new list is also modified and hence i do not iterate through all the values. How exactly do I avoid this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "figured it."
+                },
+                {
+                    "feedback": "I have the same question!  When I am not using the index, why should I worry about the bee being eliminated from that list?"
+                },
+                {
+                    "feedback": "Got it. It's about deep and shallow copy and the idea that in a shallow copy, objects will be referenced(with an arrow), not copied actually"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk1jqr07ubks0%2FScreen_Shot_20191009_at_1.43.51_PM.png)  Not fully understanding this case and why im failing it",
+            "follow-ups": [
+                {
+                    "feedback": "I am having the same issue, did you figure it out?"
+                },
+                {
+                    "feedback": "Got it nevermind"
+                },
+                {
+                    "feedback": "wait how did you fix it pls help :((((("
+                },
+                {
+                    "feedback": "wait jk got it"
+                }
+            ]
+        },
+        {
+            "question": "Can I iterate through the list of bees backwards instead of using a for loop and a copy of the list of bees?",
+            "follow-ups": [
+                {
+                    "feedback": "I see no reason to do that. Iterating over a copy of the list makes the solution much more straightforward."
+                },
+                {
+                    "feedback": "I don't understand how iterating through a copy would solve the problem of skipping over elements, can someone please explain further?"
+                },
+                {
+                    "feedback": "If you iterate over a copy of the list, then perform actions on the elements of the list/copy such that those elements may potentially be removed from the original list, that's still fine, because the elements of the copy of the list will remain intact throughout iteration, even if the elements of the original list get modified. (I'm being somewhat vague in order not to give answers away)"
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191009_at_3.49.19_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzxir9t86u9%2Fk1jx2wigkxk%2FScreen_Shot_20191009_at_3.49.19_PM.png)  Does anyone have any ideas on why I am getting this failed test case? Thank You in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "You are likely not calling `Insect.reduce_armor` properly as suggested in the following hint from the problem description: \"Note, even though you are overriding the `Insect.reduce_armor` function, you can still use it in your implementation by calling it directly (rather than via `self`).\""
+                }
+            ]
+        },
+        {
+            "question": "I am sure I replicated the list of bees, and even replicated twice(one before reduce amount, one before reduce damage). But I don't know why it says the bee is not in the list.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzw8xfv1bya23u%2Fk1k5i7ky1y5r%2FRK7ZL9Y7GW992U4.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you calling self.place.remove_insect() in reduce_armor? You shouldn't need to do that since Bee.reduce_armor already handles it."
+                },
+                {
+                    "feedback": "Figured it out! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "how do i set my Fire ants' amor to 3 as an instance attribute? Will I need a constructor in FireAnt?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. It should be noted that FireAnt already has a constructor that does this for you so you shouldn't need to mess with anything to get that part working."
+                }
+            ]
+        },
+        {
+            "question": "Not sure why this test case won't pass. I've called on bee.reduce_armor when the ant doesn't die, and when the ant does die i removed the ant and created a new list of bees, and reduced the armor of bee. what could be the issue?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk1l6u98sm3jx%2FScreen_Shot_20191010_at_2.02.06_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "are you sure you're reducing the armor of all the bees in your list?"
+                },
+                {
+                    "feedback": "yes, i think so. For when the ant doesn't die, I have a for loop to loop through the list of bees and it reduces each bee by 'amount' (doing Bee.reduce_armor(bee, amount)). for when the ant does die (self.armor <=0), i made a new copy of the bees list and made a for loop to loop through it, reducing each bee by self.damage + amount (this is the bonus, correct?) and then after that loop, i remove the ant from the place. Please help me out!"
+                },
+                {
+                    "feedback": "It was because I didn't include that death_callback statement!! don't forget it people!!"
+                },
+                {
+                    "feedback": "You shouldn’t need to include death_callback"
+                },
+                {
+                    "feedback": "I had the same problem, but the moment I added in the callback statement, it worked for me. Idk if this is an error, but yeah don't forget adding the callback statement"
+                },
+                {
+                    "feedback": "Me too, i have sam issue but when I just added the callback statement... it passed. Could you explain this?"
+                },
+                {
+                    "feedback": "Well it works with it and doesn't work without it, so I'm leaving it in lol."
+                }
+            ]
+        },
+        {
+            "question": "I've made a copy of the list of bees at place, iterated the damage on the bees, and then reassigned the original list of bees at place. But the bees don't seem to get removed. I even printed the list and I have a bee with negative armor?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyh09mhpvk05ny%2Fk1lf5l9vkby2%2FScreen_Shot_20191010_at_5.54.49_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't need to reassign the list of bees at the place. The list is already handled by Bee.reduce_armor."
+                },
+                {
+                    "feedback": "It worked! But I'm still a bit confused as to why. I'm only iterating over a copy of the list of bees, so won't the original list of bees (as well as their armors) remain untouched unless I reassign this list?"
+                },
+                {
+                    "feedback": "No, because the reduce_armor method of a bee removes that bee from its place's bees list. This modification of the place's bee list while iterating over the place's bee list is why you need to make a copy of the bee list for iteration."
+                },
+                {
+                    "feedback": "Is it because list copying is a shallow copy, that's why we are still referring to the same bee when we do reduce_armor on the copied list of bees?"
+                },
+                {
+                    "feedback": "Yes, list copying via `[:]` produces a shallow copy."
+                }
+            ]
+        },
+        {
+            "question": "do we call Insect.reduce_armor on the fire ant as well, or just the bees",
+            "follow-ups": [
+                {
+                    "feedback": "You need to damage the bees, so call bee.reduce_armor on each of them"
+                },
+                {
+                    "feedback": "Should we also call reduce_armor on the fire ants or should we copy the implementation of it into the overwritten function. I'm not sure what to do since I got the 'NoneType' object has no attribute 'remove_insect' erro"
+                },
+                {
+                    "feedback": "You should call it"
+                },
+                {
+                    "feedback": "\"you can still use it in your implementation by calling it directly (rather than via `self`)\"  what does this mean?"
+                },
+                {
+                    "feedback": "There are two ways of calling instance methods, as demonstrated below (Python Tutor [here](https://tinyurl.com/y3hej42a)):                class Demo():           def print_num(self, x):               print(self, x)              >>> x = Demo()       >>> x.print_num(3)       <__main__.Demo object at 0x7ff2d679cd68> 3       >>> Demo.print_num(x, 3)       <__main__.Demo object at 0x7ff2d679cd68> 3  Notice how the two calls at the end result in the exact same output"
+                },
+                {
+                    "feedback": "Hi, can you explain why we need to call Insect.reduce_armor() on fire ant as well and how we are supposed to go about doing that?"
+                }
+            ]
+        },
+        {
+            "question": "When iterating over a copy of an array created with a [:] using a for loop, is the original array's elements being manipulated or the copy? I'm trying to understand how creating a copy of the bees list and performing operations on each bee element selected via the for-loop leads to the original bees attribute for each Place changing.",
+            "follow-ups": [
+                {
+                    "feedback": "This is because the copy of the list still contains references to the original bee objects in the place.  The reason we have a copy in the first place is because Bee.reduce_armor, when called actually is just Insect.reduce_armor (since Bee inherits Insect). In Insect.reduce_armor, if you look at the code for it, it makes a call to self.place.remove_insect(self). This will remove the bee from the place it is currently in (Or in other words, from the bees list in the Place).  Because the original Bee objects are still in the copy, even though they are removed from self.place.bees because of the call to reduce_armor, the copy still contains the exact same Bee objects as before so they are not removed from the copy. This allows us to modify them without worrying about the list length changing."
+                },
+                {
+                    "feedback": "Ah gotcha - thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm very confused with how to approach this question. How does one call reduce_armor on the bees in the Place without referencing self as one of the arguments?  I also didn't get how the iteration/mutating the self.bees of the Place works.",
+            "follow-ups": [
+                {
+                    "feedback": "To call an instance method on a variable, you can do `variable.method(arguments)`"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxvsa9jb5iq%2Fk1lwzrh1qbap%2FScreen_Shot_20191011_at_2.10.23_AM.png) ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxvsa9jb5iq%2Fk1lx04aqtka2%2FScreen_Shot_20191011_at_2.10.31_AM.png) Hi can I ask what the note means since running some sample code on python tutor says it creates an infinite loop?",
+            "follow-ups": [
+                {
+                    "feedback": "In your example, on line 14, try changing self.function() to be Parent.function(self). That is essentially the equivalent of what the hint is saying.  If we override a function in a child class, we can always call the original parent function by calling it directly. In this context, the child is FireAnt and the parent is Insect. We want to access Insect.reduce_armor, so in FireAnt.reduce_armor we can just call it directly like Insect.reduce_armor versus doing self.reduce_armor to avoid the recursion."
+                },
+                {
+                    "feedback": "Thank you :) I already implemented it correctly but I was just wondering what the hint meant"
+                },
+                {
+                    "feedback": "Hi, I'm having trouble understanding this. What do you mean \"calling it directly\"? I've tried FireAnt.reduce_armor(amount) and self.reduce_armor(amount)"
+                },
+                {
+                    "feedback": "Remember that you can override your parent's functions. \"Calling it directly\" is referring to how you can call your parent's function (not the overridden one) by doing something like `Parent.func(...)`"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why the answer to this is 1. Here's what I think: when the first bee attacks FireAnt, FireAnt deals 3 damage to all bees. So 3->0 for first bee and 5->2 for second bee. Armor of FireAnt goes to zero, so there will be bonus damage of 3. So the second bee should have 2->-1.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k50bjzi368%2Fk1lyao49y29c%2FAnnotation_20191011_024508.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are misinterpreting what x is in this context. The amount of damage a FireAnt does to a bee is exactly the same as the amount of damage the Bee does to it, and has nothing to do with the armor values of the bees.  In this case, only the first Bee attacks the FireAnt. Since these Bees do one damage on their turns, that means the FireAnt will first off deal one damage to every Bee in its place (the reflected damage part), and NOT 3. Then the FireAnt dies, meaning it deals its bonus damage to the Bees. So that means both bees will lose 4 armor, resulting in the first Bee dying and the second Bee having 1 armor."
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure what is happening here or why two bees should be dying not just the one... any ideas?  Thanks in advance!!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi8kxwa4dy%2Fk1mi6ptyyg0x%2FP5S2C11.png)",
+            "follow-ups": [
+                {
+                    "feedback": "One of your reduce_armor calls is incorrect"
+                },
+                {
+                    "feedback": "You should probably send your code since there may a couple reasons why it isn't implemented correctly :) but Cyrus is right"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "When I assigned x = Insect( ) and called Insect.reduce_armor on only one argument, it gives me \"__init__( ) missing 1 required positional argument: 'armor'\" error but I'm calling the method on the amount to reduce. I'm also confused with should be call Bee.reduce_armor on self and amount or just amount. Can somebody give me a hint?",
+            "follow-ups": [
+                {
+                    "feedback": "You're calling `reduce_armor` on the Bee class, so both self and amount are needed (the class needs to know which Bee to reduce the armor on!) If you were to call `reduce_armor` on a Bee _instance_ (instance.reduce_armor(amount)), only amount would be needed, since the instance supplies the self argument.  I'm not entirely sure what your confusion is with the positional argument error. It's complaining about your incorrect instantiation of Insect (which needs an `armor` argument passed to it!)"
+                }
+            ]
+        },
+        {
+            "question": "Could anyone tell me where to get the list of bees in the place? I tried all_bees and place.bees but I get errors 'place is not defined'",
+            "follow-ups": [
+                {
+                    "feedback": "It is place.bees, but place needs to be assigned to a place for you to do that. The more general syntax would be:                <variable_name_of_place>.bees  where <variable_name_of_place> is a variable that points to some Place object."
+                }
+            ]
+        },
+        {
+            "question": "Getting this:                Problem 5 > Suite 2 > Case 2          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> #     >>> # Testing fire does damage to all Bees in its Place     >>> place = colony.places['tunnel_0_4']     >>> fire = FireAnt(armor=1)     >>> place.add_insect(fire)        # Add a FireAnt with 1 armor     >>> place.add_insect(Bee(3))      # Add a Bee with 3 armor     >>> place.add_insect(Bee(5))      # Add a Bee with 5 armor     >>> len(place.bees)               # How many bees are there?     2     >>> place.bees[0].action(colony)  # The first Bee attacks FireAnt     >>> fire.armor     0     >>> fire.place is None     True     >>> len(place.bees)               # How many bees are left?     2          # Error: expected     #     1     # but got     #     2  In one if statement, I iterate over bee list and call bee.reduce_armor(damage + amount) and then in my else statement, i iterate over bee list again and call bee.reduce_armor(amount). For some reason its not updating the number of bees?",
+            "follow-ups": [
+                {
+                    "feedback": "Resolved -- some careless mistakes in my code"
+                },
+                {
+                    "feedback": "I have exactly the same problem can u explain how u managed to solve it?"
+                },
+                {
+                    "feedback": "Its keep saying nontype object has no attribute 'bees'"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdidg2pg14gw%2Fk1nvlo9khzdl%2FScreen_Shot_20191012_at_11.10.39_AM.png)  I'm not sure what's wrong with my code here",
+            "follow-ups": [
+                {
+                    "feedback": "You might be reducing bee's armor by damage instead of amount"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdidg2pg14gw%2Fk1o198no6dv6%2FScreen_Shot_20191012_at_1.48.44_PM.png)  Why am I getting False and not True?",
+            "follow-ups": [
+                {
+                    "feedback": "You should make sure the FireAnt is removed only when its armor equals or is less than zero. (Double check your loops?) Otherwise, you're removing the FireAnt even when it still has \"health\" (armor) left."
+                }
+            ]
+        },
+        {
+            "question": "Not sure why this is happening...I iterate through all the bees in the list but it seems that my FireAnt isn't doing damage to ALL the bees but just one bee.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1o53kg7qcqv%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191012_%E4%B8%8B%E5%8D%883.34.58.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you iterating over a copy of the bees list, rather than the actual list? If you're doing the actual list, the first bee will die while you are doing damage to them, and your for loop will not damage the second bee (since the list length will be mutated)."
+                },
+                {
+                    "feedback": "How do you itereate over the copied list?"
+                },
+                {
+                    "feedback": "The same way you iterate over any arbitrary list/sequence"
+                },
+                {
+                    "feedback": "terminal is keep saying either the nontype object is not subscriptable"
+                },
+                {
+                    "feedback": "or the nontype object is not iterable"
+                },
+                {
+                    "feedback": "I did make the shallow copy of the list but I don;t know how to apply to Insect.reduce_armor(self, amount)"
+                },
+                {
+                    "feedback": "When the FireAnt dies, `self.place` will be `None` thus `self.place.bees` will be `None.bees` which will give the none errors. Think about how you can save that place so you can get the list of bees in that place!"
+                }
+            ]
+        },
+        {
+            "question": "I think I'll be able to debug my code if I know what place.bees[0].armor means from below. I don't know why it expected 1.  I didn't understand the bonus part from docstring, so I may not have used this to solve this question:  \"Make sure to damage each bee in the current place, and apply the bonus if the fire ant dies.\"  Problem 5 > Suite 2 > Case 2  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # Testing fire does damage to all Bees in its Place  >>> place = colony.places['tunnel_0_4']  >>> fire = FireAnt(armor=1)  >>> place.add_insect(fire) # Add a FireAnt with 1 armor  >>> place.add_insect(Bee(3)) # Add a Bee with 3 armor  >>> place.add_insect(Bee(5)) # Add a Bee with 5 armor  >>> len(place.bees) # How many bees are there?  2  >>> place.bees[0].action(colony) # The first Bee attacks FireAnt  >>> fire.armor  0  >>> fire.place is None  True  >>> len(place.bees) # How many bees are left?  2  # Error: expected  # 1  # but got  # 2",
+            "follow-ups": [
+                {
+                    "feedback": "I meant the last two doctests below, which place.bees[0].armor is 2 instead of 1 from my code:  >>> len(place.bees) # How many bees are left?  1  >>> place.bees[0].armor # What is the armor of the remaining Bee?  2  # Error: expected  # 1  # but got  # 2"
+                },
+                {
+                    "feedback": "This has been asked before in previous followups, so look to those for more detailed advice on why this is the case. Essentially though, place.bees[0].armor is just asking, what's the armor of the bee on the Place where the FireAnt is (there is only one bee, so the line does exactly what the comment says).  The FireAnt deals 4 damage to each of the bees (1 from normal damage and 3 from the bonus since it dies), so the first Bee dies, but the second that starts with 5 armor lives, and has 1 armor afterwards."
+                },
+                {
+                    "feedback": "Never mind, I fixed it."
+                }
+            ]
+        },
+        {
+            "question": "I might be missing reflected damage every time bee attacks fire ant. If so, any hint of how to give the bee that attack the ant a reflected damage?  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # Testing fire damage when the fire ant does not die  >>> place = colony.places['tunnel_0_4']  >>> bee = Bee(5)  >>> ant = FireAnt(armor=100)  >>> place.add_insect(bee)  >>> place.add_insect(ant)  >>> bee.action(colony) # attack the FireAnt  >>> ant.armor  99  >>> bee.armor  5  # Error: expected  # 4  # but got  # 5",
+            "follow-ups": [
+                {
+                    "feedback": "Solved it too, I understand how to turn reflected damage to bee into code, but now I run into this problem:  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # test proper call to death callback  >>> original_death_callback = Insect.death_callback  >>> Insect.death_callback = lambda x: print(\"insect died\")  >>> place = colony.places[\"tunnel_0_0\"]  >>> bee = Bee(3)  >>> ant = FireAnt()  >>> place.add_insect(bee)  >>> place.add_insect(ant)  >>> bee.action(colony)  >>> bee.action(colony)  >>> bee.action(colony) # if you fail this test you probably didn't correctly call Ant.reduce_armor or Insect.reduce_armor  insect died  # Error: expected  # insect died  # insect died  # but got  # insect died  I see from the comment above that either I didn't call Ant or Insect correctly. Any more hints on where calling Ant or Insect may be incorrect?"
+                },
+                {
+                    "feedback": "Hey! I'm getting the same problem. How did you solve it?"
+                },
+                {
+                    "feedback": "I solved it! To hint something out, assuming you apply code to the question correctly according to the test case, you can use the block code of reduce_armor function from Insect class to FireAnt's reduce_armor.  Or, for better composition, you can use Insect.reduce_armor in FireAnt's reduce_armor function, so you don't have to use the code inside the reduce_armor function from the Insect class.  Hope this helps!"
+                },
+                {
+                    "feedback": "how did you solve the first issue with bee.armor? i'm still stuck"
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to make changes on the reduce_armor function provided? I was struggling for a while but I changed that function a bit and it wroked.",
+            "follow-ups": [
+                {
+                    "feedback": "You are allowed to modify `FireAnt.reduce_armor`, not `Insect.reduce_armor`"
+                }
+            ]
+        },
+        {
+            "question": "I have run into the problem on test case 13 which says 'NoneType' object has no attribute 'remove_insect' which I think is referring to my line of code where I try to remove the fire ant when it has no more armor.  I'm honestly completely stuck on what to do. Does anyone have any tips for how I should remove the fire ant?",
+            "follow-ups": [
+                {
+                    "feedback": "If the FireAnt has no more armor when you call reduce_armor, it is automatically removed from its Place. You will not need to call remove_insect yourself anywhere in this problem."
+                },
+                {
+                    "feedback": "I keep getting this error as well, anyone know how to solve it?"
+                },
+                {
+                    "feedback": "\"make sure you iterate over a copy of bees list!  Add print statements, you shouldn't be calling reduce armor on something that says Bee(0, None)\" \\- what someone answered below - it helps!"
+                }
+            ]
+        },
+        {
+            "question": "What is the \"bonus\" damage? I used self.damage as my argument but what I don't understand what to add to it.",
+            "follow-ups": [
+                {
+                    "feedback": "From the problem description:  Implement the `FireAnt`, which does damage when it receives damage. Specifically, if it is damaged by `x` armor units, and does not die, it does a damage of `x` to all bees in it's place (reflected damage).  **If it dies, it does an additional amount of damage, which is specified by its`damage` attribute.**"
+                }
+            ]
+        },
+        {
+            "question": "When I iterate through the list of bees and reduce the armor of each bee, why am I supposed to consider the length of the original bees list and not the list copy that I made? I get that I should reduce_armor of each bee in the copy list, but why should I iterate over the length of the original list when the copy list is the one being modified? (Passes the test cases, but I'm not sure why)",
+            "follow-ups": [
+                {
+                    "feedback": "Because the original list may have bees removed as you call `reduce_armor` on them (`reduce_armor` potentially directly modifies the bees list of the place the bee is in)"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1puh4cl7b7v%2FScreen_Shot_20191013_at_8.14.22_PM.png)  Im keep getting the error that says the nontype object have no attribute bees.... why is this happening?",
+            "follow-ups": [
+                {
+                    "feedback": "If self.place is None, then you cannot call bees on it. self.place is usually none if you call reduce_armor() before you damage all the bees since the FireAnt will be removed from the Place before you can access the place it is at."
+                },
+                {
+                    "feedback": "I damaged the bees first but it is keep saying the same thing. is self.place.bees[0].armor -= amount not working?"
+                },
+                {
+                    "feedback": "You shouldn't be modifying the armor value directly, but instead using reduce_armor."
+                },
+                {
+                    "feedback": "The only way self.place can be None is if the FireAnt isn't assigned a place. In this test case, they give the FireAnt a place, so somewhere in your code you are removing the FireAnt from its place. If it isn't through Insect.reduce_armor, then it must be through some other call or assignment to self.place."
+                },
+                {
+                    "feedback": "so your saving we can't use remove_insect?"
+                },
+                {
+                    "feedback": "No. You shouldn't be calling remove_insect directly since that is also handled by Insect.reduce_armor."
+                },
+                {
+                    "feedback": "if I start by saying insect.reduce_armor it is keep saying insect is not defined."
+                },
+                {
+                    "feedback": "Is this somewhat close or is it still completely wrong"
+                },
+                {
+                    "feedback": "The second call is the correct way to call it. Make sure to call it at the end, rather than the beginning, so you can still access self.place."
+                },
+                {
+                    "feedback": "okay thank you!"
+                }
+            ]
+        },
+        {
+            "question": "As already asked above, can anyone tell me why I'm getting insect died twice instead of insect died once? My code looks right but one of my calls are not correct and I can't see a bug from any of them. I understand the question but need some help. Please.",
+            "follow-ups": [
+                {
+                    "feedback": "Which test are you referring to? There was a test where you should be getting insect died twice. I don't recall there being one where it only appears once."
+                },
+                {
+                    "feedback": "Oops, I mean why I'm getting insect died once instead of twice  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # test proper call to death callback  >>> original_death_callback = Insect.death_callback  >>> Insect.death_callback = lambda x: print(\"insect died\")  >>> place = colony.places[\"tunnel_0_0\"]  >>> bee = Bee(3)  >>> ant = FireAnt()  >>> place.add_insect(bee)  >>> place.add_insect(ant)  >>> bee.action(colony)  >>> bee.action(colony)  >>> bee.action(colony) # if you fail this test you probably didn't correctly call Ant.reduce_armor or Insect.reduce_armor  insect died  # Error: expected  # insect died  # insect died  # but got  # insect died"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1pvfuggd2cc%2FScreen_Shot_20191013_at_8.41.42_PM.png)  is this where we have to implement slicing of the list?  why is the fireant's damage not affecting the other bees?",
+            "follow-ups": [
+                {
+                    "feedback": "Yep. Mentioned this above, but basically if you don't make a copy of the list, the list length will be mutated if the bees die,so you will skip over some of them."
+                },
+                {
+                    "feedback": "Its keep saying bee object is not iterable so i tried changing it and now its saying that the fire ant has no attribute damage. I am so confused on this question."
+                },
+                {
+                    "feedback": "I tried putting the lst that reffers to all the bees which is self.place.bees[0] at the beginning of the code and i tried running for i in list(lst) -> Insect.reduce_armor(i, amount+self.damage)"
+                },
+                {
+                    "feedback": "self.place.bees[0] is the first bee in the place, and not the whole bee list itself. The list you are making a copy of is self.place.bees, not the first index of it."
+                }
+            ]
+        },
+        {
+            "question": "Hello people, once you created the copy of the bees with [:]. How do you put this in the Insect.reduce_armor(...) It just doesn't make any sense how you could put these two things together.  I tried  lst = Insect.reduce_armor(self.place.bees[0], amount)  for i in lst[:]  Insect.reduce_armor(i, amount+self.damage)  but it is keep returning error saying that it is not subscriptalble. I am sup lost.",
+            "follow-ups": [
+                {
+                    "feedback": "Insect.reduce_armor returns None, hence you cannot copy lst with [:] since it is bound to None."
+                },
+                {
+                    "feedback": "so what am i suppose to do? plz im so lost"
+                },
+                {
+                    "feedback": "The idea of this problem is that you want to iterate through every bee in self.place to damage them. Okay, so that means we want to iterate through self.place.bees. But as we mentioned before, self.place.bees might change through iterations, so we want to make a copy of this list, and no other list, and iterate through the copy. When we iterate through the copy, we are going to be iterating through bee objects. We want to reduce the armor of each of the bees we're iterating over, which you can do with Insect.reduce_armor as you did here. That's essentially it."
+                },
+                {
+                    "feedback": "=I have smth like this but it says bee object is not subscriptable"
+                },
+                {
+                    "feedback": "i is a bee object, so you can't do [0] on it."
+                },
+                {
+                    "feedback": "okay! thank you1!!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1pxes71oltf%2FScreen_Shot_20191013_at_9.37.05_PM.png)  So i can't reduce the armor of the fire ant. do i have to make a copied list like i did for the one before and iterate Insect.reduce_armor for this one too? I tried but it is still not working. im so depressed and i need help... im sry if im being toxic to anyone",
+            "follow-ups": [
+                {
+                    "feedback": "You're doing fine! Just keep trying and eventually you'll pass all the test cases!  The list from before was only necessary because we had multiple bees. In this case, there's only one single FireAnt. In reduce_armor(), we simply need to call Insect.reduce_armor on the FireAnt instance so it will reduce its armor for us. No need for a loop."
+                },
+                {
+                    "feedback": "Thank you Nicholas :)"
+                },
+                {
+                    "feedback": "So I have something similar to Insect.reduce_armor(FireAnt.armor, amount) but the code doesn't seems like its processing this part of the code... Do i need something else?"
+                },
+                {
+                    "feedback": "I tried all the possible options such as Insect.reduce_armor(self, amount) / Insect.reduce_armor(self.armor, amount) / Insect.reduce_armor(FireAnt, amount)"
+                }
+            ]
+        },
+        {
+            "question": "how to removed from its `place?`",
+            "follow-ups": [
+                {
+                    "feedback": "self.place.remove_insect(self)  but got error: AttributeError: 'NoneType' object has no attribute 'remove_insect'"
+                },
+                {
+                    "feedback": ">>> place.add_insect(fire)        # Add a FireAnt with 1 armor       >>> place.add_insect(Bee(3))      # Add a Bee with 3 armor       >>> place.add_insect(Bee(5))      # Add a Bee with 5 armor       >>> len(place.bees)               # How many bees are there?       2       >>> place.bees[0].action(colony)  # The first Bee attacks FireAnt       >>> fire.armor       0       >>> fire.place is None       True       >>> len(place.bees)               # How many bees are left?       1       >>> place.bees[0].armor           # What is the armor of the remaining Bee?       2              # Error: expected       #     1       # but got       #     2  5 - 3 = 2 but why it expected 1?"
+                },
+                {
+                    "feedback": "It's mentioned above, but the FireAnt should be dealing 4 damage to each ant, not 3 since it reflects 1 back and does 3 damage since it dies for a total of 4."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "# AttributeError: 'NoneType' object has no attribute 'remove_insect'  I'm keep getting this error, I think it's because remove_insect called on a empty place. Could there be some issues with previous code?",
+            "follow-ups": [
+                {
+                    "feedback": "make sure you iterate over a copy of bees list!  Add print statements, you shouldn't be calling reduce armor on something that says Bee(0, None)"
+                },
+                {
+                    "feedback": "That helps so much thank you ^^^^"
+                }
+            ]
+        },
+        {
+            "question": ">>> place = colony.places['tunnel_0_4']   >>> ant = FireAnt(1) # Create a FireAnt with 1 armor   >>> place.add_insect(ant) # Add a FireAnt to place   >>> ant.place is place   ? False   \\-- Not quite. Try again! --  Can somebody explain why ant.place is place? is colony.places['tunnel_0_4'] create a Place object? kinda confused...",
+            "follow-ups": [
+                {
+                    "feedback": "is place means that its still there - that the ant hasnt died"
+                }
+            ]
+        },
+        {
+            "question": "Hi i am super stuck on this problem, I am trying to iterate through the list of bees so i did a for loop that goes through each element and it checks if the ant's armor is 0 and if it is then the elem will have its armor reduced by self.damage + amount. otherwise the element just has its armor reduced by amount. This is what I keep getting for the test case: Any idea how to solve/approach this? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjkx114m5n7%2Fk1s8k476k8mo%2Fbees.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "This is complaining that the FireAnt's armor isn't decremented when it is attacked. (remember that FireAnt can also be attacked)"
+                }
+            ]
+        },
+        {
+            "question": "How should we remove the fireant from its place?",
+            "follow-ups": [
+                {
+                    "feedback": "nmv I read the question again and I found it."
+                }
+            ]
+        },
+        {
+            "question": "\"Note, even though you are overriding the `Insect.reduce_armor` function, you can still use it in your implementation by calling it directly (rather than via `self`). Note that this is not recursion (why?)\"  Why can we use the overrided method from parent class? Is it means that Insect.reduce_armor of insect classa in unchanged?",
+            "follow-ups": [
+                {
+                    "feedback": "Because you are calling it from the parent class itself, and feeding it the parameters. You could probably draw an environment diagram to convince yourself this is true. Consider:                class A:        \tdef f(self):        \t\tprint(\"parent\")               class B(A):        \tdef f(self):        \t\tprint(\"child\")        child = B()       child.f()       A.f(child)"
+                }
+            ]
+        },
+        {
+            "question": "**REDACTED   **",
+            "follow-ups": [
+                {
+                    "feedback": "Please don't post your code publicly. If you want a general advice, please submit a general approach of what you did here, otherwise please make a private post (following @1168) or come to OHs."
+                }
+            ]
+        },
+        {
+            "question": "I am almost done but I am getting this error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk1sw08ej579w%2Fants_5.png)  I don't know why it's one off. My condition for my for loop is self.armor - amount >= 0  then I create a copy list  use a for loop to iterate over it  and inside doing this: i.reduce_armor(self.damage + amount) (i is the var name of my iteration like: for b in branches)",
+            "follow-ups": [
+                {
+                    "feedback": "plz help^"
+                },
+                {
+                    "feedback": "A couple things. One, you shouldn't be decrementing self.armor yourself. You should be relying on methods we have already created in the Insect class to reduce the armor. We want to preserve the data abstraction. Second, there are two cases here. When you reduce armor of the FireAnt, if it dies, you are supposed to deal additional damage ( = self.damage). So you should only be calling i.reduce_armor(self.damage + amount) when the FireAnt dies. Otherwise, if the FireAnt is still alive, just reduce the bee's armor by amount."
+                }
+            ]
+        },
+        {
+            "question": "I passed all the test case, but I am still little bit confused about how the copy of the bee list works. I remember that if two list reference to same thing, if we modify one of them, the other will be automatically modified. In this sense, if we modify the copy of the bee list, the original bee list will be modified. Therefore, if we iterate over the copy of the bee list, we still not visit all of the elements since it is modified. Can somebody please explain this?",
+            "follow-ups": [
+                {
+                    "feedback": "When you create a copy, you're actually creating an entirely new list with all the same values! For example, take this code:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj54get93nrd5e2%2Fk1szw9dcol1j%2FScreen_Shot_20191016_at_1.09.34_AM.png)  In this case, we are setting **b** equal to **a** , but **c** equal to a copy of **a**.  When we set **b** to **a** , we are saying that **b** contains a pointer to the same list that **a** does. So modifying **b** will modify **a** as well!  However, when we set **c** to a copy of **a** , we are creating an entirely new list and _copying over the values_ from each box of **a**. So when we modify **c** , the list that **a** points to will not be modified! It's a separate list.  The same is happening with your bee list! When you edit a copy, you're not editing the original; the same goes the other way around."
+                }
+            ]
+        }
+    ]
+}

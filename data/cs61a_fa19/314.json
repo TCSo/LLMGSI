@@ -1,0 +1,288 @@
+{
+    "subject": "[Hog] Problem 7",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-7-3-pt\">Problem 7</a>\n\n<p> Please post all questions you have below concerning Problem 7 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Right, so for the announce_highest function I'm defining a say function and passing in the player scores just like the announce_lead_change functions, and in my 'say' function, I use previous_high and previous_score. Python is saying the previous_high and previous_score variables are 'referenced before assignment', but the parent frame of my 'say' function should be the 'anounce_highest' function, which has those variables passed into it. Any ideas what I might be getting wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Solved. I wasn't editing the values directly, but I was doing math with them on one side of a conditional statement, which I guess python doesn't like? Anyways I defined a new value by that math and used _that_ in the conditional statement and the problem went away."
+                },
+                {
+                    "feedback": ">>> f0 = announce_highest(1) # Only announce Player 1 score gains   >>> f1 = f0(12, 0)   >>> f2 = f1(12, 11)   11 point(s)! That's the biggest gain yet for Player 1  whats the 12 in f1=f0(12,0)?"
+                },
+                {
+                    "feedback": "12 is score0"
+                },
+                {
+                    "feedback": "I still can not figure out how to solve the `local variable [var] reference before assignment` error, can you give me more instructions like how to define the new value?"
+                }
+            ]
+        },
+        {
+            "question": "In the Doctests for announce_highest, a doctest has the following form:                >>> f3 = f2(20, 11)       >>> f4 = f3(13, 20)       >>> f5 = f4(20, 35)  I'm confused as to whether or not the line in the middle is a typo, and should actually be                >>>f4 = f3(20, 13)",
+            "follow-ups": [
+                {
+                    "feedback": "I think somewhere it's mentioned the Doctests might not be values that could really happen in a game? So the values don't really matter, just how the announcement system deals with them."
+                },
+                {
+                    "feedback": "Commentary functions are tested intentionally in this way so that they aren't bound to the rules of the game - they should be able to adapt if point scoring rules become different"
+                },
+                {
+                    "feedback": "Are the arguments supposed to be Score of player 0 and score of player 1?"
+                },
+                {
+                    "feedback": "yes, but these doctests are not grounded in an actual game - they should only be dependent on the sequence of scores that are given."
+                },
+                {
+                    "feedback": "Also it appears that the swap behavior is based off of last year's Hog in that example, which is why it swaps."
+                }
+            ]
+        },
+        {
+            "question": "My question seems a little bit silly but I just don't understand what the parameter \"previous_high\" means, can anyone help me with that? Thank you in advance",
+            "follow-ups": [
+                {
+                    "feedback": "previous_high refers to the previous highest score increase by the player"
+                },
+                {
+                    "feedback": "It's the previous largest point gain made by the player"
+                },
+                {
+                    "feedback": "if it is the previous largest point gain made by the player, then how can it be 12 when the previous score is 0, which indicates that the game has just begun( I think so)..."
+                }
+            ]
+        },
+        {
+            "question": "My partner and I completed the announce_highest function and passed all tests successfully. However, when we tried to run                python3 hog_gui.py         in Terminal (Mac) afterwards, it immediately automatically restarted my laptop, and there was a change in display resolution (the entire screen was scaled down). What went wrong?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "See @296"
+                },
+                {
+                    "feedback": "Question 6 > Suite 2 > Case 2  (cases remaining: 5)  >>> from hog import play, always_roll  >>> from dice import make_test_dice  >>> #  >>> def count(n):  ... def say(s0, s1):  ... print(n)  ... return count(n + 1)  ... return say  >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(3), goal=10, say=count(1))  I am confused about this question on how to approach it. Any help will be appreciated!  I know after every try, we call the say=count(1). So, for the first time, s0=3 and s1=0. It would prtint 1 and 2. For the second roll, s0=3, s1=3, and wouldnt it print 1 and 2 again?"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm having some trouble understanding this question. I tried implementing the say function (similar to the one in the example) to get the values of score0 and score1.  Does the previous_high value have to be updated at the end of the expression to reflect the new high? Or do we just use the value inputed as previous_high by the user?  Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "Also, I didn't understand how the code calculates the new difference in the scores. What is the base reference? I'm a little lost on this one, sorry about that."
+                },
+                {
+                    "feedback": "The previous_high value should be updated by you if you encounter a new high increase in score. The code calculates the new difference in the scores using the previous_score and the new score which is calculated in the play() function."
+                },
+                {
+                    "feedback": "But doesn't returning 'previous_high' assigned to a new value the issue that turns up the local variable [var] reference before assignment? I tried passing a new variable assigned to the new high score, but that didn't work either."
+                },
+                {
+                    "feedback": "You should assign previous_high to a different variable at the very start, and then use the different variable throughout the rest of the function for updating the values and returning. You can access previous_high, but when you try to modify it you will get the error because it's in the parent frame."
+                }
+            ]
+        },
+        {
+            "question": "I've been following the general structure of the announce_lead_changes function, where I define a function inside of announce_highest. However, I get the following during my test cases:                     Question 7 > Suite 2 > Case 1          >>> from hog import play, always_roll, announce_highest, both     >>> from dice import make_test_dice     >>> # this might not technically be a possible game for the current rules, this shouldn't be relevant     >>> f0 = announce_highest(1) # Only announce Player 1 score gains     >>> f1 = f0(12, 0)     >>> f2 = f1(12, 10)          # Error: expected     #     10 point(s)! That's the biggest gain yet for Player 1     # but got            I created a say function inside announce_highest. I set the parameters equal to previous_high and previous_score, then used those to print an output. At the end of the function, I return announce_highest. Finally, at the end of announce_highest, I return say. What am I doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "You should just be taking in score0 and score1 as the parameters for the say function you create inside announce_highest: that's what every standard commentary function does"
+                },
+                {
+                    "feedback": "why do we have to use say in problem 7?"
+                },
+                {
+                    "feedback": "Say(score0, score1) is the sort of generalized form of a commentary function; No matter what the commentary function is, it has to be called the same way, so that only one line in Play can call any type of commentary. So your announce_highest function should return a say function like announce_lead_changes does, and execute your logic/include your print statements within that function."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7hif85g75c1%2Fk0amtsx9dgcn%2FScreen_Shot_20190908_at_12.01.40_AM.png)  I am not sure why I am getting a NoneType error here when it works for f1(12, 10). I think it may be because the difference 0 but I am unsure on how to go about fixing this.",
+            "follow-ups": [
+                {
+                    "feedback": "assert who == 0 or who == 1, 'The who argument should indicate a player.'  AssertionError: The who argument should indicate a player.  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AssertionError: The who argument should indicate a player.  Run only this test case with \"python3 ok -q 07 --suite 2 --case 1\"  \\---------------------------------------------------------------------  Test summary  3 test cases passed before encountering first failed test case  Any clue?"
+                },
+                {
+                    "feedback": "I have if statements which indicate which who but not sure why i am still getting the error"
+                },
+                {
+                    "feedback": "I am getting the same NoneType error and I am wondering if it has to do with my commentary functions themselves?"
+                },
+                {
+                    "feedback": "Same, I am getting ‘NonType’ error object not callable. I’m not sure why I’m getting this."
+                },
+                {
+                    "feedback": "remember that the commentary functions should themselves return another commentary function that can take in two scores for the next turn."
+                }
+            ]
+        },
+        {
+            "question": "In announce_highest, I defined the say function, which returns annouce_highest, and announce_highest returns say. However, ,my code is not working. Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "What does “not working” mean? Is there a syntax error, is there an incorrect value being printed, etc.?"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "I'm not understanding how we can track the different previous highs and previous scores of each player. Should these variables be within the announce_highest() function or should they be within the play() function? If they are within the former, how can they be tracked without being lost when the function returns say or returns announce_highest? If they are within the latter, how can they be fed into the announce_highest() function and then manipulated?",
+            "follow-ups": [
+                {
+                    "feedback": "Check the parameters of announce_highest"
+                }
+            ]
+        },
+        {
+            "question": "if i am running into the error for local variable is referenced before the assignment, one way i thought of that would fix the problem was to write the following:\"nonlocal variable1, variable2, etc\" inside of the function we are writing before we actually reference variable1, etc in the function. Though when i write it, it says the statement doesn't do anything. Is there something wrong in the way I am referencing \"nonlocal\"?",
+            "follow-ups": [
+                {
+                    "feedback": "Where does the nonlocal datatype come from? I haven't seen it from chapter 1.  I am probably in a similar situation as you."
+                },
+                {
+                    "feedback": "so i figured it out. when you assign variable names to variable1 and variable 2, you don't want it outside of the function, you want it inside. So something like this:  def...  x = ...  y = ..  rather than:  x = ...  y = ...  def..."
+                },
+                {
+                    "feedback": "hope this helps!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcjfs3qnkcm48o%2Fk0bxx1dufiba%2FScreen_Shot_20190908_at_10.00.14_PM.png)  if anyone has any insights about why my commentary functions might have additional side effects, I'd appreciate it!",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the same issue. Are the doctests not matching what's expected in the spec? Thanks!"
+                },
+                {
+                    "feedback": "been struggling with this for awhile too. my code seems to make logical sense and i can't figure out why this one portion of the test won't pass! plz help us cs gods"
+                },
+                {
+                    "feedback": "I'm having the same issue as well. Did anyone manage to solve this?"
+                },
+                {
+                    "feedback": "Same, been stuck on this for 2 days now...please someone help.."
+                },
+                {
+                    "feedback": "It might be something to do with how you are handing the modifications to the variables previous_score, previous_high. I came across this error when I was using nonlocal. When I followed the hints on the project section on the CS61A website, it works fine."
+                },
+                {
+                    "feedback": "I’ve got the same issue. Any workaround found?"
+                },
+                {
+                    "feedback": "if you are using nonlocal, you should not be using it. see hints in the spec for how to avoid the bugs that you get when you remove nonlocal using other means."
+                }
+            ]
+        },
+        {
+            "question": "not sure why code is reprinting the 10 points gains, thanks for any help!",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7hif85g75c1%2Fk0c4cdrs9im6%2FScreen_Shot_20190909_at_1.02.37_AM.png)"
+                },
+                {
+                    "feedback": "I think I have the exactly same problem with you. Have you figured it out though?"
+                },
+                {
+                    "feedback": "I have not yet figured out. I think I figured out the source (when we assign f3 is it assigned to f2 but with new scores so it also gets attached to what was the result of f2) but I am still not sure how to fix this."
+                },
+                {
+                    "feedback": "It may be an issue with the parameters you have when you call announce_highest again. I had the same problem, but I fixed it by calling announce_highest with previous_high when my new difference was smaller."
+                },
+                {
+                    "feedback": "I have the same problem but i tried returning announce_highest(who, previous_high) and it still doesnt work. It displays teh same thing :("
+                },
+                {
+                    "feedback": "did u make sure to call announce_highest with the new high when the gain was higher than previous as well as calling it with previous_high when the gain was lower than previous?"
+                }
+            ]
+        },
+        {
+            "question": "Don't know what is going wrong![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk0c6ypyrlamy%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190909021510.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I just imitate the announce_lead_changes function"
+                },
+                {
+                    "feedback": "^^how did you fix this? Im getting a similar error except its not stopping for a couple extra lines"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxs69utbv9a1yp%2Fk0c7apwim856%2Fques.JPG)  Hello, I have no idea what's going on here. I got exactly the same answer for what ok expected but failed the test case. What should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "I figured it out. it was the lower p on \"Player\"."
+                }
+            ]
+        },
+        {
+            "question": "I used the visual diagram to see why f2_again is not outputting \"10 point(s)! That's the biggest gain yet for player 1.\" My code executes f2_again = f1(11, 9) but because 9 points from player 1 does not give the player the biggest gain of points in 1 turn, f2_again returns None.  I may need to reset the scores but don't know how if that's what I should do. Where should I start?",
+            "follow-ups": [
+                {
+                    "feedback": "I met the same problem too! Do you know how to fix it now? Or does anyone can help to explain? Thans soooo much!"
+                },
+                {
+                    "feedback": "Same issue."
+                },
+                {
+                    "feedback": "I sorted mine out. I recommend assigning the contents of previous_score and previous_high to temporary variables at the start of the function, then doing the same thing as you were doing prior w the respective temporary variables rather than the ‘original’ variables.      Pretty much clone the variables. This way the output is the same and the ‘original’ variables remain unaltered. It should run smoothly after that! It did for me."
+                }
+            ]
+        },
+        {
+            "question": "I am having trouble accounting for the swine swap rule. I am taking the absolute value of score - previous score and comparing it to the previous high, but I cannot figure out why this does not account for a swine swap. I have also tried incorporating an if statement that operates when the boolean of is_swap returns true, proceeding to then switch score0, with score1. Anybody have any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to worry about swine_swap for this section, I believe. The doctests ignore the rules so even if you were able to implement the statement you are talking about, your code would fail when running through ok."
+                }
+            ]
+        },
+        {
+            "question": "Should we use play() function in order to solve this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Not necessarily. You're creating a commentary function that's gonna go into play(), but you don't do anything to play directly. This function you're creating is just what would go in the say portion of play()."
+                }
+            ]
+        },
+        {
+            "question": "My code makes logical sense and I'm not receiving the local variable error, and I'm still able to pass some of the test cases. In interactive mode, certain inputs for announce_highest return the correct output, and others return this error: Traceback (most recent call last): File \"\", line 1, in TypeError: 'NoneType' object is not callable I think this might have something to do with my return or print commands, but I'm not sure how to fix it/exactly what the problem is. Does anyone have any thoughts on this? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Did you figure it out? I'm having same problem :/"
+                },
+                {
+                    "feedback": "you need to make sure your commentary functions are themselves returning another commentary function that will take in a new pair of scores."
+                }
+            ]
+        },
+        {
+            "question": "I'm having a tough time with the local variable error -- where do I reassign previous_score and previous_high so that I stop getting this error? I've tried different places inside and outside my if statements and the function definition itself, and am having no luck.",
+            "follow-ups": [
+                {
+                    "feedback": "maybe don't reassign them in the first place? if you're returning the announce_highest function again but replacing the arguments with an updated previous_high and previous_score, you can substitute previous_high with score0/1 - previous_high and score0/1 with previous_score as the arguments"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjl5txghyz3t6dr%2Fk0ej2zqjbg8h%2FScreen_Shot_20190908_at_10.00.14_PM.png)i i can't seem to figure out why i'm getting this error. i've followed through the logic multiple times but everything seems like it should work. thank you so much!!",
+            "follow-ups": [
+                {
+                    "feedback": "are you using nonlocal?"
+                }
+            ]
+        },
+        {
+            "question": "<https://youtu.be/hWZWjwoKVCk>  An older video Professor Denero posted that may be useful for this question!"
+        },
+        {
+            "question": "I stepped through python tutor and basically my issue is that my old values from last roll are NOT staying bound to the old values, so I keep getting None returned.  How can I assign a variable AND also ensure that it stays one step behind, so to speak, when calling the same function again?",
+            "follow-ups": [
+                {
+                    "feedback": "we need to return a function that can take in two scores, but also update the highest arguments in the process. one tool that we have, and that we can use is the function itself that we are implementing, which would return such a function and can take in new highest arguments with a new call."
+                }
+            ]
+        }
+    ]
+}

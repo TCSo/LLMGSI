@@ -1,0 +1,38 @@
+{
+    "subject": "[Lab 02] Q6: Lambda the Environment Diagram",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q6\">Q6: Lambda the Environment Diagram</a>\n\n<p> Please post all questions you have below concerning Q6: Lambda the Environment Diagram in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "When does a new frame get created in an environment diagram? Is it after an entire call expression is evaluated (operator and operand(s) )? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "A new frame gets created when a function call is executed. For instance, if I write `print(1, print(2))` the first frame will be created for the `print(2)` execution since this function call gets executed due to the operands being evaluated."
+                }
+            ]
+        },
+        {
+            "question": "Are there answers to this section somewhere or no?",
+            "follow-ups": [
+                {
+                    "feedback": "Running the code into [Online Python Tutor](http://pythontutor.com/composingprograms.html#mode=edit) with \"Visualize Execution\" will give you a step by step solution to the environmental diagram."
+                }
+            ]
+        },
+        {
+            "question": "For the first question, why is k=9 in f2? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjl4fp2t7ly83vq%2Fk0hhor4ovsq9%2FScreen_Shot_20190912_at_7.14.26_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The function returned by `make_adder` (defined by the lambda expression in line 3) gets called in line 5 and takes in `n` as its input, and the lambda binds its input to the name `k`."
+                }
+            ]
+        },
+        {
+            "question": "Why is f3 lambda? Shouldn’t it be b?",
+            "follow-ups": [
+                {
+                    "feedback": "No, the function bound to `b` _globally_ only executes once. Make sure you examine what gets re-bound within the body of the global function `b`."
+                }
+            ]
+        }
+    ]
+}

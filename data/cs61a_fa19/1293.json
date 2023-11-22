@@ -1,0 +1,33 @@
+{
+    "subject": "[Lab 06] Q7: The Professor Arrives",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab06/#q7\" target=\"_blank\" rel=\"noopener noreferrer\">Q7: The Professor Arrives</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q7: The Professor Arrives in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "*********  UPDATE: Can someone please answer my first and second question about the doctest? My code worked for this question but I'm still wondering about that.  *********  In this Doctest:                >>> test_card = Card('card', 300, 300)      >>> professor_test = ProfessorCard('Professor', 500, 500)      >>> opponent_card = test_card.copy()      >>> test_deck = Deck([test_card.copy() for _ in range(8)])      >>> player1, player2 = Player(test_deck.copy(), 'p1'), Player(test_deck.copy(), 'p2')      >>> professor_test.effect(opponent_card, player1, player2)      3 cards were discarded from p2's deck!      >>> [(card.attack, card.defense) for card in player1.deck.cards]      [(600, 600), (600, 600), (600, 600)]      >>> len(player2.deck.cards)      0  1\\. Don't both players start with 8 cards in their deck?  2\\. If so, then why are there only 3 cards in player1.deck(and subsequently 3 cards shown in the list of tuples?  3\\. Why were only \"3 cards discarded from p2's deck\"? Shouldn't all 8 of them be discarded?  4\\. Do we add the opponent card's attack to the attack of every card in the player's deck(and not hand)? And then do we add the opponent card's defense to the defense of every card in the player's deck(and not hand)?  5\\. For removing cards from the opponent's deck, the description is \"then removes _all_ cards in the opponent's deck that have the same attack or defense as the opponent's card.\" Do we compare the attack numbers with attack numbers and then defense with defense?",
+            "follow-ups": [
+                {
+                    "feedback": "1\\. yup!  2\\. what are the steps of initializing a Player?"
+                }
+            ]
+        },
+        {
+            "question": "Is deck object not interable? I’m trying to go through each card in the player’s deck and add the other card’s attack and defense to it",
+            "follow-ups": [
+                {
+                    "feedback": "You can iterate over `deck.cards`"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "I tried using the remove( ) function to remove the card, after checking for the necessary condition, but the error displays as:  AttributeError: 'Deck' object has no attribute 'remove'  Could someone please give me a hint on how we are supposed to remove a card.",
+            "follow-ups": [
+                {
+                    "feedback": "You're trying to call `remove()` on the Deck class when it's an attribute of a list, not Deck.  Think about how you would access the deck of cards to remove from in list form."
+                }
+            ]
+        }
+    ]
+}

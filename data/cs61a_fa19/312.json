@@ -1,0 +1,213 @@
+{
+    "subject": "[Hog] Problem 9",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-9-2-pt\">Problem 9</a>\n\n<p> Please post all questions you have below concerning Problem 9 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Where do I even start with this problem? I don't understand what it is asking for, even after doing the questions (I did them a day before attempting to solve the code)",
+            "follow-ups": [
+                {
+                    "feedback": "The goal in this problem is to iterate through all the possible numbers of dice you could roll (1 - 10) and figure out which one is the best one to roll, ie which one gives the highest score increase. To figure out which one is the best one to roll, you make use of the make_averaged function which finds the average score increase based on the number of dice you roll."
+                },
+                {
+                    "feedback": "I'm confused, when would rolling a 1 ever be better than rolling say a 10?"
+                },
+                {
+                    "feedback": "because of the rule--pig out"
+                },
+                {
+                    "feedback": "It's **number** of dice you roll, not the number that you get from rolling a dice."
+                }
+            ]
+        },
+        {
+            "question": "1\\. Are we allowed to use lists, or I should figure out how to use while/for loops to do it?  2\\. Also, why are we not allowed to define a new function inside a for loop? It would give me an error of \"UnboundLocalError: local variable 'total' referenced before assignment\". If I think in terms environment diagrams, only functions create a new frame, shouldn't variables in a for loop be in the global frame?  for instance:  this is allowed  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k50bjzi368%2Fk09y5vy3b3hw%2FAnnotation_20190907_123305.png)  but this is not  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k50bjzi368%2Fk09y6wxsuvlw%2FAnnotation_20190907_123343.png)",
+            "follow-ups": [
+                {
+                    "feedback": "1\\. you should not use lists for this question - we haven't learned them yet, and you do not need them for this question.  2\\. when you use the notation `total += x` it is equivalent to `total = total + x`. thus, it's going to try to find what total equals before it has been defined, which is where the error is coming from."
+                }
+            ]
+        },
+        {
+            "question": "My current strategy is to loop through every potential number of rolls. I pass each number as well as num_samples as arguments into the function returned by make_averaged. Since this function returns a number of points, I keep track of which number of rolls produces the highest number of points. I'm not sure what I'm doing wrong, but I'm failing the following test case:                Question 9 > Suite 2 > Case 3          >>> from hog import *     >>> dice = make_test_dice(*([2] * 55 + [1, 2] * 500)) # test that you are actually using num_samples     >>> max_scoring_num_rolls(dice, num_samples=1) # dice is 2 for the first 55 rolls, then is 1 followed by 2 for 1000 rolls     7          # Error: expected     #     10     # but got     #     7",
+            "follow-ups": [
+                {
+                    "feedback": "My partner and I are also having a similar problem with this test case. However we are passing in the number and the dice into the function returned by make_averaged, and we are getting a value of 5 instead of 7."
+                },
+                {
+                    "feedback": "You shouldn't be passing in `num_samples` as an argument into the function _returned by_ `make_averaged`, but rather it should just be passed into `make_averaged `itself."
+                },
+                {
+                    "feedback": "I get the same error even when I pass num_samples into make_averaged. Does this mean that the argument inputs for my functions are wrong?"
+                },
+                {
+                    "feedback": "I am getting the same error, and I am passing num_samples into make_averaged as well."
+                },
+                {
+                    "feedback": "are you passing the correct argument into the function returned by the call to make_averaged?"
+                }
+            ]
+        },
+        {
+            "question": "When would rolling a 1 be better than rolling a 10?",
+            "follow-ups": [
+                {
+                    "feedback": "perhaps you are close to potentially triggering a beneficial swap? also, the less dice you roll, the less likely you are to trigger pig out."
+                }
+            ]
+        },
+        {
+            "question": "**This is what I am doing.**  **I am looping k=1-10 in a loop. I input k,dice into roll_dice. I then input roll_dice, num_rolls into make_averaged. Howeever, I am getting the error:**  line 357, in max_scoring_num_rolls  if total_sum>sum:  TypeError: '>' not supported between instances of 'function' and 'function'  # Error: expected  # 10  # but got  # Traceback (most recent call last):  # ...  # TypeError: '>' not supported between instances of 'function' and 'function'  Run only this test case with \"python3 ok -q 09 --suite 2 --case 1\"  \\---------------------------------------------------------------------  Test summary  1 test cases passed before encountering first failed test case  **Any suggestions?**",
+            "follow-ups": [
+                {
+                    "feedback": "\"sum\" is the name of a standard function in Python - please do not use it as a variable name"
+                },
+                {
+                    "feedback": "how can we make the return of make_average function is expressed as int?"
+                },
+                {
+                    "feedback": "Even after changing it, I am still getting error. Lets say if i assign summ=make_averaged(roll_dice(num_rolls),num_samples). Is summ a function or number? It seems that its a function, which is why i am getting the error. Why am i getting the error?"
+                },
+                {
+                    "feedback": "Got it! Thanks anyways"
+                },
+                {
+                    "feedback": "Would you mind show me more details? Thanks"
+                },
+                {
+                    "feedback": "Can you elaborate please as to how you converted the return output of make_averaged from a function to a string?"
+                },
+                {
+                    "feedback": "you should be using the function returned from make_averaged with specific arguments - you do not need to convert this output. read the prompt for Q8 for what this function should do, in order to think of how it might fit into this specific context."
+                }
+            ]
+        },
+        {
+            "question": "Question 9 > Suite 2 > Case 2  >>> from hog import *  >>> dice = make_test_dice(1, 2, 2, 2, 2, 2, 2, 2)  >>> max_scoring_num_rolls(dice, num_samples=1000)  10  # Error: expected  # 4  # but got  # 10  Run only this test case with \"python3 ok -q 09 --suite 2 --case 2\"  \\---------------------------------------------------------------------  Test summary  2 test cases passed before encountering first failed test case  **Why it is expected to be 4?**",
+            "follow-ups": [
+                {
+                    "feedback": "Can someone please explain why the expected answer is 4?"
+                },
+                {
+                    "feedback": "Keep in mind max_scoring_num_rolls is returning the amount of dice you *should* roll to achieve the highest avg score. If you roll 10 dice here, you are always getting a score of 1, as of Pig Out. If you alternate rolling 4 dice, you will roll a score of 1, followed by a score of 8. This is the highest avg"
+                },
+                {
+                    "feedback": "I have the problem! Though I understand why the answer is 4, how can we change our code to get the correct answer?  I think there may be something wrong with the previous functions I wrote."
+                },
+                {
+                    "feedback": "Did you understand what was wrong with your function?"
+                },
+                {
+                    "feedback": "judging from OKPY, it looks that both anons were able to resolve the bugs. if that is not the case, please post a new follow up!"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm having the same problem as a person above. My output is returning, ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk0bmarj88qjl%2FScreen_Shot_20190908_at_4.37.27_PM.png)  How do I convert the function into an interger? Whenever I try to make a new variable calling that function, the console then returns \"Int is not callable\". Is this a function or an integer?",
+            "follow-ups": [
+                {
+                    "feedback": "Also having this issue. Were you able to resolve it?"
+                },
+                {
+                    "feedback": "Hey OP, I was just able to solve it. Consider how roll_dice is passed into make_averaged. As the parameter is just fn, don't include roll_dice's params in the first set of parentheses."
+                },
+                {
+                    "feedback": "Why not include roll_dice's param's in the first set of parentheses? I'm really confused as to why it's placed outside?"
+                },
+                {
+                    "feedback": "I'm having the same issue:  TypeError: '<' not supported between instances of 'function' and 'function  the roll_dice function in my make_averaged function does not take any parameter (i.e. make_averaged(roll_dice, num_samples)) but it's still returning the TypeError.  Any help?"
+                }
+            ]
+        },
+        {
+            "question": "Getting this error, couldn't understand what does that mean...Can anyone help?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk0brbwbje5em%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190908_18.57.47.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It seems like you are returning a function instead of a number"
+                }
+            ]
+        },
+        {
+            "question": "My thought is that \"roll_dice\" should be one argument of \"make_averaged\", is that right??",
+            "follow-ups": [
+                {
+                    "feedback": "I think so. At least that’s what I’ve put so far."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjllz9wk5nr%2Fk0dg23imkbqn%2FScreen_Shot_20190909_at_11.18.15_PM.png)  I've realized that I keep getting this error because as it iterates through the possibilities, it runs through dice. Therefore, once i get to testing out 10, the dice reaches the [1,2]*500 part and considers that you will get 1 as a score if you roll 10 even though that is false. I don't know how to reset dice every time it tests out a value.",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the same issue as well."
+                },
+                {
+                    "feedback": "Did you figure it out?"
+                },
+                {
+                    "feedback": "1+2+…+10=55. So it has nothing to do with resetting dice. I suggest you think of the reason why the number of dice you rolled when iterating from 1 to 10 exceeded 55."
+                },
+                {
+                    "feedback": "Can you please elaborate? I don't understand how the number of dice rolled exceeds 55."
+                },
+                {
+                    "feedback": "for all of the rolls, it should be contained within the 2's of the test die in this example."
+                },
+                {
+                    "feedback": "I'm not really sure how to adopt this idea into my code. Is the situation saying that you must continue to roll past 10? Or that once you reach 10, the score will be higher? I need help with how to approach this. Thank You"
+                }
+            ]
+        },
+        {
+            "question": "It says that ‘Your implementation should use make_averaged and roll_dice functions. Is it mandatory? I have used another method to write the code and pass the tests. Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "you should use it in order to practice the habit of using functions that you have already implemented, because you likely repeated code or logic that you already implemented elsewhere."
+                }
+            ]
+        },
+        {
+            "question": "Question 9 > Suite 2 > Case 1 >>> from hog import * >>> dice = make_test_dice(3) # dice always returns 3 >>> max_scoring_num_rolls(dice, num_samples=1000) Traceback (most recent call last): File \"C:\\Users\\bethk\\Desktop\\cs61a\\projects\\hog\\hog.py\", line 325, in max_scoring_num_rolls if average_rolls() > average_previous: File \"C:\\Users\\bethk\\Desktop\\cs61a\\projects\\hog\\hog.py\", line 305, in averaged_dice rolls += fn(*args) TypeError: 'int' object is not callable # Error: expected # 10 # but got # Traceback (most recent call last): # ... # TypeError: 'int' object is not callable Could someone explain why I am getting this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Somewhere during execution, a name bound to an integer was called as a function, which isn't allowed. Make sure you're not calling an integer using () for instance."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": ">>> from hog import *  >>> dice = make_test_dice(3) # dice always returns 3  >>> max_scoring_num_rolls(dice, num_samples=1000)  I don't understand why the answer is 1 instead of 10. If you get the same average number of rolls, shouldn't you be returning the least number of rolls, so shouldn't that be 1 instead of 10?  So the maximum number of dice we can roll is 10 and the outcome of the dice is always 3.  Maximum number of dice rolled: 10  3*10/10 = 3  Minimum number of dice rolled: 1  3*1/1 = 3",
+            "follow-ups": [
+                {
+                    "feedback": "When the highest average score is shared by multiple amounts of rolls, you're supposed to return the lowest of those amounts, which is 1."
+                }
+            ]
+        },
+        {
+            "question": "But the answer is 10 but not 1?",
+            "follow-ups": [
+                {
+                    "feedback": "With rolling 10 dice:  (3*10)*1000/1000 = 30  With rolling 1 dice:  (3*1)*1000/1000 = 3"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr18q32dg655nm%2Fk0hqg3t16v7q%2FScreen_Shot_20190912_at_11.19.54_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I'm pretty sure I'm right but idk whats going on here"
+                },
+                {
+                    "feedback": "remember that the dice will cycle through all of the options provided when instantiating the die. then, think of what which scores will contribute to successive turns taken when computing the average for a given number of dice."
+                },
+                {
+                    "feedback": "I feel like my code is correct, I think it has to do with one of my previous functions"
+                },
+                {
+                    "feedback": "Ive past all previous tests. I just think theres a hidden thing making it like this in my p[revious functions, does anyone have any idea which function could be causing this?"
+                }
+            ]
+        }
+    ]
+}

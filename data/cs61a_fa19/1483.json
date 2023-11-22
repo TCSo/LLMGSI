@@ -1,0 +1,207 @@
+{
+    "subject": "[Lab 7] Q6: Is BST",
+    "content": "<a href=\"https://cs61a.org/lab/lab07/#q6\">Q6: Is BST</a>\n\n<p> Please post all questions you have below concerning Q6: Is BST in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Can anyone explain why this is not a binary search tree?  >>> t7 = Tree(2, [Tree(1, [Tree(5)]), Tree(4)])   >>> is_bst(t7)",
+            "follow-ups": [
+                {
+                    "feedback": "Because of the 5 - everything to the left of the label should be smaller than the label, but 5 > 2\\."
+                },
+                {
+                    "feedback": "Got you!"
+                },
+                {
+                    "feedback": "Wait, why is 5 compared to 2 instead of 1 since Tree(2) is the \"grandtree\" ?"
+                },
+                {
+                    "feedback": "Everything to the left of 2 must be smaller than it.  5 can be considered to the right of 1, so no problem there, but it is to the left of 2."
+                },
+                {
+                    "feedback": "If a node has only one child, the spec says, we can consider it to be either the left branch or the right.  Based on that why can we not consider 5 to be the right branch of 1?"
+                }
+            ]
+        },
+        {
+            "question": "Tree(4, [Tree(1, [Tree(3, [Tree(1), Tree(2)])])])  Is this considered to be a valid bst?                    4       1         3        1 2",
+            "follow-ups": [
+                {
+                    "feedback": "No, since 2 < 3 but 2 is the right child of 3"
+                }
+            ]
+        },
+        {
+            "question": "If there is only one child, it says the child could be either the left or right child. Do we assume the child is located in the correct location?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, Tree(1, [Tree(15]) and Tree(15, [Tree(1)]) are valid."
+                },
+                {
+                    "feedback": "Then why is t7 not a bst?"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand what the bst_min and bst_max functions are suppose to do and how they can help?",
+            "follow-ups": [
+                {
+                    "feedback": "`bst_min` and `bst_max` return the minimum and maximum of a binary search tree. This means that bst_min and bst_max **assumes** that the input tree is a binary search tree and finds the minimum and maximum (think about which branch you recurse on, in that case).  You can use the corresponding outputs to make sure it is truly a BST."
+                }
+            ]
+        },
+        {
+            "question": "If a node t has 2 children, am I supposed to assume that t.branches[0] is the left child and t.branches[1] is the right child?",
+            "follow-ups": [
+                {
+                    "feedback": "Given that a node has 2 children, sure, that would make sense. I would stay on the safe side and use `t.branches[0]` and `t.branches[-1] `to represent left and right."
+                },
+                {
+                    "feedback": "To be clear, this is the reason that t3 is not a bst?"
+                },
+                {
+                    "feedback": "No I think t3 is not a bst because 4 is bigger than 2. Also, 1 is less than 2.  I think they all have 2 children.  Tree 6 has children Tree (label 2) and Tree (label 7)  Tree 2 has children Tree (label 4) and Tree (label 1)  Tree 7 has children Tree (label 7) and Tree (label 8)"
+                }
+            ]
+        },
+        {
+            "question": "I'm confused at how to both recurse through all the branches in a tree, and have each branch call return True yet still recurse through its lower branches. Should I not be returning True unless I'm returning False if the node is not representative of a BST?",
+            "follow-ups": [
+                {
+                    "feedback": "I suggest implementing a bunch of conditions that result in `return False`, and then make the last line of your implementation `return True`, since at that point of the function you'll know that it's a tree"
+                },
+                {
+                    "feedback": "So have the return True statement at the very end of my code so if recursing through all the branches doesn't return a False, then the code will execute the return True statement?"
+                },
+                {
+                    "feedback": "Yes!"
+                }
+            ]
+        },
+        {
+            "question": "Do we have to use bst_min and bst_max functions, or is there a way of doing this problem with those. Also, I am not understanding these functions, do they return the min and max label value?",
+            "follow-ups": [
+                {
+                    "feedback": "You can do this problem without those, since in the intended solution they are each only called once. Their intended behavior is, given a valid BST, return the smallest/largest label within that BST"
+                },
+                {
+                    "feedback": ">>> t7 = Tree(2, [Tree(1, [Tree(5)]), Tree(4)])  >>> is_bst(t7)  Why is this supposed to be False?"
+                },
+                {
+                    "feedback": "the tree here looks something like this:  2  / \\  1 4  \\  5  take a look at it according to the BST requirements."
+                }
+            ]
+        },
+        {
+            "question": "If my code passes all the test, does it mean it can work in all the condition?  Since there are only seven tests in this case.",
+            "follow-ups": [
+                {
+                    "feedback": "We aim to have comprehensive test cases, but there can be some edge cases that we are not testing. Feel free to poke around & create test cases yourself! It'll be a good practice in general as a programmer."
+                }
+            ]
+        },
+        {
+            "question": "How can I determine which one is left tree or right tree?",
+            "follow-ups": [
+                {
+                    "feedback": "The first branch of a tree will be the left tree; the second will be the right tree"
+                }
+            ]
+        },
+        {
+            "question": "Help! I know why the result is False, but I don't know how to compare the 5 with 2 in my code.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvlvhhwu9t3su%2Fk1vmqvnwrog3%2Flab_question.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Could you tell me why is this False? I don't get the rule to do comparison here."
+                },
+                {
+                    "feedback": "Me too! Really confused about the t7."
+                },
+                {
+                    "feedback": "The tree isn't a BST. 2 / \\ 1 4 | 5 The 5 is on the left branch, but is greater than the maximum, which is 2."
+                },
+                {
+                    "feedback": "To add on, the condition mentions \"For every node, the **entries** in that node's left child are less than or equal to the label of the node.\"   It mentions **entries and not a single entry** and hence everything on the left side of the root label (in this case 2) has to be less than the root label of the tree. But we have 5 on the left side which is greater than 2 and hence this is not a bst."
+                }
+            ]
+        },
+        {
+            "question": "Is this a valid BST?      Tree(6, [Tree(2, [Tree(1), Tree( **7** )]), Tree(7, [Tree(7), Tree(8)])])",
+            "follow-ups": [
+                {
+                    "feedback": "Figured it out. it is similar to test case 7 (Tree(2, [Tree(1, [Tree(5)]), Tree(4)])   For those wondering, this returns false as the condition mentions \"For every node, the **entries** in that node's left child are less than or equal to the label of the node.\"   It mentions entries and not entry and hence everything on the left side has to be less than the root label of the tree."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble implementing bst_max() and bst_min(), any tips on how I should use recursion to get those minimum and maximum values?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about it as starting at the top and working your way to the largest value. _You know that the given tree is a BST_. Given this, which direction should you choose to \"travel\" in, starting from the top, to eventually reach the largest value? Conversely, which direction should you choose to travel in to eventually reach the smallest value?"
+                }
+            ]
+        },
+        {
+            "question": "How is tree t4 a bst? It is a tree who only has left branches that are all increasing/greater than the root, so wouldn't that violate the third bst condition?",
+            "follow-ups": [
+                {
+                    "feedback": "Each tree/subtree only has at most one branch, so each branch can be considered the left OR right branch of the tree/branch above it."
+                },
+                {
+                    "feedback": "Ah, I see. So for tree nodes with just one child, that tree node will always be a bst since the child can act as either the left or right child?"
+                },
+                {
+                    "feedback": "Yep, assuming that one child is a BST!"
+                },
+                {
+                    "feedback": "Great, thanks for that clarification!"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "When there is only one branch, how do we determine whether it is right or left?",
+            "follow-ups": [
+                {
+                    "feedback": "Im not defining the bst_min and bst_max functions, rather doing it using if/elif statements. Im having a hard time implementing the elif condition when len(t.branches)==1."
+                },
+                {
+                    "feedback": "Ideally, this would be easier with the helper functions. In any case, per the question \"Note that, if a node has only one child, that child could be considered either the left or right child. You should take this into consideration.\" You can check if it satisfies either of these conditions?"
+                },
+                {
+                    "feedback": "Actually, ignore that. Check the rules given in the question once again - you have presumably already checked if the child is a BST. Does it matter once this condition is satisfied if the child is a left or right child?"
+                },
+                {
+                    "feedback": "I was thinking that if there is only one branch, then I check if that branch is less than its parents label, if so, it is then considered the left branch. Or, if its branch is greater, then its considered the right one, and then I will need to check if all the following branches are less than the parent's one. Please let me know if im on the right track. Thanks"
+                },
+                {
+                    "feedback": "If there is only one branch, then you have to check if it fulfills the requirements for a left branch OR for a right branch. The reason you probably want `bst_min` and `bst_max` is because if, say, that one branch is considered the left branch, then you also have to keep check that all its children (including its right branches, which could be greater than the label of the single branch) are also less than or equal to the label of the root.  For example:                    3           |           2          / \\         1   4  This tree wouldn’t be immediately obvious that it is invalid, since the 2 tree is itself a BST, but it’s invalid as a left branch for the 3 because of the 4 and invalid as a right branch because of the 1. This is why you need to find the min and the max for those trees."
+                }
+            ]
+        },
+        {
+            "question": "if t.is_leaf():  AttributeError: 'list' object has no attribute 'is_leaf'  I keep getting this error. t in the above cause is a branch of a tree, which is a tree itself, so not sure why this error",
+            "follow-ups": [
+                {
+                    "feedback": "I suspect you’ve set `t = tree.branches` or something along those lines, which returns a list, not a single branch. So calling `is_leaf` on a list returns an error."
+                },
+                {
+                    "feedback": "I have set t=tree.branches[0], is that causing error?"
+                },
+                {
+                    "feedback": "Are you sure? The error clearly says that you’re trying to call `is_leaf` on a list. Are you reassigning `t` somewhere later?"
+                },
+                {
+                    "feedback": "lst=[max(b) for b in t.branches]  I have the above statement in my code, do you think that is possibly causing the error"
+                },
+                {
+                    "feedback": "There’s no reason why that should cause an issue, but it’s hard to say without being able to look at your code. I would recommend making a private post to the instructors if you still can’t figure it out."
+                },
+                {
+                    "feedback": "I was defining a function named max which was causing the error 😂 😓but finally now passed. Thanks for your help!"
+                }
+            ]
+        }
+    ]
+}

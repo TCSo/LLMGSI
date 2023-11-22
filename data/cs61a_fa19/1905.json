@@ -1,0 +1,11 @@
+{
+    "subject": "how to submit a midterm regrade request?",
+    "content": "<p><strong>How to submit a regrade request for the midterm? </strong>The form <strong><a href=\"http://links.cs61a.org/okpy-regrades\" target=\"_blank\" rel=\"noopener noreferrer\">links.cs61a.org/okpy-regrades</a> does not include midterm exams. I&#39;m also wondering if it&#39;s possible that I might end up getting a lower grade from the regrade request?</strong></p>",
+    "threads": [
+        {
+            "subject": "",
+            "content": "<p>if there is a question that you would like to submit a regrade request for, view the question on Gradescope, and in the bottom button bar, there should be a shot &#34;Request Regrade&#34; (or something similar).</p>\n<p></p>\n<p>We do try very hard to make sure that everything is consistent across all students. Therefore if we notice a grading error according to the rubric while looking at your regrade, we will fix it. It is possible that this will lower your grade, but it will always be according to the rubric.</p>",
+            "threads": []
+        }
+    ]
+}

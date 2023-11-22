@@ -1,0 +1,63 @@
+{
+    "subject": "[Lab 7] Q3: Scale",
+    "content": "<a href=\"https://cs61a.org/lab/lab07/#q3\">Q3: Scale</a>\n\n<p> Please post all questions you have below concerning Q3: Scale in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Do we treat the iterable s differently when it is a list versus a generator or can we take a more general approach? I was only able to solve this when I treated the two cases separately.",
+            "follow-ups": [
+                {
+                    "feedback": "Not necessarily; there is a more general approach (although perhaps not if you're trying to use `yield from` \\- I wasn't able to figure out how to use that)"
+                }
+            ]
+        },
+        {
+            "question": "Why we can't yield from a list (i will get timeout error), but we can yield from a tuple?",
+            "follow-ups": [
+                {
+                    "feedback": "You should be able to yield from a list, like:                for elem in lst:        \tyield elem  I'm not too sure why you are getting a timeout error here."
+                },
+                {
+                    "feedback": "I have something like this.      This errors:  yield from [i+1 for i in s]      But this does not:  yield from (i+1 for i in s)"
+                },
+                {
+                    "feedback": "Yeah, I was also wondering why a list comprehension would give a timeout. Like the list comprehension will get evaluated and then we yield from that newly evaluated list."
+                },
+                {
+                    "feedback": "The doctests uses the entire infinite sequence of natural numbers, so your function should only deal with one value at a time to avoid a timeout error"
+                }
+            ]
+        },
+        {
+            "question": "I know how to do this question and created my code but stuck on this error:  Doctests for scale  >>> from lab07 import *  >>> s = scale([1, 5, 2], 5)  >>> type(s)  <class 'generator'>  >>> list(s)  [5, 25, 10]  >>> m = scale(naturals(), 2)  NameError: name 'naturals' is not defined  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # NameError: name 'naturals' is not defined  Naturals class is not found in .py file, so any hints?",
+            "follow-ups": [
+                {
+                    "feedback": "Please re-download the file. This was a bug we had from our side, and we fixed it yesterday, sorry about this!"
+                }
+            ]
+        },
+        {
+            "question": "I can't figure out how I should stop the iteration before I get a StopIteration error",
+            "follow-ups": [
+                {
+                    "feedback": "for x in <iterator>:       \t<body>  goes through each element yielded by the iterator until we reach stop iteration"
+                }
+            ]
+        },
+        {
+            "question": "Is there any way we can simultaneously yield from a list `s` while scaling each value by `k?`",
+            "follow-ups": [
+                {
+                    "feedback": "I am not too sure if I understood your question correctly, but if you are talking about solution using `yield from`, I recommend that you take a look at the iterator lecture slide that has a list of built in functions for iterations."
+                }
+            ]
+        },
+        {
+            "question": ">>> from lab07 import *  >>> s = scale([1, 5, 2], 5)  >>> type(s)  <class 'generator'>  >>> list(s)  [5, 25, 10]  why does list(s) iterate through the entire generator?",
+            "follow-ups": [
+                {
+                    "feedback": "`list` command is saying \"yield everything from the generator s and put them into a list\". So it's kinda just like how it is :)"
+                }
+            ]
+        }
+    ]
+}

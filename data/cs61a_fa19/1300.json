@@ -1,0 +1,968 @@
+{
+    "subject": "[Ants] Problem 13",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-13-4-pt\">Problem 13</a>\n\n<p> Please post all questions you have below concerning Problem 13 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "For the modification to `remove_insect`, is it okay if we do not check if `self.ant` is `insect` / `insect` is contained in the place's `ant`? I was able to pass all test cases without checking these conditions, but it seems to violate the following condition from the docstring: \"If `remove_insect` tries to remove an `Ant` that is not anywhere in this `Place`, an `AssertionError` is raised.\"",
+            "follow-ups": [
+                {
+                    "feedback": "I think it should be fine. Assuming we implemented the modification the same way, the only time the docstring condition is not enforced is when `insect` equals the true queen, in which case we know the removal is illegal and have no reason to check if the queen is in this place."
+                }
+            ]
+        },
+        {
+            "question": "I kept getting the error: 'QueenAnt' object has no attribute 'throw_at'. What attribute did I forget to add?",
+            "follow-ups": [
+                {
+                    "feedback": "I think you forgot to inherit from scubathrower!"
+                },
+                {
+                    "feedback": "I got 'QueenAnt' object has no attribute 'min_range', what should I do?  could you help me?"
+                },
+                {
+                    "feedback": "make sure that you initializing these attributes in your other classes, such as ScubaThrower in this case."
+                }
+            ]
+        },
+        {
+            "question": "I was trying to understand \"All instances of the same class share the same class attributes. How can you use this information to tell whether a QueenAnt instance is the true QueenAnt?\" I thought this has to do with trying to identify the true queen ant, but I still couldn't get it, any hint?",
+            "follow-ups": [
+                {
+                    "feedback": "You could keep track of whether or not a QueenAnt has been created by checking/setting a class attribute in the constructor of QueenAnt. This value can be used in the constructor to determine if there has already been a QueenAnt created before the new one."
+                },
+                {
+                    "feedback": "I tried to do it, but if I, say, override the class attribute after I create the first instance, the next time I call that first instance, it's class attribute is also gonna change, so is there any way I can keep that state with that instance?"
+                },
+                {
+                    "feedback": "nvm I figured it out!"
+                },
+                {
+                    "feedback": "I recommend having one class attribute, then changing that class attribute is a condition is met. Remember to use the QueenAnt constructor if you're trying to change the constructors attr!"
+                },
+                {
+                    "feedback": "I am still having trouble with this, how can I change a class attribute so that the change is recorded if another instance is called?"
+                },
+                {
+                    "feedback": "think about how changes to class or instance variables are shared across instances - how could use this shared change behavior to keep track of state for all instances of QueenAnts?"
+                },
+                {
+                    "feedback": "Stuck on this too. Are we supposed to use a boolean variable as the class attribute and then change it in the QueenAnt constructor?"
+                },
+                {
+                    "feedback": "I am also stuck on this"
+                },
+                {
+                    "feedback": "Same problem here. Tried to use a class attribute count to count the number of queen ants created, but it gives me an error, where the count is referenced before assignment, even though I set it to 0."
+                },
+                {
+                    "feedback": "I found a sort of brute force-y solution, but I ended up using multiple class attributes and I check them in the Queen's constructor to see if she is an imposter. If she is, I change one of the values of the instance (still in the constructor) and reduce her armor to 0 in her action. Hope it helps!"
+                },
+                {
+                    "feedback": "i am also stuck on this"
+                },
+                {
+                    "feedback": "Same problem here. Has anyone figured it out?"
+                }
+            ]
+        },
+        {
+            "question": "I am passing 13 test cases but getting stuck because my code isnt' catching certain cases when there are multiple ants in a single space. How are you guys checking for ants that are behind the queen to check every ant? With bees it would be easy, because we are given a list of bees in a single space. Do we simply just check if the ant is a container, if it is a container double the damage of the container (tank case) and also double the damage of the contained ant? Then if it's not a container, just double the ant's damage?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, that should work."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhqakxjj43g%2Fk1k2sbd41rzj%2FScreen_Shot_20191009_at_19.20.19.png)  For this case, Back, Queen, and Front reduce the armor of Bee, and Back's damage is 2 since it is behind Queen. Queen's armor should reduce by 2+1+1=4. So why is it expected to be 9 rather than 6? Any advice plz, thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "At this point in the test case, only the Queen is the one who takes an action. When the Queen takes an action, since they are a ScubaThrower, they take one armor point off the bee, so the bee's armor goes from 10 to 9. They also buff the damage of the ants behind them, but at this point, none of the other ants have taken an action, so only the Queen does damage to the Bee. This suggests that the bee should only have 9 armor afterwards."
+                },
+                {
+                    "feedback": "Got it! Thank you!!"
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 4 > Case 5  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> #  >>> # Adding/Removing QueenAnt with Container  >>> place = colony.places['tunnel_0_3']  >>> queen = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> container = ants.TankAnt()  >>> place.add_insect(container)  >>> place.add_insect(impostor)  >>> impostor.action(colony)  >>> place.ant is container  True  >>> container.place is place  True  >>> container.contained_ant is None  True  >>> impostor.place is None  True  >>> place.add_insect(queen)  >>> place.remove_insect(queen)  >>> container.contained_ant is queen  True  **> >> queen.place is place**  **False**  # Error: expected  # True  # but got  # False  When I tested this case interactively, it says that **queen.place** is **None**.  But I did make **insect.place** equal to **self** (the place) in **add_insect** method. Then where could the problem come from?",
+            "follow-ups": [
+                {
+                    "feedback": "The issue is that when they tried to remove the real queen from place, it actually got removed (since queen.place is None). This shouldn't be allowed since the program should forbid you from moving the queen once it is placed."
+                },
+                {
+                    "feedback": "Oh I see! Thank u very much :)"
+                },
+                {
+                    "feedback": "Someone else with the same problem; I still don't get it :(  Why should \"queen.place is place\" be true if the queen is inside the container? The container's place is place, and the queen is now in the container's \"contained\" attribute.  And anyhow, we haven't removed the queen, since \"container.contained_ant is queen\" is True. It's still there, just inside the tank, so it doesn't get attacked... Am I misunderstanding how containers work? I passed problem 9..."
+                },
+                {
+                    "feedback": "Same issue here..."
+                },
+                {
+                    "feedback": "Ahh finally got it. I fixed it by playing with my remove_insect line. You want to organise it in a way such that when there's a queen ant somewhere in place, then a completely separate set of code is run."
+                },
+                {
+                    "feedback": "I'm also confused about this one... I understand why queen.place is place should be true, but I don't know what to do with my code. I created a line within remove_insect that basically says that if the contained ant is a queen ant and isn't the impostor, then it shouldn't be removed, but I'm still unable to pass this test case."
+                },
+                {
+                    "feedback": "Okay same anonymous as before: I figured out that part, but like the others, I don't see why if container.contained_ant is still queen, then queen.place is place is ending up False."
+                },
+                {
+                    "feedback": "In the remove_insect function, insect.place is set to None at the end of the call (even if you have special handling for the QueenAnt in the \"if insect.is_ant:\" clause).  Make sure that if the insect in the function is the queen, insect.place is not set to None."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzpxkn7t23939f%2Fk1kcpxag277w%2FScreen_Shot_20191009_at_11.58.53_PM.png)  What does it mean\"The queen should still hit?\"  each time I call queen.action(colony), it should attack once. But why is here a mistake?",
+            "follow-ups": [
+                {
+                    "feedback": "\"The queen should still hit\" means that not having any ants behind her to buff shouldn't prevent the queen from dealing damage.  You are correct in saying the queen should attack once for each call of `action`. Since `bee.armor` equals 3 - its original value - after `queen.action(colony)`, this is clearly not happening."
+                },
+                {
+                    "feedback": "The Bee starts with 3 health and then the Queen performs her action in this test case. The Queen is a ScubaThrower so it should shoot the Bee and deal 1 damage. However, the Bee here has not taken any damage."
+                },
+                {
+                    "feedback": "I just put the ScubaThrower.action func in the first line of the action func of Queenant, so it should attack anyways. I still don't understand why the queen didn't attack.😭"
+                },
+                {
+                    "feedback": "ohh I figured it out. Thanks !"
+                },
+                {
+                    "feedback": "Hi,  I'm also having the getting the same error. I tried calling the ScubaThrower.action function at the beginning of my QueenAnt action function (meaning the QueenAnt _should_ always attack), and yet the QueenAnt never attacks!  Any advice would be appreciated!"
+                },
+                {
+                    "feedback": "are you modifying the damage attribute for the QueenAnt?  also, is your imposter / real QueenAnt check working in the case of a real QueenAnt?"
+                },
+                {
+                    "feedback": "I am also having issues with this test case. I haven't modified the damage attribute for the QueenAnt, and the imposter/ real QueenAnt check is working. I found out that after the bee was created, it couldn't find the nearest bee. (I ran nearest_bee and it wouldn't return the bee / couldn't find the bee (it just returned None)). I don't know what's wrong."
+                },
+                {
+                    "feedback": "I was accidentally moving the queen each time I called action, I fixed that now."
+                },
+                {
+                    "feedback": "I'm having the same issue. Could someone explain how they fixed this if they had this issue rather than just saying \"oh I get it\"?"
+                },
+                {
+                    "feedback": "For me I figured out that in my ThrowerAnt nearest_bee function I created a temp to hold the self.place but never reassigned self.place to temp. Because I forgot to do this I was unintentionally moving queen ant whenever ScubaThrower.action(colony) was called."
+                },
+                {
+                    "feedback": "Got it. In the body of action method in the Queen Ant class, make sure you don't set self.place to self.place.exit. Instead, assign self.place to a variable and access the ants/container ants with that when you're using a loop to double the ants' damage. Hope this makes sense."
+                },
+                {
+                    "feedback": "I fixed this error by starting at self.place.exit and repeatedly follow the exit instead of starting at self.place  The instruction says:  \"You can find each `Place` in a tunnel behind the `QueenAnt` by starting at the ant's `place.exit` and then repeatedly following its `exit`. The `exit` of a `Place` at the end of a tunnel is `None`.\""
+                }
+            ]
+        },
+        {
+            "question": "I am still trying to work on how to keep track of those ants who have already been buffed and who have not yet. Should I simply implement a counter? How am I supposed to understand the hint \"keep track of all the ants who have been buffed in a way that persists across calls to `QueenAnt.action`.\"?",
+            "follow-ups": [
+                {
+                    "feedback": "What type of variable could you use to keep track of a collection of objects? There's a simple one we've learned about that a) lets you add elements and b) check if a certain value is inside it. These two functionalities are basically all you need. Persistence can be attained by keeping track of this collection by making it an instance variable."
+                },
+                {
+                    "feedback": "Ok I get it, but if I am gonna make it as an instance attribute, how am I supposed to keep track of all of them, because in that case, wouldn't it be separate? Should I make a class attribute?"
+                },
+                {
+                    "feedback": "What do you mean by \"separate\"? As long as variables are instance/class attributes, they will be accessible from within methods without their value being reset every time the methods are called. See the following for an example (Python Tutor visualization [here](https://tinyurl.com/yxmhk59s)):                class Test():         def __init__(self):             self.bananas = 1                  def fun(self):             print(self.bananas)             self.bananas += 1          >>> x = Test()     >>> x.fun()     1     >>> x.fun()     2     >>> x.fun()     3"
+                }
+            ]
+        },
+        {
+            "question": "Just a question on total Ec points we have had so far : 1 for hog , 1 for cats, 3 for ants. So we had total Extra credit so far right?  Thanks !",
+            "follow-ups": [
+                {
+                    "feedback": "yes, i think so"
+                }
+            ]
+        },
+        {
+            "question": "how many turns does the damage buff last",
+            "follow-ups": [
+                {
+                    "feedback": "Indefinitely. Once an ant is buffed it'll always be buffed."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I had modified the `remove_insect` method of Place, but still got this error. I returned 'None' in the `remove_insect` method. Did I return the wrong value?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzwa9tw9to36rd%2Fk1l7pldjytbc%2F%E6%8D%95%E8%8E%B7.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "I may be wrong, but I think this has something to do with your code for handling an imposter queen (your code accidentally thinks the first queen placed is an imposter) because it seems like your queen dies as soon as her action is played."
+                },
+                {
+                    "feedback": "You are right!!! I finally got it. Thank u so much!!"
+                }
+            ]
+        },
+        {
+            "question": "Hello. When the Queen Ant buffs damage of the ants behind her, is her damage also buffed (since her attack is the ScubaThrower)? Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind. The test cases told me no."
+                }
+            ]
+        },
+        {
+            "question": "Is there a thread for ants EC problem ?",
+            "follow-ups": [
+                {
+                    "feedback": "No; just use the one for the optional problem"
+                }
+            ]
+        },
+        {
+            "question": "Any queen instantiated beyond the first one is an impostor, and should have its armor reduced to 0 upon taking its **first action**  **How do we ensure this that it is first action? Do we use isinstance?**",
+            "follow-ups": [
+                {
+                    "feedback": "A relevant condition at the beginning of every action should do the trick. Conceptually, at the beginning of every action, you can check if it's an impostor, which kills the impostor at the first action but never affects the true queen."
+                },
+                {
+                    "feedback": "Okay got it thanks! Do we have to call place.remove_insect to remove the impostor?"
+                },
+                {
+                    "feedback": "Figured it"
+                }
+            ]
+        },
+        {
+            "question": "Attempts to remove the queen should have no effect (but should not cause an error). Any hints on this",
+            "follow-ups": [
+                {
+                    "feedback": "Follow the isinstance hint"
+                }
+            ]
+        },
+        {
+            "question": "I'm not quite sure what's going wrong here. In my code, I double self.damage, which for the fire ant is the \"extra damage\" it does. According to the instructions, I am suppose to double that (and leaving the reflected amount untouched which I do). However, the test case does not want the ant.damage is to be doubled?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyh09mhpvk05ny%2Fk1llvtwcg1r6%2FScreen_Shot_20191010_at_9.03.12_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm. figured it"
+                },
+                {
+                    "feedback": "Wait, what going on in this bug?"
+                },
+                {
+                    "feedback": "It might make more sense to see more of the test case. Here's how it begins.:                          >>> thrower.damage, fire.damage, ninja.damage = 101, 102, 103               >>> front.damage, side.damage = 104, 105               >>> queen.action(colony)               >>> (thrower.damage, fire.damage, ninja.damage)               (202, 204, 206)  Notice that the three ants in question begin with 101, 102, and 103 as their respective damage outputs. The Queen then takes her action and they are buffed to 202, 204, and 206 respectively.  Then we move onto the part where this failed:                          >>> queen.action(colony)               >>> # unchanged               >>> (thrower.damage, fire.damage, ninja.damage)  The Queen takes another action, but the three ants here are already buffed, so they shouldn't be buffed again, hence why the comment says Unchanged.  However, the error here is that the FireAnt is buffed twice. Once from the first action, and buffed a second time here."
+                },
+                {
+                    "feedback": "I'm having the same error, I'm not sure why it would be the case for just the fire ant since I checked to make sure that all of the ants are not buffed twice"
+                },
+                {
+                    "feedback": "I had the same issue. Think about if your code deals properly with contained ants! Make sure they are also kept track of as to not buff them twice."
+                }
+            ]
+        },
+        {
+            "question": "Do we need to create a list to keep track of ants whose damage has been doubled, or is there a better way of approaching this?",
+            "follow-ups": [
+                {
+                    "feedback": "figured it"
+                }
+            ]
+        },
+        {
+            "question": "Note that the reflected damage of a fire ant should not be doubled, only the **extra damage** it deals when it's armor is reduced to 0.  How do we ensure this? Do we create a new variable in fire ant as extra damage? Is there a simpler way of doing this?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to program anything separately specifically for this behavior, it's just a sidenote"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk1lo8dzi3nrz%2FScreen_Shot_20191010_at_10.08.57_PM.png)  I keep getting this error. Any clue? Thanks!"
+                },
+                {
+                    "feedback": "Found my error!"
+                },
+                {
+                    "feedback": "I'm also having trouble with this, the blast from the fire ant at the end should be the only thing that is affected by damage, so it should be the only thing affected by doubling damage. Am I missing something?"
+                },
+                {
+                    "feedback": "nvm, I had an error in my code!"
+                },
+                {
+                    "feedback": "I have the same problem. Why does the damage of FireAnt get doubled twice (only happens to FireAnt not other ants)?"
+                },
+                {
+                    "feedback": "Make sure that when you're doubling the damage of the tank ant and its contained ant, you're double checking that the contained ant wasn't already buffed."
+                }
+            ]
+        },
+        {
+            "question": "When I submit the project, without the extra credit, it says Locked: 9. what does that mean? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "*without having done the extra credit"
+                },
+                {
+                    "feedback": "The test cases for the Extra Credit are locked by default, just ignore it"
+                }
+            ]
+        },
+        {
+            "question": "I tried to use nonlocal in __init__. Then I found I can't nonlocal a class attribute. Why is that  def __init__(self, armor=1):  nonlocal QueenAnt.truequeen",
+            "follow-ups": [
+                {
+                    "feedback": "Then I found that I don't need to nonlocal it. I can still change its value"
+                },
+                {
+                    "feedback": "Because saying `QueenAnt.truequeen` is unambiguous and always refers to the `QueenAnt` class attribute `truequeen`. It is impossible to have a local variable named \"`QueenAnt.truequeen`\" since there's a period in there. I guess if you had a variable named `QueenAnt` in scope [then the local variable would override the class one](https://tinyurl.com/y5akphk4), but that's irrelevant."
+                }
+            ]
+        },
+        {
+            "question": "How would there be more than one ant in a place?",
+            "follow-ups": [
+                {
+                    "feedback": "You can have a container ant (like a BodyGuard ant) and a non container ant (like a ThrowerAnt) share a place."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure how you would make sure that the queen is not an impostor. I have a variable called impostor in __init__ but I'm not sure what to do with it",
+            "follow-ups": [
+                {
+                    "feedback": "As the hint in the question states, \"All instances of the same class share the same class attributes.\" Imagine we're making a Queen and we want to signal to every Queen instance that one specific instance of a Queen is the true Queen. How can we use class attributes to do this?  You could use the imposter variable as you are doing, and somehow set it like a boolean to indicate whether this instance is the true queen or not, but there is a better way that makes use of the class attribute only and not the instance attribute."
+                },
+                {
+                    "feedback": "Could you give an example with one of the previous questions? I'm not sure that I still get it"
+                },
+                {
+                    "feedback": "From your code before, you should know that FireAnts, by default, deal 3 damage to every Bee in their place once they die. This is because all FireAnts have a class attribute called damage that determines the damage they do upon death.  But let's suppose we wanted to buff every single FireAnt's damage to 6 instead of 3. How could we do this for every FireAnt? The solution is to change the damage class attribute like so:                >>> fire1 = FireAnt() #Make two example fire ants.       >>> fire2 = FireAnt()       >>> fire1.damage       3       >>> fire2.damage       3       >>> FireAnt.damage = 6 #Buff up the damage       >>> fire1.damage #Now both ants have a new damage modifier because they share the same class attribute       6       >>> fire2.damage       6  Because they share class attributes, changing it once changes it for every instance of the class. Note that class attributes do not have to be integers or other primitive types. They can be anything, even other objects."
+                },
+                {
+                    "feedback": "So how would you create a queen with an instance attribute of being \"true queen\" while the other ones don't have that attribute. If you define it in __init__ wouldn't all the queens created have that attribute"
+                },
+                {
+                    "feedback": "Exactly, which is why the hint suggests that rather than using an instance attribute, a class attribute would be much more fitting. Every Queen object should have a notion about who the True Queen is so they can compare themselves with the True Queen to see if they are an imposter or not."
+                },
+                {
+                    "feedback": "Say I created a new class attribute called isqueen, wouldnt all other queens also have that same class attribute though"
+                },
+                {
+                    "feedback": "Yes. They would share the exact same class attribute.  If your thought process is that we should have a boolean to determine who the true queen is and who isn't, then yes, an instance attribute would be better since it would vary between Queen to Queen. But then the problem becomes, how do you determine if a queen was made already? You would need some value to be shared with all instances of the Queen class, which is what a class attribute is for. So either way you do this, you will use a class attribute somehow.  My point was that you could avoid the instance attribute completely by just using the class attribute only."
+                },
+                {
+                    "feedback": "ohhhh I got it, thank you"
+                },
+                {
+                    "feedback": "I am still stuck on this problem, if we need to create a class attribute to determine whether it is a true queen, then we need to test all the ants behind it whether they are QueenAnts, right?"
+                },
+                {
+                    "feedback": "No. If you code it correctly, the class attribute is all you'll need to do this. No checks like that required."
+                },
+                {
+                    "feedback": "But when I set this class attribute to all the queen ants, I have to know which is true and which are not."
+                },
+                {
+                    "feedback": "Yep. That can be done with only the class attribute. What could you possibly put in this one single variable to help every single instance of the QueenAnt class determine if they are indeed the True Queen or not? That's the real challenge here."
+                },
+                {
+                    "feedback": "Is the queen ant created first the true queen?  Or can we create impostors before we create true queen?"
+                },
+                {
+                    "feedback": "The first queen ant created is the true queen"
+                },
+                {
+                    "feedback": "does the solution involve a list??"
+                },
+                {
+                    "feedback": "a list is not necessary for this part of the question."
+                }
+            ]
+        },
+        {
+            "question": "I'm also failing suite 4 case 4, but on a different part -- >>> # Turn 2 >>> thrower1 = ants.ThrowerAnt() >>> thrower2 = ants.ThrowerAnt() >>> queen_tunnel[6].add_insect(thrower1) # Add thrower1 in TankAnt >>> queen_tunnel[5].add_insect(thrower2) >>> # layout right now >>> # [thrower, guard/fire, ninja, , , thrower2, tank/thrower1, queen_tank/queen, front] >>> # [side , , , , , , , , ] >>> thrower1.damage, thrower2.damage = 10001, 10002 >>> queen.action(colony) >>> (thrower.damage, fire.damage, ninja.damage) (202, 204, 206) >>> (front.damage, side.damage) (104, 105) >>> (tank.damage, guard.damage) (2002, 2004) >>> queen_tank.damage 1003 >>> (thrower1.damage, thrower2.damage) (10001, 20004) # Error: expected # (20002, 20004) # but got # (10001, 20004) I'm not sure why my code would buff one ant's damage but not the other... any thoughts?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you buffing ants within containers as well?"
+                },
+                {
+                    "feedback": "THANK YOU! I realized that I was only buffing them if the container ant hadn't already been buffed."
+                },
+                {
+                    "feedback": "I have the same problem! But I am buffering both the contained ant and the container."
+                },
+                {
+                    "feedback": "this test is specifically checking whether the thrower ant is buffed, regardless of being contained or not, so I would double check your logic."
+                }
+            ]
+        },
+        {
+            "question": "For the true queen, it calls ScubaThrower.action and pass in colony argument, but it fails. Could anyone help me?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1mh9sp2hup%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191011114158.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This might be easier if you just inherit from the ScubaThrower class, since the queen is a ScubaThrower. This would require you to change the def QueenAnt line slightly"
+                },
+                {
+                    "feedback": "You should also note that ScubaThrower.action() takes in two parameters, not just one. You need to pass in a ScubaThrower object (self) and the colony. You seem to be passing in just the colony."
+                },
+                {
+                    "feedback": "Thanks, I didn't notice the parent class of Queen is Ant......."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1miskoc3uj0%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191011122430.png)Could anyone tell me why there is a infinite loop?",
+            "follow-ups": [
+                {
+                    "feedback": "Your iteration to buff the ants' damage might be an infinite loop -- check if you're changing something that would affect your for or while loop condition. If you're not changing anything, that would result in an infinite loop."
+                },
+                {
+                    "feedback": "But I change place to place.exit each turn. I am very confused."
+                },
+                {
+                    "feedback": "Do u check for place.exit to reach None?"
+                },
+                {
+                    "feedback": "Yes."
+                }
+            ]
+        },
+        {
+            "question": "I'm completely stuck on the remove_insect modification part. I've successfully differentiated between imposter and true queen ant. My biggest problem is I don't know how remove_insect works in the first place. It seems that, no matter what, insect.place will always = None. Do I have to modify the bottom portion as well? I also know that I have to use \"isinstance\".",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, solved it by using \"return\" to ignore the last statement. Just clarifying if that's allowed?"
+                },
+                {
+                    "feedback": "I am still confused about why insect.place = self will remove queen within the container but Return represents doing nothing with the shelled queen."
+                }
+            ]
+        },
+        {
+            "question": "\\---------------------------------------------------------------------   Problem 13 > Suite 4 > Case 4  >>> import ants, importlib   >>> importlib.reload(ants)   >>> beehive = ants.Hive(ants.AssaultPlan())   >>> dimensions = (2, 9)   >>> colony = ants.AntColony(None, beehive, ants.ant_types(),   ... ants.dry_layout, dimensions)   >>> #   >>> # Extensive damage doubling tests   >>> queen_tunnel, side_tunnel = [[colony.places['tunnel_{0}_{1}'.format(i, j)]   ... for j in range(9)] for i in range(2)]   >>> queen = ants.QueenAnt()   >>> queen_tunnel[7].add_insect(queen)   >>> # Turn 0   >>> thrower = ants.ThrowerAnt()   >>> fire = ants.FireAnt()   >>> ninja = ants.NinjaAnt()   >>> side = ants.ThrowerAnt()   >>> front = ants.NinjaAnt()   >>> queen_tunnel[0].add_insect(thrower)   >>> queen_tunnel[1].add_insect(fire)   >>> queen_tunnel[2].add_insect(ninja)   >>> queen_tunnel[8].add_insect(front)   >>> side_tunnel[0].add_insect(side)   >>> # layout right now   >>> # [thrower, fire, ninja, , , , , queen, front]   >>> # [side , , , , , , , , ]   >>> thrower.damage, fire.damage, ninja.damage = 101, 102, 103   >>> front.damage, side.damage = 104, 105   >>> queen.action(colony)   >>> (thrower.damage, fire.damage, ninja.damage)   (202, 204, 206)   >>> (front.damage, side.damage)   (104, 105)   >>> # Turn 1   >>> tank = ants.TankAnt()   >>> guard = ants.BodyguardAnt()   >>> queen_tank = ants.TankAnt()   >>> queen_tunnel[6].add_insect(tank) # Not protecting an ant   >>> queen_tunnel[1].add_insect(guard) # Guarding FireAnt   >>> queen_tunnel[7].add_insect(queen_tank) # Guarding QueenAnt   >>> # layout right now   >>> # [thrower, guard/fire, ninja, , , , tank, queen_tank/queen, front]   >>> # [side , , , , , , , , ]   >>> tank.damage, guard.damage, queen_tank.damage = 1001, 1002, 1003   >>> queen.action(colony)   Traceback (most recent call last):   File \"E:\\2019Fall\\cs61a\\projects\\ants\\ants.py\", line 563, in action   if getattr(place_ant, 'damage'):   AttributeError: 'NoneType' object has no attribute 'damage'  # Error: expected  # but got   # Traceback (most recent call last):   # ...   # AttributeError: 'NoneType' object has no attribute 'damage'  Run only this test case with \"python3 ok -q 13 --suite 4 --case 4\"   \\---------------------------------------------------------------------   Test summary   13 test cases passed before encountering first failed test case  How could I know whether this instance has an attibute \"damage\"?"
+        },
+        {
+            "question": "Just a general advice, make sure you don't mix the spellings of contain_ant and contained_ant ............."
+        },
+        {
+            "question": "Just to make sure,  The TRUE queen ant's action should entail:  1\\. Attacking the nearest bee (throwing like a normal Thrower) and 2. doubling the damage of all the ants behind her (that haven't already been doubled)  But the IMPOSTER queen ant:  will only throw like a normal Thrower once and then dies(??)  Then the imposter will be useless if it is not going to double the damage of ants behind her even once.  Can someone please clarify?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "The imposter ant dies before it can throw even a single time. The point of it being programmed is so that there is only one QueenAnt per game"
+                },
+                {
+                    "feedback": "The imposter doesn't even throw. It just dies upon doing it's first action. The point is that the imposter is useless because it is not the real Queen. The Queen's actions as you have described are correct."
+                },
+                {
+                    "feedback": "What is the imposter's action then? Does it just die? Or does it take an action(do something, Anything?!) in any way before its death?  Also, why would anyone spend food to deploy an impostor? Is it a joke?"
+                },
+                {
+                    "feedback": "Yep. Just death. Literally nothing. Imposters deserve to burn without accomplishing anything in life (For impersonating the Queen is a crime punishable by death), and your code should treat them with the respect they deserve. I mean if someone is really feeling like wasting their food, they'd deploy an imposter."
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 3 > Case 1  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> ants.bees_win = lambda: None  >>> # QueenAnt Placement  >>> queen = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> front_ant, back_ant = ants.ThrowerAnt(), ants.ThrowerAnt()  >>> tunnel = [colony.places['tunnel_0_{0}'.format(i)]  ... for i in range(9)]  >>> tunnel[1].add_insect(back_ant)  >>> tunnel[7].add_insect(front_ant)  >>> tunnel[4].add_insect(impostor)  >>> impostor.action(colony)  >>> impostor.armor # Impostors must die!  0  >>> tunnel[4].ant is None  False  # Error: expected  # True  # but got  # False  Run only this test case with \"python3 ok -q 13 --suite 3 --case 1\"  How do I fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "It should be removing the imposter once its armor is reduced. Are you calling reduce_armor in the action() function rather than modifying the armor directly?"
+                },
+                {
+                    "feedback": "I'm having this problem as well, yet I explicitly called reduce_armor in action()! Not sure exactly why...."
+                },
+                {
+                    "feedback": "It might be an issue with how you are removing insects in remove_insect. Make sure only the True Queen can't be removed, and not just every instance of the QueenAnt class."
+                },
+                {
+                    "feedback": "I made sure my remove_insect method is correct and only removes everything but the True Queen. And i also called reduce_armor in the action function. I'm still getting the same error"
+                },
+                {
+                    "feedback": "I had this issue — resolved it by making sure that only the true queen was being removed, not just any queen."
+                },
+                {
+                    "feedback": "Do you mean only the true queen was **not** being removed?"
+                },
+                {
+                    "feedback": "I think that is what the Jamsheed meant - at least that is what the code should be checking."
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 4 > Case 6  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> #  >>> # test proper call to death callback  >>> original_death_callback = ants.Insect.death_callback  >>> ants.Insect.death_callback = lambda x: print(\"insect died\")  >>> real = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> colony.places['tunnel_0_2'].add_insect(real)  >>> colony.places['tunnel_0_3'].add_insect(impostor)  >>> impostor.action(colony)  # Error: expected  # insect died  # but got  Run only this test case with \"python3 ok -q 13 --suite 4 --case 6\"  \\---------------------------------------------------------------------  Test summary  15 test cases passed before encountering first failed test case  Need some help with this problem :(",
+            "follow-ups": [
+                {
+                    "feedback": "As mentioned above, make sure the imposter dies when it performs its first action."
+                },
+                {
+                    "feedback": "I'm also unsure of how to fix this problem. I made sure that I was first modifying the armor instance attribute, then called remove_insect on the imposter. It says that it's running the appropriate code for imposters, which is to set the place's ant to be None. I also don't see where the death_callback is actually called that would result in the output I'm getting. Is there anything I'm missing?"
+                },
+                {
+                    "feedback": "Nevermind, I misread the test case^"
+                }
+            ]
+        },
+        {
+            "question": "Stuck on this case:                >>> import ants, importlib     >>> importlib.reload(ants)     >>> beehive = ants.Hive(ants.AssaultPlan())     >>> dimensions = (2, 9)     >>> colony = ants.AntColony(None, beehive, ants.ant_types(),     ...         ants.dry_layout, dimensions)     >>> ants.bees_win = lambda: None     >>> # QueenAnt Placement     >>> queen = ants.QueenAnt()     >>> impostor = ants.QueenAnt()     >>> front_ant, back_ant = ants.ThrowerAnt(), ants.ThrowerAnt()     >>> tunnel = [colony.places['tunnel_0_{0}'.format(i)]     ...         for i in range(9)]     >>> tunnel[1].add_insect(back_ant)     >>> tunnel[7].add_insect(front_ant)     >>> tunnel[4].add_insect(impostor)     >>> impostor.action(colony)     >>> impostor.armor            # Impostors must die!     0     >>> tunnel[4].ant is None     True     >>> back_ant.damage           # Ants should not be buffed     1     >>> front_ant.damage     1     >>> tunnel[4].add_insect(queen)     >>> queen.action(colony)     Traceback (most recent call last):       File \"...\", line 522, in action         current.ant.damage *= 2     AttributeError: 'NoneType' object has no attribute 'damage'          # Error: expected          # but got     #     Traceback (most recent call last):     #       ...     #     AttributeError: 'NoneType' object has no attribute 'damage'       Anyone know why current.ant is 'None'? I have a while loop which accounts for current.exit != None. I tried with current != None as well, and have the same problem. my current is referring to self.place",
+            "follow-ups": [
+                {
+                    "feedback": "If current is a place without an Ant, then current.ant will be None."
+                }
+            ]
+        },
+        {
+            "question": "In method action, I double the damage by defining and calling a function that take ant as parameter. It ll check if the ant has been doubled before, if not, double it by referring to the damage attribute of ant. I also have if else for checking if its a true queen or not. But it doesn't work. Need help! THX ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk5ht5sc63x%2Fk1nxrzokhls6%2FScreen_Shot_20191012_at_11.52.35_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Consider using a list as an instance variable, along with the \"in\" operator, to keep track of bees"
+                },
+                {
+                    "feedback": "why do I need to keep track of bees? the problem now is that my ant.damage is not doubling."
+                },
+                {
+                    "feedback": "You need to make sure you don't double the damage of bees that have already had their damage doubled"
+                },
+                {
+                    "feedback": "oh, do you mean the damage of ant, I already done that by creating an list as a class attribute, and if the ant is not in that list, double the damage and add it to the list"
+                },
+                {
+                    "feedback": "I have the same problem! Have you fixed it?"
+                },
+                {
+                    "feedback": "Also have this problem. I am comparing each ant behind the queen with a list of double damage ants."
+                },
+                {
+                    "feedback": "I figured out that when queen.action(colony) is called, I never enter the while loop because it's showing that the queen is currently at Hive? I don't have any code that would advance the queen from its current spot and I'm using temporary vars to hold self.place"
+                },
+                {
+                    "feedback": "difficult to know without the code - are you starting at the QueenAnt's current place and updating it correctly? (i.e. self.place, and updating that pointer as hinted in the spec)"
+                }
+            ]
+        },
+        {
+            "question": "idk if something is wrong with my code since i passed all the tests, but when i place two queens quickly, sometimes the sprite of the imposter doesn't disappear so it looks like there's two queens and the imposter queen isn't there so i can place another ant over it",
+            "follow-ups": [
+                {
+                    "feedback": "This is likely a GUI bug, there are plenty of those with this project unfortunately :/"
+                }
+            ]
+        },
+        {
+            "question": "To keep track of which ants have been buffed, are we allowed create an class attribute \"has_been_buffed\" in the Ant class? Or should the code strictly be limited to the QueenAnt class",
+            "follow-ups": [
+                {
+                    "feedback": "No, you should keep track of this in the QueenAnt class."
+                },
+                {
+                    "feedback": "I also added an attribute at the ant level. Are the instructions telling me to not do that?"
+                }
+            ]
+        },
+        {
+            "question": ">>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> ants.bees_win = lambda: None  >>> # Testing damage multiplier  >>> queen_tunnel, side_tunnel = [[colony.places['tunnel_{0}_{1}'.format(i, j)]  ... for j in range(9)] for i in range(2)]  >>> # layout  >>> # queen_tunnel: [Back, Guard/Guarded, Queen, Front, Bee ]  >>> # side_tunnel : [Side, , , , Side Bee]  >>> queen = ants.QueenAnt()  >>> back = ants.ThrowerAnt()  >>> front = ants.ThrowerAnt()  >>> guard = ants.BodyguardAnt()  >>> guarded = ants.ThrowerAnt()  >>> side = ants.ThrowerAnt()  >>> bee = ants.Bee(10)  >>> side_bee = ants.Bee(10)  >>> queen_tunnel[0].add_insect(back)  >>> queen_tunnel[1].add_insect(guard)  >>> queen_tunnel[1].add_insect(guarded)  >>> queen_tunnel[2].add_insect(queen)  >>> queen_tunnel[3].add_insect(front)  >>> side_tunnel[0].add_insect(side)  >>> queen_tunnel[4].add_insect(bee)  >>> side_tunnel[4].add_insect(side_bee)  >>> queen.action(colony)  >>> bee.armor  9  >>> back.action(colony)  >>> bee.armor  7  >>> front.action(colony)  >>> bee.armor  6  >>> guard.action(colony)  >>> bee.armor  5  # Error: expected  # 4  # but got  # 5  Doesn't seem like double damage is applied to BodyguardAnt. Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "this is likely something that you can check for in the if statements in your code. one thought though - is it the bodyguard ant that should be doing the damage?"
+                },
+                {
+                    "feedback": "I got the same problem here and should if statement which is problem is in the action method right?"
+                }
+            ]
+        },
+        {
+            "question": "Anyone has any idea why I fail this case? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk5ht5sc63x%2Fk1pdye2m52qd%2FScreen_Shot_20191013_at_12.31.37_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nwm I figure it out thx"
+                },
+                {
+                    "feedback": "Any tips?"
+                },
+                {
+                    "feedback": "How did you figure it out?"
+                },
+                {
+                    "feedback": "Make sure you modify the condition for removing an ant within a container in remove_ant.  I am not sure if this is the case for the poster, but I ran into the same problem and this worked."
+                }
+            ]
+        },
+        {
+            "question": "Are tests graded , what if we submit an empty test file?",
+            "follow-ups": [
+                {
+                    "feedback": "Writing your own tests is optional; tests are not graded."
+                }
+            ]
+        },
+        {
+            "question": "I'm having some issues with removing the imposter. My code recognises it as being an imposter, but isinstance in the remove_insect method still returns it as being an instance. Can anyone give me an idea of how I can fix this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk1pjuk3zdo2i%2FScreen_Shot_20191013_at_3.09.02_PM.png)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk1pjtk6fdh0m%2FScreen_Shot_20191013_at_3.07.04_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "If you keep track within each `QueenAnt` via an instance attribute as to whether or not it's the impostor, and you know that `insect` is a `QueenAnt`, you can do `insect.attribute_name_here` to figure out if it's the impostor or not."
+                },
+                {
+                    "feedback": "Any hints with this, whenever I try to differentiate between QueenAnt objects using a class attribute, I switch the class instance to be the same for all instances, so either all QueenAnts are true queens or are imposters."
+                },
+                {
+                    "feedback": "Suppose no QueenAnts are made. This implies that no True Queen exists, for there are no Queens to take the mantle. Therefore when we have no QueenAnt objects, your class attribute should be something to signal the non-existence of the True Queen Ant at the very start.      Now suppose we make our first Queen ant. When we construct this queen, it should be able to use this class attribute to detect the non-existence of the True Queen and then modify the class attribute to tell all future classes that a True Queen exists. We should also make it so this specific Queen knows that she herself is the Queen. How can we do that?  Now let's suppose we make more Queen Ants. Because the other ants can see the class attribute has been changed, they should know just from looking at it that a True Queen exists and that they themselves are not the True Queen and label themselves as imposters accordingly. What can we use to label specific instances of the class as imposters?"
+                }
+            ]
+        },
+        {
+            "question": "I am not sure why it is like this. It seems that impostor here doesn't pass the isinstance test and also doesn't meet the if condition in place that 'self.ant = insect'. Why??  Thank you so much !!!  Problem 13 > Suite 3 > Case 1      >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> ants.bees_win = lambda: None  >>> # QueenAnt Placement  >>> queen = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> front_ant, back_ant = ants.ThrowerAnt(), ants.ThrowerAnt()  >>> tunnel = [colony.places['tunnel_0_{0}'.format(i)]  ... for i in range(9)]  >>> tunnel[1].add_insect(back_ant)  >>> tunnel[7].add_insect(front_ant)  >>> tunnel[4].add_insect(impostor)  >>> impostor.action(colony)  Traceback (most recent call last):  File \"/Users/lvyanjing/Desktop/ants/ants.py\", line 514, in action  File \"/Users/lvyanjing/Desktop/ants/ants.py\", line 524, in reduce_armor  File \"/Users/lvyanjing/Desktop/ants/ants.py\", line 90, in remove_insect  assert False, '{0} is not in {1}'.format(insect, self)  AssertionError: QueenAnt(0, tunnel_0_4) is not in tunnel_0_4",
+            "follow-ups": [
+                {
+                    "feedback": "how are you checking if it is an instance of a QueenAnt? make sure the syntax is correct for that call!"
+                }
+            ]
+        },
+        {
+            "question": "Hi! I'm getting this weird error: I guess it's in the bee.action() method, which I didn't edit. Does anyone know why? Thanks!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp9jc7an29b%2Fk1q1o727le2f%2Ferror.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "This seems to be an issue in Queen.reduce_armor. Make sure that you only end the game if the True Queen dies and not an imposter."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjmhz6r9hduNU%2Fk1qtw9gaaugk%2FScreen_Shot_20191014_at_12.45.49_PM.png)  Not entirely sure why this is happening....any hints?",
+            "follow-ups": [
+                {
+                    "feedback": "It is hard to tell what the issue is just by looking at the doctest. 2 possibilities:  1\\. when you remove imposter, you are also removing the container  2\\. you are not containing the ant correctly (container ant should be place.ant)"
+                }
+            ]
+        },
+        {
+            "question": "I don't know why the back_ant should not be buffed. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvlvhhwu9t3su%2Fk1qyyayjv9cb%2Fquestion.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Imposters should not be buffing ants. Only the True Queen should, and in this test case, the True Queen hasn't taken an action yet, so no ants should be buffed."
+                },
+                {
+                    "feedback": "The impostor is called to the action so since it is the imposter Queen not the real queen, back ants should not be buffed. This case tests whether you are checking if the action should be performed."
+                },
+                {
+                    "feedback": "I got it! Thank you all!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an assertion error and I checked reduce_armor and remove_insect and they seem fine? Can anyone give me a hint please?  Problem 13 > Suite 4 > Case 5  >>> import ants, importlib   >>> importlib.reload(ants)   >>> beehive = ants.Hive(ants.AssaultPlan())   >>> dimensions = (2, 9)   >>> colony = ants.AntColony(None, beehive, ants.ant_types(),   ... ants.dry_layout, dimensions)   >>> #   >>> # Adding/Removing QueenAnt with Container   >>> place = colony.places['tunnel_0_3']   >>> queen = ants.QueenAnt()   >>> impostor = ants.QueenAnt()   >>> container = ants.TankAnt()   >>> place.add_insect(container)   >>> place.add_insect(impostor)   >>> impostor.action(colony)   Traceback (most recent call last):   File... line 494, in action   Insect.reduce_armor(self,self.armor)   File...line 117, in reduce_armor   self.place.remove_insect(self)   File ... line 83, in remove_insect   assert False, '{0} is not in {1}'.format(insect, self)   AssertionError: QueenAnt(0, tunnel_0_3) is not in tunnel_0_3  # Error: expected  # but got   # Traceback (most recent call last):   # ...   # AssertionError: QueenAnt(0, tunnel_0_3) is not in tunnel_0_3  Run only this test case with \"python3 ok -q 13 --suite 4 --case 5\"",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, I got it!"
+                },
+                {
+                    "feedback": "^^^ Got what? How? If you could explain that would be much appreciated."
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 4 > Case 4  >>> import ants, importlib   >>> importlib.reload(ants)   >>> beehive = ants.Hive(ants.AssaultPlan())   >>> dimensions = (2, 9)   >>> colony = ants.AntColony(None, beehive, ants.ant_types(),   ... ants.dry_layout, dimensions)   >>> #   >>> # Extensive damage doubling tests   >>> queen_tunnel, side_tunnel = [[colony.places['tunnel_{0}_{1}'.format(i, j)]   ... for j in range(9)] for i in range(2)]   >>> queen = ants.QueenAnt()   >>> queen_tunnel[7].add_insect(queen)   >>> # Turn 0   >>> thrower = ants.ThrowerAnt()   >>> fire = ants.FireAnt()   >>> ninja = ants.NinjaAnt()   >>> side = ants.ThrowerAnt()   >>> front = ants.NinjaAnt()   >>> queen_tunnel[0].add_insect(thrower)   >>> queen_tunnel[1].add_insect(fire)   >>> queen_tunnel[2].add_insect(ninja)   >>> queen_tunnel[8].add_insect(front)   >>> side_tunnel[0].add_insect(side)   >>> # layout right now   >>> # [thrower, fire, ninja, , , , , queen, front]   >>> # [side , , , , , , , , ]   >>> thrower.damage, fire.damage, ninja.damage = 101, 102, 103   >>> front.damage, side.damage = 104, 105   >>> queen.action(colony)   >>> (thrower.damage, fire.damage, ninja.damage)   (202, 204, 206)   >>> (front.damage, side.damage)   (104, 105)   >>> # Turn 1   >>> tank = ants.TankAnt()   >>> guard = ants.BodyguardAnt()   >>> queen_tank = ants.TankAnt()   >>> queen_tunnel[6].add_insect(tank) # Not protecting an ant   >>> queen_tunnel[1].add_insect(guard) # Guarding FireAnt   >>> queen_tunnel[7].add_insect(queen_tank) # Guarding QueenAnt   >>> # layout right now   >>> # [thrower, guard/fire, ninja, , , , tank, queen_tank/queen, front]   >>> # [side , , , , , , , , ]   >>> tank.damage, guard.damage, queen_tank.damage = 1001, 1002, 1003   >>> queen.action(colony)   >>> # unchanged   >>> (thrower.damage, fire.damage, ninja.damage)   (202, 204, 206)   >>> (front.damage, side.damage)   (104, 105)   >>> (tank.damage, guard.damage)   (1001, 1002)  # Error: expected   # (2002, 2004)   # but got   # (1001, 1002)  Does bodyguard has damage?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. They call the line below which gives them a damage attribute:                >>> tank.damage, guard.damage, queen_tank.damage = 1001, 1002, 1003"
+                }
+            ]
+        },
+        {
+            "question": "how do i increase the damage of all the ants behind the queen ant and keep those ants recorded so that they do not get buffed again?",
+            "follow-ups": [
+                {
+                    "feedback": "you can store the buffed ants in a list and append the ants to the list every time you double their damage"
+                },
+                {
+                    "feedback": "okay but how do i access each ant behind the queen?"
+                },
+                {
+                    "feedback": "Places are connected to each other (exit & entrance). See q3 \"nearest_bee\" to see how you iterate through places"
+                }
+            ]
+        },
+        {
+            "question": "can anyone explain why this line draws error:  'BodyguardAnt' object has no attribute 'ant' ? Thanks.  if isinstance(self.place.exit.ant, BodyguardAnt) and location.ant.ant and location.ant.ant not in self.buffed:",
+            "follow-ups": [
+                {
+                    "feedback": "The attribute for the ant contained within a BodyguardAnt should be \"contained_ant\""
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 4 > Case 6  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> #  >>> # test proper call to death callback  >>> original_death_callback = ants.Insect.death_callback  >>> ants.Insect.death_callback = lambda x: print(\"insect died\")  >>> real = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> colony.places['tunnel_0_2'].add_insect(real)  >>> colony.places['tunnel_0_3'].add_insect(impostor)  >>> impostor.action(colony)  # Error: expected  # insect died  # but got  I have been stuck on this case for hours. I checked previous posts and my code kills the imposter QueenAnt by checking if self.impostor is true and calls self.reduce_armor(self.armor) when action() is called. I don't know why the imposter Queen Ant isn't dying? Please help!!!",
+            "follow-ups": [
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "One good way to try to debug this is by trying to put print statements in the if case block (I assume you have something like \"if self.impostor:\") and see whether or not it actually goes inside the block when action is called on an impostor QueenAnt. Also, pay attention to the variable impostor itself. Check whether you are using an Instance attributes or a Class attributes and see how does that impact your code."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrluf8714ds%2Fk1s8qj9ol8ne%2FScreen_Shot_20191015_at_12.28.49_PM.png)Does anyone know why I am failing this test case? I can tell that the Thrower1 Ant's damage is not doubling but I don't know why Thrower2 Ant's damage would be updating and not Thrower1.",
+            "follow-ups": [
+                {
+                    "feedback": "Are you making sure to update the damage of ants inside containers?"
+                }
+            ]
+        },
+        {
+            "question": "Why is this happening?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhx0jnu546w%2Fk1secwo9iwf7%2F20191015.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind I got it"
+                },
+                {
+                    "feedback": "I also have this problem? How were you able to fix it?"
+                },
+                {
+                    "feedback": "Make sure your \"if\" and \"elif\" are written correctly. Not the if and elif statement, but the \"if\" and \"elif\" themselves. At least that how I fixed it."
+                }
+            ]
+        },
+        {
+            "question": "Any tips on how to find the Places behind the QueenAnt? I don't the tip that says to repeatedly follow each place's exit. I have the correct stopping condition, but I keep ending up with an infinite loop."
+        },
+        {
+            "question": "Problem 13 > Suite 3 > Case 1  >>> import ants, importlib   >>> importlib.reload(ants)   >>> beehive = ants.Hive(ants.AssaultPlan())   >>> dimensions = (2, 9)   >>> colony = ants.AntColony(None, beehive, ants.ant_types(),   ... ants.dry_layout, dimensions)   >>> ants.bees_win = lambda: None   >>> # QueenAnt Placement   >>> queen = ants.QueenAnt()   >>> impostor = ants.QueenAnt()   >>> front_ant, back_ant = ants.ThrowerAnt(), ants.ThrowerAnt()   >>> tunnel = [colony.places['tunnel_0_{0}'.format(i)]   ... for i in range(9)]   >>> tunnel[1].add_insect(back_ant)   >>> tunnel[7].add_insect(front_ant)   >>> tunnel[4].add_insect(impostor)   >>> impostor.action(colony)   Traceback (most recent call last):   File \"D:\\cs61a\\projects\\ants\\ants.py\", line 501, in action   ScubaThrower.action(self, colony)   File \"D:\\cs61a\\projects\\ants\\ants.py\", line 254, in action   self.throw_at(self.nearest_bee(colony.beehive))   File \"D:\\cs61a\\projects\\ants\\ants.py\", line 239, in nearest_bee   while current_place.name != 'Hive':   AttributeError: 'NoneType' object has no attribute 'name'  # Error: expected  # but got   # Traceback (most recent call last):   # ...   # AttributeError: 'NoneType' object has no attribute 'name'  Run only this test case with \"python3 ok -q 13 --suite 3 --case 1\"  What does this mean?",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, was a minor syntax issue."
+                }
+            ]
+        },
+        {
+            "question": "So, I managed to pass all test cases, but I am for some reason unable to utilize self.reduce_armor. My code runs perfectly if I replace self.reduce_armor with the literal code behind it (rather than using the abstraction). Any ideas as to why this happens?  Problem 13 > Suite 3 > Case 1  >>> import ants, importlib   >>> importlib.reload(ants)   >>> beehive = ants.Hive(ants.AssaultPlan())   >>> dimensions = (2, 9)   >>> colony = ants.AntColony(None, beehive, ants.ant_types(),   ... ants.dry_layout, dimensions)   >>> ants.bees_win = lambda: None   >>> # QueenAnt Placement   >>> queen = ants.QueenAnt()   >>> impostor = ants.QueenAnt()   >>> front_ant, back_ant = ants.ThrowerAnt(), ants.ThrowerAnt()   >>> tunnel = [colony.places['tunnel_0_{0}'.format(i)]   ... for i in range(9)]   >>> tunnel[1].add_insect(back_ant)   >>> tunnel[7].add_insect(front_ant)   >>> tunnel[4].add_insect(impostor)   >>> impostor.action(colony)   >>> impostor.armor # Impostors must die!   1  # Error: expected   # 0   # but got   # 1  This is what happens if I try to use self.reduce_armor; it does not actually reduce the armor.",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, I guess it conflicts. Ant.reduce_armor seems to work fine - tell me if I am wrong though."
+                }
+            ]
+        },
+        {
+            "question": "Is there a way to see the doc tests after you passed them and closed the terminal? If not, can someone clarify if the queen directly attacks any ants (so something besides doubling the damage of the ants behind it) because its not really clear in the question",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, the QueenAnt does attack bees."
+                },
+                {
+                    "feedback": "Does it only attack the bees that pass its square?"
+                },
+                {
+                    "feedback": "the QueenAnt is essentially a ScubaThrower with all of the added restrictions - so it will attack like one of those bees."
+                }
+            ]
+        },
+        {
+            "question": "I implemented ThrowerAnt.action(self, colony) and made sure that section of the code that contained this ran. I can't figure out why the queen isn't attacking the bee?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpa50qn729r%2Fk1sutjbv8x63%2FScreen_Shot_20191015_at_10.47.31_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Same. Need help :/"
+                },
+                {
+                    "feedback": "are you calling the superclass's action method in all cases - i.e. make sure it's not inside of a conditional block!"
+                },
+                {
+                    "feedback": "Could you explain more?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1830dfs2ry%2Fk1sxvnwo5rat%2FScreen_Shot_20191016_at_12.13.02_AM.png)  I keep getting this error, what am I doing wrong",
+            "follow-ups": [
+                {
+                    "feedback": "It seems like your impostor ant does not get killed since you are not printing anything  ants.Inset.death_callback is a function that is called when an Ant dies. See the line that says                Ants.Insect.death_callback = lambda x: print(\"insect died\")  This means that when an Ant died, the word \"insect died\" should be printed."
+                }
+            ]
+        },
+        {
+            "question": "Is it okay if we go outside the #BEGIN Problem 13 and #END Problem 13 comments when editing the remove_insect function? I don't see how we could prevent the insect's place from being made None otherwise.",
+            "follow-ups": [
+                {
+                    "feedback": "you are free to edit code outside of the comments, but just note that you do not necessarily need to."
+                }
+            ]
+        },
+        {
+            "question": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Running tests  \\---------------------------------------------------------------------  Problem 13 > Suite 4 > Case 5  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> #  >>> # Adding/Removing QueenAnt with Container  >>> place = colony.places['tunnel_0_3']  >>> queen = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> container = ants.TankAnt()  >>> place.add_insect(container)  >>> place.add_insect(impostor)  >>> impostor.action(colony)  >>> place.ant is container  True  >>> container.place is place  True  >>> container.contained_ant is None  True  >>> impostor.place is None  True  >>> place.add_insect(queen)  >>> place.remove_insect(queen)  >>> container.contained_ant is queen  False  # Error: expected  # True  # but got  # False  Run only this test case with \"python3 ok -q 13 --suite 4 --case 5\"  \\---------------------------------------------------------------------  Test summary  14 test cases passed before encountering first failed test case  What could be causing this?",
+            "follow-ups": [
+                {
+                    "feedback": "It should be impossible to remove the true queen from a place, but it was removed anyway."
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi5hekiy4cb%2Fk1tw57yxpixn%2FScreen_Shot_20191016_at_4.12.37_PM.png)  I don't know why it only doubles the tank's damage but not the guard.",
+            "follow-ups": [
+                {
+                    "feedback": "Same question, have you figured it out?"
+                }
+            ]
+        },
+        {
+            "question": "Composition-wise, when we double the damage of the ants and we already know ants with 0 damage multipled by 2 will still 0, can we keep our statements generalized or should our statements ignore those 0-damage ants and only specify the ants with damage > 0?",
+            "follow-ups": [
+                {
+                    "feedback": "General is better because the rule still applies to all ants. Although it stays zero, that's just how the math works out and it's okay that it stays the same after the rule is applied."
+                }
+            ]
+        },
+        {
+            "question": "**The`QueenAnt` doubles the damage of all the ants behind her each time she performs an action. Once an ant's damage has been doubled, it is _not_ doubled again for subsequent turns.**  Are we allowed to solve this by adding a boolean attribute to an _Ant_ instance? Creating a list of _touched_ants_ within the _QueenAnt_ class does not seem like an efficient solution.",
+            "follow-ups": [
+                {
+                    "feedback": "According to a TA at an office hour, that is a valid solution for anyone that's wondering."
+                }
+            ]
+        },
+        {
+            "question": "I'm having a little trouble with the buff for FireAnt class; without modifying FireAnt, how can you make sure that FireAnt's additional damage dealt when it's armor is reduced to 0 is buffed, and not it's reflected damage?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out!"
+                }
+            ]
+        },
+        {
+            "question": "I seem to be correctly failing to remove the true QueenAnt in Place.remove_insect and I'm passing the test that checks that the Queen is not removed (part of suite 4 case 5) , however when the test checks if queen.place = place I'm returning false even though I've set self.place = insect if the insect is a true queen in remove_insect.",
+            "follow-ups": [
+                {
+                    "feedback": "`self.place` should never contain anything other than `Place`. If you set `self.place = insect`, you are changing what the queen’s place is to something that isn’t a place."
+                }
+            ]
+        },
+        {
+            "question": "Im confused on how to only use class attributes to identify imposter and true queen ants.. if i change the class attribute for one queen won't it change for all of them? Then i dont know who the real queen ant it.. i'm really confused on this part any guidance would be helpful",
+            "follow-ups": [
+                {
+                    "feedback": "Try finding a way to manipulate both class **and** instance attributes to mark the true queen and impostors. The true queen is the one that is created **first** and all the ones created after it are impostors. My solution involves a class attribute which changes after a new queen is made, and assigning a value to the new queen's instance attribute that identifies whether or not it was the first one created (the true queen) or an impostor (any queen made after the first one)."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpu5ogsm2po%2Fk1u8jzqv9uxi%2FScreen_Shot_20191016_at_9.59.54_PM.png)  what is the error here ,,, and how do I go about fixing it?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm got it"
+                },
+                {
+                    "feedback": "I'm getting the same error, any hints as to which parts of the code might be wrong"
+                },
+                {
+                    "feedback": "What was the conclusion you made? Please help"
+                },
+                {
+                    "feedback": "hi i fixed mine by using just return"
+                }
+            ]
+        },
+        {
+            "question": "I don't really know where to go from here because it says a line my number 9 is incorrect even though it passed all the test cases. Anyone have an idea?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk1u9upoew332%2FScreen_Shot_20191016_at_10.34.51_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This error seems to suggests that the contained_ant of a Container is being set to an AntColony object and not an Ant object. Check that whenever you are binding contained_ant, that it is being bound to an ant, and onto a colony."
+                },
+                {
+                    "feedback": "Thank you got it!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5js4t5ad24oh%2Fk1ubotwmmghf%2FScreen_Shot_20191016_at_11.27.37_PM.png)  im just not sure how to deal with the fireant case? i thought since its self.damage attribute is 3 already i didnt have to make a special case for it within my action method for queenant",
+            "follow-ups": [
+                {
+                    "feedback": "same problem!"
+                },
+                {
+                    "feedback": "Make sure you have a case that ensures that ants inside containers do not double their damage if they are already buffed."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjutxyp05tz%2Fk1ucp6pqv1xh%2Fa.PNG)  It looks like my queen ant is getting buffed, but I'm checking if ant is an instance of QueenAnt.  Any thoughts?",
+            "follow-ups": [
+                {
+                    "feedback": "queen_tank is a TankAnt, not a QueenAnt. The TankAnt that holds the queen here is not behind the Queen, so it should not be buffed."
+                },
+                {
+                    "feedback": "Thanks, that helps. I think my error was that I was starting to buff the ants from the current place. Now I'm starting in the first previous place. Is this correct?"
+                },
+                {
+                    "feedback": "That sounds correct."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1pp0lb738s%2Fk1v2oqu05kc1%2FScreen_Shot_20191017_at_12.01.30_PM.png)  I've been stuck on this for a while. Even though the container is in place and the container contains queen, it says that queen is not in place. I tried running this specific case, but printing out insect.place whenever there is an attempt to remove the true queen, so that I can see the location of the true queen at the moment where it is being \"removed.\" However, it printed out tunnel_0_3, which is place, but queen.place is place is still false. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1pp0lb738s%2Fk1v2vsizdglu%2Fsc._2.png)  Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "As a side note, make sure you prepend `DEBUG:` to any of your debug lines so it doesn’t affect the autograder. Adding extra output without that prefix breaks the checks.  This is just speculation since I can’t see your code, but are you making sure that calling `remove_insect` with a queen ant completely bypasses everything and doesn’t perform any action? If not, think about how this could be achieved."
+                }
+            ]
+        },
+        {
+            "question": "Assignment: Project 3: Ants Vs. SomeBees  OK, version v1.14.15  =====================================================================  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Running tests  \\---------------------------------------------------------------------  Problem 13 > Suite 3 > Case 1  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> ants.bees_win = lambda: None  >>> # QueenAnt Placement  >>> queen = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  Traceback (most recent call last):  File \"/Users/leoxiao/Desktop/cs61a/projects/ants/ants.py\", line 510, in __init__  self.reduce_armor(self.armor)  File \"/Users/leoxiao/Desktop/cs61a/projects/ants/ants.py\", line 546, in reduce_armor  self.place.reduce_armor(self.armor)  AttributeError: 'QueenAnt' object has no attribute 'place'  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AttributeError: 'QueenAnt' object has no attribute 'place'  Run only this test case with \"python3 ok -q 13 --suite 3 --case 1\"  Please help, can I not just call self.place.remove_insect(self) to kill the imposter?",
+            "follow-ups": [
+                {
+                    "feedback": "Rather than calling remove_insect, you should decrease its armor so that it dies."
+                }
+            ]
+        },
+        {
+            "question": "I have \"if isinstance(self.place.exit.ant, BodyguardAnt) and ant.ant and ant.ant not in self.buff\"  but am getting 'BodyguardAnt' object has no attribute 'ant'.  Why is this the case? Not understanding why this isn't working",
+            "follow-ups": [
+                {
+                    "feedback": "BodyGuardAnt indeed doesn't have an instance attribute ant. I believe the instance attribute you wanted to use is called contained_ant"
+                }
+            ]
+        },
+        {
+            "question": ">>> bee.armor     9     >>> back.action(colony)     >>> bee.armor     7     >>> front.action(colony)     >>> bee.armor     6     >>> guard.action(colony)     >>> bee.armor     5          # Error: expected     #     4     # but got     #     5          Run only this test case with \"python3 ok -q 13 --suite 3 --case 4\"     ---------------------------------------------------------------------     Test summary         9 test cases passed before encountering first failed test case  Why are the other bee.armor passing fine but this one isn't? Not sure how this last one is any different than the previous ones",
+            "follow-ups": [
+                {
+                    "feedback": "Seems like the ant inside of your guard ant isn't having its damaged doubled"
+                }
+            ]
+        },
+        {
+            "question": "Do you check if the bees reach the end of the tunnel?",
+            "follow-ups": [
+                {
+                    "feedback": "No, the simulator with check that for you."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191017_at_4.57.48_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjhb2sk402bj3ob%2Fk1vezc81h96g%2FScreen_Shot_20191017_at_4.57.48_PM.png)  can anyone give me a hint as to what's wrong with my code? ive been in oh for two hours but havent got any help",
+            "follow-ups": [
+                {
+                    "feedback": "The queen cannot be removed, so you need to add a special check to account for this in the remove_insect method of place."
+                },
+                {
+                    "feedback": "I did implement something to do that but I am not sure why it's not working."
+                },
+                {
+                    "feedback": "However you checked the queen is true queen, reflect that in the conditional statement in remove_insect of place. Also, using isinstance will help"
+                },
+                {
+                    "feedback": "It could be something with your return statement. Look at what remove_insect is doing if the insect is true queen"
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 4 > Case 1  >>> import ants, importlib  >>> importlib.reload(ants)  >>> beehive = ants.Hive(ants.AssaultPlan())  >>> dimensions = (2, 9)  >>> colony = ants.AntColony(None, beehive, ants.ant_types(),  ... ants.dry_layout, dimensions)  >>> #  >>> # Testing game over  >>> queen = ants.QueenAnt()  >>> impostor = ants.QueenAnt()  >>> tunnel = [colony.places['tunnel_0_{0}'.format(i)]  ... for i in range(9)]  >>> tunnel[4].add_insect(queen)  >>> tunnel[6].add_insect(impostor)  >>> bee = ants.Bee(3)  >>> tunnel[6].add_insect(bee) # Bee in place with impostor  >>> bee.action(colony) # Game should not end  >>> bee.move_to(tunnel[4]) # Bee moved to place with true queen  Traceback (most recent call last):  File \"/Users/nathangali/Schoolwork/CS61a/projects/ants/ants.py\", line 165, in move_to  place.add(self)  AttributeError: 'Place' object has no attribute 'add'  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AttributeError: 'Place' object has no attribute 'add'  Run only this test case with \"python3 ok -q 13 --suite 4 --case 1\"  \\---------------------------------------------------------------------  Test summary  10 test cases passed before encountering first failed test case  Suuper stuck on this problem, any advice?",
+            "follow-ups": [
+                {
+                    "feedback": "resolved - not sure why but it should have been add_insect"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlbgfnv8JCx9%2Fk1vmi2ce9jun%2FScreen_Shot_20191017_at_9.16.58_PM.png)  I'm certain that if container.place was called, the output would be true. So how would I be able to make sure that when a queen occupies a place that the place is identified as the queen and not the container?",
+            "follow-ups": [
+                {
+                    "feedback": "I encountered the same issue. For me, the problem was because remove_insect set insect.place to none (check the end of remove_insect) regardless of if the insect was the queen ant or not."
+                },
+                {
+                    "feedback": "To build on the previous answer, how can you completely bypass the rest of the method in the check for the queen ant and not perform anything else in that function, concisely?"
+                }
+            ]
+        }
+    ]
+}

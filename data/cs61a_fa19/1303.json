@@ -1,0 +1,96 @@
+{
+    "subject": "[Ants] Problem 10",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-10-1-pt\">Problem 10</a>\n\n<p> Please post all questions you have below concerning Problem 10 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "What is this error?  Problem 10 > Suite 3 > Case 3  >>> from ants import *  >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # Placement of ants  >>> tank = TankAnt()  >>> harvester = HarvesterAnt()  >>> place = colony.places['tunnel_0_0']  >>> # Add tank before harvester  >>> place.add_insect(tank)  >>> place.add_insect(harvester)  >>> colony.food = 0  >>> tank.action(colony)  >>> colony.food  1  >>> try:  ... place.add_insect(TankAnt())  ... except AssertionError:  ... print(\"error!\")  # Error: expected  # error!  # but got",
+            "follow-ups": [
+                {
+                    "feedback": "`place.add_insect` throws an `AssertionError` via the following line whenever too many ants are occupying the place:                assert self.ant is None, 'Two ants in {0}'.format(self)  This error should be thrown when adding `TankAnt()` to the place, but it is not."
+                },
+                {
+                    "feedback": "How do i get the amount of ants that are in a place?"
+                },
+                {
+                    "feedback": "That should not be necessary for the solution, assuming you implemented `BodyguardAnt` correctly."
+                }
+            ]
+        },
+        {
+            "question": "How do we call the action of the bodyguard ant in the action of the tank ant without copying the implementation",
+            "follow-ups": [
+                {
+                    "feedback": "It's similar to how it's done within the `action` method of `FireAnt` (question 5)"
+                }
+            ]
+        },
+        {
+            "question": "The terminal is not recognising problem 10 or further, therefore I cant unlock tests or test my code for problem 10 and beyond. What should I do?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuthdk04tj2o8%2Fk1o4qimyilbu%2FScreenshot_20191012_at_15.24.55.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, had opened cats instead of ants. Sorry!"
+                }
+            ]
+        },
+        {
+            "question": "not sure what I am doing wrong since I am implementing my ant in the same method as the fire ant![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1oac8imge5d%2FScreen_Shot_20191012_at_5.56.16_PM.png).",
+            "follow-ups": [
+                {
+                    "feedback": "You may ignore the action of the inside ant which should attack at the same turn under the protection of the tank."
+                },
+                {
+                    "feedback": "Would I need to copy and paste the same method from the bodyguard ant?"
+                },
+                {
+                    "feedback": "you can, but only limited to the action part"
+                }
+            ]
+        },
+        {
+            "question": "So I am failing a test case found out that my tankant only targets 2/3 of the present bees, any reason to why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure to iterate through a copy of the list of bees (the same way that we did for FireAnt). I forgot to do this and ran into the same error!"
+                }
+            ]
+        },
+        {
+            "question": "It seems like I'm not reducing the armor of bees correctly. I'm only calling BodyGuardAnt.action(self, colony) in my TankAnt action method. Can somebody give me a hint?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1s470p0b0g6%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191015_%E4%B8%8A%E5%8D%8810.21.13.png)",
+            "follow-ups": [
+                {
+                    "feedback": "BodyGuardAnt differs from TankAnt in that BodyGuardAnt does nothing on its own while TankAnt does.  To elaborate, if you only have a BodyGuardAnt in a Place without any Ant inside it, this BodyGuardAnt does nothing (no damage, etc)  This is not the case for TankAnt that actually does some damage even when there is no Ant contained inside it.  This suggests that calling BodyGuardAnt.action(self, colony) only is not enough and you need to add something after it that does what it's supposed to do."
+                }
+            ]
+        },
+        {
+            "question": "I spent a lot of time trying to fix this error and I'm still stuck. Thanks in advance for your help!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdind6ryr4mj%2Fk1ubnyep13a7%2FScreen_Shot_20191016_at_11.27.00_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Not too sure of the issue just by looking at the doctest. Here are some of the possibilities:    * harvest ant's `is_harvester` should be true   * tankAnt's instance attribute `contained_ant` should be set to the harvest ant in the same place"
+                }
+            ]
+        },
+        {
+            "question": "When it says \" _Do not repeat code from elsewhere in the program._ \", how strict is that? Should we use HungryAnt's eat_bee method to reduce the insect's armor to zero?",
+            "follow-ups": [
+                {
+                    "feedback": "The heart behind that statement is that you should take inheritance to your advantage as much as possible when appropriate."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr18q32dg655nm%2Fk1x2edy6gr9g%2Fants_10.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Im not sure why I am getting this error for question 10 as well as question 5"
+                },
+                {
+                    "feedback": "I’m not entirely sure why you’d be getting that error for question 5, but for the TankAnt, what should that class’s parent be?"
+                },
+                {
+                    "feedback": "^ make sure that the TankAnt inherits from the correct parent class, and is initialized appropriately."
+                }
+            ]
+        }
+    ]
+}

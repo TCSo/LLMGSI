@@ -1,0 +1,527 @@
+{
+    "subject": "[HW 10] Q4: Stacks",
+    "content": "<a href=\"https://cs61a.org/hw/hw10//#q4\">Q4: Stacks</a>\n\n<p> Please post all questions you have below concerning Q4: Stacks in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am having trouble understanding what the best way is to ensure the first column of the stacks_helper table is a comma-separated list of the current dogs in the stack. Is there some kind of syntax I should be using to do this? The only way I have thought of so far is basic string concatenation but this doesn't allow me to continuously add new dogs to the stack (which the wording of the question suggests is the way to go about it).",
+            "follow-ups": [
+                {
+                    "feedback": "I was able to use string concatenation and continuously add new dogs to the stack. Hint: which table can be selected from to keep obtaining new dogs to add to the stack?"
+                },
+                {
+                    "feedback": "Thanks. My issue was that I thought the list of dogs needed to have parentheses around it. It doesn’t."
+                },
+                {
+                    "feedback": "Glad you got it sorted out!"
+                }
+            ]
+        },
+        {
+            "question": "I swear I couldn’t tell whether “stacks” was an actual word by the end of this question.",
+            "follow-ups": [
+                {
+                    "feedback": "Should I move to main stacks to do this problem as a hint of inspiration then"
+                },
+                {
+                    "feedback": "stop"
+                }
+            ]
+        },
+        {
+            "question": "Doesn’t the solution to this question technically not completely fulfill all the checks for a stack of **four** dogs that are at least 170 cm? If, say, you had a 450 cm big red dog, the “stack” containing only that dog and stacks of two or three with that dog would technically also be selected by what I presume to be the intended solution to this question. I realize that no combination of fewer than four dogs in this scenario would be able to reach 170 cm, but does my reasoning make sense?",
+            "follow-ups": [
+                {
+                    "feedback": "yeah - a more general solution for this question would require at least a \"count\" column to ensure we are only taking rows that have 4 dogs. given the data in this problem, you do not have to worry about this case, though it is not explicitly said."
+                },
+                {
+                    "feedback": "Funnily enough, you can actually more easily ensure four dog stacks if you _don 't_ utilize the given helper table. (Assuming you don't simply modify it to add a count column)"
+                },
+                {
+                    "feedback": "Will there be other test cases in the grading or it will be the same table as in the hw description?"
+                },
+                {
+                    "feedback": "It’s the same as the homework description. Don‘t worry about my comment; it’s just me being slightly pedantic about the specifications."
+                }
+            ]
+        },
+        {
+            "question": "Has anybody run into `Error: near \"||\": syntax error`? I cannot seem to figure out why I'm getting this -- it occurs when I try to add 3 names to the helper, even though my code is almost identical to the insert statement that adds 2 names. I've already checked for closed quotation marks, commas, etc. and that looks okay",
+            "follow-ups": [
+                {
+                    "feedback": "This might not be directly related to your error, but you should have 4 INSERT statements total, and the last three should all be adding one name each. As such, those three lines should be _exactly_ identical to one another."
+                }
+            ]
+        },
+        {
+            "question": "I'm really confused on how to construct my second INSERT INTO statement. I've started off by just inserting into stack_helper by selecting the name, height, and height columns from dogs but I'm not sure what to do next?",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm got it. Its ok if the stack_helper table is insanely long, we're going to end up filtering from it in the stacks table description anyways."
+                },
+                {
+                    "feedback": "How did you figure this out? Still kinda confusing me."
+                },
+                {
+                    "feedback": "You need to obtain all the previous stacks_helper entries as well as obtain new dogs to add to those stacks_helper entries. Each of the new stacks should have the new dog's name appended to the previous stack's dog names, the new total equal to the previous total plus the new dog's height, and the last_height set to the height of the new dog."
+                },
+                {
+                    "feedback": "How do you get those new dogs values? Is that straight from the dogs table?"
+                },
+                {
+                    "feedback": "Yep!"
+                },
+                {
+                    "feedback": "How can we avoid adding a duplicate name to the stack?"
+                },
+                {
+                    "feedback": "Nvm, this was already answered below."
+                }
+            ]
+        },
+        {
+            "question": "My end result keeps looking like this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxurgr765i4%2Fk3c7pxeh8ko2%2FScreen_Shot_20191123_at_3.36.08_PM.png)  Any tips on how to remove the redundant names?",
+            "follow-ups": [
+                {
+                    "feedback": "Try filtering out the dogs you select by comparing their height to the previous height. Remember that each set of 4 dogs should be in increasing order, meaning if you are appending the next dog’s name to the front of the list, you should only select dogs that have a height less than the previous height, and if you’re appending the next dog’s name to the end of the list, you should only select dogs that have a height greater than the previous height."
+                },
+                {
+                    "feedback": "Yep that was exactly right! Thanks Cyrus. I had totally forgotten to check if last_height < height."
+                },
+                {
+                    "feedback": "No problem, glad you got it down!"
+                }
+            ]
+        },
+        {
+            "question": "Do we have to use the stack_helper function? It seems much cleaner to complete without using the helper function, or is the helper_function part of the practise?",
+            "follow-ups": [
+                {
+                    "feedback": "stacks_helper isn’t a function, but rather a table. I found it quite useful to use."
+                }
+            ]
+        },
+        {
+            "question": "I'm a little confused about how to approach the stack_helper table.  Currently, I've done the first two steps and it looks like this: ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk3chvrotvsaw%2FScreen_Shot_20191123_at_8.19.54_PM.png)  Is this right?  If so, I'm not sure how to check the values of the two dog names before adding the third, because they're now part of this list.",
+            "follow-ups": [
+                {
+                    "feedback": "You are almost there. Notice how there are duplicates in your table, e.g. abraham,barack and barack,abraham; abraham,clinton and clinton,abraham; etc. Try filtering dogs based on their height value compared to the last dog’s height. Remember that within each stack, dogs should be arranged in increasing height order. Not only does filtering based on this comparison solve the duplicates problem, but also it makes it so you won’t have to worry about the same dog appearing twice in the same stack."
+                },
+                {
+                    "feedback": "Got it! Thanks!"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "After you have inserted into the table, aren't you suppose to use \"update\", instead of another insert, to update the height of the dogs in the second column?",
+            "follow-ups": [
+                {
+                    "feedback": "No, that value should be set normally (i.e. as the entries are constructed)"
+                },
+                {
+                    "feedback": "Haha, I see. Thanks!"
+                },
+                {
+                    "feedback": "No problem."
+                }
+            ]
+        },
+        {
+            "question": "In the third insert statement, I always end up getting some rows that have four dogs. I am using 2 alias. Is that adequate?",
+            "follow-ups": [
+                {
+                    "feedback": "Your third insert statement should actually be equivalent to your second one, since you only need to be adding one additional dog, as you now have stacks of two dogs to work with."
+                },
+                {
+                    "feedback": "Got it, thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "After creating stacks_helper, do you need to use len to filter out only the stacks that have four dogs? If not then how? Really confused on that ...",
+            "follow-ups": [
+                {
+                    "feedback": "No, you only have to filter based on total height. As Instructor Brandon points out above, \"a more general solution for this question would require at least a \"count\" column to ensure we are only taking rows that have 4 dogs. given the data in this problem, you do not have to worry about this case, though it is not explicitly said.\""
+                }
+            ]
+        },
+        {
+            "question": "For the second insert, how do you put two dog names into the same column?",
+            "follow-ups": [
+                {
+                    "feedback": "Think of it as inserting new entries where each new entry adds a new dog to a previous entry of `stacks_helper`"
+                },
+                {
+                    "feedback": "But when I try to put two dogs in a column, it becomes four columns and it errors"
+                },
+                {
+                    "feedback": "You need to concatenate the name of the new dog and the string of names so far. Consider using || to accomplish this."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk3dnll6am4a2%2FScreen_Shot_20191124_at_3.48.30_PM.png)  So far all I have done is insert the dog names into the dogs, and the dog size into the stack height. Not sure why the table is looking like that. Isnt it supposed to look like:  abraham | 26  barack | 52 and so on?",
+            "follow-ups": [
+                {
+                    "feedback": "I figured how to do it all in one row, but why do separate inserts into each of the columns produce the output above?"
+                },
+                {
+                    "feedback": "Each INSERT INTO statement inserts _new rows_ into the table, rather than modifying existing rows (i.e. adding new columns to them)."
+                },
+                {
+                    "feedback": "Ohhh okay! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I completed this problem but I was trying to come up with an alternate iterative solution. My previous solution had me use the \"Insert into\" statement three separate times. Could someone please help me with this? CREATE TABLE stacks_helper(dogs, stack_height, last_height); \\-- Add your INSERT INTOs here [REDACTED] DECLARE @counter INT = 1; while @counter < 3 BEGIN [REDACTED] Set @counter = @counter + 1; END [REDACTED] \\---------------------------------------------- sqlite> .read hw10.sql sqlite> SELECT * FROM stacks; near \"DECLARE\": syntax error near \"while\": syntax error near \"Set\": syntax error near \"CREATE\": syntax error no such table: stacks",
+            "follow-ups": [
+                {
+                    "feedback": "Please do not post your code on Piazza - make a private post for that"
+                }
+            ]
+        },
+        {
+            "question": "I think I have everything up to the WHERE clause for the helper list. How should I compare to make sure I don't have duplicates and have the stacks in increasing order?",
+            "follow-ups": [
+                {
+                    "feedback": "Compare the height of the latest dog to the height of the previous dog. This solves both restrictions you describe."
+                },
+                {
+                    "feedback": "Does this mean I need another column in the helper list?"
+                },
+                {
+                    "feedback": "Utilize the last_height column."
+                },
+                {
+                    "feedback": "So I will need to replace the last_height column with something else in the SELECT form?"
+                },
+                {
+                    "feedback": "Each of the INSERT FROM statements should set the value of last_height to the height of the dog being inserted. You can then utilize the last_height column in your WHERE clause to help compare the height of the latest dog to the height of the previous dog."
+                },
+                {
+                    "feedback": "Ok thank you!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "for helper function,  i build ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzufd4kcwo96v%2Fk3e06hg6qps7%2FScreen_Shot_20191124_at_9.40.08_PM.png)  but my question is how to add fourth dogs without any duplicates.  I mean when i add second dog, i use **name != dogs and height > last_height**  when i add third dog, i use **height > last_height and height > stack_height - last_height **to avoid depilate.  but when i try to add fourth dogs, i only know the last height and total (2 parameters), but there are three parameters ( unknown combination of weight of three dogs), so it means i could not determine the fourth dog weight simply by computing. how could i add fourth dog to avoid duplicate. Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "You actually can get away in all cases (adding the second dog, third dog, and fourth dog) with only checking the height compared to the last height. This works because no two dogs have the same height, and this criteria forces each dog to have a greater height than the one previous, so as more and more dogs get added (which means the last height keeps increasing) less and less dogs meet the criteria."
+                },
+                {
+                    "feedback": "so you mean stacks_helper table could exist some duplicates  and the only criteria for stacks_helper is to make sure the last wheight keeps increasing?  is that correct?"
+                },
+                {
+                    "feedback": "What I meant was, when you add the second dog, you only have to check height > last_height, when you add the third dog, you only have to check height > last_height, AND when you add the fourth dog, you only have to check height > last_height. In fact, the line of code that adds the second dog should be equal to the line of code that adds the third dog and the line of code that adds the fourth dog."
+                },
+                {
+                    "feedback": "OH! since **no two dogs have the same height.**  I do not need to check the name and the weight is a great identity for each dog. right?"
+                },
+                {
+                    "feedback": "Exactly!"
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "Thanks a lot for your help tonight! Cyrus, it passed. Are you TA?"
+                },
+                {
+                    "feedback": "I am a student currently taking the course, not a TA. Always glad to help out!"
+                }
+            ]
+        },
+        {
+            "question": "Is it necessary to use the helper table? It seems possible without the helper table",
+            "follow-ups": [
+                {
+                    "feedback": "I would recommend using it (I personally did), but you can certainly try to solve this problem without it (although I highly doubt it's practical or reasonable to do so). There's no shame if you end up needing to utilize the helper table, just know that."
+                },
+                {
+                    "feedback": "You would have to:    * obtain 4 dogs (so select from four copies of the dogs table)   * select those dogs's names and format the string properly, and also select dog1.height + dog2.height + dog3.height + dog4.height   * make sure dog1.height < dog2.height < dog3.height < dog4.height   * make sure dog1.height + dog2.height + dog3.height + dog4.height >= 170   * order by dog1.height + dog2.height + dog3.height + dog4.height  Doing all of this in one statement is...certainly possible, actually.  EDIT: Wow, did not expect this to work but I just tried and it actually did. Still, give it a go with the helper table - it's good practice for INSERT INTO statements!"
+                }
+            ]
+        },
+        {
+            "question": "Currently I have 4 INSERT INTO statements, with the final 3 looking identical. I'm trying to keep adding onto the stack_height, but I'm not sure how. Right now I'm doing the following:                     ...SELECT name, stack_height + height, height from dogs;     But then I get:                no such column: stack_height  Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "stack_height is a column of the stacks_helper table, so if you want to reference it, you need to select from stacks_helper as well."
+                },
+                {
+                    "feedback": "Take a look at the given example, where ints is used to build upon itself:                sqlite> CREATE TABLE ints AS         ...> SELECT 1 AS n UNION        ...> SELECT 2 UNION        ...> SELECT 3;     sqlite> INSERT INTO ints(n) SELECT n+3 FROM ints;       sqlite> SELECT * FROM ints;     1     2     3     4     5     6"
+                },
+                {
+                    "feedback": "Can you explain how ints is used to build upon itself over here?"
+                },
+                {
+                    "feedback": "You are essentially going to use this table to build every single possible stack of dogs as you go. For instance, every dog is itself a stack of 1 dog, so that will be your first `INSERT` into the table. Next, you will select form the current stacks of 1 dog from the `stacks_helper` table and also select all the dogs from `dogs` so that you can find all the possible stacks of 2 dogs, making sure you only allow smaller dogs on top of larger dogs. Then, you stack another dog on all your possible stacks of 2 dogs, making them 3, then do the same thing to get stacks of 4 dogs."
+                },
+                {
+                    "feedback": "why do we have to select dogs in each INSERT INTO statement?"
+                },
+                {
+                    "feedback": "We’re stacking dogs on top of each other, so we will have to select from `dogs` in order to stack another set of dogs onto our current stack."
+                }
+            ]
+        },
+        {
+            "question": "I have way too many outputs. Can someone help me figure out what I'm doing wrong? I'm trying to filter my inputs so no 2 dogs are repeated, but the 2nd and 4th column are trouble:                # Error: expected ordered output     #     abraham, delano, clinton, barack|171     #     grover, delano, clinton, barack|173     #     herbert, delano, clinton, barack|176     #     fillmore, delano, clinton, barack|177     #     eisenhower, delano, clinton, barack|180     # but got     #     barack, grover, clinton, delano|173     #     barack, grover, delano, clinton|173     #     barack, herbert, clinton, delano|176     #     barack, herbert, delano, clinton|176     #     barack, fillmore, clinton, delano|177     #     barack, fillmore, delano, clinton|177     #     barack, eisenhower, clinton, delano|180     #     barack, eisenhower, delano, clinton|180     #     abraham, delano, barack, clinton|171     #     abraham, delano, clinton, barack|171     #     barack, delano, clinton, delano|191     #     barack, delano, clinton, eisenhower|180     #     barack, delano, clinton, fillmore|177     #     barack, delano, clinton, grover|173     #     barack, delano, clinton, herbert|176     #     barack, delano, eisenhower, clinton|180     #     barack, delano, eisenhower, delano|179     #     barack, delano, fillmore, clinton|177     #     barack, delano, fillmore, delano|176     #     barack, delano, grover, clinton|173     #     barack, delano, grover, delano|172     #     barack, delano, herbert, clinton|176     #     barack, delano, herbert, delano|175     #     clinton, delano, eisenhower, delano|174     #     clinton, delano, fillmore, delano|171     #     abraham, clinton, barack, clinton|172     #     abraham, clinton, barack, delano|171     #     abraham, clinton, delano, barack|171     #     barack, clinton, delano, clinton|192     #     barack, clinton, delano, eisenhower|180     #     barack, clinton, delano, fillmore|177     #     barack, clinton, delano, grover|173     #     barack, clinton, delano, herbert|176     #     barack, clinton, eisenhower, clinton|181     #     barack, clinton, eisenhower, delano|180     #     barack, clinton, fillmore, clinton|178     #     barack, clinton, fillmore, delano|177     #     barack, clinton, grover, clinton|174     #     barack, clinton, grover, delano|173     #     barack, clinton, herbert, clinton|177     #     barack, clinton, herbert, delano|176     #     abraham, barack, clinton, barack|177     #     abraham, barack, clinton, delano|171     #     abraham, barack, delano, barack|176     #     abraham, barack, delano, clinton|171",
+            "follow-ups": [
+                {
+                    "feedback": "How are you attempting to filter the inputs? I can tell you right off the bat it's not just your second and fourth columns (third and fourth get swapped here):                #     barack, grover, clinton, delano|173     #     barack, grover, delano, clinton|173  Within a stack, dogs need to be in increasing order of height. Given 4 dogs, there is only one way to arrange them such that they are in increasing height order (since no two dogs share the same height), so the above output should be impossible. If you are inserting one dog at a time, you might want to filter within each INSERT INTO statement by conducting a comparison between the newest dog's height and the previous dog's height. It turns out that this comparison also prevents duplicates from appearing, such as what you have:                #     barack, clinton, grover, clinton|174     ...     #     barack, clinton, herbert, clinton|177     ...     #     abraham, barack, clinton, barack|177     ...     #     abraham, barack, delano, barack|176  See other followups above for more details if needed."
+                },
+                {
+                    "feedback": "Thanks! solved it."
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "Just wondering if there was a less redundant solution to this problem. Could we somehow use UPDATE to update each of the rows instead of inserting a new row for every new stack?",
+            "follow-ups": [
+                {
+                    "feedback": "`UPDATE` only allows you to update current rows, but we use `INSERT INTO` since each row from the previous iteration can have an arbitrary number of “child” rows—that is, stacks created by adding dogs on top of the current stack. For example, the stack A B C could spawn stacks A B C D or A B D E, so `UPDATE` wouldn’t really be applicable here, though. I bet you could find a way to do it with a very long `SELECT` statement, though, but I haven’t thought about that too much. Give it a try and let me know if it’s possible if you’re looking for other ways to solve this!"
+                },
+                {
+                    "feedback": "Oh yeah, UPDATE would restrict the number of rows that you can have. Thanks! The code I have right now is very repetitive but I guess it would be easier to read than a long SELECT statement lol."
+                },
+                {
+                    "feedback": "Ha, definitely. SQL can get very convoluted very quickly."
+                }
+            ]
+        },
+        {
+            "question": "I'm not really sure how to filter out duplicate dogs past the first INSERT INTO statement. I was comparing dogs != name at first, but that doesn't work after that because of the string concatenation we are doing. Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "Instead of comparing to the list of dogs, compare the height of each new dog to the height of the previously added dog; see the above followups for more detail."
+                },
+                {
+                    "feedback": "I'm trying to do that now, but it doesn't seem to work D:. In my INSERT INTO statement, I check `WHERE height != last_height` at the end."
+                },
+                {
+                    "feedback": "I think it's because the last_height is getting overwritten, meaning dogs 1 and 3, 1 and 4, and 2 and 3 can match. How would I go about preventing this?"
+                },
+                {
+                    "feedback": "Fixed it! For anyone stuck on a similar problem, make sure that your stack of dogs is increasing in height!"
+                },
+                {
+                    "feedback": "Good work! Glad you got it down"
+                }
+            ]
+        },
+        {
+            "question": "Does the order of the dogs matter?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhx0jnu546w%2Fk3gg6fid8c61%2F20191126_2.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Within stacks, dogs need to be in increasing order of height."
+                },
+                {
+                    "feedback": "You can sort in decreasing using the `ORDER BY [column] DESC` syntax."
+                },
+                {
+                    "feedback": "Cool, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk0mrhptxuvl7it%2Fk3gnwy44q7lu%2FAnnotation_20191126_182019.png)  : ^)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like your dogs are being stacked in the wrong order. Have you made sure to check that you can only stack shorter dogs on top of taller dogs? Delano shouldn’t be able to be stacked on top of Abraham, for example."
+                },
+                {
+                    "feedback": "Wait, that's a requirement?  If only I knew how to read, right?"
+                },
+                {
+                    "feedback": "Fixed! Thanks for pointing that out!"
+                },
+                {
+                    "feedback": "You’re welcome!"
+                }
+            ]
+        },
+        {
+            "question": "I'm a bit confused as to why the INSERT INTO statements would be the same for generating a stack of two, three, and four dogs. Currently, I think I've gotten the stacks of two dogs to work.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyga1q8dp76637%2Fk3hg9fqzkris%2FCapture.PNG)  But the way I got the stacks of two dogs is by inserting into stacks_helper the combination of two other rows of stacks_helper. But if I were to do the same thing again, wouldn't I already get stacks of 3 and 4 dogs? Because combining the stacks of 2 dogs and 1 dog would yield stacks of 3 dogs and combining stacks of 2 dogs would yield stacks of 4 dogs.",
+            "follow-ups": [
+                {
+                    "feedback": "Same anon as above...slight follow up. Are we supposed to be INSERTing INTO stacks_helper using the existing rows of stacks_helper or should we just reference the original dogs table each time?"
+                },
+                {
+                    "feedback": "I inserted into stacks_helper using the existing rows of stacks_helper as well as the dogs table in order to add a single dog to every existing row in stacks_helper. So you’d have four INSERT INTO statements total - one for creating stacks of one dog, and three identical statements that each create stacks of one additional dog, so after the third statement you’d have stacks of 1 + 3 = 4 dogs in your table, in addition to stacks of 3, 2, and 1 dog (none of the 3/2/1 stacks meet the height requirement of 170, so you don’t have to worry about them appearing in your final output)"
+                }
+            ]
+        },
+        {
+            "question": "This is the bottom of my current helper table stacks_helper once I INSERTed the second INSERT statement. How come I get duplicates with the first dogs name repeated twice, and why do I have 3 dogs? Isn't that what the third INSERT is supposed to do? I haven't gotten to adding the third dogs yet.  In my INSERT statement I made sure to include WHERE dogs.name < stacks_helper.dogs  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk3hnzdm3djxi%2FScreen_Shot_20191127_at_11.09.49_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Don't compare names, but rather compare the height of the newest dog to the height of the previous dog."
+                },
+                {
+                    "feedback": "but how come I'm getting three names?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk3hpq8u4bbo3%2FScreen_Shot_20191127_at_11.59.08_AM.png)"
+                },
+                {
+                    "feedback": "I honestly can't be too sure without knowing how you attempted to solve the problem, but I would recommend you implement the behavior I suggested regardless. My second/third/fourth INSERT INTO statements worked by setting the new stack's names via concatenating a new dog's name to the previous names, setting the new stack's height to the previous stack's height plus the new dog's height, and setting the new previous height to the height of the latest dog. I filtered the new dogs by comparing their height to the previous height."
+                },
+                {
+                    "feedback": "(My second insert statement) I basically inserted name || ', ' || dogs, height plus stacks_height, height WHERE height > last_height  Basically what you said"
+                },
+                {
+                    "feedback": "That doesn't seem to correspond to your output - your `last_height` column contains greater values than your `stacks_height` column, which is erroneous. Also, if you're concatenating the new name to the front of dogs, you would want to only allow dogs that have a _lesser_ height than the last height, since the desired order is increasing height left-to-right."
+                },
+                {
+                    "feedback": "sorry here is my current output:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk3hqxlthdne2%2FScreen_Shot_20191127_at_12.32.44_PM.png)"
+                },
+                {
+                    "feedback": "Are you sure you only have two INSERT INTO statements? Which tables are you selecting from"
+                },
+                {
+                    "feedback": "yeah, i am selecting from dogs and stacks_helper"
+                },
+                {
+                    "feedback": "What is your output with only the first INSERT INTO statement?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk3hrch4a2zch%2FScreen_Shot_20191127_at_12.44.31_PM.png)"
+                },
+                {
+                    "feedback": "This looks almost correct, but it repeats itself, meaning you have an issue with the statement. What is your methodology for the first INSERT INTO statement?"
+                },
+                {
+                    "feedback": "oh shoot how did i not notice that haha  im just inserting into stacks_helper and selecting name, height, height from dogs"
+                },
+                {
+                    "feedback": "oh so i realized nothings wrong with it, i just accidentally inserted it twice into the interpreter"
+                },
+                {
+                    "feedback": "i think im getting somewhere, thank you for making me realize my stupid mistakes"
+                },
+                {
+                    "feedback": "Haha no problem, it's always good to think through what you've done so far one step at a time"
+                },
+                {
+                    "feedback": "<https://en.wikipedia.org/wiki/Rubber_duck_debugging>"
+                },
+                {
+                    "feedback": "Glorious."
+                }
+            ]
+        },
+        {
+            "question": "Is anyone else finding the test case doesn't actually check properly? My code currently puts stacks of one, two, and three dogs in the stack_helper table. Then, I have stacks defined as SELECT * FROM stacks_helper, so that I could debug the results by running ok. However, after just this code, ok says that it passes all of the test cases, even though it clearly doesn't. None of the stacks even have a height greater than 170.",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, figured it out!"
+                },
+                {
+                    "feedback": "How did you figure it out? In case anyone comes across a similar issue"
+                },
+                {
+                    "feedback": "Oh, it was actually just me running the wrong command with ok. I hit the up arrow in the terminal without noticing and was running the test for sentences, not stacks."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Is there a way to do something like a for loop so that you won't have to write the insert statements repeatedly?",
+            "follow-ups": [
+                {
+                    "feedback": "It’s not in the scope of this class as far as I’m aware, but you could take a look at while loops in SQL [here](https://www.wiseowl.co.uk/blog/s348/loops- in-sql.htm) (not sure if this works with the provided staff interpreter; I’m currently occupied and unable to test right now)"
+                }
+            ]
+        },
+        {
+            "question": "I'm not really sure where to start with this problem. Would you mind explaining why we need to implement INSERT INTO statements?",
+            "follow-ups": [
+                {
+                    "feedback": "stacks_helper should end up containing all stacks of dogs, where each stack corresponds to a row. To generate all stacks of dogs, we can first insert all stacks of one dog using a simple INSERT INTO statement. The next three INSERT INTO statements will be identical to one another, as each of them will process all the current rows / stacks present in stacks_helper, generate stacks with one additional dog, and add those new stacks to stacks_helper."
+                },
+                {
+                    "feedback": "This makes sense, thanks so much for your help!"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain how to get started with this question? I don't understand why we need the stack_helper table.",
+            "follow-ups": [
+                {
+                    "feedback": "stacks_helper should end up containing all stacks of dogs. A total of four INSERT INTO statements are used to generate stacks of 1, 2, 3, and 4 dogs; the first statement should create all stacks of a single dog, while the next three INSERT INTO statements generate stacks consisting of the previous stacks with an additional dog added on. See the above followups for more details as needed."
+                },
+                {
+                    "feedback": "Oh, I get it now, thank you so much!!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "Can someone help me explain this error? I have repeated the INSERT INTO 4 times in my helper table. And not sure why my stacks table does not exist.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj4dkb8arg1g4bk%2Fk3rmzkcjntmw%2Fhw10p4.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "You have a syntax error in the statement constructing at least one of the two tables that is preventing stacks from being generated. Also, you should not have 4 identical INSERT INTO statements - you need a base case to create stacks of a single dog, and then the next 3 INSERT INTO statements should be identical."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp1w761923k%2Fk3rsmdrlqoyu%2Fhw10_stacks_error.PNG)  Does anyone know why is my list of dogs being ordered differently?",
+            "follow-ups": [
+                {
+                    "feedback": "Basically, if you are appending the newest dog's name to the end of the previous stack's names, you will want the newest dog to have a height greater than that of the previous dog, since the newest dog will come after the previous dog in the new stack. If you are appending the newest dog's name to the front of the previous stack's names, you will want the newest dog to have a height less than that of the previous dog, since the newest dog will come before the previous dog in the new stack. Therefore, if you're currently checking if the newest dog to be added has a height less than the previous height, switch it so that you check if it has a height greater than the previous height, and vice versa."
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting the expected output but my cases aren't passing because im also getting a  near \".\": syntax error  what does this meannnnn????????",
+            "follow-ups": [
+                {
+                    "feedback": "nvm i got it SMH"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected ordered output  # abraham, delano, clinton, barack|171  # grover, delano, clinton, barack|173  # herbert, delano, clinton, barack|176  # fillmore, delano, clinton, barack|177  # eisenhower, delano, clinton, barack|180  # but got  # no such column: dogs  #  # abraham, delano, clinton, barack|171  # grover, delano, clinton, barack|173  # herbert, delano, clinton, barack|176  # fillmore, delano, clinton, barack|177  # eisenhower, delano, clinton, barack|180  ?",
+            "follow-ups": [
+                {
+                    "feedback": "fixed it, error in helper table !"
+                }
+            ]
+        },
+        {
+            "question": "This seems quite a bit easier if you don't use the helper table, but results in a looooong select statement. That's probably due to my inexperience with insert into, so I'm going to try and solve it with that as well.",
+            "follow-ups": [
+                {
+                    "feedback": "Yeah I would recommend trying both approaches out."
+                },
+                {
+                    "feedback": "Mmmmmm it's barely longer than the sentences select statement. And yeah it was WAY easier to not use helper table."
+                }
+            ]
+        }
+    ]
+}

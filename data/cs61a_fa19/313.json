@@ -1,0 +1,122 @@
+{
+    "subject": "[Hog] Problem 8",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-8-2-pt\">Problem 8</a>\n\n<p> Please post all questions you have below concerning Problem 8 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": ">>> from hog import *     >>> dice = make_test_dice(3, 1, 5, 6)     >>> averaged_roll_dice = make_averaged(roll_dice, 1000)     >>> # Average of calling roll_dice 1000 times     >>> # Enter a float (e.g. 1.0) instead of an integer     >>> averaged_roll_dice(2, dice)  The first two rolls would be 3, 1 which leads to a total of 1 due to pig_out. The second two rolls would be 5, 6, total of 11.  11 + 1 = 12  12/ 4 = 3  What am I doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "You should be computing the average value of rolling the dice twice, not the average value of rolling the dice once."
+                },
+                {
+                    "feedback": "Would that be the total sum divided by 2 then?"
+                },
+                {
+                    "feedback": "Yes, because there are two possible results of rolling the dice twice, so to find the average of those, adding them and dividing by 2 does the trick."
+                },
+                {
+                    "feedback": "That would give 6, but that doesn't seem to be correct"
+                },
+                {
+                    "feedback": "Think about the make_averaged implementation: is the averaged value an integer or something else? Also notice the comment given in the output you posted:                >>> # Enter a float (e.g. 1.0) instead of an integer"
+                },
+                {
+                    "feedback": "It returns the function roll_dice."
+                },
+                {
+                    "feedback": "Oh I got it. Thank you!"
+                },
+                {
+                    "feedback": "Hey! I dont quite understand why we need to roll total 4 dice?"
+                },
+                {
+                    "feedback": "We aren't rolling 4 dice in total - we are rolling 2 dice 1000 times. The first two rolls will result in 1 (3 and 1), the next two rolls will result in 11 (5 and 6), the next two rolls will result in 1, the next two after that will result in 11, etc. 1000 is a multiple of 2, so we end up with 1 500 times and 11 500 times. So the average of 1 and 11 will give the average over 1000 calls to roll_dice."
+                },
+                {
+                    "feedback": "okay, thank you for your response. How exactly do you know we are rolling 2 dice 1000 times? I am having trouble fully understanding the code."
+                },
+                {
+                    "feedback": "averaged_roll_dice = make_averaged(roll_dice, 1000)  This line creates a function and binds it to the name \"averaged_roll_dice\" that, when called with the typical parameters of roll_dice, returns the average value of calling roll_dice with those parameters 1000 times."
+                }
+            ]
+        },
+        {
+            "question": "wait. I'm so confused. So if make_average makes the function return the average of the function fn over num_samples iteration, then what is the point of having the outputted function still take arguments? wouldn't the output function just return a constant every time that is based on whatever the function that was put into it averages out to? How does the output function use the arguments, if at all?",
+            "follow-ups": [
+                {
+                    "feedback": "make_average is intended to make a function that will return the average of calling the function that is passed in num_samples times, but we want to preserve the ability to find that average when passing in different arguments.  i.e. we can use make_average to make a function that will take a turn with a dice 1000 times and return the average, but we still need to be able to pass in how many rolls we are making on the turn."
+                }
+            ]
+        },
+        {
+            "question": "I didn't get the significance of calling the function 1000 times. Does that even factor in the calculation?  Assuming that I had a die with more arguments (say 100), am I right in understanding that there are more combinations of calling the die with a certain number of rolls, and hence in my solution I need to call the function that many times?  But then, what is the average? What is the solutions divided by?",
+            "follow-ups": [
+                {
+                    "feedback": "the context for this question is for potentially trying to figure out what num_rolls would be best on any given turn. since the result of the die may vary, we would want to average over a large number of rolls to get comparable information.  in this function in particular, we are interested in making a function that will call a given function a set number of times. however, we want to still be able to pass in the arguments to the original function that we are interested in calling it repeated times with."
+                }
+            ]
+        },
+        {
+            "question": "Do I use roll_dice function in my answer to get the sum?",
+            "follow-ups": [
+                {
+                    "feedback": "make_averaged has nothing to do with dice specifically."
+                },
+                {
+                    "feedback": "What exactly is the fn parameter of make_averaged?"
+                },
+                {
+                    "feedback": "Nevermind, got it"
+                }
+            ]
+        },
+        {
+            "question": "Could anyone give me a hint? I don't know where to start...",
+            "follow-ups": [
+                {
+                    "feedback": "Structure your answer in a similar fashion to the given example"
+                }
+            ]
+        },
+        {
+            "question": "when I try the given example on problem 8, it occurred  \"print() takes 1 positional argument but 2 were given\"  why?",
+            "follow-ups": [
+                {
+                    "feedback": "you may be reassigning the print function in some way - the default print function should not be raising this error."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error: TypeError: 'int' object is not iterable # Error: expected # 50.0 # but got # Traceback (most recent call last): # ... # TypeError: 'int' object is not iterable I'm not sure what's causing this issue or how to fix it; if someone could help, that would be great!",
+            "follow-ups": [
+                {
+                    "feedback": "some name that you are trying to call as a function is actually assigned to an integer - check to make sure you are not making any incorrect assignments like this!"
+                }
+            ]
+        },
+        {
+            "question": "does anyone have advice for the unlock problem:  from hog import *  >>> dice = make_test_dice(3, 1, 5, 6)  >>> averaged_dice = make_averaged(dice, 1000)  >>> # Average of calling dice 1000 times  >>> averaged_dice()",
+            "follow-ups": [
+                {
+                    "feedback": "What is the average value of rolling the test dice 1000 times?"
+                }
+            ]
+        },
+        {
+            "question": "Based on the example, does fn(*args) always result in a number?",
+            "follow-ups": [
+                {
+                    "feedback": "In the real-world, it doesn't always result in a number, but `make_averaged` will only be called with a function `fn` thats values can be summed and divided."
+                }
+            ]
+        },
+        {
+            "question": "so by my understanding, we want to return an averaged value of FN when called. is that value an integer? I keep getting                unsupported operand type(s) for +=: 'int' and 'function'  since i'm trying to update my average value with the returned value of the function. any advice?",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind, figured it out!"
+                }
+            ]
+        }
+    ]
+}

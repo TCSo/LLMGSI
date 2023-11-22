@@ -1,0 +1,61 @@
+{
+    "subject": "[Lab 14] Q6: Switch",
+    "content": "<a href=\"https://cs61a.org/lab/lab14//#q6\">Q6: Switch</a>\n\n<p> Please post all questions you have below concerning Q6: Switch in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk3qyriqnuhdd%2FScreen_Shot_20191203_at_11.20.44_PM.png)  Would anyone know why I'm getting this? I tested my code on the online interpreter and it seems to work fine",
+            "follow-ups": [
+                {
+                    "feedback": "Check every single parenthesis, particularly, make sure none are missing, in your file"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpui8zyi2q5%2Fk3s6g8ivdn8y%2FScreenshot_28.png) How do I evaluate expr so that when its an expression, number, and string I get what I want? If I use eval it can't get strings because they are looked up.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that you do not need to evaluate the values for the cases, only for `expr` itself. I used `(eval expr)` with no problems."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzon4oyc18p598%2Fk3sf9r5osghe%2Fbug.png)  I think the problem is that I am evaluating the values for the cases, but I don't know how to not evaluate it since I am using \",\"",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, I fixed it"
+                },
+                {
+                    "feedback": "I'm having the same problem. Could you give me some advice on that?"
+                },
+                {
+                    "feedback": "You aren’t supposed to evaluate the potential values in each case statement. So when you evaluate `expr`, it could be the value `a`, `b`, or `c`."
+                },
+                {
+                    "feedback": "I am getting this same error. How am I supposed to get (car x) where x is a value in cases without evaluating it? I have `(eq? ,expr ,(car x)) which allows me to pass the first two test cases. But I am unsure of how to compare to a, b, or c if they are not quoted in the cases."
+                },
+                {
+                    "feedback": "Try quoting it again after evaluating it, so something like ``(quote ,(car x))`. This ends up returning `(quote a)`, as the expression, which will just be converted to the symbol `a` after the post-macro evaluation."
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "When passing in expr and cases to switch during the recursive call, how do get rid of the implicit quotes that a macro puts on it's argument? I'm trying to call eval on both (and I've tried combos of calling just eval on one but not the other etc.) but I'm getting a ton of problems. I either have infinite recursion (if I call eval on expr in my recursive call) or I'm getting \"argument 0 of car has wrong type (str)\". Any help?",
+            "follow-ups": [
+                {
+                    "feedback": "`(eval expr)` is exactly how you’re supposed to evaluate your expression, since macros will automatically take everything in as an expression unevaluated. Check your base case to make sure you aren’t falling through."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure why I'm getting this error. I'm using (eval ,expr) to compare the value of expr to the values in the cases, but I don't think I'm ever trying to call 1, which is why I'm confused. Any ideas?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk3uhbkfa3bnh%2FScreen_Shot_20191206_at_10.23.56_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps your returned expression contains the value of the case at the beginning of a larger Scheme expression? Remember that there is an extra evaluation step that evaluates whatever the return value of your macro is. You can change `define-macro` to `define` and manually quote the inputs in the interactive interpreter in order to see the returned expression, if you want: ``` scm> (define-macro (twice expr) (list 'begin expr expr)) twice scm> (twice (print 2)) 2 2 scm> (define (twice expr) (list 'begin expr expr)) twice scm> (twice '(print 2)) (begin (print 2) (print 2)) ```"
+                }
+            ]
+        }
+    ]
+}

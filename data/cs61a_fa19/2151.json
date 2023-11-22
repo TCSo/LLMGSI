@@ -1,0 +1,62 @@
+{
+    "subject": "[Lab 12] Q4: The Smallest Unique Positive Integer",
+    "content": "<a href=\"https://cs61a.org/lab/lab12//#q4\">Q4: The Smallest Unique Positive Integer</a>\n\n<p> Please post all questions you have below concerning Q4: The Smallest Unique Positive Integer in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Hi. On the web page the it says \"  The first 5 lines of your output should look like this:                sqlite> SELECT * FROM smallest_int LIMIT 5;     11/17/2019 14:00:03|3     11/17/2019 14:05:27|3     11/17/2019 14:11:18|3     11/17/2019 14:41:41|3     11/17/2019 15:28:12|3  \"  This matches my solution. But I cannot pass ok because the test case is different.  \"# Error: expected   # 11/17/2019 14:10:47|3   # 11/17/2019 14:11:18|3   # 11/17/2019 14:26:51|3   # 11/17/2019 14:35:29|3   # 11/17/2019 14:47:47|3   # 11/17/2019 15:12:45|3   # 11/17/2019 15:43:46|3  ......  \"  Is there a mistake with this test case? Also the same happened for extra question Q6, the dates and times just don't match.",
+            "follow-ups": [
+                {
+                    "feedback": "Pretty sure the website just tells us the general form of output; my output matches what the test case wants. Double check all aspects of your solution.                smallest-int > Suite 1 > Case 1          sqlite> .read lab12.sql     sqlite> SELECT * FROM smallest_int;     11/17/2019 14:10:47|3     11/17/2019 14:11:18|3     11/17/2019 14:26:51|3     11/17/2019 14:35:29|3     11/17/2019 14:47:47|3     11/17/2019 15:12:45|3     11/17/2019 15:43:46|3     11/17/2019 16:13:09|3     11/17/2019 16:32:26|3     11/17/2019 17:29:55|3     11/17/2019 18:09:50|3     11/17/2019 13:58:37|4     11/17/2019 14:58:39|4     11/17/2019 15:36:41|4     11/17/2019 17:21:37|4     11/17/2019 19:04:46|4     11/17/2019 20:53:21|4     11/17/2019 21:46:41|4     11/17/2019 22:04:03|4     11/17/2019 14:14:28|5     -- OK! --          ---------------------------------------------------------------------     Test summary         Passed: 1         Failed: 0     [ooooooooook] 100.0% passed"
+                },
+                {
+                    "feedback": "how was this resolved? It seems like I did everything that it asked but the data is not matching up exactly. Mine matches with what is shown on the <https://cs61a.org/lab/lab12/> page but not the test case"
+                },
+                {
+                    "feedback": "Make sure you are ordering by `smallest`, restricting `smallest` to be > 2, and limiting to the first 20."
+                },
+                {
+                    "feedback": "got it - yea i was using the number column instead of the smallest column   thank you!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "how do you ensure that you only pick integers? I'm trying to use FLOOR() but it doesn't seem to be in sqlite.",
+            "follow-ups": [
+                {
+                    "feedback": "All the values are guaranteed to be integers."
+                },
+                {
+                    "feedback": "I'm getting 3.14159s in my answer. Not sure how to post picture though."
+                },
+                {
+                    "feedback": "You should be using the `smallest` column, not the `number` column."
+                }
+            ]
+        },
+        {
+            "question": "I am having a strange issue: I used the where clause correctly, but it doesn't filter the smallest properly.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh172oqsk2r0%2Fk394ovejekau%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "NVM got it"
+                }
+            ]
+        },
+        {
+            "question": "I am having a strange error that reports syntax error near WHERE  I think I have the order correct: select, from, order by, where, so I could not figure where the error is  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhvveruv466%2Fk3b7vqeahbig%2FWeChat_Image_20191122225304.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The correct order would be `SELECT [columns] FROM [tables] WHERE [condition] ORDER BY [ordering];`."
+                },
+                {
+                    "feedback": "I switched the order but the same error shows up"
+                },
+                {
+                    "feedback": "it's solved, i need to put limit at the very end, thanks though"
+                }
+            ]
+        }
+    ]
+}

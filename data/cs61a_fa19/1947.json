@@ -1,0 +1,317 @@
+{
+    "subject": "[Scheme] Problem 12",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-12-1-pt\">Problem 12</a>\n\n<p> Please post all questions you have below concerning Problem 12 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Is the implementation of do_and_form and do_or_form supposed to include the logic for (not) as well? I'm passing most of the tests, but the ones that include not aren't working because the answer's value isn't inverted.",
+            "follow-ups": [
+                {
+                    "feedback": "Be careful - I had the exact same issue; a little hint I can give you is that all strings are considered to be True``"
+                },
+                {
+                    "feedback": "Ok, gotcha."
+                },
+                {
+                    "feedback": "I don't get it! Can you please give a bigger hint Cyrus!!!"
+                },
+                {
+                    "feedback": "i'm stuck on the specific \"not\" test case, where they expect #t but i get #f"
+                },
+                {
+                    "feedback": "I’m not Cyrus, but I think you should just be ignoring whether there is a `not` there and just make sure that your `and` and `or` statements work correctly. `not` will only negate values, so if the `not` returns the wrong value, that means the inner function is also exhibiting incorrect behavior. `do_and_form` and `do_or_form` only handle `and` and `or` forms, and the `not` is either part of the arguments to be evaluated elsewhere or part of the larger expression which is also evaluated elsewhere."
+                },
+                {
+                    "feedback": "my mistake is that i was returning #f or #t instead of Python boolean values True/False, thanks a lot Nicholas!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk2pchekd5q09%2FScreen_Shot_20191107_at_3.29.14_PM.png)  Not sure why Im failing the above case.",
+            "follow-ups": [
+                {
+                    "feedback": "Check the implementation of your do_or_form. Are you short-circuiting correctly?"
+                },
+                {
+                    "feedback": "I did, again not sure whats wrong. What does \"test for mutation\" really refer to? perhaps that could help me figure out whats wrong."
+                },
+                {
+                    "feedback": "I believe that \"test for mutation\" refers to checking if the name y is bound to a new value in the new call to (other ...). Are you sure that it correctly creates a frame and binds a name in it?"
+                },
+                {
+                    "feedback": "Are we supposed to create frames and binds names in this Q? It may be that my previous Qs code may be flawed, though it passed all the cases. Which Q's code should I recheck? Thanks for your help!"
+                },
+                {
+                    "feedback": "I think that if you passed all the previous tests, then looking up of variables should be alright. Are you sure you implemented the logic of \"or\" correctly?"
+                },
+                {
+                    "feedback": "Ya so my if implementation was correct. For some reason, in my do_if_form:  if scheme_truep(scheme_eval(expressions.first, env)):   return scheme_eval(expressions.rest.first, env) **(this line was False, instead of whats listed here, not sure why/how).**  **Thanks!**"
+                },
+                {
+                    "feedback": "Same problem! How do you figure it out?"
+                },
+                {
+                    "feedback": "If you're altering the expressions parameter (for example, decrementing it) in the body of do_or_form, you'll alter that specific expression object for future calls. think about how you can get what you need from the expressions parameter without reassigning it!"
+                }
+            ]
+        },
+        {
+            "question": "How would you account for how 0 is a true value in scheme but not in python? I tried explicitly including if the value is == 0, but this led to #f being evaluated to True as well.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2qnkicek0so%2FScreen_Shot_20191108_at_1.27.28_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You don't have to explicitly account for this - just make sure to utilize the provided `scheme_truep` and `scheme_falsep` helpers properly"
+                },
+                {
+                    "feedback": "You shouldn't be explicitly checking if any values are true or false. As Cyrus said, we have the helpers scheme_truep and scheme_falsep for this reason!"
+                }
+            ]
+        },
+        {
+            "question": "Has anyone encountered the int not callable error? Trying to understand what it means and how to change my code to account for this error.",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind!"
+                },
+                {
+                    "feedback": "How did you fix this?"
+                },
+                {
+                    "feedback": "Usually this happens when you are wrapping something in Pair() more times than necessary. Scheme_eval sees an open parenthesis and expects an operator, but you have two."
+                },
+                {
+                    "feedback": "Hmmm, usually, by this point, you shouldn’t be handling raw `Pair`s as much anymore when it comes to dissecting operators and operands. How are you trying to evaluate your predicates in the `and` and `or` forms?"
+                },
+                {
+                    "feedback": "Also, to elaborate on exactly what the `int not callable error` means, it means you are trying to use an integer atom as the operator for an expression, such as when you try to call `(1 2)`. `1` is considered the operator, but it isn’t a procedure, so it errors."
+                }
+            ]
+        },
+        {
+            "question": "What could possibly be the problem here? Am I calling scheme_eval too many times? Also, is scheme_falsep() necessary or can I just use not scheme_truep()?  scm> (define x 0)   x   scm> (and (define x (+ x 1))   .... (define x (+ x 10))   .... (define x (+ x 100))   .... (define x (+ x 1000)))   x   scm> x   2111  # Error: expected   # 1111   # but got   # 2111",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like the last statement of the body of an `and` procedure is somehow getting evaluated twice, though I wouldn’t be able to tell you why without looking at your code."
+                },
+                {
+                    "feedback": "You are right and I fixed it. I was calling scheme_eval in an if statement and also returning a call to scheme eval, causing it to be evaluated twice."
+                },
+                {
+                    "feedback": "To fix I called it once and assigned that to a dummy variable."
+                },
+                {
+                    "feedback": "Also scheme_falsep() was not necessary."
+                },
+                {
+                    "feedback": "Hmmm. Yeah, you’re probably right that, in this case, `scheme_falsep` can just be the same as `not scheme_truep`. The only thing I would have to say about this is that it starts to get a little close to breaking an abstraction (though I’m pretty sure it’s too small to matter in this case). This would only really ever be a problem if there were a third type of value that were neither true nor false (say, it threw an error or something), so `scheme_truep` and `scheme_falsep` would have to be used, as well as a new function for the third value.      Again, in this case, the fact that we are evaluating what ends up being boolean values makes this unnecessary but it’s just food for thought, and it would probably be good practice anyway to use `scheme_falsep` rather than `not scheme_truep`. Just my opinion, though."
+                },
+                {
+                    "feedback": "I'm getting this same error but when I try to use a dummy variable I get an error:  Error: expected  # #f  # but got  # Traceback (most recent call last):  # ...  # AttributeError: 'nil' object has no attribute 'rest'  am I not supposed to be using .rest?"
+                },
+                {
+                    "feedback": "Make sure that if there are no more expressions left, you just exit and return `#t` for the `and` form or `#f` for the `or` form."
+                },
+                {
+                    "feedback": "I check for that before assigning the variable"
+                },
+                {
+                    "feedback": "Either way, you are still trying to call `rest` on `nil` somewhere in your code. Can you show me the full case you are failing? It’s easier to debug if we know what the buggy case is."
+                },
+                {
+                    "feedback": "I figured it out thank u so much for your help"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqzl21m9sob5on%2Fk2u1jouvvvpt%2FScreen_Shot_20191110_at_10.23.22_PM.png)Not sure why I am getting a NoneType error for this test. Any thoughts?",
+            "follow-ups": [
+                {
+                    "feedback": "I’ve noticed a lot of people are getting a `NoneType` error because of a mistake in handling parent frames and parent frame lookups in problem 10. Take a look there and see if you can spot an issue."
+                },
+                {
+                    "feedback": "Got it. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvlvhhwu9t3su%2Fk2u3ix8muo0d%2F%E9%97%AE%E9%A2%981.png)Does someone know how to fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you return False as soon as you encounter a False value in the inputs"
+                },
+                {
+                    "feedback": "One issue you could be having is that you aren’t evaluating your predicates before you check whether they are true or false with `scheme_truep` and `scheme_falsep`, so the `x` is taking as a literal `x`, which is a true value. I’m just guessing, though."
+                }
+            ]
+        },
+        {
+            "question": "Is expressions simply the list that follows the \"and\" or \"or\" boolean",
+            "follow-ups": [
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "Yep.  EDIT: There seems to be a consensus."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk2w5qsw6w6y1%2FScreen_Shot_20191112_at_9.56.33_AM.png)I dont understand why this doesn't raise an error?",
+            "follow-ups": [
+                {
+                    "feedback": "just kidding never mind"
+                },
+                {
+                    "feedback": "Just for anyone else who *is* wondering, it doesn’t error because `or` is a special form, and it short circuits evaluation once it finds a true value. Thus, `4`, is a true value, and the `#t` and `(/ 1 0)` are never even evaluated."
+                }
+            ]
+        },
+        {
+            "question": "Problem 12 > Suite 2 > Case 1              scm> (or)              # Error: expected       #     #f       # but got                     Run only this test case with \"python3 ok -q 12 --suite 2 --case 1\"       ---------------------------------------------------------------------       Test summary           4 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Are you checking the case when `expressions` is empty and making sure you’re returning `False` then? Remember that your function always has to return *something*."
+                },
+                {
+                    "feedback": "if expressions.first is nil should we return something?"
+                },
+                {
+                    "feedback": "From the question description:  >   > For `and`, your interpreter should evaluate each sub-expression from left to > right, and if any of these evaluates to a false value, then `#f` is > returned. Otherwise, it should return the value of the last sub-expression. > If there are no sub-expressions in an `and` expression, it evaluates to > `#t`.   > > >   > For `or`, evaluate each sub-expression from left to right. If any sub- > expression evaluates to a true value, return that value. Otherwise, return > `#f`. If there are no sub-expressions in an or expression, it evaluates to > `#f`.   >"
+                },
+                {
+                    "feedback": "recursive or iterator?"
+                },
+                {
+                    "feedback": "File \"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/importlib/__init__.py\", line 127, in import_module           return _bootstrap._gcd_import(name[level:], package, level)         File \"<frozen importlib._bootstrap>\", line 1006, in _gcd_import         File \"<frozen importlib._bootstrap>\", line 983, in _find_and_load         File \"<frozen importlib._bootstrap>\", line 967, in _find_and_load_unlocked         File \"<frozen importlib._bootstrap>\", line 677, in _load_unlocked         File \"<frozen importlib._bootstrap_external>\", line 724, in exec_module         File \"<frozen importlib._bootstrap_external>\", line 860, in get_code         File \"<frozen importlib._bootstrap_external>\", line 791, in source_to_code         File \"<frozen importlib._bootstrap>\", line 219, in _call_with_frames_removed         File \"/Users/harhe/Desktop/ucb/cs61A/scheme/scheme.py\", line 296           if expressions is \"or\""
+                },
+                {
+                    "feedback": "how to check expressions are \"or\" and \"and\"?"
+                },
+                {
+                    "feedback": "The special forms are already handled for you: When are you are in `do_and_form`, you know you already had an `and`, and when you are in a `do_or_form`, you know you already had an `or`. `expressions` refers to all the operators that were after `and`/`or`. You just need to evaluate and return appropriately."
+                }
+            ]
+        },
+        {
+            "question": "Error I'm getting:  Problem 12 > Suite 2 > Case 3  scm> (define x 0)  x  scm> (or (begin (define x (+ x 1)) #f)  .... (begin (define x (+ x 10)) #f)  .... (begin (define x (+ x 100)) #f)  .... (begin (define x (+ x 1000)) #f))  #f  scm> x  1  # Error: expected  # 1111  # but got  # 1  Run only this test case with \"python3 ok -q 12 --suite 2 --case 3\"  \\---------------------------------------------------------------------  Test summary  6 test cases passed before encountering first failed test case  What I tried to do with my or statement is split it into 3 base cases: if the expression is nil, if expressions.first is true, or if the expressions.rest is nil. Otherwise, I do a recursive call to do_or_form and pass in expressions.rest and a child frame object as the two arguments. So I go down each element in the paired list, and only stop if one is true or if I've reached the end.  I originally just passed in the current env frame as the second argument to the recursive call, but I was failing the earlier test case with the 'test for mutation.' when I changed env to Frame(env), which is creating a new child frame, I started passing that test case but now I'm failing this.,",
+            "follow-ups": [
+                {
+                    "feedback": "You should not be creating a new environment because special forms are evaluated in the parent frame itself, without creating a child frame. That is why your `x` is not being increased; it is increasing in the child frame but not in the parent frame. That probably means your real problem is in the “test for mutation” case—can you post more details about that?"
+                },
+                {
+                    "feedback": "I recently edited my code, and everything is working now. My main problem was figuring out how and when to convert expressions.first into scheme_eval(expressions.first, env). If I did it too few times, I might get a return value that's just unevaluated scheme code, but doing it too many times might accidentally evaluate things twice (for example, printing something twice). My fix was to assign a variable to scheme_eval(expressions.first, env) and then just reference that elsewhere in the body of the function, never calling scheme_eval again unless it was part of recursion."
+                },
+                {
+                    "feedback": "Sounds valid to me. Good work!"
+                }
+            ]
+        },
+        {
+            "question": "For and do we need to use recursion because it can have more than two elements? what about or? can it have more than 2 elements or is it always 1 or 2?",
+            "follow-ups": [
+                {
+                    "feedback": "`and` and `or` can take an arbitrary number of arguments. This problem can be solved either with recursion or iteration."
+                },
+                {
+                    "feedback": "Perfect, I wasn't 100% about that, thank you for the help!"
+                }
+            ]
+        },
+        {
+            "question": "What does this mean?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk2xt97de4jm%2FScreen_Shot_20191113_at_1.42.33_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you manually checking the number of arguments passed in with `check_form`? Keep in mind that both `and` and `or` can take zero arguments—check the problem description to learn what you should do in such a case."
+                },
+                {
+                    "feedback": "Got it, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Can someone tell me what scheme_truep and scheme_falsep do? If they test for whether scheme expressions are true or false, why do we need both instead of just one?",
+            "follow-ups": [
+                {
+                    "feedback": "They test whether Scheme _values_ are true or false. I recommend using both functions since that way you won't be violating the abstraction barrier by assuming that whatever is true must not be false, or vice versa."
+                },
+                {
+                    "feedback": "What should scheme_truep(nil) return? Because for me it is returning true..."
+                },
+                {
+                    "feedback": "`nil` is truthy in Scheme, so yes, it should return True. The only false-y value in Scheme is False (i.e. `#f`) itself."
+                },
+                {
+                    "feedback": "oh yeah! thanks bruh"
+                },
+                {
+                    "feedback": "No problem bruh"
+                },
+                {
+                    "feedback": "Also, if you were interested in seeing whether or not an _expression_ evaluates to a truth-y or false-y value, you would have to call `scheme_eval` on the expression and then `scheme_truep` or `scheme_falsep` on the result."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvtpqmt16l1iw%2Fk2ycho25dt9b%2F1.PNG)  Can someone explain why this would happen? Is there something wrong with the \"not\"? If so, I have no idea how I could fix this problem...",
+            "follow-ups": [
+                {
+                    "feedback": "Someone earlier made a mistake where they were returning the string `#f` rather than actual Python `True` and `False` values. Would that happen to also be your mistake? Otherwise, I’m not sure what your problem could be, since `not` is a built-in already implemented for you."
+                },
+                {
+                    "feedback": "Got it! Thank you so much!"
+                },
+                {
+                    "feedback": "Awesome!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnomiq8d21qc%2Fk2yfqspax7oq%2F1.jpg)  How do we detect `not`?",
+            "follow-ups": [
+                {
+                    "feedback": "You are not supposed to handle `not` at all. It should be handled for you automatically—it is a different part of the code. Someone earlier made a mistake where they were returning the strings `'#t'` and `'#f'` rather than actual Python `True` and `False` values. Would that happen to also be your mistake?"
+                },
+                {
+                    "feedback": "@Nicholas, thank you. That was it."
+                },
+                {
+                    "feedback": "I’m running into the same issue. Could you share some advice on how to detect not? Thanks."
+                },
+                {
+                    "feedback": "You should not be handling `not` at all. Keep in mind the principle of separation of concerns. There is another part of the code that will already handle the `not` procedure. If you are failing cases with `not` that expect `#t` but is returning `#f`, make sure you are returning Python boolean `True` and `False` values rather than `'#t'` and `'#f'` strings."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6lrwwl6o5s35z%2Fk37okpvukng6%2FScreen_Shot_20191120_at_11.23.42_AM.png)  I'm getting this error, and I don't know why exactly. Can scheme_eval not handle boolean values?",
+            "follow-ups": [
+                {
+                    "feedback": "scheme_eval can properly handle boolean values:                >>> f = create_global_frame()     >>> scheme_eval(False, f)     False     >>> scheme_eval(True, f)     True  You might be over-evaluating something? Remember that to see whether an expression evaluates to a True or False value, you can feed its `scheme_eval` result into `scheme_truep` or `scheme_falsep`"
+                }
+            ]
+        },
+        {
+            "question": "I get an error saying 'int' object has no attribute 'first'. for the case of (or (+ 1 1)) However I'm calling expressions.first. I thought expressions was (in this case) a list containing the integer 2. So why cant I call expressions.first to get the 2 value???",
+            "follow-ups": [
+                {
+                    "feedback": "Are you evaluating `expressions.first` using `scheme_eval` to obtain its value?"
+                },
+                {
+                    "feedback": "yes, I am. That is what is giving me the error. Any ideas?"
+                },
+                {
+                    "feedback": "`expressions` is going to be a list containing every expression after the `or`, since the form is stripped away before being passed to `do_or_form`, so in this instance, `expressions` would be `((+ 1 1))`, a one-element list containing the expression `(+ 1 1)`. However, you said that you are evaluating `expressions.first`, which shouldn’t be an issue, so I am not entirely sure what the issue could be. What I would recommend to start debugging would be to add a debug statement in `scheme_eval` to print out exactly what is being evaluated using something like `print(expr)` to try to get closer to the source of the bug."
+                }
+            ]
+        },
+        {
+            "question": "My scheme interpreter will evaluate user-defined functions such as:  >>> (define (eight) 8)  eight  >>> (eight)  8  But  >>> (define (zero) 0)  zero  >>> (zero)  This last statement returns nothing even though it should return 0. I think my code is correct for this part but one of the test cases is failing because of this error. How could i fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "For anyone wondering this was due to an error in my eval_all method."
+                },
+                {
+                    "feedback": "Caught me in the middle of typing a response, but I’m glad you figured it out!"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 06] Q8: Nonlocal Environment Diagram",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab06/#q8\" target=\"_blank\" rel=\"noopener noreferrer\">Q8: Nonlocal Environment Diagram</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q8: Nonlocal Environment Diagram in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjae0xob5cx%2Fk1ljplm3v766%2FWeChat_Image_20191010200222.png)  I am confused that in the line 6, function sun is in the function run, but when it changes the run the function but it does not appear in the function run. 2)In the last step, it should return two argument but in the diagram only the moon[0], namly 0, is returned. where is the moon[1]? Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "Sun is nonlocal, so def sun(sun) reassigns the first bound name not in the local frame. and returns the first false value, so it only returns moon[0]."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,112 @@
+{
+    "subject": "[Hog] Problem 11",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-11-2-pt\">Problem 11</a>\n\n<p> Please post all questions you have below concerning Problem 11 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "`Once you have implemented this strategy, change run_experiments to evaluate your new strategy against the baseline. You should find that it wins more than half of the time`  this strategy refers to bacon_strategy  What does this exactly mean?",
+            "follow-ups": [
+                {
+                    "feedback": "If you look in the code, and turn on testing the bacon strategy (under run_experiments), then type in console                python3 hog.py -r  you'll see a display of probabilities of winning the game."
+                }
+            ]
+        },
+        {
+            "question": "For test case 3 it says \"swap_strategy(6, 22, 100, 6)\"  Since the margin is 100, swap_strategy should return 6 to roll 6 times, however, the test case says 0 is the correct answer.  Is this an error in the test cases, or am I missing something?",
+            "follow-ups": [
+                {
+                    "feedback": "Margin only comes into effect for free baconing - the documentation says to swap for any beneficial occurrence"
+                },
+                {
+                    "feedback": "I'm also a bit confused by this...  The players have 6 points and 22 points and 6 * 6 = 36 and 2 * 2 = 4 so you can't swap here according to the Swine Swap rule, right? And as you said, free Bacon does not apply since the margin is 100 so don't you return 6? Please let me know where I'm going wrong -- thanks!"
+                },
+                {
+                    "feedback": "I think you try free_bacon before you try swapping. So player 0 would have 6 + (10 - 2) = 14 points. 1 * 4 = 2 * 2 = 4. And because 22 > 14, this swap would be beneficial."
+                },
+                {
+                    "feedback": "Swap Strategy is as follows:  You test if free baconing leads to a beneficial swap. If it does, you execute a swap.  If it doesn't lead to a swap, but the amount of points gained by free baconing still meets the margin, you still free bacon.      For this case, 1*4=2*2, so a beneficial swap happens (no need to see the margin). Anon above is right."
+                }
+            ]
+        },
+        {
+            "question": "swap_strategy(51, 9, 1, 6) Can somebody briefly explain why this case return 0?  My understanding is that 10 - 0 = 10, then 51 + 10 = 61, but 6 * 1 not equal to 9 * 9.  The return value of this case is 0. I am kinda confused.",
+            "follow-ups": [
+                {
+                    "feedback": "Margin = 1. As long as free baconing is above the margin, you free bacon."
+                },
+                {
+                    "feedback": "Understood. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Do we have to write our code all on one line since it says \"# Replace this statement\"?",
+            "follow-ups": [
+                {
+                    "feedback": "no, you are not restricted to one line."
+                },
+                {
+                    "feedback": "omg I already wrote it in one line, it's PAINFUL"
+                }
+            ]
+        },
+        {
+            "question": "swap_strategy(10, 0, 3, 6)  \\- swapping is not an option because it isn't beneficial  \\- if we free bacon, the score will be 10 + 10 = 20, which is more than the result of num_rolls: 6  so why is the expected answer 6? am i misunderstanding something?",
+            "follow-ups": [
+                {
+                    "feedback": "If we free bacon, the score becomes 20. However, this triggers a non- beneficial swap. From the problem statement: \"It also returns 0 if rolling 0 would give at least `margin` points, **unless this would cause a detrimental swap**.\"  Also, for what it's worth, (ignoring swaps for a second) rolling 0 dice would give 20 - 10 = 10 points, which is greater than the value of margin, which is 3. You shouldn't be comparing 20 and 6."
+                }
+            ]
+        },
+        {
+            "question": "What does this mean in the Project 1 page?                For example, change the first if False: to if True: in order to evaluate always_roll(6) against the baseline strategy of always_roll(4).  It seems not to be in the code.",
+            "follow-ups": [
+                {
+                    "feedback": "Check def run_experiments"
+                }
+            ]
+        },
+        {
+            "question": "Anyone see why this happens?  Question 11 > Suite 1 > Case 4  >>> from hog import *  >>> swap_strategy(48, 45, 1, 6)  0  # Error: expected  # 6  # but got  # 0  Run only this test case with \"python3 ok -q 11 --suite 1 --case 4\"  \\---------------------------------------------------------------------  Test summary  3 test cases passed before encountering first failed test case  I created my code based on what the question is asking me to do with an if- else statement. I used free_bacon before it, but I'm getting this error. I know why I have this error but can't figure out how to fix this.",
+            "follow-ups": [
+                {
+                    "feedback": "do you have conditions checking to avoid a detrimental swine swap?"
+                },
+                {
+                    "feedback": "Yes, I did use multiple conditions to avoid detrimental, so I fixed my code's error. I'm finished with the last problem"
+                }
+            ]
+        },
+        {
+            "question": "**Does anybody know what this error means?**  Question 11 > Suite 1 > Case 9  >>> from hog import *   >>> from tests.check_strategy import check_strategy   >>> check_strategy(swap_strategy)   Traceback (most recent call last):   File \"C:\\Users\\Ray Chang\\Desktop\\CS61A\\Projects\\hog\\tests\\check_strategy.py\", line 55, in check_strategy   check_strategy_roll(score, opponent_score, num_rolls)   File \"C:\\Users\\Ray Chang\\Desktop\\CS61A\\Projects\\hog\\tests\\check_strategy.py\", line 24, in check_strategy_roll   assert type(num_rolls) == int, msg + ' (not an integer)'   AssertionError: strategy(14, 22) returned None (not an integer)  # Error: expected  # but got   # Traceback (most recent call last):   # ...   # AssertionError: strategy(14, 22) returned None (not an integer)  Run only this test case with \"python3 ok -q 11 --suite 1 --case 9\"   \\---------------------------------------------------------------------",
+            "follow-ups": [
+                {
+                    "feedback": "your swap_strategy returned None, according to the following line from the error:                AssertionError: strategy(14, 22) returned None (not an integer)"
+                }
+            ]
+        },
+        {
+            "question": "If a swap is neither beneficial or detrimental(the two numbers are the exact same after being swapped), what should be returned for the swap_strategy function?",
+            "follow-ups": [
+                {
+                    "feedback": "it will then return 0 if it gives at least the margin number of points."
+                }
+            ]
+        },
+        {
+            "question": "I've already passed 5 cases, and I'm not sure where I'm going wrong. Me and my partner have reviewed our code over and over again, yet we can't really identify whats wrong. Is it possible that previously defined functions such as is_swap and free_bacon are wrong, which is why it now doesn't work for problem 11? Even if those functions passed all tests?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you take note of the fact that a swap where both scores are equal is considered neither beneficial nor detrimental/harmful."
+                }
+            ]
+        },
+        {
+            "question": "Can anyone explain why the output is 0? I'm so confused as to why it's 0. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi888j7n4dm%2Fk0g7z9rptf2g%2Fhog11.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Rolling 0 dice yields 1 point, which meets/exceeds the threshold of 1 point, and does not cause a detrimental/harmful swap."
+                }
+            ]
+        }
+    ]
+}

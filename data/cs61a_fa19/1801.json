@@ -1,0 +1,50 @@
+{
+    "subject": "[Lab 09] Q1: WWSD: Lists",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q1\">Q1: WWSD: Lists</a>\n\n<p> Please post all questions you have below concerning Q1: WWSD: Lists in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "The command-line scheme interpreter (python scheme) interprets `'()` as `()`, while the web interpreter (python editor) interprets `'()` as `nil`. As a result, the output of the last WWSD problem `'(cons 4 (cons (cons 6 8) ()))` depends on which editor you're using. Is this intentional behavior?",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry this is a bug in the online interpreter"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk2b67tv1zrwl%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191028182610.png)  Could anyone tell me why the answer is (1 list 2 3)? What exactly does quote do?",
+            "follow-ups": [
+                {
+                    "feedback": "The reason for this is the quote mark means that whatever is inside it is not evaluated, and simply written out as it is. Then the cons that joins the 1 to the (list 2 3) creates a large list of the 2 elements without the parentheses around list 2 3 and only around everything."
+                },
+                {
+                    "feedback": "Thank you! But why not it is not (1 (list 2 3))? Aren't the parenthesizes included in the quotation?"
+                },
+                {
+                    "feedback": "nvm, ' before a () constructs a new list."
+                }
+            ]
+        },
+        {
+            "question": "why do we keep parenthesizes in '(cons 1 2) and get (cons 1 2), but lost the parenthesized in '(list 2 3) and just see list 2 3?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm not sure what you mean  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6nu5oeeu8750l%2Fk2gg5gwxy6ot%2FScreen_Shot_20191101_at_11.03.29_AM.png)"
+                },
+                {
+                    "feedback": "I think Anon is referring to the following question:                scm> (cons 1 '(list 2 3))  ; Recall quoting  Here, the `car` of the list is 1 and the `cdr` of the list is a list that contains the elements `list`, 2, and 3. `(list 2 3)` would normally produce a list containing just 2 and 3, but keep the quote in mind! From there, think of how lists/pairs are printed in Scheme."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fijhvh153ycz4ke%2Fk2gv3s3258kd%2FCapture.PNG)  Could anyone tell me what went wrong here? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Solved!  But I'm still wondering why the scheme terminal displays it like this? Thanks!"
+                },
+                {
+                    "feedback": "() should display () it’s a bug with the web-based scheme interpreter that makes () show up as nil"
+                }
+            ]
+        }
+    ]
+}

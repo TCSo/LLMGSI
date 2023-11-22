@@ -1,0 +1,736 @@
+{
+    "subject": "[Hog] Problem 5a",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-5a-2-pt\">Problem 5a</a>\n\n<p> Please post all questions you have below concerning Problem 5a in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Why doesn't this output '81'?                >>> import hog     >>> always_three = hog.make_test_dice(3)     >>> always_seven = hog.make_test_dice(7)     >>> #     >>> # Use strategies     >>> # We recommend working this out turn-by-turn on a piece of paper.     >>> strat0 = lambda score, opponent: opponent % 10     >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)     >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)     >>> s0     ? 81     -- Not quite. Try again! --  Initially, score0 = 71. strat0 outputs (opponent % 10), which is 80 % 10 = 0, thus \"free bacon\" is activated, 10 - min(0,8) = 10. 71 + 10 = 81  Where did I go wrong here? Thanks a lot.",
+            "follow-ups": [
+                {
+                    "feedback": "I was also confused about this. Compute s2, and then see if something else needs to happen before inputting s0."
+                },
+                {
+                    "feedback": "nvm I figured it out I think it's the swine swap thing for anybody else wondering about this  so after the process mentioned above, score0 = 81, score1 = 80, strat2 = 4 -> rolls 4 dice -> 4*7 = 28 -> score1 = 80 + 28 = 108 -> 8 * 1 = 1 * 8 -> activates swine swap -> score0 = 108, score1 = 81"
+                },
+                {
+                    "feedback": "Arent strat0 and strat1 the strategies which output the number of dice the current player should roll? So shouldnt s0 be 71+10*7 before the switch?"
+                },
+                {
+                    "feedback": "Figured it."
+                },
+                {
+                    "feedback": "Quick question: how do we know the number of die each player rolls for the coding question 5 part a? Which function stores that value?"
+                },
+                {
+                    "feedback": "That's where the strategies come in - the strategy functions will output the number of dice to be rolled, given the player's score and their opponent's score"
+                },
+                {
+                    "feedback": "Is there a way of swapping the values in 5a, without needing to create a \"holder\" variable?"
+                },
+                {
+                    "feedback": "x, y = y, x  The above equation will swap variable in python without a holder"
+                },
+                {
+                    "feedback": "Thank you!"
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "But when you call s0, isn't it player0's turn to roll the dices? After this turn, player0's score changes to 81, while the score of the opponent is unchanged, 80, and this won't cause a swap. So can anyone explain why when you call s0, both player0 and player1 will roll? Thanks a lot!"
+                },
+                {
+                    "feedback": "The swap occurs not between 81 and 80, but between 81 and 108. After s0 takes its turn at gets 81, s1 takes its turn and uses the strategy of rolling 4 dice. 4 * 7 = 28. 80 + 28 = 108. 81 and 108 satisfy the swap rule, as 8*1=1*8."
+                },
+                {
+                    "feedback": "But you only call s0, so I guess only player0 will roll the dice. Is that right? I'm confused"
+                },
+                {
+                    "feedback": "well s0 takes its turn. then s1. then you check for a swap, you find one. and then the scores are flipped. you cannot check for a swap until both players have taken their turn"
+                },
+                {
+                    "feedback": "yes, I got it!! Thank you so much"
+                },
+                {
+                    "feedback": "no problem :)"
+                },
+                {
+                    "feedback": "I am having difficulty passing this test with my own code. I try to account for free bacon and swapping and I am hitting infinite loops even within my defined while loop. Any suggestions?"
+                },
+                {
+                    "feedback": "^I fixed this issue but I keep getting 80 instead of 108 and I am not sure why"
+                },
+                {
+                    "feedback": "Sorry for a really dumb questionl... but how did you guys deduce that we should use Free Bacon rule and swine swap rule?"
+                },
+                {
+                    "feedback": "where do we get strat2 from??"
+                }
+            ]
+        },
+        {
+            "question": "Question 5a > Suite 4 > Case 3          >>> import hog     >>> always_one = hog.make_test_dice(1)     >>> always_two = hog.make_test_dice(2)     >>> always_three = hog.make_test_dice(3)     >>> always = hog.always_roll     >>> #     >>> # Handle multiple turns with many swaps     >>> s0, s1 = hog.play(always(1), always(1), goal=20, dice=hog.make_test_dice(6, 1, 5, 3, 1, 10, 7), feral_hogs=False)     >>> s0     6          # Error: expected     #     12     # but got     #     6       Not able to understand why this would return 12. always(1) means only 1 roll, and with one roll dice would return 6. What am I forgettin/missing?",
+            "follow-ups": [
+                {
+                    "feedback": "Well you keep playing until one of them reaches the goal which is 20 in this case. However, I don't understand why it's 12 either."
+                },
+                {
+                    "feedback": "NVM I figured out! Because of the swaps."
+                },
+                {
+                    "feedback": "wait s2 would roll 1, so why would they swap?  1*2 doesn't equal 6*6"
+                },
+                {
+                    "feedback": ">>> import hog  >>> always_one = hog.make_test_dice(1)  >>> always_two = hog.make_test_dice(2)  >>> always_three = hog.make_test_dice(3)  >>> always = hog.always_roll  >>> #  >>> # Handle multiple turns with many swaps  >>> s0, s1 = hog.play(always(1), always(1), goal=20, dice=hog.make_test_dice(6, 1, 5, 3, 1, 10, 7), feral_hogs=False)  >>> s0  6  # Error: expected  # 12  # but got  # 6  Run only this test case with \"python3 ok -q 05a --suite 4 --case 3\"  \\---------------------------------------------------------------------  Test summary  9 test cases passed before encountering first failed test case  Backup... 0.0% complete  **I have the same error, but I am swapping. Any advice?**"
+                },
+                {
+                    "feedback": "Figured it out. If anyone else is having the same issue, despite swapping consider your code regarding other()"
+                },
+                {
+                    "feedback": "How we can use the other(player) function? It returns an integer value and I can't relate the int value with variables like score0 and score1."
+                },
+                {
+                    "feedback": "You use the other(player) function to update the variable \"player\" after each turn. Then, you use the variable \"player\" to figure out which score and strategy to use/update."
+                },
+                {
+                    "feedback": "Got it! Thank you!!"
+                },
+                {
+                    "feedback": "Having the same issue but I didn't use other(player) function in my code, just the score0/score1 variables. Is that function necessary in order to pass this test?"
+                },
+                {
+                    "feedback": "Edit: Nevermind!"
+                }
+            ]
+        },
+        {
+            "question": "When test for 5a. Don't actually understand this difference between Error and Assertion Error...  AssertionError: num_rolls must be an integer.  # Error: expected  # but got   # Traceback (most recent call last):   # ...   # AssertionError: num_rolls must be an integer.",
+            "follow-ups": [
+                {
+                    "feedback": "I think that Error: expected means that the ok grader was expecting a value but your code provided something different. In this case, there was an assertion error which is not what the program expected."
+                },
+                {
+                    "feedback": "I am running into the same error and I don’t know how to solve this since we are not editing strategy0 and strategy1, how can we make sure they return integer?"
+                },
+                {
+                    "feedback": "Oh! I just figure it out!"
+                },
+                {
+                    "feedback": "I'm having this same issue and can't figure out how to make num_rolls an integer. How did you resolve the issue?"
+                },
+                {
+                    "feedback": "You likely did not use the strategy functions properly in order to generate num_rolls. Calling a strategy function, passing in the player's score and their opponent's score, should return as an integer the amount of dice they would like to roll."
+                },
+                {
+                    "feedback": "I have the same issue, but mine is saying that always_roll(5) is not returning an int. always_roll passes its doctest but when I call it in interactive mode, it returns the strategy function. What should I do?"
+                },
+                {
+                    "feedback": "After giving the strategy functions arguments, I started encountering infinite loops instead. Does anyone have any clue as to why this is happening? Thanks!"
+                },
+                {
+                    "feedback": "I am also running into this problem, I defined always=always_roll in the interactive mode and when I call always(5) I am not returned an interger. Did anyone solve this?"
+                },
+                {
+                    "feedback": "I think I found a solution guys. In my code I treated strategy (strategy0 or strategy1) as in interger, but it's a function whose arguments are the scores of both players, so I replaced it by strategy(score,oppscore) and it seems to work"
+                },
+                {
+                    "feedback": "I tried putting strategy(score, oppscore) and I got infinite loop errors. I'm not sure why?"
+                },
+                {
+                    "feedback": "Yeah that's exactly what I'm trying to fix now XD I'll keep you guys posted if I find anything"
+                },
+                {
+                    "feedback": "Is there any way to see the actual test cases so I can try to figure out why case 4 goes into an infinite loop?"
+                },
+                {
+                    "feedback": "I solved it and in my case I had a really stupid bug. I had an if is_swap statement for the swine swap bit, but my statement didn't take the arguments of the swine swap function, so it was always true and swapped the scores infinitely.      Check if your implimentation of swine swap has the two arguments (score and oppscore or something)"
+                },
+                {
+                    "feedback": "I can't seem to get past the infinite loop error either. Is_swap doesn't seem to be the issue. Any ideas?"
+                },
+                {
+                    "feedback": "did you make sure that the score0 amd score1 variables were updated after the turn is taken? That was also a minor bug for me"
+                },
+                {
+                    "feedback": "Oh duh. That was it. Thanks!"
+                },
+                {
+                    "feedback": "my swine swap isn't the problem, and I also have updated score0 and score1 after each turn. still getting infinite loop errors. anyone know why this could be happening?"
+                },
+                {
+                    "feedback": "Same here. My swap seems fine and I update the scores after each round. Still stuck in an infinite loop. Also, I don't seem to get what the use of the variable \"player\" is in this question."
+                },
+                {
+                    "feedback": "I am also getting infinite loop errors,,,, any tips???"
+                }
+            ]
+        },
+        {
+            "question": "Wondering why 12 is expected for s0? When I did the turns according to the test die it appears the game ends when player 0 has a score of 19 and player 1 a score of 20.  P0: 0  P1: 0  P0: 6  P1 : 1  P0: 11  P1: 4  P0: 12  P1: 14  P0: 19  P1: 20  \\---------------------------------------------------------------------  Question 5a > Suite 4 > Case 3  >>> import hog  >>> always_one = hog.make_test_dice(1)  >>> always_two = hog.make_test_dice(2)  >>> always_three = hog.make_test_dice(3)  >>> always = hog.always_roll  >>> #  >>> # Handle multiple turns with many swaps  >>> s0, s1 = hog.play(always(1), always(1), goal=20, dice=hog.make_test_dice(6, 1, 5, 3, 1, 10, 7), feral_hogs=False)  >>> s0  19  # Error: expected  # 12  # but got  # 19  Run only this test case with \"python3 ok -q 05a --suite 4 --case 3\"  \\---------------------------------------------------------------------  Test summary  9 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "I think you were on the right track, but forgot to swap at one point. It might help to break down the steps even further.  **P0** : 0 **P1** : 0  **P0** : 0+6=6 **P1** : 0  **P0** : 6 **P1** : 0+1  **P0** : 6+5=11 **P1** : 1  SWAP! (1*1 = 1*1)  **P0:** 1 **P1:** 11  (so on so forth...)"
+                },
+                {
+                    "feedback": "Thank you! I was under the impression that we should only check for swaps after both players completed one turn. Having a check for swap after one player took a turn solved the issue!"
+                },
+                {
+                    "feedback": "Question 5a > Suite 2 > Case 1  >>> import hog    >>> always_three = hog.make_test_dice(3)  >>> always = hog.always_roll  >>> #  >>> # Play function stops at goal  >>> s0, s1 = hog.play(always(5), always(3), score0=91, score1=10, dice=always_three, feral_hogs=False)  Traceback (most recent call last):  File \"/Users//Desktop/cs61a/projects/hog/hog.py\", line 172, in play  score0=take_turn(x0, score1, dice)  File \"/Users/Desktop/cs61a/projects/hog/hog.py\", line 77, in take_turn  assert type(num_rolls) == int, 'num_rolls must be an integer.'  AssertionError: num_rolls must be an integer.  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AssertionError: num_rolls must be an integer.  Run only this test case with \"python3 ok -q 05a --suite 2 --case 1\"  \\---------------------------------------------------------------------  Test summary  3 test cases passed before encountering first failed test case  Backup... 100% complete  Am I still running with the tests or am I actually running my question 5 code? Because I have not written any code yet but it shows 3 tests passed. I have completed all my tests though."
+                },
+                {
+                    "feedback": "Those \"3 test cases passed\" are just the questions you answered correctly in order to unlock the coding part"
+                },
+                {
+                    "feedback": "oh ok, thanks. Also, do we use strategies in question 5 part a? Do i use it in the code?"
+                },
+                {
+                    "feedback": "Yes, strategies are part of 5a."
+                },
+                {
+                    "feedback": "Can anybody tell me why this AssertionError is happening? How can I make sure the strategy returns an integer since I am not coding strategy0 and strategy1"
+                },
+                {
+                    "feedback": "score0=take_turn(x0, score1, dice)  The first argument to take_turn here, x0, must not be an integer. If it is type integer, then you shouldn't have a problem."
+                },
+                {
+                    "feedback": "Oh, and for the question about strategies, you don't need to code strategy0 and strategy1. They are already coded (with integer outputs) for you in the test cases which you will check your function with."
+                },
+                {
+                    "feedback": "I'm having the same problem, but isn't strategy1 and strategy0 supposed to return an int value? I entered strategy0 and strategy1 for num_rolls in take_turn, but am still receiving this error."
+                },
+                {
+                    "feedback": "I have the same problem, and still don't know why it happened. It seems that it is strategies that caused the error. But since strategies are coded previousuly, then they are supposed to return integers, which will pass the assert statement...... I'm totally confused....Can anyone help me with this? Thanks a lot"
+                },
+                {
+                    "feedback": "for the strategies, make sure to pass score1 and score2 as their arguments"
+                }
+            ]
+        },
+        {
+            "question": "How do I make my test dice have different counters between players?",
+            "follow-ups": [
+                {
+                    "feedback": "You can't, unless you implement your own dice"
+                },
+                {
+                    "feedback": "How do I call the test dice twice to have the same outcome instead of cycling to the next outcome? (for suite 4 case 3)"
+                },
+                {
+                    "feedback": "Is there a reason you are trying to do that? That isn't necessary for a correct solution"
+                },
+                {
+                    "feedback": "After my first player takes their turn, when the second player rolls the dice, they get the second outcome instead of the same (first) outcome."
+                },
+                {
+                    "feedback": "Is it possible to make a duplicate dice? I tried by assigning dice0 = dice and dice1 = dice, but it seemed to keep the same counter anyways."
+                },
+                {
+                    "feedback": "I'm fairly certain that's how the test dice is supposed to work according to [the description in problem 0](https://cs61a.org/proj/hog/#problem-0-0-pt)."
+                },
+                {
+                    "feedback": "In that case, i'm confused why Suite 4, Case 3 states:  >>># Handle multiple turns with many swaps   >>> s0, s1 = hog.play(always(1), always(1), goal=20, dice=hog.make_test_dice(6, 1, 5, 3, 1, 10, 7), feral_hogs=False)  but my values are:  6 1  11 4  12 14  19 20  which don't swap at all?"
+                },
+                {
+                    "feedback": "I found the problem: it swaps after player0's turn (1 and 11), which I wasn't considering."
+                }
+            ]
+        },
+        {
+            "question": "\\---redacted---  Why is the output for s1 0? I got lucky on my guess, but what I think is that since s0 exceeded the goal of 10, by getting a score of 15, that is what caused the change of score for the opponent. Is my thinking correct?",
+            "follow-ups": [
+                {
+                    "feedback": "After obtaining a score of 15, player 0 finishes their turn. This score exceeds the goal score of 10, so they have already won the game, and player 1 doesn't get a chance to take a turn (and thereby get any points)"
+                },
+                {
+                    "feedback": "Yes, because s0 goes first and passed the goal, s1 never updates because the other player doesn't take a turn."
+                },
+                {
+                    "feedback": "Thank you gentlemen! I appreciate your help in providing me a better understanding to this problem."
+                },
+                {
+                    "feedback": "No problem!"
+                },
+                {
+                    "feedback": "Please do not post your solutions publicly (@367)"
+                }
+            ]
+        },
+        {
+            "question": "Hi, my code for 5a is failing one test  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk05y2ob5dwa2%2FScreen_Shot_20190904_at_5.19.35_PM.png)  This is what it's calculating, and my error is:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk05y3jkvatwk%2FScreen_Shot_20190904_at_5.19.54_PM.png)  I'm not sure where it's going wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "It seems that your code is not ending when player2 (or s1) is passing the goal of 20. Is your code checking after each turn if the win condition has been met?"
+                },
+                {
+                    "feedback": "I'm checking for the swap, and then checking the win condition for each player"
+                },
+                {
+                    "feedback": "Well once the second to last line 12, 21 is printed, your code is running once more, despite player 2 being at score 21 (greater than 20). Are you checking both players win conditions, not just whose turn it is?"
+                },
+                {
+                    "feedback": "Yes, that was my mistake. Rectified. Thanks so much!"
+                },
+                {
+                    "feedback": ":)"
+                }
+            ]
+        },
+        {
+            "question": "Why does score1 remain the same while score0 got points added when three dice are rolled? Shouldn’t they take turn to roll and both get points?![](https://piazza.com/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fqmwjslxbbmvc%2FIMG_6376.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "The game ends after player 0's turn in this case because player 0's score after their turn exceeds the goal score of 100. Player 1 doesn't get their turn as a result."
+                },
+                {
+                    "feedback": "I see! Thank you! Just forgot the three dice in all should be counted as one turn for player0."
+                },
+                {
+                    "feedback": "I don't understand how to answer this question. Someone please explain."
+                },
+                {
+                    "feedback": "So, the play function takes in a list of arguments. The main idea though is that the score of player 0 is 91 and the score of player 1 is 10. Always(5) is the strategy for player0 and always(3) is the strategy for player1 -- how many times each player will roll the dice. always_three calls the function make_test_dice which is the series of numbers that the dice can land on -- in this case 3. Remember, player0 will roll first and their strategy is to roll 5 times. once a score is >=100 the game is over."
+                },
+                {
+                    "feedback": "So, I know that after player s0 rolls, the game is over, but how do I type that in as a response to s1's turn?"
+                }
+            ]
+        },
+        {
+            "question": "How do we account for \"num_rolls\" without implementing the strategy functions?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to implement the strategy functions - you simply call them; they are given as parameters of the play function"
+                }
+            ]
+        },
+        {
+            "question": ">>> import hog >>> always_three = hog.make_test_dice(3) >>> always = hog.always_roll >>> # >>> # Play function stops at goal >>> s0, s1 = hog.play(always(5), always(3), score0=91, score1=10, dice=always_three, feral_hogs=False) For the above test case, my code says that the game should be over if a score is greater than 100, so it should stop playing, which is true. However, another test case: >>> import hog >>> always_three = hog.make_test_dice(3) >>> always_seven = hog.make_test_dice(7) >>> # >>> # Use strategies >>> # We recommend working this out turn-by-turn on a piece of paper. >>> strat0 = lambda score, opponent: opponent % 10 >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0) >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False) >>> s0 108 >>> s1 108 expects that my program will play the turn to the end, and THEN swap and return the scores. If I try to do this, the game shuts down with the following error: Traceback (most recent call last): File \"C:\\Users\\bethk\\Desktop\\cs61a\\projects\\hog\\hog.py\", line 133, in play score1 += take_turn(strategy1(score1, score0), score0, dice) File \"C:\\Users\\bethk\\Desktop\\cs61a\\projects\\hog\\hog.py\", line 68, in take_turn assert opponent_score < 100, 'The game should be over.' AssertionError: The game should be over. How do I both swap the scores at the end of the turn AND end the game for the other test case? I can't seem to pass both of them at once.",
+            "follow-ups": [
+                {
+                    "feedback": "To avoid the \"assert opponent_score < 100, 'The game should be over.'\" You will need to use a loop with some sort of condition inside of the play function.  For swap, use your is_swap function to check if swapping is needed. If the function returns true, then swap the values. To swap the values, implement a method that swaps two values.  I hope I am saying enough without saying too much. Please let me know if there is anything I can help you come to a better understanding of."
+                },
+                {
+                    "feedback": "A turn is when a single player rolls the dice and adds to their score. After each turn (ie after a player has finished adding to their score), you should check to see if they should swap scores using the is_swap function. Here's the order you should take for each iteration in the play function:  1\\. Call take_turn  2\\. Check is_swap and complete a swap if True  3\\. Return to the header of the while and ONLY continue if both scores are less than 100 (goal score)  If you do this, you will never call the take_turn method after the scores have exceeded 100, and you will complete any swaps needed even at the very end of the game. You should pass both tests."
+                },
+                {
+                    "feedback": "My swap function won't work and I'm not sure why. I checked if is_swap was True, and then did this: x,y = y,x. Any ideas guys?"
+                }
+            ]
+        },
+        {
+            "question": "After passing six test cases, I have an error from my code. My code returned 80 instead of 108, but when I use the is_swap function, then my code passes three test cases. Where should the is_swap function work properly?",
+            "follow-ups": [
+                {
+                    "feedback": "is_swap needs to be checked after each turn, specifically after the points have been added to the score."
+                },
+                {
+                    "feedback": "You while loop, if you are using one, should not end the moment the goal is reached, rather first the is_swap needs to be checked. Hope it helps!"
+                },
+                {
+                    "feedback": "As mentioned earlier, your while loop should first execute the take_turn and then call is_swap on the updated scores before you return to the while loop header and check whether the scores are lower than 100 (or other goal score)."
+                },
+                {
+                    "feedback": "^I did it in this order and it still won't swap them. Any ideas why?"
+                },
+                {
+                    "feedback": "are you checking for swapping at the end of each players' turn, player0 **and** player1?"
+                }
+            ]
+        },
+        {
+            "question": "My code for this problem passes 3 cases before the first failed (object error saying int is not callable when I call dice()) but I think I might be approaching this problem the wrong way. How should one go about this problem??",
+            "follow-ups": [
+                {
+                    "feedback": "dice is an integer. When you call dice(), you are trying to call an int as a function, which is impossible."
+                },
+                {
+                    "feedback": "If you think about, you don't really need to call the dice function because you already created a function take_turn() that can help you in this situation. You only need to take the dice parameter and pass it in as an argument to take_turn() which takes 3 parameters: num_rolls, opponent_score, and dice. Make sure you utilize functions we already created when writing your code for play(). This is how you take advantage of abstraction."
+                }
+            ]
+        },
+        {
+            "question": "Why does Python say                UnboundLocalError: local variable 'some_variable' referenced before assignment  when I perform += operation of a parameter/argument of a function in a function nested therein, while I can return that parameter in another nested function?  Like this:                def f(x):         def f1():             return x         def f2():             x += 1  where f1() works and f2() does not and gives the aforementioned error message.",
+            "follow-ups": [
+                {
+                    "feedback": "Good question. Python allows you to access variables from the parent frame (the frame a function is defined in). This means that both f1() and f2() have access to x. However, Python does NOT allow you to change non-mutable variables from the parent frame. So, while f1() and f2() can access and use x for evaluation, they cannot rebind x to a different value. We will learn later how to use nonlocal to fix this. But, for now, you could create a new dummy variable in f2() and assign x to it, and then change the dummy variable instead."
+                },
+                {
+                    "feedback": "I got this error message too, but I am still not sure how to fix it. It says \"UnboundLocalError: local variable 'second_score' referenced before assignment.\" However, I did not use the variable 'second_score' in question 5."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20190906_at_10.59.24_AM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpwcsdfk2rv%2Fk08fchieozdj%2FScreen_Shot_20190906_at_10.59.24_AM.png)  whenever I try to run this, I get an Indentation Error  Does anyone know how to fix this? I've already tried completely rewriting the code and closing and reopening Terminal and SublimeText",
+            "follow-ups": [
+                {
+                    "feedback": "If you're using SublimeText, there's an option to convert all indentation to spaces. It's in the bottom right-hand corner where it says \"Spaces: 4.\""
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxs69utbv9a1yp%2Fk08foj0lkxvn%2FCapture.JPG)I encounter with the first failed test after passing 0 cases. I have no idea why this case is not passing. Also, how do I supposed to use other function for this question? Thank you ahead!",
+            "follow-ups": [
+                {
+                    "feedback": "*after passing 9 cases"
+                },
+                {
+                    "feedback": "Don't forget about the swine_swap rule. You're on the right track just make sure you check whether a swap should happen after each player's turn.  With regards to the other function, you should use it to update the player variable after each turn."
+                },
+                {
+                    "feedback": "^^ comment above is good!  Also, check whether you're ending the game correctly, when **one** of the scores is over then end the game."
+                },
+                {
+                    "feedback": "Thank you so much for both of you."
+                }
+            ]
+        },
+        {
+            "question": "For this part, we are given this line of code \"player = 0\". Just wondering if we absolutely have to implement that into our code for the play function to receive full credit. Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "it is a strong suggestion to have some way to keep track of the player, but as long as the function by the end functions as intended, you do not need to use it."
+                }
+            ]
+        },
+        {
+            "question": "Question 5a > Suite 4 > Case 2          >>> import hog     >>> always_one = hog.make_test_dice(1)     >>> always_two = hog.make_test_dice(2)     >>> always_three = hog.make_test_dice(3)     >>> always = hog.always_roll     >>> #     >>> # Free bacon refers to correct opponent score     >>> s0, s1 = hog.play(always(0), always(0), score0=9, score1=92, dice=always_three, feral_hogs=False)     >>> s0     17     >>> s1     102          # Error: expected     #     101     # but got     #     102  I tested my code and it failed on this test. Why should the expected answer be 101?",
+            "follow-ups": [
+                {
+                    "feedback": "Since both players will always roll 0 die, the free bacon rule will be used every turn.  **P0:** 9 **P1** : 92  **P0:** 10 - min(9, 2) + 9 = 17 **P1** : 10 - min(1, 7) + 92 = 101  Hope that made sense!"
+                }
+            ]
+        },
+        {
+            "question": "I have a question concerning the evaluation of s0 and s1 in the following two cases (the unlock questions). I'm confused as to why in the latter question, s1 was evaluated, triggering swap to be implemented, whereas in the former case s1 was not evaluated. Note: if s1 had been evaluated in the former case the scores would have been the same and swapping would have been triggered. Furthermore, in both cases the goal was met by s0. Is there a subtle difference I'm missing/not understanding the implementation of swapping correctly?  (Former) s0, s1 = hog.play(always(5), always(5), goal=10, dice=always_three, feral_hogs=False)  (Latter) s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)  Thank you for the help and clarification!",
+            "follow-ups": [
+                {
+                    "feedback": "The reason that s1 was not evaluated (and thus triggering the swine swap) is because player 0 reached the goal before player 1 rolled, therefore ending the game."
+                },
+                {
+                    "feedback": "Ah I see now! Thank you!!"
+                }
+            ]
+        },
+        {
+            "question": "Hey all,  The Ok checks seem to be going well up until suite 3, case 1; they all fail after that. I can't help to think it's some kind of arithmetic error:                Question 5a > Suite 4 > Case 1          >>> import hog     >>> always_one = hog.make_test_dice(1)     >>> always_two = hog.make_test_dice(2)     >>> always_three = hog.make_test_dice(3)     >>> always = hog.always_roll     >>> #     >>> # Player 1 win     >>> s0, s1 = hog.play(always(4), always(4), score0=87, score1=88, dice=always_three, feral_hogs=False)     >>> s0     100          # Error: expected     #     99     # but got     #     100  I'm able to trace this correctly, I know that each score is supposed to increase by 12 each turn, making s0 = 99 and s1 = 100. Similar things are happening on each subsequent turn.                Question 5a > Suite 4 > Case 4          >>> import hog     >>> always_one = hog.make_test_dice(1)     >>> always_two = hog.make_test_dice(2)     >>> always_three = hog.make_test_dice(3)     >>> always = hog.always_roll     >>> #     >>> # Swine swap applies during Player 1 turn     >>> s0, s1 = hog.play(always(1), always(4), score0=39, score1=96, dice=always_two, feral_hogs=False)     >>> s0     100          # Error: expected     #     104     # but got     #     100  I know here that s0 = 104 and s1 = 41 after both have taken a turn, so I have no idea where s0 = 100 comes from. Also, the expected answer also implies that is_swap can occur after p1 has reached the goal score, unless I'm overlooking something.  Could anyone help me understand what's going wrong?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "OP here, I just checked my code again and corrected a detail that prevented players from swapping turns correctly, but I'm still getting unrelated scores."
+                },
+                {
+                    "feedback": "OP here again,  Resolved it. If you have a similar issue, consider how you're calling is_swap."
+                },
+                {
+                    "feedback": "Hey, I'm having similar issue with the s0=104 case. I call swap every time after I call take_turn, is the mistake in the placement of the swap function or?"
+                },
+                {
+                    "feedback": "No, where you're calling it is fine. Look into the parameters, or if you even have them (I didn't). Otherwise, calling if is_swap will always return True because the interpreter will read that as \"does is_swap exist?\""
+                },
+                {
+                    "feedback": "Hmm... I do call is_swap with two arguments though (the scores). If I try calling is_swap without any arguments my code wouldn't pass the earlier tests"
+                },
+                {
+                    "feedback": "Having the same issue even though I'm calling swap correctly. I don't understand where 100 is coming from. Any suggestions?"
+                },
+                {
+                    "feedback": "it looks as if both anons were able to resolved this on their own - if there are any follow up questions, please make a new follow up on this thread!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjbhgcj5er%2Fk0a6gku54yzf%2Fimpossible.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "s0= 106"
+                },
+                {
+                    "feedback": "wouldn't the score always increment by 1 because if it is a three sided dice and each player rolls it >= 3 times then they will always hit a 1. if that is the case, then by the rule \"pig out\" each player will continuously only get 1 point for their turn. so shouldn't the answer be 100 for s0? why isn't it?"
+                }
+            ]
+        },
+        {
+            "question": "Question 5a > Suite 2 > Case 1  (cases remaining: 8)  >>> import hog  >>> always_three = hog.make_test_dice(3)  >>> always = hog.always_roll  >>> #  >>> # Play function stops at goal  >>> s0, s1 = hog.play(always(5), always(3), score0=91, score1=10, dice=always_three, feral_hogs=False)  >>> s0  I don't understand how to get to the answer. Please help!",
+            "follow-ups": [
+                {
+                    "feedback": "So, the play function takes in a list of arguments. The main idea though is that the score of player 0 is 91 and the score of player 1 is 10. Always(5) is the strategy for player0 and always(3) is the strategy for player1 -- how many times each player will roll the dice. always_three calls the function make_test_dice which is the series of numbers that the dice can land on -- in this case 3. Remember, player0 will roll first and their strategy is to roll 5 times. once a score is >=100 the game is over.  i just finished this part so i think we are on the same part. if you would like to work together on the next two phases let me know!  (949)243-5577"
+                },
+                {
+                    "feedback": "So, why s1 isn't 19?"
+                },
+                {
+                    "feedback": "because when s0 rolls first it is over 100 so the game is over -- s1 doesn't get their turn"
+                },
+                {
+                    "feedback": "Oh! Thanks! I tried a lot about s1, but it always says Not quite. Try again. So, what is s1?"
+                },
+                {
+                    "feedback": "if i say it they'll probably delete it so just try and keep note of the score for each player  s0 = 90  s1= 10  dice can only roll a 3 -- if s0 rolls and their total score is over 100 then s1 doesn't get a chance to roll so their CURRENT value is what it should be"
+                },
+                {
+                    "feedback": "Thank you so much!!"
+                },
+                {
+                    "feedback": "ofc -- good luck!"
+                }
+            ]
+        },
+        {
+            "question": ">>> import hog   >>> always_three = hog.make_test_dice(3)   >>> always_seven = hog.make_test_dice(7)   >>> #   >>> # Use strategies   >>> # We recommend working this out turn-by-turn on a piece of paper.   >>> strat0 = lambda score, opponent: opponent % 10   >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)   >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)   >>> s0   108   >>> s1  I think s1 here should also be 108, but the answer is not correct, can someone explain this?",
+            "follow-ups": [
+                {
+                    "feedback": "how do you go about solving for s0? i'm struggling to figure out how many times they will roll."
+                },
+                {
+                    "feedback": "well, if you do the swine swap, then s0 swaps scores with s1. So s1 is now the score that pertained to s0."
+                },
+                {
+                    "feedback": "go step by step through the turns, and keep in mind that there is a check for a swap at the end of every turn."
+                },
+                {
+                    "feedback": "why is s0 108"
+                }
+            ]
+        },
+        {
+            "question": "Question 5a > Suite 4 > Case 4          >>> import hog     >>> always_one = hog.make_test_dice(1)     >>> always_two = hog.make_test_dice(2)     >>> always_three = hog.make_test_dice(3)     >>> always = hog.always_roll     >>> #     >>> # Swine swap applies during Player 1 turn     >>> s0, s1 = hog.play(always(1), always(4), score0=39, score1=96, dice=always_two, feral_hogs=False)     >>> s0     100          # Error: expected     #     104     # but got     #     100  I'm getting this error on case four, but I have implemented swap correctly. Any suggestions on what else I might be doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "I am having this same problem. I checked my is_swap but it is apparently returning true for 41 and 96. I have no idea why, and I am also stuck on this."
+                },
+                {
+                    "feedback": "judging by your submission, it seems like you were able to resolve this issue. please post a new follow up if you still have questions about this question!"
+                }
+            ]
+        },
+        {
+            "question": "Why is the value of s1 not also 15?  [Screen_Shot_20190907_at_4.54.08_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhl9cy4r411%2Fk0acnu9atgrb%2FScreen_Shot_20190907_at_4.54.08_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Because the game is over! s0 already reached the goal, which is 10. So since the game ends, s1 doesn't get to roll!"
+                },
+                {
+                    "feedback": "thank u!!"
+                }
+            ]
+        },
+        {
+            "question": "any tips in starting this question? I don't really know what I need to do.",
+            "follow-ups": [
+                {
+                    "feedback": "Start out by taking a turn (take_turn), checking if a swap is needed (is_swap), and checking the winning condition. That should be good place to start."
+                }
+            ]
+        },
+        {
+            "question": "My code seems to work if always is 0 or 1. Any other number, and it won't work. Any suggestions or reasons why this may be?",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean by \"always\"?"
+                },
+                {
+                    "feedback": "Always(1) (the strategy)"
+                }
+            ]
+        },
+        {
+            "question": "what exactly is the question asking you to do?",
+            "follow-ups": [
+                {
+                    "feedback": "[Screen_Shot_20190907_at_11.16.33_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk0al5jms3opy%2FScreen_Shot_20190907_at_11.16.33_PM.png)  Hopefully that makes it more clear."
+                },
+                {
+                    "feedback": "Sorry, answered in the wrong place^"
+                },
+                {
+                    "feedback": "using all of the helper functions you made so far, play should now \"run\" a game of hog, given two strategies, two initial scores, and a die."
+                }
+            ]
+        },
+        {
+            "question": "Is strategy an already made function or do I have to make it?",
+            "follow-ups": [
+                {
+                    "feedback": "Take note of the provided parameters strategy0 and strategy1"
+                }
+            ]
+        },
+        {
+            "question": "Can I change the placement of player = 0?",
+            "follow-ups": [
+                {
+                    "feedback": "yes, but the placement is a pretty good suggestion."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Not entirely sure what I'm doing wrong with my code but basically I can only pass the first three test case and then for the fourth test case, it returns a different value every time I try it. Is my code not actually running and it's just passing some kind of hidden tests and if so, how do I fix that? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "Check the swap function maybe? I had a similar issue, and I realized that there was an error with the way I'd set up my swap function.. (Not when I'm calling swap, but how the actual operations inside is_swap() are constructed"
+                }
+            ]
+        },
+        {
+            "question": "Is dice a function or is it just taken as six-sided with every case? For example, how does the code work when dice = always_three?",
+            "follow-ups": [
+                {
+                    "feedback": "If you call \"dice()\" it invokes whatever function \"dice\" is bound to."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I wrote a play function that seems to do everything it's supposed to, however when I inserted print statements to help me debug, it returned something strange. For example, for play(always_roll(2), always_roll(4),score0=0, score1=0, goal=10, dice=make_test_dice(2,3,4)) I received this output: player 0 rolling 2 dice you earned points player 0 score is 5 player 1 rolling 4 dice you earned points player 1 score is 13 (5, 13) where the portion was supposed to print out take_turn return value. Can anyone help me with this? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "I don't see any problem with your debug message. I think you are referring to (5,13) as the function return value.  This is something that we did not learn in class yet, but it's called tuple object. Since the play function returns two values separated by commas,  s1, s0 = play(...)  this will result in s1 and s0 for each left and right value that you see on your debugging prints"
+                },
+                {
+                    "feedback": "yes, this looks like it is working correctly afaik. are you failing a specific test?"
+                }
+            ]
+        },
+        {
+            "question": "Question 5a > Suite 4 > Case 4  >>> import hog   >>> always_one = hog.make_test_dice(1)   >>> always_two = hog.make_test_dice(2)   >>> always_three = hog.make_test_dice(3)   >>> always = hog.always_roll   >>> #   >>> # Swine swap applies during Player 1 turn   >>> s0, s1 = hog.play(always(1), always(4), score0=39, score1=96, dice=always_two, feral_hogs=False)   >>> s0   100  # Error: expected   # 104   # but got   # 100  does anyone know why this is occuring? My is_swap function is most likely correct, and I called it after each player takes a turn in the while loop.",
+            "follow-ups": [
+                {
+                    "feedback": "Ok so i figured it out! It was an issue with my is_swap function. I passed 14 tests in question 4 with my older code, but it seemed that it still needed debugging for question 5."
+                }
+            ]
+        },
+        {
+            "question": "Hi I keep getting an error on a test case, and I'm not sure how to fix it. Does anyone have any suggestions? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkznpwm9yqt5ae%2Fk0bl9wmxzqkp%2FScreen_Shot_20190908_at_4.00.01_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "double check the condition for your loop, right now the condition will never change within your loop, so it's an infinite loop"
+                },
+                {
+                    "feedback": ">>> # We recommend working this out turn-by-turn on a piece of paper.  >>> strat0 = lambda score, opponent: opponent % 10  >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)  >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)  >>> s0  81  # Error: expected  # 108  # but got  # 81  Run only this test case with \"python3 ok -q 05a --suite 3 --case 1\"  \\---------------------------------------------------------------------  Test summary  6 test cases passed before encountering first failed test case  I keep getting this error.  Here's the structure of my code:  -while loop that ends when the game is 'won'  -take _turn, add the points to score0  -check if a swap is needed, if it is, swap the values for score0 and score1  -check if the game has been won  -take_turn, add the points to score1  -check if a swap is needed, if it is, swap the values for score0 and score1  -check if the game has been won  -end loop  return score0, score1  I feel like this process makes sense...I'm not sure why it's not working. Please give any feedback or suggestions."
+                },
+                {
+                    "feedback": "Sorry, let me post this separately ^^^^^"
+                }
+            ]
+        },
+        {
+            "question": ">>> # We recommend working this out turn-by-turn on a piece of paper.  >>> strat0 = lambda score, opponent: opponent % 10  >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)  >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)  >>> s0  81  # Error: expected  # 108  # but got  # 81  Run only this test case with \"python3 ok -q 05a --suite 3 --case 1\"  \\---------------------------------------------------------------------  Test summary  6 test cases passed before encountering first failed test case  I keep getting this error.  Here's the structure of my code:  -while loop that ends when the game is 'won'  -take _turn, add the points to score0  -check if a swap is needed, if it is, swap the values for score0 and score1  -check if the game has been won  -take_turn, add the points to score1  -check if a swap is needed, if it is, swap the values for score0 and score1  -check if the game has been won  -end loop  return score0, score1  I feel like this process makes sense...I'm not sure why it's not working. Please give any feedback or suggestions.",
+            "follow-ups": [
+                {
+                    "feedback": "this sounds like the correct process - it would take a look at your code to figure out if this process is correctly translated into your code. judging by the doctest, it looks as if the swine swap check is not working correctly."
+                }
+            ]
+        },
+        {
+            "question": "my code makes it to case 4 but fails at:  s0, s1 = hog.play(always(5), always(5), goal=10, dice=always_three, feral_hogs=False)  the error I get is:  Error: evaluation exceeded 10 seconds - check for infinite loops  does anyone have advice on how to fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "make sure you are correctly updating score0 and score1, or that the condition for your while loop is correct."
+                }
+            ]
+        },
+        {
+            "question": "can someone check my code to see what I'm doing wrong? my code keeps returning 182 as the value of s0 rather than 106.",
+            "follow-ups": [
+                {
+                    "feedback": "it sounds like you are not correctly checking whether a player has won - make sure you are doing so at the end of every player's turn!"
+                }
+            ]
+        },
+        {
+            "question": "Are we supposed to use play() once? Or every turn?",
+            "follow-ups": [
+                {
+                    "feedback": "Running \"play\" function once should automatically play the game until the it is done."
+                }
+            ]
+        },
+        {
+            "question": ">>> import hog  >>> always_three = hog.make_test_dice(3)  >>> always_seven = hog.make_test_dice(7)  >>> #  >>> # Use strategies  >>> # We recommend working this out turn-by-turn on a piece of paper.  >>> strat0 = lambda score, opponent: opponent % 10  >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)  >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)  >>> s0  108  >>> s1  108  # Error: expected  # 81  # but got  # 108  I know it has something to do with my swap function, but why didn't it swap s1 also?",
+            "follow-ups": [
+                {
+                    "feedback": "I would check how you're implementing the actual swap after checking `is_swap` \\- try running it through pythontutor or an environment diagram to make sure you're actually swapping them."
+                }
+            ]
+        },
+        {
+            "question": "Question 5a > Suite 4 > Case 3  >>> import hog  >>> always_one = hog.make_test_dice(1)  >>> always_two = hog.make_test_dice(2)  >>> always_three = hog.make_test_dice(3)  >>> always = hog.always_roll  >>> #  >>> # Handle multiple turns with many swaps  >>> s0, s1 = hog.play(always(1), always(1), goal=20, dice=hog.make_test_dice(6, 1, 5, 3, 1, 10, 7), feral_hogs=False)  >>> s0  12  >>> s1  27  # Error: expected  # 21  # but got  # 27  Run only this test case with \"python3 ok -q 05a --suite 4 --case 3\"  what went wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "it appears that there is an extra turn being taken for player2 after they should have won. (run through the turn by turn on your own, then take an extra turn to see this)"
+                }
+            ]
+        },
+        {
+            "question": "Hi, does anyone have an idea why I might be getting 101 instead of 108 for this test case?  \\----  Question 5a > Suite 3 > Case 1  >>> import hog  >>> always_three = hog.make_test_dice(3)  >>> always_seven = hog.make_test_dice(7)  >>> #  >>> # Use strategies  >>> # We recommend working this out turn-by-turn on a piece of paper.  >>> strat0 = lambda score, opponent: opponent % 10  >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)  >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)  >>> s0  101  # Error: expected  # 108  # but got  # 101  Run only this test case with \"python3 ok -q 05a --suite 3 --case 1\"  \\----  I use the take_turn() function, then check for a swap, and check if either player has won after each turn.  Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "I am having this same exact problem well. Does anyone have advice?"
+                },
+                {
+                    "feedback": "Hey! I was just able to resolve this issue because I was calling other(player) but not attaching that to a variable that actually changed the value of player. Hope that helps!"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I keep receiving indentation errors when the indentations look fine. Any idea why this might be the case?",
+            "follow-ups": [
+                {
+                    "feedback": "Check if there are extra spaces along with the indentations and if all the blocks (while blocks, if blocks, etc...) are indented properly."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "How to avoid \"the game should be over\"? Thank you very much!",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you aren't calling take_turn with parameters (scores) greater than 100 - that error comes from the assertion error at the top of `take_turn`."
+                }
+            ]
+        },
+        {
+            "question": "Hello! I absolutely cannot find why I am getting an answer 1 short on this problem  Question 5a > Suite 3 > Case 1  >>> import hog  >>> always_three = hog.make_test_dice(3)  >>> always_seven = hog.make_test_dice(7)  >>> #  >>> # Use strategies  >>> # We recommend working this out turn-by-turn on a piece of paper.  >>> strat0 = lambda score, opponent: opponent % 10  >>> strat1 = lambda score, opponent: max((score // 10) - 4, 0)  >>> s0, s1 = hog.play(strat0, strat1, score0=71, score1=80, dice=always_seven, feral_hogs=False)  >>> s0  109  # Error: expected  # 108  # but got  # 109",
+            "follow-ups": [
+                {
+                    "feedback": "Try printing resulting score for each round using print(\"DEBUG:\", ...)!"
+                }
+            ]
+        },
+        {
+            "question": "I am not sure if I understand play correctly: once called, it \"plays\" the whole game? Meaning develops new strategies (or the same one) until one player wins or exceeds the goal value?",
+            "follow-ups": [
+                {
+                    "feedback": "it will play the entire game until a player wins, and will use the same strategies throughout the game for both players."
+                }
+            ]
+        },
+        {
+            "question": "I am getting an infinite loop after 3 test cases passed??",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're updating both score0 and score1. The 3 cases passed are the tests you answered to unlock the module. There is another comment thread above that kind of resolves infinite loop errors but may or may not answer your question."
+                },
+                {
+                    "feedback": "Could someone please look at my code to assist?"
+                },
+                {
+                    "feedback": "I am updating both scores and switching between the players as well."
+                },
+                {
+                    "feedback": "Try submitting your code to Piazza privately. Students aren't allowed to access them, but TAs and instuctors can probabaly help you"
+                }
+            ]
+        },
+        {
+            "question": "Since it keeps returning 2 instead of 12, could this possibly mean problem 4 is wrong and that's why #5a won't pass?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5gk45uqr445h%2Fk0h2rphg82lb%2FScreen_Shot_20190912_at_12.15.48.png)",
+            "follow-ups": [
+                {
+                    "feedback": "this may be a result of the swap, or a result of not checking for a swap in all places that you should be."
+                }
+            ]
+        }
+    ]
+}

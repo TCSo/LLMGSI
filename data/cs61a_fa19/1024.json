@@ -1,0 +1,305 @@
+{
+    "subject": "[Cats] Problem 2",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-2-2-pt\">Problem 2</a>\n\n Please post all questions you have below concerning Problem 2 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nHere are some tips if you&#39;re stuck:\n- Define a function and return it. \n\n<pre>\ndef about(topic):\n    def select(paragraph):\n        ...\n    return select\n</pre>\n\n- Look for a word in the topic, and if you find one, return True. If you never find one, return False.",
+    "threads": [
+        {
+            "question": "I from utils import lower, aplit function, but when I run the codes, it shows \"free variable 'lower' referenced before assignment in enclosing scope\". Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "All functions are imported from utils.py already - you don't need another import statement"
+                },
+                {
+                    "feedback": "\"\"\"Return a select function that returns whether a paragraph contains one   of the words in TOPIC.  Does the select function return just True or False"
+                },
+                {
+                    "feedback": "Yes"
+                }
+            ]
+        },
+        {
+            "question": "Why does dogs('A paragraph about dogs.') return True? If you split the string you get ['A','paragraph','about','dogs.'] 'dogs.' is not the same as 'dogs'",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you read the full question, here's an excerpt:  \"To make this comparison accurately, you will need to ignore case (that is, assume that uppercase and lowercase letters don't change what word it is) **and punctuation**.\""
+                }
+            ]
+        },
+        {
+            "question": "can we use .find()?",
+            "follow-ups": [
+                {
+                    "feedback": "I don't believe it's been taught to us, and this problem can definitely be solved without it, so I would stick away from it for now"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error on the return s.lower() of the lower function.  AttributeError: 'function' object has no attribute 's'",
+            "follow-ups": [
+                {
+                    "feedback": "You're likely not calling the lower function properly"
+                },
+                {
+                    "feedback": "`abs.lower()` would give you that error, but `\"Hello\".lower()` would not."
+                }
+            ]
+        },
+        {
+            "question": "Problem 2 > Suite 2 > Case 2  >>> from typing import about  >>> ab = about(['pomacentrid', 'snary', 'related'])  >>> ab('Urelated pyrexical ure\"+lated tasmanite relAteDT snaryf imputedly')  True  # Error: expected  # False  # but got  # True  'related' and 'snary' appear in the paragraph, but **why the result is expected to be False?**",
+            "follow-ups": [
+                {
+                    "feedback": "Because the words have to match a topic exactly (ignoring punctuation and lower/uppercase)"
+                },
+                {
+                    "feedback": "Got it. Thank you!"
+                },
+                {
+                    "feedback": "**I** 'm getting the same issue with my code and I understand that it should match the topic exactly, but how should I convey that? Right now I'm using the if X in X: function to return True/False, but I just don't know how to emphasize the fact that it has to be exact."
+                },
+                {
+                    "feedback": "If two strings are exactly equal then == returns True. See an example below of how you might check if two strings are exactly equal:                from utils import *       >>> word1 = 'Hello!'       >>> word1       'Hello!'       >>> word2 = 'hello'       >>> word1 == word2       False       >>> lower(word1) == word2 # hello! == hello       False       >>> word2 in lower(word1) #hello in hello!       True       >>> remove_punctuation(word1) == word2 # Hello == hello       False  Notice that it is a bit different than the in operator as it checks if the strings are exactly the same rather than just checking if one string is contained within another. == is as close to exact equality as you can get with strings."
+                }
+            ]
+        },
+        {
+            "question": "I honestly don't know what's happening but I'm getting this error when I run my code;  Problem 2 > Suite 1 > Case 1  >>> from typing import about  >>> dogs = about(['dogs', 'hounds'])  >>> dogs('A paragraph about cats.')  Traceback (most recent call last):  FileNotFoundError: [Errno 2] No such file or directory: 'A paragraph about cats.'  # Error: expected  # False  # but got  # Traceback (most recent call last):  # ...  # FileNotFoundError: [Errno 2] No such file or directory: 'A paragraph about cats.'",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably calling `lines_from_file` when you should not be doing so at all"
+                }
+            ]
+        },
+        {
+            "question": "Does anyone know why I am getting this error?  Problem 2 > Suite 1 > Case 1  >>> from typing import about   >>> dogs = about(['dogs', 'hounds'])   >>> dogs('A paragraph about cats.')   False   >>> dogs('A paragraph about dogs.')   True   >>> dogs('Release the Hounds!')   False  # Error: expected   # True   # but got   # False",
+            "follow-ups": [
+                {
+                    "feedback": "Notice that dogs is a function that checks whether the string passed in contains either 'dogs' or 'hounds' when we ignore capitalization and punctuation. Therefore, when we call dogs('Release the Hounds!'), this should give true, because if we ignore case and punctuation, the word 'hounds' is in the string.  Your function seems to be returning False for this case. Be sure that your function accounts for case and punctuation."
+                },
+                {
+                    "feedback": "I'm getting the same error, but I made sure to remove punctuation and make all of the letters lowercase (I used print to verify). My function worked for dogs('A paragraph about cats.') and dogs('A paragraph about dogs.'), but I keep getting False for \"Release the Hounds!\""
+                },
+                {
+                    "feedback": "Interesting. I have no idea what you coded, but the only ways this could happen is if you aren't looping through every word in topic or the paragraph correctly, or you aren't checking if the words match properly. I would check both of these. If it's neither, then I'm not quite sure."
+                },
+                {
+                    "feedback": "It could possibly be the exclamation point in \"Release the Hounds!\"."
+                }
+            ]
+        },
+        {
+            "question": "Hi there,  My partner and I have been having difficulty with the autograder on this problem. We ended up putting our code into Pythontutor to see where the error was being thrown, and it's being thrown with the assert statement that was given to us.                assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'  Is anybody else having this problem? Please let me know!",
+            "follow-ups": [
+                {
+                    "feedback": "is this the same error you are getting in the autograder? likely if you are testing your code in Python Tutor, you are giving input in topics that contains uppercase letters, which is not a valid argument. the autograder should only give valid lowercase topics when testing your implementation."
+                },
+                {
+                    "feedback": "got it, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "What functions does utils.py include? How can it be helpful?",
+            "follow-ups": [
+                {
+                    "feedback": "Take a look: http://cs61a.org/proj/cats/utils.py"
+                }
+            ]
+        },
+        {
+            "question": "Not sure how to start this one. I know I'm going to be using a helper function, but not sure how to apply the string utility functions provided since About takes a list as its argument while the utility functions only take strings as arguments.",
+            "follow-ups": [
+                {
+                    "feedback": "Well we know that about will be a higher order function since it is specified that it will return a function. Take a look at what this returned function takes in as input. The instructions say that \"The returned function takes a paragraph and returns whether that paragraph contains any of the words in topic.\" A paragraph is a String, so you can use the string utility functions on it."
+                },
+                {
+                    "feedback": "Thanks, your advice really helped me to understand the problem better and get on the right track. :D"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6wldnh09m0nu%2Fk12ut94b5jy7%2FScreen_Shot_20190927_at_6.04.46_PM.png)  So I'm getting this error, but I made sure that punctuation was removed and all the letters were switched to lowercase using the utility functions. I made sure to check with a print function and I'm definitely changing 'Release the Hounds!' to 'release the hounds' before my function checks to see if it contains 'dogs' or 'hounds'.",
+            "follow-ups": [
+                {
+                    "feedback": "Your code is likely not properly checking for the words in `topic`"
+                },
+                {
+                    "feedback": "How would we go about going through every word in topic? I'm getting the same error."
+                },
+                {
+                    "feedback": "'topic' is a list or an iterable object. What statement allows you to iterate through elements of an iterable object?"
+                }
+            ]
+        },
+        {
+            "question": "I don't quite understand how to use the lower function. Is 's' just one letter, or the whole word? and what is its syntax? s.lower() or lower(s)? I am trying to use it and doesn't seem to be making any modifications to my letters.",
+            "follow-ups": [
+                {
+                    "feedback": "If we're assuming s is bound to some string, you can use it like lower(s). s can be any length, so long as it is a string. See the code blow for an example.                >>> from utils import *       >>> s = \"CATS\"       >>> s       \"CATS\"       >>> lower(s)       \"cats\""
+                },
+                {
+                    "feedback": "so I'm trying to loop through each word in the list with a for loop and apply 'lower' to each word, but i need to reassign it to the list. How would I go about doing that? Because what im doing isn't working"
+                },
+                {
+                    "feedback": "never mind i got it with a while loop, but i would still like to know how to go about it with a for loop."
+                },
+                {
+                    "feedback": "Well, you could just reassign each index manually like this example does:                >>> from utils import *       >>> l = ['SOME', 'LIST', 'OF', 'WORDS']       >>> l[0] = lower(l[0])       >>> l[0]       'some'       >>> l       ['some', 'LIST', 'OF', 'WORDS']  If you need to do it with all values in the list, you could just write a for loop to go through each index in the list and repeat what this example above does which is to get the word at the index, and set the value at that index in the list to the lowercase version of the string."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  The 'from utils import *' wildcard is giving me error \"F403: 'from utils import *' used; unable to detect undefined names\". Running the code with okpy gives error \"no attribute 'lower'\". My linting engine (ALE for Neovim) is also highlighting 'lower' and 'split' as errors. Everything works when I change the import statement to 'from utils import lines_from_file, remove_punctuation_, lower, split'. I'm using the latest version of Python for Arch Linux. Should I keep the import statement modified? Otherwise, how should I proceed? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "That \"error\" isn't an actual error, but just something your linting engine claims is a problem. You can leave the line modified or unmodified; it doesn't matter. Your code is simply graded by course staff via re-running the test cases, so as long as your code works, you'll get credit."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error after I make 'words' the split list inside of the select function I defined within about:  if topic[i] == words[g]:   TypeError: list indices must be integers or slices, not str",
+            "follow-ups": [
+                {
+                    "feedback": "`i` and `g` must be integers or slices, make sure neither of them are strings"
+                }
+            ]
+        },
+        {
+            "question": "I did list[ind].remove_punctuations()  But it kept on showing up errors of  'builtin_function_or_method' object is not subscriptable.",
+            "follow-ups": [
+                {
+                    "feedback": "remove_punctuations is a function defined in the global environment, so you shouldn't be using dot notation. Call it as you would any other function"
+                }
+            ]
+        },
+        {
+            "question": "[redacted]",
+            "follow-ups": [
+                {
+                    "feedback": "You're missing a parenthesis on the previous line"
+                },
+                {
+                    "feedback": "Please do not post your code publicly, as someone else can copy and cause your code to be flagged for plagiarism"
+                }
+            ]
+        },
+        {
+            "question": "From when I initially downloaded the project and ran my code for problem 2, I've been receiving this error about the import statement. I was able to comment it out for problem 1 but since I need to utilize the functions in utils.py for problem 2, I'm unable to figure out how to fix this error. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7gz9tt04wb%2Fk15a7z2hf81z%2FScreen_Shot_20190929_at_10.50.16_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably running the program in Python 2"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm getting a nonetype object is not callable error. Could it be how I'm using the utility functions?",
+            "follow-ups": [
+                {
+                    "feedback": "Yeah, you need to pass in a non-None value into them"
+                },
+                {
+                    "feedback": "I'm putting in an element of the paragraphs list, is this still considered a None value?"
+                },
+                {
+                    "feedback": "An element of the paragraphs list is a string, so it is not a none value. It's a string."
+                },
+                {
+                    "feedback": "I'm getting the same issue. It says that my return function's return value is None."
+                },
+                {
+                    "feedback": "That means you're missing a return statement or you have something like                def f():       \treturn  or                def f():       \treturn None"
+                }
+            ]
+        },
+        {
+            "question": "How should you go about comparing paragraph with topic? From my understanding paragraph is a series of letters (ex: if you say paragraph[0] you will get back one letter). How can you compare that to a word from topic? Any ideas would be appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "Take a look at all the methods in utils.py"
+                },
+                {
+                    "feedback": "I am also stuck on this. I am trying to figure out how to iterate through both lists comparing each value of each list to each other simultaneously but unsure how to do that. So far I have tried implementing a nested for loop that takes each value within topic inside of another for loop that takes in each value of paragraph. Within the body I try to compare values using if cases to return True/False but it does not listen to my if cases. Am I going about this the right way or should i try something else"
+                },
+                {
+                    "feedback": "am i supposed to use lines_from_file?"
+                },
+                {
+                    "feedback": "Nope, consider using the split method to obtain the words in the paragraph."
+                },
+                {
+                    "feedback": "i already called splice on words from paragraph as well as all the other necessary functions from utils and reassigned paragraph to a spliced, uncapitalized version of paragraph. i am trying to figure out how to compare both values simultaneously from the list of topic to the list of paragraph for each value. I am trying to figure out if I can use the for loop for that comparing of values of lists or a nested for loop or not? If not, how else do I go about it?"
+                },
+                {
+                    "feedback": "split*"
+                },
+                {
+                    "feedback": "Perhaps the [in operator](https://www.pythoncentral.io/quick-tip-using- pythons-in-operator/) may be of use"
+                },
+                {
+                    "feedback": "Similar issue, I'm having a hard time comparing a word from paragraph to a word from topic. I have a for loop that iterates through paragraph (punctuation and uppercase are taken care of) and compares each word of paragraph to 1 word from topic, and then the 2nd word from topic. I used if statements for that. And then it returns true or false based on if the words match.  I've tried my method with another list, and it worked. I don't know why it won't work with topic.  Please give me suggestions. I've attached my terminal output.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk166hj4d3m8t%2Fterminal_cats.png)"
+                },
+                {
+                    "feedback": "I came up with a simpler implementation... I have a for loop iterating through the words in paragraph, and if a word is in topic, it returns True, otherwise False. I am still getting the same error from before^^^^^ I'm so confused why this is happening"
+                },
+                {
+                    "feedback": "Make sure you guys are lowercasing and removing the punctuation from the paragraph before you split it up"
+                },
+                {
+                    "feedback": "is it appropriate to use a for loop within a for loop in order to compare values of topic and paragraph?"
+                },
+                {
+                    "feedback": "Sure, but for reference I only used one for loop, and inside that for loop I had a conditional expression that used the [in operator](https://www.pythoncentral.io/quick-tip-using-pythons-in-operator/)"
+                },
+                {
+                    "feedback": "Mine only seems to compare the first values and not iterate through both lists."
+                },
+                {
+                    "feedback": "Make sure you're iterating through the correct list and calling `in` with the correct list/element pair"
+                },
+                {
+                    "feedback": "I also am getting the same error as above, I think the reasoning behind that is because it is only comparing the first items of both lists instead of iterating through. How do I iterate through both?"
+                },
+                {
+                    "feedback": "You only need to iterate through one of the lists."
+                },
+                {
+                    "feedback": "I finally figured this out so here's two tips that helped me:  make sure to iterate through topic and check if a word from that is in paragraph.  use an aux variable instead of returning True or False"
+                }
+            ]
+        },
+        {
+            "question": "Can we use .append() for this?",
+            "follow-ups": [
+                {
+                    "feedback": "yup."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6wldnh09m0nu%2Fk171ioeo1kt3%2FScreen_Shot_20190930_at_4.24.22_PM.png)  So I realize that this error is occurring because my code is checking to see if topic is in paragraphs and technically 'snary' is in 'snaryf'. I saw another student had the same problem and it was suggested that they use \"==\" instead of checking if 'snary' in 'snaryf', but I dont think I implemented it correctly.      So originally I had (which worked for all the test cases except for the one above):      If topic[i] in string:   return True   where topic[i] represents the ith element of the topic list and string is lower case + no punctuation version of paragraphs      Now I have:   If topic[i] == string:   return True   This wouldn't didn't pass the first case, so maybe I'm not using it correctly.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that strings are composed of letters. So snary has 5 characters, try to think of a way to make sure that if the string is snary, that it HAS to have 5 characters; and if it has more than 5, then you would automatically discard any possibility of a true for that particular topic string. Perhaps try to iterate through the string of a topic one character at a time and compare it to the paragraph string.  Feel free to ask for any clarifications!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk1a2sb9n93vv%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191002192230.png)I got stuck here a good while, after testing I think the error may happen here, but I don't know why it does not work![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk1a2uw45qm18%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191002192255.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Do you deal with the punctuation? If not, 'dogs.' and 'dog' may be different in the return value."
+                },
+                {
+                    "feedback": "Yes, I remove the punctuation and I test the code on Jupyter notebooks with dogs('A paragraph about dogs'). it returned False also."
+                },
+                {
+                    "feedback": "Punctuation in the paragraph should be removed first. Also, `for elem in paragraph` would assign `elem` to individual letters instead of whole words, which isn't quite what you want. Use `split` to break up a string into a list of words."
+                },
+                {
+                    "feedback": "Well I wonder if my code of \"remove_punctuation(paragraph)\" is wrong"
+                },
+                {
+                    "feedback": "Well I figure out the promble, but I solve it in a way I think it is not very suitable by using set() and intersection()"
+                }
+            ]
+        }
+    ]
+}

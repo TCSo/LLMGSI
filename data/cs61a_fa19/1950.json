@@ -1,0 +1,147 @@
+{
+    "subject": "[Scheme] Problem 9",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-9-1-pt\">Problem 9</a>\n\n<p> Please post all questions you have below concerning Problem 9 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "how can I access the symbol of a lambda function?",
+            "follow-ups": [
+                {
+                    "feedback": "by symbol, do you mean the names of the arguments?"
+                },
+                {
+                    "feedback": "yes"
+                },
+                {
+                    "feedback": "nvm I figured it out"
+                }
+            ]
+        },
+        {
+            "question": "Hi,  I'm trying to create a LambdaProcedure object on target.rest and target.rest.rest, but I'm not sure why this is wrong.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk2qu4h5q3cq%2FScreen_Shot_20191108_at_4.27.57_PM.png)  Doesn't rest.rest give everything remaining in the lambda expression?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that `target` is already defined as `expressions.first`, so it is a list containing the function name as the first element and the function’s operands as the remaining elements. The rest of the body is not found in `target`; it will be somewhere in `expressions`."
+                }
+            ]
+        },
+        {
+            "question": "I keep having this issue, where my operands are always wrapped in parenthesis:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2qyo95fdshm%2FScreen_Shot_20191108_at_6.39.26_PM.png)       I can't call `first` on it, because it'll only return 1. Any idea how I can remove the parenthesis?",
+            "follow-ups": [
+                {
+                    "feedback": "There’s a subtle difference between having the body as a list of arguments and the body being the remaining elements in the surface list. Make sure you’re not constructing a new list for the body and just adding the body as the elements after the arguments."
+                },
+                {
+                    "feedback": "Currently, my value for the define function is the do_lambda_form of a pair, who's first value is the function name, and the second is a pair containing the `rest` of the expression. Where does my logic fall through in this approach?"
+                },
+                {
+                    "feedback": "`do_lamba_form` takes in a linked list constructed from `Pair`, where the first element is itself a list containing the formal parameters, and the rest of the elements are the body. Make sure you’re not constructing it such that you’re passing in the body as a list contained within the second element of the surface list."
+                },
+                {
+                    "feedback": "Well when we construct Pair, doesn't the second element always have to be a Pair (assuming not nil)? How can we avoid this extra set of parenthesis?"
+                },
+                {
+                    "feedback": "Got it! I had to take advantage of the fact that `rest` is a Pair itself!"
+                }
+            ]
+        },
+        {
+            "question": "The prompt says, \"Make sure that it can handle multi-expression bodies.\"      I dont remember writing a code that specifically deals with this. However, I am passing all the test cases. Is that fine or would this create a problem in some future part that could result in an error?      (Is there any way that we can see what the test cases were that we passed? That way I can see if my code handles multi-expression bodies!)",
+            "follow-ups": [
+                {
+                    "feedback": "The handling for multi-expression bodies is the same handling for the `begin` statement. Check out what you did for problem 7, and maybe you can even reuse code."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error and I don't know how to fix it.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2uxwx2i8fox%2FScreen_Shot_20191111_at_1.29.01_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re trying to evaluate the symbols passed in as arguments for the function to be defined, rather than treating them as the symbols they should be. Make sure `formals` never gets evaluated."
+                },
+                {
+                    "feedback": "Would the 'formals' be the rest of target?"
+                },
+                {
+                    "feedback": "Yes."
+                },
+                {
+                    "feedback": "I still get the same error when I pass the argument target.first through the symbol parameter in the define method of the class Frame."
+                },
+                {
+                    "feedback": "Are you at any point calling `scheme_eval`?"
+                },
+                {
+                    "feedback": "Yup, just got rid of it and it is no longer erroring."
+                },
+                {
+                    "feedback": "Okay. Remember that when you pass symbols into the `define` procedure like `(define (sum a b) (+ a b))`, the `a` and `b` symbols right after `sum` aren’t supposed to evaluated at all since they are just supposed to represent symbols. `define` is a special form, so the rule that you’re supposed to evaluate everything doesn’t automatically apply."
+                },
+                {
+                    "feedback": "That makes sense, but now I'm having trouble returning the symbol instead of the body.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2uyvtxpupug%2FScreen_Shot_20191111_at_1.54.33_PM.png)"
+                },
+                {
+                    "feedback": "Hmmm. Remember that the `lambda` procedure returns the defined `LambdaProcedure`, not just its body. If you look at the definition for `LambdaProcedure`, the `str` string for a `LambdaProcedure` actually looks like its original Scheme definition, which is why the output is expected to be itself."
+                },
+                {
+                    "feedback": "Got it! I needed to pass a LambdaProcedure instance through the value parameter of the define method of the class Frame. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "not sure why i'm getting this error![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzbtx4szhyh4xu%2Fk2v68a9v4aj9%2FScreen_Shot_20191111_at_5.22.07_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you printing instead of returning?"
+                },
+                {
+                    "feedback": "printing in which function?"
+                },
+                {
+                    "feedback": "i'm not printing anywhere"
+                },
+                {
+                    "feedback": "Never mind, I was printing instead of returning"
+                }
+            ]
+        },
+        {
+            "question": "I'm reassigning expressions.first to the the rest of target, as to get rid of the symbol that we're using to define the function (target.first) and passing the changed expressions into my do_lambda_form. I think this idea works theoretically except I'm not sure how to do this without mutating expressions. Any suggestions?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuz6ybxuo6e0%2Fk2v8f19m6mo7%2FScreen_Shot_20191111_at_6.22.48_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind! Figured out how to pass in the values I want as a Pair object to do_lambda_form"
+                },
+                {
+                    "feedback": "Good to hear!"
+                },
+                {
+                    "feedback": "I'm having this same problem. How did you fix it?"
+                },
+                {
+                    "feedback": "Are you somehow mutating the `expressions` list that is passed into `do_define_form`? It looks like the original expression is getting mutated while you build the new procedure."
+                }
+            ]
+        },
+        {
+            "question": "Are we supposed to/able to use the do_lambda_form function to create the lambda or can we use the LambdaProcedure class?",
+            "follow-ups": [
+                {
+                    "feedback": "You should use `do_lambda_form`"
+                },
+                {
+                    "feedback": "Hmmm, I actually did not use the `do_lambda_form` function to implement this. I guess it’s because I saw the `define` form and the `lambda` form as being two distinct things, and I didn’t want one to call the other, not to mention manipulating the `expressions` list to get the correct list to pass into `do_lambda_form` felt less elegant than just extracting the parameters to call the constructor directly. Ultimately, both solutions are valid, though!"
+                },
+                {
+                    "feedback": "Fair, didn't even think of that. Mb"
+                }
+            ]
+        },
+        {
+            "question": "What could be going wrong here?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjbhgcj5er%2Fk34yt2e6e28i%2Fsnip.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "You need to return the name of the function, rather than the function itself."
+                }
+            ]
+        }
+    ]
+}

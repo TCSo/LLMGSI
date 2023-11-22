@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 08] Q7: Advanced Counter",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q7\">Q7: Advanced Counter</a>\n\n<p> Please post all questions you have below concerning Q7: Advanced Counter in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "gl = 0         n = 0         def counter(input):             nonlocal n , gl             if input == 'count':                 n += 1                 return x             if input == 'global-count':                 gl += 1                 return gl             if input =='reset':                 n = 0             if input =='global-reset':                 gl = 0         return counter(input)     can someone explain why this gives me a 'NoneType' object is not callable while the provided solution works?",
+            "follow-ups": [
+                {
+                    "feedback": "make_advanced_counter_maker doesn't return a counter. It returns a function that makes a counter.  Also, you shouldn't be calling counter at the end of your function. There's a difference between returning a function and returning the call of a function (the latter is what you're doing)."
+                }
+            ]
+        }
+    ]
+}

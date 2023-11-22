@@ -1,0 +1,484 @@
+{
+    "subject": "[Ants] Problem 3",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-3-2-pt\">Problem 3</a>\n\n<p> Please post all questions you have below concerning Problem 3 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I'm not exactly sure why I'm not passing this test case 7. I used a copy of my ant location, then iterated until the entrance is the hive checking if there are bees.              ---------------------------------------------------------------------     Problem 3 > Suite 2 > Case 4          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> thrower = ThrowerAnt()     >>> ant_place = colony.places[\"tunnel_0_0\"]     >>> ant_place.add_insect(thrower)     >>> #     >>> # Test that ThrowerAnt attacks bees at end of tunnel     >>> near_bee = Bee(2)     >>> colony.places[\"tunnel_0_8\"].add_insect(near_bee)     >>> thrower.nearest_bee(colony.beehive) is near_bee     False          # Error: expected     #     True     # but got     #     False",
+            "follow-ups": [
+                {
+                    "feedback": "Resolved. Overlooking something."
+                },
+                {
+                    "feedback": "Hi, I'm having the same issue with this test case and approach. What am I missing?"
+                },
+                {
+                    "feedback": "In this example, the been is in the last spot in the tunnel, so make sure you handle that case correctly."
+                }
+            ]
+        },
+        {
+            "question": "do you have to use beehive parameter in the answer",
+            "follow-ups": [
+                {
+                    "feedback": "yes, because you need to stop the loop once you have done all the places upto the beehive."
+                }
+            ]
+        },
+        {
+            "question": "Is there supposed to be a recursive?",
+            "follow-ups": [
+                {
+                    "feedback": "recursive call***"
+                },
+                {
+                    "feedback": "Recursion isn't necessary for this question."
+                },
+                {
+                    "feedback": "If I do use recursion, how can I call the nearset_bee function on self.place.entrance and the beehive?"
+                },
+                {
+                    "feedback": "Well, if you really want to use recursion you'll likely need to create a helper function since the parameters of nearest_bee don't give you a way of storing a place value (self.place.entrance) between calls (unless you use beehive for that end, but you'll need beehive for the base case if you want recursion)."
+                },
+                {
+                    "feedback": "Okay, thank you! Iteration is def easier. Do I need to figure out how many places there are from current location to beehive?"
+                },
+                {
+                    "feedback": "I don't believe that's needed for this question. In the next question you will be measuring distances from place to place, but you shouldn't need the exact number of places there are between the ant and the hive specifically for any of them. You should only need to know what place is the hive, and that is given by the beehive parameter."
+                }
+            ]
+        },
+        {
+            "question": "If Bees are dying to the right of the tunnel then they are dying in the hive right? Just double checking",
+            "follow-ups": [
+                {
+                    "feedback": "I've noticed a behavior where when a bee is deployed and the ant shoots that the bee is invisible in the first two tiles for some reason. I put print(\"Debug:, \"shot\") into my code when the ant shoots, and it always shoots twice BEFORE a bee appears in the third box. However, if there are three ants they all shoot and the bee dies on the first tile, but never shows up on the board and the visual occurs in the hive. Is this intentional?"
+                },
+                {
+                    "feedback": "That could just be a problem with the GUI, rather than the game logic."
+                },
+                {
+                    "feedback": "Although I tried to recreate this problem using my implementation, and I couldn't."
+                }
+            ]
+        },
+        {
+            "question": "how do we get the place of the thrower ant?",
+            "follow-ups": [
+                {
+                    "feedback": "All insects have an instance attribute called 'place' that gives you the Place they are currently at.  If you are inside of the ThrowerAnt class you can do                self.place  to get the Place of the current ThrowerAnt instance."
+                },
+                {
+                    "feedback": "gotcha, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Are the shots supposed to be invisible?",
+            "follow-ups": [
+                {
+                    "feedback": "^ Same doubt"
+                },
+                {
+                    "feedback": "I'm having the same issue!"
+                },
+                {
+                    "feedback": "I cannot see the leaves being shot either. I only see the bees disappearing."
+                },
+                {
+                    "feedback": "They are currently invisible. Perhaps next semester we'll add the leaves. Sorry about that."
+                }
+            ]
+        },
+        {
+            "question": "how can we prevent self.place from changing when we move along the path? Thanks!!",
+            "follow-ups": [
+                {
+                    "feedback": "You can just bind whatever self.place is to another variable and then work with the copy along the path."
+                },
+                {
+                    "feedback": "why won't the copy point to the same object as self.place?"
+                },
+                {
+                    "feedback": "It does initially, but the goal is to keep self.place the same after the function call. If we make the temporary variable, it will start at whatever self.place is pointing to, but then when we advance it, the copy will change what it is pointing to, but self.place will still be pointing to the same thing."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1jllmlscxv4%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191009111946.png)How to evaluate this part? Have we learnt this?",
+            "follow-ups": [
+                {
+                    "feedback": "`place` is an instance variable of `self`, and `bees` is an instance variable of `place` (well, in this case, `self.place`)"
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "Why the bees is an instance variable of place? I understood place is an instance variable of self becuase Insect is the base class of ant and ant is the base class of throwerAnt, but I didn't see bees variable in either Insect class or Ant class."
+                },
+                {
+                    "feedback": "If you look at the Place class, there is a lost of bees there"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1jw0ue0cidw%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191009161134.png)CCould anyone tell me how to get to the beehive? I write a while loop to check if current place != beehive.place, but it leads to a infinite loop.",
+            "follow-ups": [
+                {
+                    "feedback": "\"beehive\" leads to a infinite loop, and beehive doesn't have place attribute \"place\". I am confused, isn't beehive a place?"
+                },
+                {
+                    "feedback": "beehive is a place, so yes, beehive.place leads to an error. You could try the is operator instead rather than the != operator."
+                },
+                {
+                    "feedback": "I am having the same problem. How do I access the place of the beehive?"
+                },
+                {
+                    "feedback": "The parameter beehive of nearest_bee is the place of the Hive."
+                },
+                {
+                    "feedback": "you have to iterate through each location. consider this statement from the instructions: \"consider the next place that is stored as the current place's `entrance`.\""
+                }
+            ]
+        },
+        {
+            "question": "Wait are we supposed to do anything with the throw_at method?",
+            "follow-ups": [
+                {
+                    "feedback": "Same question. I added something to the random_or_none function but not sure if we need to add anything to throw_at and action function though."
+                },
+                {
+                    "feedback": "throw_at and action are already implemented in ThrowerAnt. You only need to modify the nearest_bee method."
+                }
+            ]
+        },
+        {
+            "question": "How can I access the position of the bees?",
+            "follow-ups": [
+                {
+                    "feedback": "self.place.bees"
+                }
+            ]
+        },
+        {
+            "question": "How do we bind self.place to another variable so that we can use it later while self.place remains the same? I keep getting “variable undefined” error. Can somebody help me?",
+            "follow-ups": [
+                {
+                    "feedback": "variable_name = self.place"
+                }
+            ]
+        },
+        {
+            "question": "How can I check if there’s bees in a place?",
+            "follow-ups": [
+                {
+                    "feedback": "The bees instance attribute of a Place gives you a list of the bees in a specific Place. If there are no bees in a Place then this list is empty. So if p0 was a place, you could do:                p0.bees  And look at the resulting list to see if there are bees there or not."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "My code doesn't seem to be returning a bee  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk1ku14fmpu7s%2FScreen_Shot_20191010_at_7.59.24_AM.png)  I'm calling random_or_none on the place I'm currently at. What am I doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you traversing through all the places?"
+                },
+                {
+                    "feedback": "I'm traversing through all the places by rebinding my variable to its entrance each time while the variable is not beehive."
+                },
+                {
+                    "feedback": "In that case, I believe it's an issue with how you're using `place.bees`. What exactly are you printing out to console? `random_or_none` should not return a list if you use it properly in the context of this problem, so the fact that empty lists are being printed out is strange"
+                },
+                {
+                    "feedback": "My code appears to be reaching the tunnel_0_8 and then returning false. Not sure why this is happening."
+                },
+                {
+                    "feedback": "Resolved. I had an issue with my loop."
+                },
+                {
+                    "feedback": "What was the issue with your loop, I have the same problem"
+                },
+                {
+                    "feedback": "Why would it not work if we check whether the current place is not equal to beehive? I'm struggling to understand the difference in outputs between equal and is in this precise context?"
+                },
+                {
+                    "feedback": "How do we get it to reiterate over the entire tunnel? and is this necessary?"
+                }
+            ]
+        },
+        {
+            "question": "I bind self.place to another variable and use it to loop through all the places that are not beehive and update it to be the current place’s entrance, but I keep getting False when I should be getting True for the fifth test case.",
+            "follow-ups": [
+                {
+                    "feedback": "I was in your situation. I would suggest that you figure out when exactly you're computing the .bees expression. I kept running into errors there because my place variable was the beehive, but I only stopped the loop after running random_or_none on the beehive place."
+                },
+                {
+                    "feedback": "I think I did check .bees in the right place. I have a “while variable is not beehive” at the beginning of the loop, shouldn’t it stop iterate automatically as soon as variable is beehive? I’m confused."
+                },
+                {
+                    "feedback": "Make sure you're not editing the tunnels as you search. Any attribute assignment would be changing the layout of the game, which will cause tests to fail. Just assign to local names (no dot expression on the left side of the `=`) when you're trying to find something."
+                }
+            ]
+        },
+        {
+            "question": "Do we have to use throw_at, action, or random_or_none in our for loop",
+            "follow-ups": [
+                {
+                    "feedback": "You don’t have to use throw_at or action anywhere in nearest_bee. There are other ways of getting a random bee from a place, but random_or_none is the easiest so it is recommended you use it, but certainly not required."
+                }
+            ]
+        },
+        {
+            "question": "Is there a way to access beehive as a place? I have a while loop that starts at self.place that stops at beehive, and then after every loop I reinitialize my \"counter\" as self.place.entrance. I still have an infinite loop though, and I'm not sure what to do",
+            "follow-ups": [
+                {
+                    "feedback": "From my debug statements I think that my self.place.entrance isn't giving the next slot, so that's why I have an infinite loop. The test cases for Place worked so I don't know why it wouldn't work for this question"
+                },
+                {
+                    "feedback": "I also used self.place.entrance to access the next place but mine didn’t say infinite loop, it just fails the test cases."
+                },
+                {
+                    "feedback": "If your first value is i = self.place, then in your loop you would need to change i to i.entrance so that it iterates through all of the places"
+                },
+                {
+                    "feedback": "I think I did."
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to modify the final return statement?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. In fact, I think you have to modify it for this to work correctly."
+                }
+            ]
+        },
+        {
+            "question": "I'm not really sure how to start this. Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "Try following along with the description of the algorithm (copied from the problem description):  The `nearest_bee` method returns a random `Bee` from the nearest place that contains bees. Places are inspected in order by following their `entrance` attributes.    * Start from the current `Place` of the `ThrowerAnt`.   * For each place, return a random bee if there is any, or consider the next place that is stored as the current place's `entrance`. _(This hints at using a loop)_   * If there is no bee to attack, return `None`.  > _Hint_ : The `random_or_none` function provided in `ants.py` returns a > random element of a sequence or `None` if the sequence is empty."
+                }
+            ]
+        },
+        {
+            "question": "I'm having some trouble in understanding what's going on this bit of code that was given to us:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk1lnck69on9t%2FScreen_Shot_20191010_at_9.42.59_PM.png)  We make an instance of the AntColony class, but what I don't understand is this \"ant_place = colony.places[\"tunnel_0_0\"].\" How does the AntColony class have a class attribute **places** but when I look in the class the place where is see anything about places is here:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk1lnfocxru2p%2FScreen_Shot_20191010_at_9.43.20_PM.png)  The last line of the constructor calls the method **configure** and I just don't understand how we can access **places** from that method(would **places** be instance attribute in that method). **** I also don't fully understand what the method **configure** is doing. What I understand is that once we get to **register_place** the index/key of **places** would be the name of **beehive** and we set it to **beehive,** which I also don't quite understand how this works. I would really appreciate the help! (Btw none of this code is mine it's all given code)",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't worry about how this AntColony is handled to do the question, if that's what you're asking. It is true that AntColony has a places instance attribute, but it is not required to do the question. But if you're just curious I'll explain it.  The point of configure is, as the doctest says, to initialize all of the places in the AntColony. If you're asking how how we can call colony.places, you can see in configure, there is an assignment to self.places which sets it to an OrderedDict object. This creates an instance attribute in our AntColony object that will hold all the places and register_place will use its name as the key in the OrderedDict.  Because configure is called in the constructor, this means that all AntColony objects will have an instance attribute called places which holds all of the place objects in the Colony. The actual initialization of the places is done in create_places. Notice that this isn't accessing self.places, but **creating** it since it doesn't already exist by the time configure is called.  In register_place, the only time beehive is used is when the place we are registering is where the bees enter from. This is important since the bees must enter from somewhere once they exit the hive, and this part of the code accounts for it."
+                },
+                {
+                    "feedback": "Thanks for the reply, I have a much better understanding! But out of curiosity, inside the **register_place** method how are we registering where the bees enter from. Aren't we just registering the actual beehive, which is this line                self.places[place.name] = place  Also, how come when we are calling **create_places** we don't pass in **self.places**? Sorry if my questions are not well worded or just don't make sense."
+                },
+                {
+                    "feedback": "Perfectly fine. Hopefully I'm making sense lol.  That line you posted does more than just the beehive. It will put every place in the colony into self.places. You can see in the test case that they pass in as the parameter create_places the dry_layout function. I've pasted both dry_layout and wet_layout for your convenience (Both are from the bottom of ants.py)                def wet_layout(queen, register_place, tunnels=3, length=9, moat_frequency=3):         \"\"\"Register a mix of wet and and dry places.\"\"\"         for tunnel in range(tunnels):             exit = queen             for step in range(length):                 if moat_frequency != 0 and (step + 1) % moat_frequency == 0:                     exit = Water('water_{0}_{1}'.format(tunnel, step), exit)                 else:                     exit = Place('tunnel_{0}_{1}'.format(tunnel, step), exit)                 register_place(exit, step == length - 1)          def dry_layout(queen, register_place, tunnels=3, length=9):         \"\"\"Register dry tunnels.\"\"\"         wet_layout(queen, register_place, tunnels, length, 0)  You can see that neither of these functions take in a list of places to mutate, but rather a function that defines how to register the places once they are created. The reason we don't pass in self.places is because having a function that tells these functions how to register places into self.places is a lot more convenient and general if we ever change the way we register places in the future.  If we give it the register_place function, that function essentially has access to self.places, so it will mutate it for us. Notice that register_place in wet_layout is called **every time a new place is made and not just for the beehive**. This is how we're able to get every place into self.places and not just the beehive."
+                },
+                {
+                    "feedback": "Thanks a lot for the help, makes much more sense! I guess this is one reason why we should make our programs modular lol."
+                },
+                {
+                    "feedback": ""
+                }
+            ]
+        },
+        {
+            "question": "Hello! I know we need to check every location from the ant's current location all the way to beehive, but how do we increment the current location we are looking at. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "The next location to check will be the current place's entrance."
+                },
+                {
+                    "feedback": "Hmm, Could you please elaborate? I can't quite visualize that."
+                },
+                {
+                    "feedback": "Ideally, you'd have some sort of loop to iterate through all the places. Remember that you can't return a bee from the beehive, so that gives you a hint as to what the condition of your loop would be. Your loop would contain logic that calls the `random_or_none` method and if the result is not None, then you know that there's a bee, and the result would be returned. At the end of each iteration, you would set the current place to be equal to the current place's entrance, i.e. `p = p.entrance`. Your place variable should be on the outside of the loop so that its value changes from iteration to iteration."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191011_at_2.09.44_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwu0ue0z9314o0%2Fk1mmjxqh2y13%2FScreen_Shot_20191011_at_2.09.44_PM.png)  Could someone please explain why I'm getting this error? I used a while loop to check whether the current place is the beehive and an if statement to check if there are any bees at the current place. I can't figure out what I did wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry I inserted a file instead of an image by accident  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwu0ue0z9314o0%2Fk1mmmi4g69u4%2FScreen_Shot_20191011_at_2.09.44_PM.png)"
+                },
+                {
+                    "feedback": "problem solved!"
+                },
+                {
+                    "feedback": "How do I chekc if there is a bee in a current position?"
+                },
+                {
+                    "feedback": "How did you solve this? I have the exact same problem"
+                },
+                {
+                    "feedback": "Make sure you are not going into the beehive to get the nearest_bee."
+                },
+                {
+                    "feedback": "if the location is a beehive, you can't shoot it"
+                }
+            ]
+        },
+        {
+            "question": "Q: What is the entrance of the first Place in a tunnel?  Here is what I think is going on:  For an AntColony with dimensions(1,3):  [P0][P1][P2] (Hive is Here)  For P0: P0.entrance = P1, P0.exit = None  For P1: P1.entrance = P2, P1.exit = P0  For P2: P2.entrance = Beehive, P2.exit = P1  So I realize the answer to this question is Beehive, but I have a few questions:  1\\. Does the beehive count as a place? According to the Game Layout, the beehive seems to be off the grid. If it is an instance of the Place class, does that mean that beehive.exit = P2 and P2.entrance = Beehive?  2\\. Since the answer to my initial question is beehive, I'm assuming that the \"first place in the tunnel\" is P2. Is that because all the bees in the tunnel start in beehive.exit = P2 or is there another reason?  3\\. If an AntColony had dimension(m,n) where m > 1\\. There would be m number of tunnels, correct? Would the beehive still be in the same place (at the end of 1st tunnel)?",
+            "follow-ups": [
+                {
+                    "feedback": "1\\. Yes, the hive is a place in the sense that it is an instance of the Hive class, which inherits from the Place class. However, its entrance and exit should always be `None`, since it's not connected to the tunnels. Bees can move from the hive to a tunnel, but that happens in a different way from bees moving through a tunnel. You can read the `Hive` class to see how it works. 2\\. Bees move from the hive to tunnels that have the hive as their entrance. 3\\. The hive isn't at the end of any particular tunnel. The end of all tunnels have the hive as their entrance. Hope that helps."
+                }
+            ]
+        },
+        {
+            "question": "Hey guys so I used whileloop to go through all the bee spaces in the list. So i made an empty list so I could store the resulting data of random or none for each space of the tunel. my while will iterate as long as the self.place is not beehive and everytime it is being ran, it is being incremented using the self.place.entrance. at the end, it checks if there is any none in the list and if there is it returns false. but I am still getting an False when I am suppose to get true for this question. I need help...",
+            "follow-ups": [
+                {
+                    "feedback": "nvm i solved it haha"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm a little confused as to how to iterate through all places in the tunnel created by colony.places. The problem description says to iterate by following entrances to places, but how do we know where all places are stored or what each entrance is named?",
+            "follow-ups": [
+                {
+                    "feedback": "You can use a while statement to iterate. If you have one place, let's call it `p`, then you can get another place by `p.entrance`. If you call that `q` (e.g., with `q = p.entrance`), then you can get yet another place with `q.entrance`. Hope that helps."
+                }
+            ]
+        },
+        {
+            "question": "Is the place of the ant supposed to be moving as well? For example, if there are no bees in the current place of the ant, we would look in the entrance of that place, but would we need to shift the place of the an as well? currently, I'm iterating with a condition involving the current place of the ant to ensure the iterations stop right before the hive, so the place of the ant is moving with each iteration.",
+            "follow-ups": [
+                {
+                    "feedback": "No. The ant shouldn't be changing places while looking for the nearest_bee. nearest_bee should not be changing any of the attributes of the ThrowerAnt since it is a pure function. You will need to iterate through each of the places like you are doing, but without changing the ant."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  I keep stuck on this case. Any tips?[Screen_Shot_20191012_at_12.33.40_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxltwsvxyh4kv%2Fk1nyl1iqft58%2FScreen_Shot_20191012_at_12.33.40_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "My logic was to iterate by move along the tunnel by one length, as long as the moves do not exceed the length of tunnel or does not come across with bees (in which case I return the bees place). I also excluded the case where bees are in the hive."
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxltwsvxyh4kv%2Fk1nz4ojpw3q3%2FScreen_Shot_20191012_at_12.33.40_PM.png)"
+                },
+                {
+                    "feedback": "Try making a variable for self.place and mutating that variable to the entrance of the current place for every iteration in your loop"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble writing my if statement to check if there contains a bee in the place I am iterating. In english I would want something like \"if place1 contains bee,\" but how would I translate that to code?"
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp2nig3a245%2Fk1plsj24zqz%2FScreen_Shot_20191013_at_4.11.24_PM.png)  Can someone help with this, i dont understand what I am doing wrong..I think it might have something to do with my while loop which runs while currentplace.entrance != beehive:",
+            "follow-ups": [
+                {
+                    "feedback": "nvm got it"
+                },
+                {
+                    "feedback": "I had the same question - do you have any recommendations for what to do ?"
+                },
+                {
+                    "feedback": "If a Bee exists somewhere in the tunnel and its not in the hive, make sure you return at least one Bee and not None."
+                },
+                {
+                    "feedback": "But if there’s a bee besides the ant it should return None right? So we can’t just look for any in the tunnel"
+                },
+                {
+                    "feedback": "Behind *"
+                },
+                {
+                    "feedback": "Right, but in this case the ThrowerAnt is at the very first position in the tunnel, so no bees can be behind it (Unless the game is over of course)."
+                },
+                {
+                    "feedback": "If you're talking in general, even if a Bee is behind the ThrowerAnt, that doesn't mean there aren't any in front of the ThrowerAnt that you can still shoot at, so the function can still return a Bee even if there are some behind the ant."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  I passed all 10 test cases but found out that in the gui my thrower can't can actually kill bees that are in the hive. Could anyone help me find out the reason behind that?",
+            "follow-ups": [
+                {
+                    "feedback": "*thrower ant"
+                },
+                {
+                    "feedback": "I thought the thrower ants are NOT supposed to do any damage to bees in the hive."
+                },
+                {
+                    "feedback": "I meant \"my thrower ant can actually kill bees in the hive\""
+                },
+                {
+                    "feedback": "there should be a test case for this specific situation (killing bees inside the hive) so this may be a GUI bug."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm trying to use recursion for this problem. I'm using a helper function, taking in a current place and the beehive, where I have a base case stating that if the current place is the beehive, then return None. I then have another if statement stating that if the current place is the same as a place with a bee, then return the random_or_none function. If neither of those are the case then I return the helper function with the self.place.entrance, or the next place from the current place. I'm failing the near_bee test case. Any ideas on how to approach this? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Your base cases seem relatively accurate. How are you figuring out whether a place has a bee? Furthermore, note that self.place.entrance is a constant value. This is because self.place.entrance is the entrance of the place where your ThrowerAnt is located. Based on how you phrased your last case, it seems as though you are not actually changing the places with each recursive call."
+                },
+                {
+                    "feedback": "Hey! So I changed self.place.entrance to current_place.entrance instead. I thought that current_place.bees would tell me whether or not the current place has a bee."
+                },
+                {
+                    "feedback": "current_place.bees will be a list of all bees in a current location, so it can tell you whether there are bees in a given location or not. however, if you take a look at the behavior of random_or_none, as described in the spec, this function can make that check for you!"
+                }
+            ]
+        },
+        {
+            "question": "I know the min range of place is 0, but what is the max range? is it 9?",
+            "follow-ups": [
+                {
+                    "feedback": "A place doesn't have a min range or max range. The ThrowerAnt itself does. And no, it's not 9. If the map was 100 places long, or even 1000 places long, what would be the max_range for the ThrowerAnt in those cases? Recall that the problem introduction says the range of the ThrowerAnt is unbounded."
+                },
+                {
+                    "feedback": "This is where the `float('inf')` hint comes in"
+                },
+                {
+                    "feedback": "Do we need to add the min and max range in the ThrowerAnt? I saw the LongThrower and ShortThrower need those."
+                },
+                {
+                    "feedback": "Yes."
+                }
+            ]
+        },
+        {
+            "question": "Are bees supposed to be disappearing when they are still in the beehive? I thought the ants weren't supposed to do any damage to bees in the hive, but when I play the gui file they do and I've passed all 10 cases, so I am unsure if I've misunderstood the game rules or if I accidentally tricked the ok test cases.",
+            "follow-ups": [
+                {
+                    "feedback": "Figured out what was going on. My code passes the cases and works correctly when I tested with my own tests. When I play the game using the gui.py file, however, the game doesn't update the bees in their right slot on the board. The bees disappearing in the hive aren't really in the hive because their addresses (aka their self.place.name) is a tunnel and not the hive. So all the bees are really one spot ahead than where they appear. Possibly an issue in the gui.py file?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwy6v40fshb1g3%2Fk1raeg9pa09x%2F1.jpg)  For this test case, is this means that the thrower ant will attack the bees right before the beehive? or is it means that thrower will attack the bees in the beehive?",
+            "follow-ups": [
+                {
+                    "feedback": "I am also having the same problem and can't figure out where the bug is"
+                },
+                {
+                    "feedback": "I solved the problem. Based on my solution, I think you need to check the last element of the tunnel."
+                },
+                {
+                    "feedback": "How do we access the last element?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnphk4bea2fk%2Fk1s8a6oydy2f%2Fkilled_in_hive.png)  Hi, I passed the all the cases for this problem and thought I set my loop stop is current place is reach hive. However, when I played with gui, it seems like my throwing ants kill bees in the hive..  Could anyone explain how to fix this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "I suspect this may be a GUI bug, especially if you are passing all test cases. for now, we are working internally on it!"
+                }
+            ]
+        },
+        {
+            "question": "For this question, (maybe as a hint) do we have to add class attributes for the Thrower ant? Or is that not necessary? The ones that I currently have are the ones given in the skeleton code plus the food_cost for question 1. Is that enough to solve this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "For problem 3, you wouldn't have to. You would need to do this on Problem 4."
+                }
+            ]
+        }
+    ]
+}

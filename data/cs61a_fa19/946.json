@@ -1,0 +1,225 @@
+{
+    "subject": "[HW 03] Q3: Count change",
+    "content": "<a href=\"https://cs61a.org/hw/hw03/#q3\">Q3: Count change</a>\n\n<p> Please post all questions you have below concerning Q3: Count change in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "If I have an amount that can be represented by a single coin (2 or 4, for example), would the same coin be a valid way to \"make change?\" For example, is giving back a 1-cent coin a valid form of \"change\" for one cent?",
+            "follow-ups": [
+                {
+                    "feedback": "yes."
+                }
+            ]
+        },
+        {
+            "question": "I wrote a function that passes the checks for inputs of 7, 10, and 20, but it fails the check for input 100. In general (or for this problem specifically) what sort of mistake should I be looking for? What would cause a function to work for a sort-of-big number, but not work for a slightly larger one?",
+            "follow-ups": [
+                {
+                    "feedback": "Maybe it fails for numbers in-between the ones it happens to work for? Maybe write a solution that doesn't use recursion and use that to verify your outputs. Also, what's the issue with input 100? Does it just return an incorrect value or does a more complicated error arise?"
+                },
+                {
+                    "feedback": "It returns an incorrect value. 9776 when ok was expecting 9828."
+                },
+                {
+                    "feedback": "That’s strange - try verifying your base cases and make sure your solution makes sense and is relatively concise, and that you didn’t hard-code the coins"
+                }
+            ]
+        },
+        {
+            "question": "I wrote a function that returned 7 instead of 6 for count_change(7), I think it is because I counted 1+1+1+4 twice, since I divided count_change(3) into count_change(2) - return 2 and count_change(1) - return 1. How should I solve this?",
+            "follow-ups": [
+                {
+                    "feedback": "Your partitioning scheme / tree is likely incorrect"
+                },
+                {
+                    "feedback": "I parted it by the largest divisible # and the remainder of the function; would that be incorrect?"
+                },
+                {
+                    "feedback": "You have to work with purely powers of 2 as a partition size in some way"
+                },
+                {
+                    "feedback": "Got it, thank you"
+                }
+            ]
+        },
+        {
+            "question": "My current codes involves modifying the count_partitions code that is in the textbook. To fit the problem, I am trying to change the value of \"m\" to be only powers of 2. However, finding the largest power of two that is less than or equal to \"amount\", I am required to use the log function. Is importing math acceptable here to accommodate for this or should I write another recursive function that serves this purpose or am I missing the mark entirely here?",
+            "follow-ups": [
+                {
+                    "feedback": "This wouldn't be allowed. Work backwards - instead of starting with a high value of m and working your way down, perhaps start with a small value of m and work your way up. Your base case would then trigger once m goes _above_ a certain value, rather than triggering when it hits 0 or something"
+                },
+                {
+                    "feedback": "If you start with 1 as \"m\" instead, then the cases don't degenerate into a recursive step as easily as they would if you started with a larger \"m\" value. For example, when called on 7, all the permutations involve the value 1, which means we can't separate the data like Denero did when he was created the count_partitions function.  How would I get around this? Is there another way to group the permutations?"
+                },
+                {
+                    "feedback": "I was able to start with m as 1 just fine. I just changed some of the base cases and made sure to change one of the branches of the tree to make sure the next m was a power of 2"
+                },
+                {
+                    "feedback": "There's a very easy way to increment by 2 without importing math. Think about how you can go from 1 to 2 to 4 to 6 with recursive calls on your helper function."
+                },
+                {
+                    "feedback": "8*, not 6"
+                },
+                {
+                    "feedback": "My bad, 8 yes."
+                }
+            ]
+        },
+        {
+            "question": "I am kinda stuck !! I tried to modify the count _partitions and tried to pass 2* m in one branch but I am not sure what would I pass for the other branch",
+            "follow-ups": [
+                {
+                    "feedback": "First start out by keeping the original first branch of count_partitions and seeing what happens"
+                }
+            ]
+        },
+        {
+            "question": "In this problem do we start from count_partitions and then modifying it?",
+            "follow-ups": [
+                {
+                    "feedback": "Yeah, your helper function should basically be a modified version of `count_partitions`"
+                }
+            ]
+        },
+        {
+            "question": "is defining another recursive function inside of count_change, one that finds the maximum starting exponent allowed? I understand it is probably possible to work up instead of down, but I already passed the test case and don't know how to test new code if I were to rewrite it",
+            "follow-ups": [
+                {
+                    "feedback": "As long as you don’t use while or for loops, it’s fine"
+                }
+            ]
+        },
+        {
+            "question": "Should we need to import math to figure out the starting value for m?",
+            "follow-ups": [
+                {
+                    "feedback": "i dont think so"
+                },
+                {
+                    "feedback": "No"
+                }
+            ]
+        },
+        {
+            "question": "For amount=7, I keep getting 5 instead of 6.  For one branch, I have start+pow(2,k) and for the other I have start+pow(2,k+1) where start initially is zero. Any suggestions? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Think about this, $$2^0 = 1$$, $$2^1 = 2$$, $$2^2 = 4$$, $$2^4 = 16$$, $$2^{16} = 65536$$, ... is this pattern what you want?"
+                },
+                {
+                    "feedback": "No, I want 2^0, 2^1, 2^2, 2^3, 2^4, ....Does my code imply the above pattern you stated? But i am incrementing the power by 1?"
+                },
+                {
+                    "feedback": "I now see what you are saying, but not sure how to go about this"
+                },
+                {
+                    "feedback": "If your current k is 1, the next k should be $$1*2 = 2$$. Then the next k should be $$2*2 = 4$$. Then the next k should be $$4*2 = 8$$. See if you can find a general rule for the next k given the current value of k. (I ended up not starting at 0 in my solution because of how this plays out, as $$0*2 = 0$$)"
+                },
+                {
+                    "feedback": "do i possiby need 3 variables?"
+                },
+                {
+                    "feedback": "I used two"
+                },
+                {
+                    "feedback": "My cases work for amount 1-6, but for 7 I still keep getting 5 instead of 6. I now have start+k in one branch and in the other I add 2^k and\"reassign\" k to k*2. Any suggestions?"
+                },
+                {
+                    "feedback": "solved it. thanks"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk0v99swzvhc9%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190922102815.png)  I am trying to return a helper function that takes \"amout\" and the largest 2^n but less than amount. Inside the helper function, I modify the count_partitions function, and it returns two helper function. However, it seems generates a infinite loop. Could anyone give me some suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk0v9jyqt9eki%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190922103610.png)PProblem update"
+                },
+                {
+                    "feedback": "Never mind. Solved it."
+                }
+            ]
+        },
+        {
+            "question": "I am passing all the doctests but something seems to be wrong with the autograder. All my answers are correct, but for some reason the autograder expects an extra s, so I get this error: ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnprh7n8l2ni%2Fk0vnxykrqm4o%2FScreenshot_20190922_at_5.17.37_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Try redownloading the zip file and moving hw03.ok into your old hw03 folder."
+                },
+                {
+                    "feedback": "I did that and it didn't work"
+                },
+                {
+                    "feedback": "Sorry upon looking at the hw03.ok file, it seems that all the tests are sourced from the hw03.py file.  Double check that you didnt accidentally add the 's' to your doc tests for question 3."
+                },
+                {
+                    "feedback": "got it thanks"
+                }
+            ]
+        },
+        {
+            "question": "My implementation passes the first test case but fails on count_change(10). My return call in my helper method partition is partition(n - (2 * m), n) + partition(n, 2 * m). This makes sense intuitively to me. Can you guys tell me where I am going wrong in my approach? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Not sure what you're trying to accomplish by having two statements with 2*m. There should be one; one statement should be your current cent partition and the other statement should move up to the next cent, whatever that may be (2,4,8,16,32, etc). Your code only works up to 10 because you didn't cover the cases. Let me know if you have anymore questions; basically you are not accounting for all the ways you can use 1 cent, 2 cent, 4 cents, etc thoroughly.  Also what is n and m in your parameters? Would help a lot to know. And if anything, check your base cases."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  My code seems to be running into an infinite loop. I'm basically generating the highest power of 2 with a helper function, assigning that to m, and partitioning like this:  m=check_highest(n,0)   count_partitions(n-m, m) + count_partitions(n, m//2)  I'm not sure where this is running into an issue. Any suggestions would be really appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "You may need to look into your base cases here; since that's usually where the infinite loops root from."
+                }
+            ]
+        },
+        {
+            "question": "Is it ok to make a helper function outside of the count_change function?  I mean can I make the helper function in global frame?",
+            "follow-ups": [
+                {
+                    "feedback": "That is not recommended (since you won't be able to access any parameters of count_change without them being passed in) or necessary"
+                }
+            ]
+        },
+        {
+            "question": "Hi, my code works for the first case (7) but for 10 it returns 10. I have a feeling it has something to do with my base cases..can someone explain to me what the base cases might be for this problem because I have no idea ....",
+            "follow-ups": [
+                {
+                    "feedback": "We can't give out the base cases but think about when you would start to move up the cents with respect to the required amount. After you found all the ways to get n cents using 1 cent; think about how you are going to move up to 2 and when."
+                },
+                {
+                    "feedback": "nvm i got it thanks"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I was wondering why the >= vs > makes such a difference for my code. Originally, one of my base cases checked to see if m>= amount then return 0 and the code wasn't adding up. However, I changed the sign to > and then it ran perfectly.",
+            "follow-ups": [
+                {
+                    "feedback": "Because if it's >=, that means m cannot be the same as amount when it can. For example m = 1 and amount = 1. Theres 1 way to create a total amount of 1 using 1 cent (m=1), assuming your m is the cent type (1,2,4,8, etc). But if you say >=, then we are excluding that possibility when in reality it should be included, not excluded. Not sure if I got the point of your question but feel free to ask for clarification!"
+                },
+                {
+                    "feedback": "But isn’t >= more inclusive?"
+                },
+                {
+                    "feedback": "If you put the =, you are excluding it because you are returning 0. Meaning you aren't counting it as a partition."
+                }
+            ]
+        },
+        {
+            "question": "Is it ok that my main count_change function isn't recursive? My helper function is recursive, but the problem asks to write a recursive function count_change so I wasn't sure.",
+            "follow-ups": [
+                {
+                    "feedback": "Using your helper function makes your main function recursive in nature by default."
+                }
+            ]
+        },
+        {
+            "question": "anyone know why this is happening??  Traceback (most recent call last):  File \"/Users/amyzhong/cs61a/HW/hw03/hw03.py\", line 78  def count_change(amount)  ^  SyntaxError: invalid syntax  Error loading assignment: Error importing file hw03.py  Checking for software updates...  OK is up to date",
+            "follow-ups": [
+                {
+                    "feedback": "You're missing a colon after (amount) I believe"
+                }
+            ]
+        }
+    ]
+}

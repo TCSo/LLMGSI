@@ -1,0 +1,14 @@
+{
+    "subject": "[HW 05] Q8: Deep Map",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q8\">Q8: Deep Map</a>\n\n<p> Please post all questions you have below concerning Q8: Deep Map in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "How to copy a Link and new one does not point the old one ?",
+            "follow-ups": [
+                {
+                    "feedback": "Since every element within the Link is theoretically going to be changed by fn, there isn’t much of a need to copy the list and then mutate it. Try building a new Link from scratch."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 08] Q12: Linked Lists as Strings",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q12\">Q12: Linked Lists as Strings</a>\n\n<p> Please post all questions you have below concerning Q12: Linked Lists as Strings in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Do we need to consider when the link.first is a Link type ?",
+            "follow-ups": [
+                {
+                    "feedback": "No."
+                }
+            ]
+        }
+    ]
+}

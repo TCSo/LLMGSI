@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 05] Q3: Don&#39;t violate the abstraction barrier!",
+    "content": "<a href=\"https://cs61a.org/lab/lab05/#q3\">Q3: Don&#39;t violate the abstraction barrier!</a>\n\n<p> Please post all questions you have below concerning Q3: Don&#39;t violate the abstraction barrier! in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I really don't think I violated the abstraction barrier, but I got an error that \"string indices must be integers\". What does that mean?",
+            "follow-ups": [
+                {
+                    "feedback": "Check which line you got this error on: see if a string is being indexed, and see what the indices are"
+                }
+            ]
+        }
+    ]
+}

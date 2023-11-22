@@ -1,0 +1,53 @@
+{
+    "subject": "[HW 06] Q2: Thane of Cadr",
+    "content": "<a href=\"https://cs61a.org/hw/hw06//#q2\">Q2: Thane of Cadr</a>\n\n<p> Please post all questions you have below concerning Q2: Thane of Cadr in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2cyzgi6q1oo%2FScreen_Shot_20191030_at_12.39.47_AM.png)  What does this error mean?",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind! I was wrapping s in parenthesis, too used to Python haha."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjrgjl7ik5sg51h%2Fk2dwruenom62%2FScreen_Shot_20191030_at_4.25.18_PM.png)I don't think I'm really understanding the doctest, because cddr should return the first element of a list which would be 1 in this case?",
+            "follow-ups": [
+                {
+                    "feedback": "the first element of a list can already be returned using `car` \\- see how `cddr` is implemented already in your skeleton code to help with this one!"
+                },
+                {
+                    "feedback": "Still not understanding this test case -- do not write a line of code for it or just return the corresponding element in the list?"
+                },
+                {
+                    "feedback": "Can you please explain this? I'm looking at the skeleton code but am not following. Thanks."
+                },
+                {
+                    "feedback": "`cddr` is supposed to return the `cdr` of the `cdr` of a given pair"
+                }
+            ]
+        },
+        {
+            "question": "why does the website thing keep disconnecting im confused",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk2e06ufsm6dh%2FScreen_Shot_20191030_at_6.00.50_PM.png)"
+                },
+                {
+                    "feedback": "Make sure you don't close the terminal that's running the notebook while you're using it"
+                }
+            ]
+        },
+        {
+            "question": "scm> (load-all \".\")   # Error: unexpected token: )",
+            "follow-ups": [
+                {
+                    "feedback": "i'm having this same issue. I'm on the last problem but everything else that I already completed is not passing the cases anymore because of #Error"
+                },
+                {
+                    "feedback": "I solved this problem. It lack \")\", please check your () pair."
+                }
+            ]
+        }
+    ]
+}

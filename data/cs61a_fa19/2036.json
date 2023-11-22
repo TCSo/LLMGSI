@@ -1,0 +1,149 @@
+{
+    "subject": "[Lab 11] Q3: Repeatedly Cube",
+    "content": "<a href=\"https://cs61a.org/lab/lab11//#q3\">Q3: Repeatedly Cube</a>\n\n<p> Please post all questions you have below concerning Q3: Repeatedly Cube in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can someone please explain this question to me. any hint would be appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "Try thinking about your recursive call. What would your recursive call be. Then using leap of faith, what would that recursive call give you. Maybe that would give you intuition as to why there's a `(* y y y)` at the end. Another hint: you need to bind `y` to something in the `let` statement."
+                },
+                {
+                    "feedback": "I don't understand what the question means when it says:  > cubes the given value x some number n times"
+                },
+                {
+                    "feedback": "nevermind :) just got it."
+                },
+                {
+                    "feedback": "For example, `(repeatedly-cube 2 2)` would give `512` because $$\\left(2^3\\right)^3 = 8^3 = 512$$. You cube the number $$n$$ times."
+                },
+                {
+                    "feedback": "I don't understand the purpose of the let statement for this question. Can someone please explain why the let statement is relevant here? I am not sure where to begin"
+                },
+                {
+                    "feedback": "It’s not actually super relevant. It’s just to help you get a grasp on how exactly the syntax works, but this question would totally be achievable with just a `define` statement. There are totally better places to use `let` that are more relevant, but just use it for the sake of the question."
+                },
+                {
+                    "feedback": "When are let statements useful/necessary?"
+                },
+                {
+                    "feedback": "When you want to use the same value several times without redundant computations, or just to make your code clearer  EDIT: Forgot `define` existed."
+                },
+                {
+                    "feedback": "Again, that would totally be achievable with `define` statements, so I think the main thing is just to control variable scoping, especially if you’re doing things that involve using the same symbol for variables in different parts of your code—that way the assignments don’t spill over from one to another since each is contained in its own frame. Maybe an instructor could chime in if there’s any further purpose to using `let`."
+                },
+                {
+                    "feedback": "I am not sure what y gets bound to in the let statement for this problem. Any hints?"
+                },
+                {
+                    "feedback": "Think of this as a recursion problem - the base case is already provided for you (if n is 0, return x), now you need to define y in such a way that the procedure becomes recursive"
+                },
+                {
+                    "feedback": "would y be set to x^n"
+                },
+                {
+                    "feedback": "Not exactly. See if you can identify a pattern with repeatedly cubing 2, for example:  0 times: 2  1 time: 8 = 2*2*2  2 times: 512 = 8*8*8  etc. How can you model this behavior recursively?"
+                },
+                {
+                    "feedback": "I keep getting the error: \"too many operands in form.\" I don't know why this is happening.  In my let statement, I am binding y to the result of calling the original function, repeatedly-cube, on some number x (n-1) times. Am I on the right track?"
+                },
+                {
+                    "feedback": "I think this error is because the binding you wrote has incorrect syntax. Here's what should happen in a let special form:      `(let ((bind variable bind value) (bind variable bind value) ... ) body)`      Notice how each binding is a pair. So you should have `y` as your `bind variable` and one expression that evaluates to 1 value as your `bind value`      I'm thinking it's because the `bind value` you've written has 2 or more parts to it instead of 1.      Something like this:                     scm> (let ((x 2 3)) x)     Traceback (most recent call last):       0\t(let ((x 2 3)) x)     Error: too many operands in form     scm>"
+                }
+            ]
+        },
+        {
+            "question": "Is there actually a point to doing this with a `let` statement rather than just a standard variable definition with `define`?",
+            "follow-ups": [
+                {
+                    "feedback": "I would assume this problem is just an \"underhand toss\" introduction to let statements rather than showing off where they can really shine (which the Scheme project does a better job of)"
+                },
+                {
+                    "feedback": "Fair enough."
+                }
+            ]
+        },
+        {
+            "question": "What does        # Error: badly formed expression: y       mean?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the same problem when I try to solve the problem recursively"
+                },
+                {
+                    "feedback": "Don’t forget the expression after the `let` form is a list of lists: it is a list of two-element lists whose first elements are the symbol and whose second elements are the values. I suspect you may be missing a set of parentheses. This:   ```   (let ((x 2))   (print x))   ```   Not this:   ```   (let (x 2)   (print x))   ```"
+                }
+            ]
+        },
+        {
+            "question": "Can someone help me with the logic of this question? I'm binding y and doing a recursive leap of faith that decreases n in order to reach the base case but doing so gives me an error. I'm not quite sure what to do. Any help would be appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "What error are you getting?"
+                },
+                {
+                    "feedback": "It's kind of more like I don't understand what the (* y y y) if for because whenever I try to test my code I get this error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk2y8tkgbam9g%2FScreen_Shot_20191113_at_8.58.01_PM.png)  However the nature of this error leads me to believe that the logic of my code is completely wrong as I'm getting 99. Thus I know it's not really my syntax that error but actually my logic. I don't know what else I can do to solve this though and I feel as though I might just be overcomplicating things."
+                },
+                {
+                    "feedback": "The 99 is probably from decrementing 100 by 1. The solution should be really quite simple; double check your parentheses and make sure you’re not accidentally trying to put a number as the first element of a Scheme expression."
+                },
+                {
+                    "feedback": "I'm sorry I still don't understand. It might be because my utilization and understanding of the let statement is wrong. Can someone simplify this explanation for me? I understand that let allows you to use local variables in a program but I just don't understand what this explanation means.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk2y9hwp1sa3m%2FScreen_Shot_20191113_at_9.16.12_PM.png)"
+                },
+                {
+                    "feedback": "If, say, I wanted to assign `a` to `3` and `b` to `4` in a `let` statement and then print the result of adding those together, I would do the following: ``` (let ((a 3) (b 4)) (print (* a b))) ``` Each value in the `bindings` list is a two-element list, where the first element is the symbol and the second element is the value the symbol should be bound to in the local frame. These values are not accessible outside the `let` statement."
+                },
+                {
+                    "feedback": "major bruh moment it was an error with my parenthesis... thanks for the help @Nicholas!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (load-all \".\")     # Error: unexpected end of file          Run only this test case with \"python3 ok -q repeatedly-cube --suite 1 --case 1\"     ---------------------------------------------------------------------     Test summary         0 test cases passed before encountering first failed test case  what does \" **`unexpected end of file`** \" mean",
+            "follow-ups": [
+                {
+                    "feedback": "It means you have an imbalance of parentheses. You are still inside an opening parenthesis when you hit the end of the file, so you’re missing a closing parenthesis somewhere."
+                }
+            ]
+        },
+        {
+            "question": "Help please? Not sure why it says this, i am trying to pass n-1 as the new n in my recursive call.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk311z614yl6c%2FScreen_Shot_20191115_at_8.09.44_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Remember how scheme handles operations. You can't just say `n-1`, you have to say `(- n 1)`"
+                },
+                {
+                    "feedback": "LOLLLLL thanks. I spent about an hour just looking at this and not sure why i acted so silly"
+                },
+                {
+                    "feedback": "No worries it happens to the best of us"
+                },
+                {
+                    "feedback": "Ok I passed the test, but i can't quite grasp the functionality of this let statement with the recursive call. Does it return (* y y y) after every time y is being binded to the recursive call? how does x become the previous x cubed?"
+                },
+                {
+                    "feedback": "so like lets say n is 2 and x is 2:  in the first recursive call, y becomes 8 because x at first was 2 and it returned 2*2*2, and then that's how it becomes x in the next recursive call and binds y to 8?"
+                },
+                {
+                    "feedback": "Basically we are saying \"To get the result of cubing $$x$$ $$n$$ times, let $$y$$ be the result of cubing $$x$$ $$n-1$$ times. Return $$y^3$$.\""
+                },
+                {
+                    "feedback": "so when does it reach the (* y y y) statement?"
+                },
+                {
+                    "feedback": "Remember that there's a base case - when $$n = 0$$. Then we will have solved for cubing x 0 times, then 1 time, then 2 times, etc. we work our way back up. See this at work in the Python equivalent [here](https://tinyurl.com/wtw3z8s) \\- notice how f4 is the first frame with a return value, then f3, then f2, then f1"
+                }
+            ]
+        },
+        {
+            "question": "When I run tests, only this shows up: (load-all \".\"). How should I fix that??",
+            "follow-ups": [
+                {
+                    "feedback": "NVM, I'm dumb"
+                }
+            ]
+        }
+    ]
+}

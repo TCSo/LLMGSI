@@ -1,0 +1,38 @@
+{
+    "subject": "[Ants] Problem 12",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-12-1-pt\">Problem 12</a>\n\n<p> Please post all questions you have below concerning Problem 12 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "What should be done to make sure  \"A `ScubaThrower` should not lose its armor when placed in `Water\" ?`",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure it's water safe"
+                }
+            ]
+        },
+        {
+            "question": "I am getting this Error, but I am confused as to why... I thought scuba ant inherits from the thrower ant which already initializes a place? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpui8zyi2q5%2Fk1pkghh8h7rr%2Ferror.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The issue seems to be that you have overridden the action method of ThrowerAnt in ScubaThrower, so when they change ThrowerAnt's action, the change is not reflected in your ScubaThrower. If ScubaThrower is inheriting from ThrowerAnt, you do not need to override any of its methods."
+                }
+            ]
+        },
+        {
+            "question": "What action does the ScubaThrower perform? What is its range, and does it attack the nearest bee, or all the bees?",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind! It should do exactly what a generic ThrowerAnt does!"
+                }
+            ]
+        },
+        {
+            "question": "ScubaThrower is identical to other throwers except for the watersafe and food_cost parts, right?  But when I try to copy the codes from ThrowerAnt and run it (with modified is_watersafe and food_cost) I get the following error:                Problem 12 > Suite 4 > Case 1          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> old_thrower_action = ThrowerAnt.action     >>> old_throw_at = ThrowerAnt.throw_at     >>> # Testing ScubaThrower Inheritance from ThrowerAnt     >>> def new_action(self, colony):     ...     raise NotImplementedError()     >>> def new_throw_at(self, target):     ...     raise NotImplementedError()     >>> ThrowerAnt.action = new_action     >>> test_scuba = ScubaThrower()     >>> try:     ...     test_scuba.action(colony)     ... except NotImplementedError:     ...     print('inherits action!')     Traceback (most recent call last):       File \"C:\\Users\\Lenovo\\Desktop\\CS61A\\ants\\ants.py\", line 447, in action         self.throw_at(self.nearest_bee(colony.beehive))       File \"C:\\Users\\Lenovo\\Desktop\\CS61A\\ants\\ants.py\", line 440, in nearest_bee         return search_bees(self.place)       File \"C:\\Users\\Lenovo\\Desktop\\CS61A\\ants\\ants.py\", line 433, in search_bees         while a.entrance != beehive:     AttributeError: 'NoneType' object has no attribute 'entrance'          # Error: expected     #     inherits action!     # but got     #     Traceback (most recent call last):     #       ...     #     AttributeError: 'NoneType' object has no attribute 'entrance'     >>> ThrowerAnt.action = old_thrower_action     >>> ThrowerAnt.throw_at = old_throw_at          Run only this test case with \"python3 ok -q 12 --suite 4 --case 1\"     ---------------------------------------------------------------------     Test summary         7 test cases passed before encountering first failed test case  I dont's understand. My codes for problem 3 & 4 can run successfully, but once I use it here I get an error.  Can anyone help me?  Much appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm. It should be a subclass of ThrowerAnt."
+                }
+            ]
+        }
+    ]
+}

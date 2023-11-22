@@ -1,0 +1,66 @@
+{
+    "subject": "[HW 05] Q6: Mint",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q6\">Q6: Mint</a>\n\n<p> Please post all questions you have below concerning Q6: Mint in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I need help with the worth() func. I kept getting this error: TypeError: worth() missing 1 required positional argument: 'self'. Did anyone encounter the same error?",
+            "follow-ups": [
+                {
+                    "feedback": "When did you get this error? Was it while calling worth()?"
+                },
+                {
+                    "feedback": "yes"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyatitqleci3ey%2Fk1of2biunnbw%2FScreen_Shot_20191012_at_20.15.32.png)"
+                },
+                {
+                    "feedback": "My guess would be that your `create` method is returning the class instead of an instance of it"
+                },
+                {
+                    "feedback": "that's right. Thanks man."
+                }
+            ]
+        },
+        {
+            "question": "How would you define a coin in create()?  I'm getting this when I try to return it. [Screen_Shot_20191014_at_8.15.34_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhhvcy9d3zb%2Fk1r9ysvwz6uj%2FScreen_Shot_20191014_at_8.15.34_PM.png)  Here;s what I'm currently doing![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhhvcy9d3zb%2Fk1r9zkujvi2l%2FScreen_Shot_20191014_at_8.15.23_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How do you normally instantiate a class syntactically? Note that the parameter `kind` is a class."
+                }
+            ]
+        },
+        {
+            "question": "**I am confused that where this 81 from?**  ****  **> >>nickel.worth() # 5 cents + (81 - 50 years) **  **36**",
+            "follow-ups": [
+                {
+                    "feedback": "Time went forward from the year 2019 to the year 2100, according to the previous lines in the doctest. So the coin is now 81 years old."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting “Mint object has no attribute year”. Any hints to overcome this?",
+            "follow-ups": [
+                {
+                    "feedback": "Keep in mind year is an instance variable, not a class variable. So you would need to have an instance of Mint and then call .year on that instance, not on the class itself."
+                }
+            ]
+        },
+        {
+            "question": "Im confused by what to do in my create function![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi8kxwa4dy%2Fk216sw4fi1bl%2FBildschirmfoto_20191021_um_18.44.26.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The `create` method needs to create and return a new instance of the class that is passed into it. How do you normally instantiate a class syntactically?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnplejaz02hx%2Fk22709rm7e4g%2FHw7_q6.png)  Comments on the doc string for the problem seems to be incorrect. In the two calls to dime.worth(), the comment provides a breakdown of the math, but this does not match the program's output. 10 + (106 - 50) = 66 ≠ 116, and 20 + (106 - 50) = 76 ≠ 126. This is because 106 is the incorrect year difference. It should be 2175 (the Mint's current year) - 2019 (the year that the dime was minted) = 156. Thus the time difference is off by 50, which is why the simplification of the comments is also off by 50. Typo was confusing when trying to figure out what actual implementation should be. This error is both on the website and in the docstring of the Mint class in hw05.py",
+            "follow-ups": [
+                {
+                    "feedback": "yes - this comment is incorrect. we'll work on fixing it for next semester, thanks for pointing it out!"
+                }
+            ]
+        }
+    ]
+}

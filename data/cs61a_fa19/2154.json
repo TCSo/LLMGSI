@@ -1,0 +1,128 @@
+{
+    "subject": "[Lab 12] Q1: Partial sums",
+    "content": "<a href=\"https://cs61a.org/lab/lab12//#q1\">Q1: Partial sums</a>\n\n<p> Please post all questions you have below concerning Q1: Partial sums in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I submitted my code with all test cases passed, but I don't see lab12.scm on okpy. Is it already up but not shown?",
+            "follow-ups": [
+                {
+                    "feedback": "This is an issue with the lab12.ok file. Open it up in a text editor, and replace its contents with the following:                {         \"name\": \"Lab 12\",         \"endpoint\": \"cal/cs61a/fa19/lab12\",         \"src\": [             \"lab12.sql\",             \"lab12_extra.sql\",             \"lab12.scm\"         ],         \"tests\": {             \"tests/obedience.py\": \"ok_test\",             \"tests/smallest-int.py\": \"ok_test\",             \"tests/matchmaker.py\": \"ok_test\",             \"tests/lets-count.py\": \"ok_test\",             \"tests/smallest-int-having.py\": \"ok_test\",             \"tests/partial-sums.py\": \"ok_test\"         },         \"default_tests\": [             \"partial-sums\",             \"obedience\",             \"smallest-int\",             \"matchmaker\"         ],         \"protocols\": [             \"restore\",             \"file_contents\",             \"unlock\",             \"grading\",             \"analytics\",             \"backup\"         ]     }  Leaving this unresolved for course staff to handle."
+                },
+                {
+                    "feedback": "Question was made optional, resolving."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # ()  # but got  # Traceback (most recent call last):  # ...  # SchemeError: argument 0 of car has wrong type (nil)  Run only this test case with \"python3 ok -q partial-sums --suite 1 --case 1\"  why do i keep getting this error",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you have a base case for when the input is nil"
+                }
+            ]
+        },
+        {
+            "question": "(helper 0 stream)  What does the middle zero do? does it keep track of the accumulated sum?",
+            "follow-ups": [
+                {
+                    "feedback": "You can use it as such. It's up to you."
+                },
+                {
+                    "feedback": "Do we need to constust a stream as \"return value\" in the helper function... I also got a little stuck in the \"0\" confusing what it is for."
+                },
+                {
+                    "feedback": "Yes, the output of the function will be a stream. It is up to you how to implement the helper function; if it is really throwing you off, just ignore the starting statement for now, see how you could figure out the problem otherwise, and then maybe you’ll come back to it."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk36i3t2npc6n%2FScreen_Shot_20191119_at_3.40.23_PM.png)  Any idea why I would be failing this case?",
+            "follow-ups": [
+                {
+                    "feedback": "You're not accumulating properly - the second element of evens is 4, and the first element of evens is 2, so the second partial sum of evens should be 2 + 4 = 6. The second partial sum your code generates happens to be exactly the second element of the original sequence - make sure it's accumulating."
+                }
+            ]
+        },
+        {
+            "question": "I got this error but I'm not sure where exactly could I not be accumulating properly.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk38zsobcfta7%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191121_%E4%B8%8A%E5%8D%889.30.18.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Could you describe your methodology? Perhaps you are adding each element of the sequence to itself, since 4 is the second even number and the second partial sum you are returning is 4 + 4 = 8"
+                },
+                {
+                    "feedback": "So I'm cons-streaming (the sum of sum so far and car of stream) with the helper function that updates the sum so far to (the sum of car of cdr-stream of stream and sum so far), and stream to cdr-stream of stream."
+                },
+                {
+                    "feedback": "Oh I figured it out! I shouldn't be adding car of cdr-stream to sum so far!"
+                },
+                {
+                    "feedback": "Awesome, glad you figured it out!"
+                },
+                {
+                    "feedback": "I used a similar approach. Why don't we add car of car-stream to sum so far?"
+                },
+                {
+                    "feedback": "*cdr-stream, not car-stream"
+                },
+                {
+                    "feedback": "You would probably just want to add the `car` of the stream to the running sum, not the `car` of the `cdr-stream`."
+                },
+                {
+                    "feedback": "So I implemented the function using a helper which keeps track of the sum so far (as described above) and pass all the test cases for this problem, but I don't understand the recursive call to helper to update the sum so far and the stream. Can someone please explain what this recursive call to helper does?"
+                },
+                {
+                    "feedback": "Sorry that this explanation is past the deadline, but basically this recursive call to helper makes sure we are keeping track of all the values accumulated so that all we have to do is add our latest value to that total to get the next partial sum."
+                }
+            ]
+        },
+        {
+            "question": "What does the helper function do",
+            "follow-ups": [
+                {
+                    "feedback": "It is up to you. Remember that the goal is to accumulate all the previous values; you might want to use the extra parameter to keep track of what we've accumulated so far."
+                }
+            ]
+        },
+        {
+            "question": "Do we need to do this question to get full credit for this lab? I realized it was made optional but when I tried submitting it said that there were failed test cases for this problem. Would I still get credit?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, as long as you pass the other questions."
+                },
+                {
+                    "feedback": "To clarify, you do not need to do the question, and you will get credit as long as you pass the other questions."
+                }
+            ]
+        },
+        {
+            "question": "scm> (define evens (partial-sums twos))       # Error: unknown identifier: stream-car              # Error: expected       #     evens       # but got       #     Traceback (most recent call last):       #       ...       #     SchemeError: unknown identifier: stream-car              Run only this test case with \"python3 ok -q partial-sums --suite 1 --case 1\"",
+            "follow-ups": [
+                {
+                    "feedback": "`stream-car` is not a built-in procedure. To get the first element of a stream, you can just use `car`."
+                },
+                {
+                    "feedback": "scm> (car (cdr-stream evens))       # Error: argument 1 of map has wrong type (Pair)              # Error: expected       #     4       # but got       #     Traceback (most recent call last):       #       ...       #     SchemeError: argument 1 of map has wrong type (Pair)              Run only this test case with \"python3 ok -q partial-sums --suite 1 --case 1\"       ---------------------------------------------------------------------"
+                },
+                {
+                    "feedback": "The `map` function doesn’t work with streams, only lists. You shouldn’t need to use `map` to implement this function, though."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjdaa6lv5hg%2Fk3ak7dmczs83%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191122114930.png)  I am just confused that why it shows car or cdr-stream has wrong type for some of the tests while others doesn't?",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably returning nil at some point when you shouldn’t be returning nil. Remember that infinite streams should always produce infinite streams, so if you are returning nil for something like the twos stream, that is an issue."
+                }
+            ]
+        },
+        {
+            "question": "SchemeError: argument 0 of car has wrong type (str)  why?",
+            "follow-ups": [
+                {
+                    "feedback": "How are you trying to solve this problem?"
+                }
+            ]
+        }
+    ]
+}

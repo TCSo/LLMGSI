@@ -1,0 +1,172 @@
+{
+    "subject": "[HW 04] Password Protected Account",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q7\" target=\"_blank\" rel=\"noopener noreferrer\">Q7: Password Protected Account</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q7: Password Protected Account in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "How do I format my string properly? I fail OK because I return the wrong thing",
+            "follow-ups": [
+                {
+                    "feedback": "I am also having this issue!"
+                },
+                {
+                    "feedback": "The string can be formatted pretty simply by using str( ) for everything that you are trying to print that is not a string."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk4hwo0562s%2Fk1ct82bjctq4%2F%E6%89%B9%E6%B3%A8_20191004_171832.png)  Hello everyone! I've tried to solve the question 7 Make_Withdraw with several methods and I believe there's no problem with the code itself, but when I tested with py ok it still suggested there's an error although my output is the same as expected (see screenshot above).  Now I'm kind of confused about what's going on, and I'm looking forward to any useful advice! Thanks a lot!",
+            "follow-ups": [
+                {
+                    "feedback": "Please do not post your code on Piazza"
+                },
+                {
+                    "feedback": "How can I set my question to private?"
+                },
+                {
+                    "feedback": "when making the post, change the \"Post to\" option to Individual Student(s) / Instructor(s), and only post it to instructors."
+                },
+                {
+                    "feedback": "maybe make sure you are printing / returning correctly and not swapping that?  if not, a redownload of the files may be necessary."
+                }
+            ]
+        },
+        {
+            "question": "Other outcome like \"Insufficient funds\" and \"Incorrect password\" work just fine, why this return result looks weird?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzw8xfv1bya23u%2Fk1cx4hpaiarc%2FFY_LLY9MRIPB05U.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, figured it out!"
+                },
+                {
+                    "feedback": "How to make this work without using print? Need your help, thanks"
+                },
+                {
+                    "feedback": "pay attention to the position of \"\""
+                },
+                {
+                    "feedback": "Hi, I've been having the same issue. How does one format the string such that it doesn't return the brackets?  Also, what other way is there to return the list (without separating it with a comma)?  Thanks!"
+                },
+                {
+                    "feedback": "pay attention to the difference in position of \"\" in your result and the right answer.  Since the \" is on the back, what would you do to return the content of a list instead of the name of the list in string format?"
+                }
+            ]
+        },
+        {
+            "question": "I’m stuck on how to fix this error. Can somebody help me?![](https://piazza.com/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fqoerllaeijfk%2FIMG_6693.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, it seems like you're not printing the attempts in a list (the brackets)."
+                },
+                {
+                    "feedback": "Right, I think so. But when I tried to do it in list, I got the same problem in the previous post, which has parentheses in outer layer. I’m so stuck."
+                },
+                {
+                    "feedback": "Make sure that you're returning 1 value, a string. Lists can be type casted as a string using the `str` function. f-strings, string-interpolation may also be helpful."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy2s1qit5np%2Fk1fevyjv1sg7%2FScreen_Shot_20191006_at_12.57.50.png)  I used print('\"',\"Your account is locked. Attempts:\", incorrect_pass, '\"'), but there is an extra space. Does anyone know how to get rid of that?",
+            "follow-ups": [
+                {
+                    "feedback": "The string output should be returned, not printed, hence why the return output expects quotes since printed strings drop the quotes.  Make sure that you're returning 1 value, a string. Lists can be type casted as a string using the `str` function. f-strings, string-interpolation may also be helpful."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjskxn4z5s3%2Fk1fz9s404f94%2Ferror.PNG)  I do not understand where the \\ is coming from",
+            "follow-ups": [
+                {
+                    "feedback": "You seem to have a random double quote in your returned string"
+                },
+                {
+                    "feedback": "Hi I get this when I add \" ' \" to my string, any advice?"
+                },
+                {
+                    "feedback": "never mind I got it!"
+                },
+                {
+                    "feedback": "I get the same problem, but I didn't use double quote. How did you solved it?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjynvzqlvxfk6dx%2Fk1iguz2om8vo%2Fpiazza1.PNG)  I'm trying to implement a higher order function, but keep getting this error. If I eliminate the arguments, the code runs though. Anyone know why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Hello! Do not use \"pass\", I had the same problem earlier and switched everything (those variables) I had to \"passw.\" It's probably some sort of built-in function or something. Hope it works and happy coding!"
+                },
+                {
+                    "feedback": "pass is indeed a keyword in Python. NAming your argument pass will cause problems"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdj7emy1757z%2Fk1imyppmneod%2FScreenshot_134.png)  I think i have pretty much the code for this problem but for some reason it keeps on saving the right passwords [hax0r...] in my attempts. I used nonlocal and, appending and len() in my else statement to add up the the wrong attempts but cannot figure out this issue. Any fixes?",
+            "follow-ups": [
+                {
+                    "feedback": "Hey, I'm having the same issue. How did you resolve it?"
+                }
+            ]
+        },
+        {
+            "question": "What is the purpose of checking that the double quotations are correct? Would this be in a what would python display question? If so, where do we learn about all the intricacies of this. It doesn't seem intuitive in the least. I solved it but still have no idea why I can put double quotes around an unconcatenated string and it returns single quotes, but then I put the double quotes around one part of a concatenated string and I get doubles, then I put two doubles at the end of the concatenation and I get one double quote. In which of the nine realms does this make sense?",
+            "follow-ups": [
+                {
+                    "feedback": "here's what I suppose is happening from some personal testing (I do not know the exact answer):  \\- It seems like Python interactive will default to single quotes for all Strings.  \\- If a string contains a single quote character, it will choose to display it inside double quotes, and vice versa. I suppose this is for clarity - to know that the string does not stop at the single / double quote in the middle of the string, and since the boundaries of strings could be represented with either.  if you were looking at specific examples, please post them as a follow up, since it was a bit confusing what situations you were talking about from your original post."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting a no doctests found message even after redownloading hw04. what does this mean? how do I fix it?  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Running tests  \\---------------------------------------------------------------------  Doctests for make_withdraw  \\-- No doctests found for make_withdraw --  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case  Backup... 100% complete",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your make_withdraw function looks like this (copied from the HW 04 webpage):                def make_withdraw(balance, password):         \"\"\"Return a password-protected withdraw function.              >>> w = make_withdraw(100, 'hax0r')         >>> w(25, 'hax0r')         75         >>> error = w(90, 'hax0r')         >>> error         'Insufficient funds'         >>> error = w(25, 'hwat')         >>> error         'Incorrect password'         >>> new_bal = w(25, 'hax0r')         >>> new_bal         50         >>> w(75, 'a')         'Incorrect password'         >>> w(10, 'hax0r')         40         >>> w(20, 'n00b')         'Incorrect password'         >>> w(10, 'hax0r')         \"Your account is locked. Attempts: ['hwat', 'a', 'n00b']\"         >>> w(10, 'l33t')         \"Your account is locked. Attempts: ['hwat', 'a', 'n00b']\"         >>> type(w(10, 'l33t')) == str         True         \"\"\"         \"*** YOUR CODE HERE ***\""
+                },
+                {
+                    "feedback": "got it! thanks."
+                }
+            ]
+        },
+        {
+            "question": "If amount>balance, the function should return `'Insufficient funds'`, following from what we did in the lecture. So why does the test case want the output as `'Insufficient funds'python3 ok -q make_withdraw `?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyl6vrdwz3u6ag%2Fk1mrkpmgig2p%2FScreen_Shot_20191011_at_4.30.17_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You probably accidentally copied that line into your doctest. Copy and paste it from a fresh copy of the file"
+                }
+            ]
+        },
+        {
+            "question": "I used nonlocal for balance and, appending to list and len() to add up the the wrong attempts but for some reason my list does not append wrong attempts to my list and thus I am getting this issue. Any suggestions would be appreciated. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdihgtc2z4ja%2Fk1o7cghhra3b%2FScreen_Shot_20191012_at_4.39.17_PM.png)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdihgtc2z4ja%2Fk1o6yd7g4etg%2FScreen_Shot_20191012_at_4.28.16_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I'm not completely sure, but it seems like you might be reseting the incorrect password list after each successful access."
+                },
+                {
+                    "feedback": "Never mind, I figured it out  For those who are having the same problem, remember to define your list in the Global Frame and use nonlocal."
+                }
+            ]
+        },
+        {
+            "question": "i had this same issue. make sure you are checking if your incorrect password list is not equal to 3, because what this is doing is on the 4th attempt if the password is correct, it will still withdraw. but you want to do that only if they haven't met the limit of incorrect password attempts."
+        },
+        {
+            "question": "your list is appending but it returned 30 because the password was correct, it is ignoring the fact that there were already 3 failed attempts"
+        },
+        {
+            "question": "Hi, I am having trouble passing the last test (the type(...) == str), I don't understand why my return isn't a string? Could anyone please help me with this?  Thank you, ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5c767lc66t%2Fk1ol6ohlffz4%2FCaptura_de_pantalla_20191012_a_las_22.36.45.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, the two separate calls should return the same value, but it seems like the second call is returning something else. Is your implementation behavior dependent on call count?  To debug, run interactive mode using     `python3 ok -i -q make_withdraw`. From there, you can check the value by running `type(w(10, 'l33t'))`."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvsdafp47b4pg%2Fk1r5tdh8arr7%2F%E6%88%AA%E5%B1%8F20191014%E4%B8%8B%E5%8D%886.19.09.png)  I get the same problem about \\, but I used f-string instead of double quote. Any hint about how to solve it? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, got it"
+                }
+            ]
+        }
+    ]
+}

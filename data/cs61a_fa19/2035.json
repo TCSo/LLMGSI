@@ -1,0 +1,192 @@
+{
+    "subject": "[Lab 11] Q4: Scheme def",
+    "content": "<a href=\"https://cs61a.org/lab/lab11//#q4\">Q4: Scheme def</a>\n\n<p> Please post all questions you have below concerning Q4: Scheme def in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am confused that in the example, input is (def f(x y) (+ x y)). f and (x y) are together. But the function we write is                (define-macro (def func bindings body)  f and (x y) are separated.",
+            "follow-ups": [
+                {
+                    "feedback": "From the note in the question 4 description:  > Note: the previous is equivalent to `(def f (x y) (+ x y))`.  In other words, the whether the space is there or not doesn’t matter."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvqck3p4cg6g9%2Fk2vt8jff1y4s%2F%E6%89%B9%E6%B3%A8_20191112_040635.png)  I got a little stuck in this issue...  Don't we need to call define-macro within this function... or is there any hints?  My logic is the aim is convert def f(x y) formulation into define-macro (f x y), which is the standard form.",
+            "follow-ups": [
+                {
+                    "feedback": "There’s no need to call define-macro within define-macro if that’s what you mean.      The error you’re getting is that the expression your macro is outputting is trying to call the list (x y), which is illegal.      Ideally, we want this to happen. We input:      func -> f  bindings -> (x y)  body -> (+ x y)      And the macro gives back a define of the form:      (define (f x y) (+ x y))      We use a regular define since we want a regular procedure outputted and not a macro procedure."
+                },
+                {
+                    "feedback": "I got it! Thank you!"
+                },
+                {
+                    "feedback": "I can't seem to get it to give the form (define (f x y) (+ x y)) because I can't quote define ('define). Instead of define just becoming a symbol, define is still a keyword."
+                },
+                {
+                    "feedback": "Oh nevermind."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain what def is? I did it using define, but I want to know if we're supposed to use def.",
+            "follow-ups": [
+                {
+                    "feedback": "You are supposed to define the `def` macro so that you can define functions using Python syntax, like `(def f (x y) (+ x y))`. You will need to figure out how to rewrite this to work with standard Scheme syntax."
+                }
+            ]
+        },
+        {
+            "question": "The bindings are a list. How do we include func in it?",
+            "follow-ups": [
+                {
+                    "feedback": "got it"
+                },
+                {
+                    "feedback": "how did you do this?"
+                },
+                {
+                    "feedback": "1\\. Create a 1 element list containing func  2\\. Combine this list with the bindings list using a built-in function we have learned about"
+                },
+                {
+                    "feedback": "I still cant figure out how to combine func and bindings but also to unquote func to return the name of func"
+                },
+                {
+                    "feedback": "Consider the following code: ``` scm> (define first 'my) scm> (define rest '(function definition)) scm> (cons first rest) (my function definition) ``` Think about how you could transform this to put together `func` and `bindings`."
+                }
+            ]
+        },
+        {
+            "question": "I was able to pass all the OK test cases but if I only have 1 operand such as below, it doesn't work:                scm> (def b (x y) (+ x y))     b     scm> (b 2 3)     5     scm> (def c (x y z) (+ x y z))     c     scm> (c 1 2 3)     6       scm> (def a (x) (x))     a     scm> a     (lambda (x) (x))     scm> (a 1)     Traceback (most recent call last):       0     (x)     Error: int is not callable: 1  I know that its caused because of the parentheses around the return value and `a` should be `(lambda (x) x)` to work. but I don't know how to make that happen.",
+            "follow-ups": [
+                {
+                    "feedback": "I believe this is intended behavior. The body of the function has to be a valid expression or list of expressions. In the case that x isn't callable, then `(x)` is not valid. `(def a (x) x)` would be the proper way to write the desired function (assuming you are trying to write the identity function). This isn't an issue with how your def implementation generates lambdas, but is just an issue with the way you are constructing this particular def statement."
+                },
+                {
+                    "feedback": "thank you"
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to use quasi-quotation such that the define statement within the function will evaluate the creation of a list containing func and bindings before the define statement can output #[cons], but everywhere I try to use a comma it returns (unquote) instead of evaluating the list creation. How can I fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to pre-evaluate the list."
+                },
+                {
+                    "feedback": "But the first test case keeps returning #[cons] or #[list]. I'm not sure how to prevent this."
+                },
+                {
+                    "feedback": "Maybe have your return expression be of the form `(list 'define ...) `so your desired function gets created when the macro's return expression gets evaluated. No quasiquotation necessary."
+                },
+                {
+                    "feedback": "This fixed it. Thanks for the help."
+                },
+                {
+                    "feedback": "No problem."
+                },
+                {
+                    "feedback": "Still curious why quasiquotation way of doing it does not work. I tried for a long time using quasiquotation and finally gave up and use the list way."
+                },
+                {
+                    "feedback": "I actually was able to get this to work with quasi-quotation (not sure why I was so adamant against it earlier). Once you have a solution in `(list 'define expr1 expr2)` form, you can convert it to quasiquotation form like so: ``(define ,expr1 ,expr2)`"
+                },
+                {
+                    "feedback": "I personally used quasiquotation as well. I guess I generally prefer it more, but in the grand scheme of things, it doesn’t really matter."
+                },
+                {
+                    "feedback": "I still don't quite understand why we can't just directly return another regular function define statement. Why do we need to do (list 'define ...) instead of just (define ....) normally and have a procedure within the macro?"
+                },
+                {
+                    "feedback": "Remember the evaluation procedure for macro procedures:    * Evaluate operator   *  **Apply operator** to unevaluated operands   *  **Evaluate the expression returned by the macro** in the frame it was called in.  We need the macro to generate a define expression, so that the expression returned by the macro defines our desired function when it is evaluated in the final step."
+                }
+            ]
+        },
+        {
+            "question": "How to name the function the argument passed in instead of \"func\"?  When I do (define func <body>) it returns 'func', not 'f'",
+            "follow-ups": [
+                {
+                    "feedback": "recall how the unquote works:)"
+                },
+                {
+                    "feedback": "still have no idea"
+                },
+                {
+                    "feedback": "oh, got it finally."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh17agsbf2ra%2Fk2xxh9u9b53e%2FScreen_Shot_20191113_at_3.39.07_PM.png)  I'm not sure how to use bindings with respect to func. Am I supposed to define a function as func with arguments bindings, then return body?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the form for `define` is to have the first argument be a list whose first element is the the function name followed by all the formal parameters, or bindings, and then the body. Try to figure out how you can achieve that from the `def` form."
+                },
+                {
+                    "feedback": "I'm getting the same error but I don't know how to solve it. For reference, my solution is using a lambda. Does anyone have any hints for me?"
+                },
+                {
+                    "feedback": "I don’t know specifically what your problem is since I don’t have enough info, but try temporarily changing `def` to a standard procedure and quoting expressions before you pass them in to see what the returned expression is. If you get an error, it means the error is happening before the macro returns, but if you don’t, it means the error is when it’s trying to evaluate the returned expression from the macro. It’s essentially debugging to try to isolate the location of the issue."
+                },
+                {
+                    "feedback": "If you still run into issues, I would either try giving more details about your program flow or methodology (without giving the actual code) or just make a private post to the instructors."
+                },
+                {
+                    "feedback": "Hmmm, after giving it more thought, is it possible you’re doing something like `(define (f) (x y) (+ x y))`? That’s just a guess on my part, but it could be a possible cause."
+                },
+                {
+                    "feedback": "^ ahh it was basically a problem with my parentheses... :(( thanks nicholas!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting unknown identifier: func",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are not quoting `func` in your return expression, since that'll just lead to `func` being evaluated in the global scope"
+                }
+            ]
+        },
+        {
+            "question": "I've been stuck on this question for quite a while now. What is this error supposed to mean?                scm> (def f(x y) (+ x y))     # Error: non-symbol: (x y)          # Error: expected     #     f     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: non-symbol: (x y)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you trying to do something like `(define bindings (...))`? That would mean that you’re trying to assign a value to the list `(x y)`, since that is what `bindings` evaluates to, but you can only assign things to single symbols, not lists. Remember that the macro is supposed to return an expression, so if you wanted to return an expression that started with `define`, you would have to use either ``(define (...))` and unquoting as necessary or `(list 'define (...))`."
+                },
+                {
+                    "feedback": "I've spoken to someone with a similar error and for what it's worth, they fixed it by adding in a missing `cons`"
+                },
+                {
+                    "feedback": "Thank you NIcholas and Cyrus, I got it!"
+                },
+                {
+                    "feedback": "Good to hear!"
+                },
+                {
+                    "feedback": "^"
+                }
+            ]
+        },
+        {
+            "question": "What does this mean?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyyd494x694%2Fk2ztxk6apvna%2FScreen_Shot_20191114_at_11.36.43_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "My guess is that you're calling the value of `func` somehow. Check the structure of your solution, and see the hints above. I was able to replicate this error like so:                scm> (define-macro (def func) (func))     def     scm> (def f)     Traceback (most recent call last):       0\t(def f)       1\t(func)     Error: str is not callable: f"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error and I don't know how to solve it! For reference, I'm binding func to a lambda function with bindings and body and unquoting where necessary. Does anyone have advice for me? I don't know how to solve this!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk30wh5f2r2xv%2FScreen_Shot_20191115_at_5.34.42_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Is it possible you’re doing something like `(define (f) (x y) (+ x y))`?"
+                },
+                {
+                    "feedback": "^ remember you are aiming for the form `(define (f x y) (+ x y))`"
+                },
+                {
+                    "feedback": "I had the same problem until I used cons. Remember you need cons to make the parentheses appear in the definition, literally putting parentheses around things doesn't work."
+                }
+            ]
+        }
+    ]
+}

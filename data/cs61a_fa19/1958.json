@@ -1,0 +1,569 @@
+{
+    "subject": "[Scheme] Problem 1",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-1-2-pt\">Problem 1</a>\n\n<p> Please post all questions you have below concerning Problem 1 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "For unlocking the test, what does \"scheme_read(src)\" in the first test case do? If I try it in an interactive interpreter, it returns:  Pair(23, nil)  But the autograder says this is incorrect.",
+            "follow-ups": [
+                {
+                    "feedback": "The expression doesn’t end until after 4, so remember to include 4 in your answer!"
+                },
+                {
+                    "feedback": "I'm still stuck on this unlock. I have literally tried every possible combination:                >>> scheme_read(src)  # Returns and removes the next complete expression in src       ? Pair(Pair(23, Pair(4, nil)), nil))       -- Not quite. Try again! --              ? Pair('+', Pair(1, Pair(Pair(23, Pair(4, nil)), nil)))       -- Not quite. Try again! --              ?        -- Not quite. Try again! --              ? Pair('+', Pair(1, Pair(Pair(23, Pair(4, nil)), nil)))       -- Not quite. Try again! --              ? Pair(Pair(23, Pair(4, nil)), nil))       -- Not quite. Try again! --              ? Pair(23, Pair(4, nil)), nil)       -- Not quite. Try again! --              ? Pair(23, Pair(4, nil)       -- Not quite. Try again! --              ? Pair('+', Pair(1, Pair(Pair(23, Pair(4, nil)), nil)))       -- Not quite. Try again! --              ? Error       -- Not quite. Try again! --              ? nil       -- Not quite. Try again! --"
+                },
+                {
+                    "feedback": "Check your parentheses!"
+                },
+                {
+                    "feedback": "One of them are correct in meaning but not form... recall that pop_first() did pop the prior tokens out of src."
+                },
+                {
+                    "feedback": "hi so does the tokens also include the ',' as apart of the linked list?"
+                },
+                {
+                    "feedback": "How do run the interactive interpreter to check to run \"scheme_read(src)\"? I keep getting an error."
+                },
+                {
+                    "feedback": "I have tried almost every combination and still cannot solve this case"
+                },
+                {
+                    "feedback": "Remember that the state within each case carries on from one call to the next. So by the time you get to the `scheme_read(src)` line, you have already called `pop_first` three times, which removed the first three tokens. `scheme_read` will thus read the next expression from whatever is left."
+                },
+                {
+                    "feedback": "For reasons that I don't yet understand, **spaces after commas** **do matter.** I was literally stuck over an hour for this."
+                },
+                {
+                    "feedback": "It is                Pair(23, Pair(4, nil) but with an extra parenthesis at the end that you missed"
+                },
+                {
+                    "feedback": "Just so you know, commas matter because WWPD depends on the output of Python, and the `repr` string for a `Pair` includes spaces after the commas. If the `__repr__` function were implemented differently for `Pair`, then the output would be different, and so the correct answers for WWPD would also be different."
+                }
+            ]
+        },
+        {
+            "question": "I am stuck on this test case and am really not able to understand how to get the second pair. This is the test case I am not passing.                Problem 1 > Suite 1 > Case 4          >>> from scheme_reader import *     >>> read_tail(Buffer(tokenize_lines([')'])))     nil     >>> read_tail(Buffer(tokenize_lines(['1 2 3)'])))     Pair(1, Pair(2, Pair(3, nil)))     >>> read_tail(Buffer(tokenize_lines(['2 (3 4))'])))     Pair(2, Pair(3, Pair(4, nil)))          # Error: expected     #     Pair(2, Pair(Pair(3, Pair(4, nil)), nil))     # but got     #     Pair(2, Pair(3, Pair(4, nil)))          Run only this test case with \"python3 ok -q 01 --suite 1 --case 4\"     ---------------------------------------------------------------------     Test summary         3 test cases passed before encountering first failed test case       I understand why it should be the expected, but for the life of me cannot implement this somehow.",
+            "follow-ups": [
+                {
+                    "feedback": "There’s a certain function that will actually read in the whole nested pair for you and return it to you properly parsed. Think about recursive calls."
+                },
+                {
+                    "feedback": "does this mean we need a check in the read_tail for an open parentheses?"
+                },
+                {
+                    "feedback": "Can someone explain why that function call returns                Pair(2, Pair(Pair(3, Pair(4, nil)), nil))  and not                Pair(2, Pair(3, Pair(4, nil)))"
+                },
+                {
+                    "feedback": "The Scheme expression `(2 (3 4))` is a list with `2` as the first element and `(3 4)` as the second element. Try drawing out exactly how you would represent this as a linked list to see how this would be converted to `Pair`s."
+                }
+            ]
+        },
+        {
+            "question": "How do I approach the testing your understanding test case 2 for unlocking the question? I was thinking about Pair('+\"....) but not sure where to go.",
+            "follow-ups": [
+                {
+                    "feedback": "First off, keep in mind that the line breaks don’t actually matter, so the expression that is being read is `(+ 1 (23 4)) (`. As you work through the question, keep track of what has has not been consumed in the expressions, and remember that `scheme_read` will consume an entire expression while `pop_first` only consumes the first token (like `(` or `+` or `1`)."
+                }
+            ]
+        },
+        {
+            "question": "I am having trouble with the                read_tail(Buffer(tokenize_lines(['(1 2 3)'])))  test case. In read_tail, I currently check if the src.current is an open parenthesis, and if it is I create a new Pair with the rest of the combination. However, this means that the open parenthesis in the above test case doesn't raise a SyntaxError like it is supposed to. How can I create a new nested Pair without always allowing any open parenthesis to trigger it?",
+            "follow-ups": [
+                {
+                    "feedback": "You actually have already written a function that deals with creating new lists. What is it, and how could you integrate it into read_tail?"
+                }
+            ]
+        },
+        {
+            "question": ">>> read_tail(Buffer(tokenize_lines(['2 (3 4))'])))  Not sure how to do this? I think I am supposed to read the next complete expression, which would be (3 4)?",
+            "follow-ups": [
+                {
+                    "feedback": "Actually, i think im supposed to do this: If the next token is not a delimiter, then it must be a primitive expression. Return it.  In the above case, I tried returning 2 but its not working."
+                },
+                {
+                    "feedback": "got it!"
+                },
+                {
+                    "feedback": "I'm also stuck on this test case, how did you fix it? I tried nesting pairs to account for (3 4), but that didn't work."
+                },
+                {
+                    "feedback": "I was stuck but figured it out from the boxer below \"Now that your parser is complete, you should test the read-eval-print loop by running\". There's a similar case example there."
+                }
+            ]
+        },
+        {
+            "question": "Do we use some sort of loop in read_tail?",
+            "follow-ups": [
+                {
+                    "feedback": "Not necessarily - consider how recursion may help"
+                }
+            ]
+        },
+        {
+            "question": "When calling read_tail(Buffer(tokenize_lines(['2 (3 4))']))), does it just return a Pair with another Pair(3, Pair(4, nil)) inside?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. Make sure you pay close attention to the structure of your linked list. It’s easy to get lost amidst all the different pairs and firsts and rests. The values are always contained within the firsts, and you can have pairs in firsts."
+                }
+            ]
+        },
+        {
+            "question": "For the test, after scheme_read(src), what should src.current() return? I have no idea.",
+            "follow-ups": [
+                {
+                    "feedback": "Shouldn't it return '(' ?"
+                },
+                {
+                    "feedback": "I would suggest seeing which parenthesis have been eliminated and which haven't."
+                },
+                {
+                    "feedback": "Keep in mind that `scheme_read` reads an entire expression. If it’s an atom, then it just consumes that atom, but if it’s a list, it will read in the entire list. For example, calling `scheme_read` on `'1 (2 3)` would just consume the `1`, but calling it on `(1 2) 3` would consume the `(1 2)`. That’s the expected functionality."
+                },
+                {
+                    "feedback": "So it should return (23 4)? But it doesnt' seem right also"
+                },
+                {
+                    "feedback": "So after reading the list, current is pointing to the thing after the list. You can try to think that read something then it is removed from src, so we process what is coming next."
+                }
+            ]
+        },
+        {
+            "question": "One of the tests I can't pass is this                Pair(1, Pair(2, Pair(3, nil)))     >>> read_tail(Buffer(tokenize_lines(['2 (3 4))'])))     Pair(2, Pair('(', Pair(3, Pair(4, nil))))          # Error: expected     #     Pair(2, Pair(Pair(3, Pair(4, nil)), nil))     # but got     #     Pair(2, Pair('(', Pair(3, Pair(4, nil))))          Run only this test case with \"python3 ok -q 01 --suite 1 --case 4\"  I think it has to do with the recursive call needed on the rest of the list and removing it from the buffer. Initially I thought to use scheme_read on the rest of the src, but that didn't work and I switched it to read_tail and that still didn't work. Is there something I'm missing in this condition of read_tail or am I interpreting this wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Your `Pair`s should never actually contain parentheses within themselves, since the `Pair`s already represent the groupings that were originally defined syntactically with the parentheses. What function are you u sing to read in the next element of the list? Hint: You already have a function that will read a complete expression, regardless of whether its a list or an atom."
+                },
+                {
+                    "feedback": "The problem is if we try to do sth like                return Pair(src.pop_first(), read_tail(src))  in the tead_tail, they cannot handle src.pop_first() return \"(\"  But we do                return Pair(src.pop_first(), read_scheme(src))  or                return Pair(src.pop_first(), read_line(src))  It will pass in the wrong expression to read_scheme or read_line."
+                },
+                {
+                    "feedback": "Oh! I figured it out! I should not do src.pop_first() at read_tail actually!!"
+                }
+            ]
+        },
+        {
+            "question": "[A1279873EA274136A65CFA4C6599AFEF.jpeg](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzxir9t86u9%2Fk2my30q0xx1g%2FA1279873EA274136A65CFA4C6599AFEF.jpeg)  Can someone please help me with this test case? Any hints would be greatly appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "Go to the table and see what kind of expression (23 4) and that should help you find the right internal representation. From there buddy, just gotta really plug in the numbers and remember ( ) create lists. If you really continue to struggle, perhaps check out the paragraph that starts with \"Now that your parser is complete...\" I HIGHLY suggest analyzing the last example. Best of luck pal."
+                },
+                {
+                    "feedback": "It seems reasonable for this to evaluate to Pair(23,Pair(4,nil)) but that doesn't seem to work. Did you figure it out?"
+                },
+                {
+                    "feedback": "Never mind that works with a space between , and nil"
+                }
+            ]
+        },
+        {
+            "question": "Can anyone provide me with some hints about how to do the recursion within the read_tail function? I plan to use the Pair and put scheme_read as the first element to read what that element is, and read_tail as the second parameter to do the recursive call until it hits the \")\".",
+            "follow-ups": [
+                {
+                    "feedback": "You nailed it."
+                },
+                {
+                    "feedback": "To clarify, your methodology is precisely correct. Is it the actual implementation you’re asking about?"
+                },
+                {
+                    "feedback": "nvm I just realized fixed a minor error and now it works.... Thanks for helping anyway!"
+                },
+                {
+                    "feedback": "I've been trying this method as well, but I keep getting the error src has so attribute current. Any hints on how can I pass in the first element without this error?"
+                },
+                {
+                    "feedback": "edit: *has no attribute"
+                },
+                {
+                    "feedback": "hi i'm also getting the above error and not sure what to do"
+                },
+                {
+                    "feedback": "Are you sure you are calling it? Current is a method, so you should access it as src.current()"
+                }
+            ]
+        },
+        {
+            "question": "Why does the following line result in a SyntaxError?                read_tail(Buffer(tokenize_lines(['(1 2 3)'])))",
+            "follow-ups": [
+                {
+                    "feedback": "`read_tail` is a function that will read in a list under the assumption that the starting parenthesis is already removed. Passing `'(1 2 3)'` into `read_tail` means that the list starts with a nested list as its first element, but then the list is never closed, so it’s syntactically invalid. A valid list would be something passed into `read_tail` would be something like `'(1 2 3))'`."
+                },
+                {
+                    "feedback": "Any advice on how to raise this SyntaxError? Right now my code still runs, just with the result  Pair(Pair(1, Pair(2, Pair(3, nil))), nil)."
+                },
+                {
+                    "feedback": "Raising the error is already implemented for you. So if there isn't an error being raised, that means there is something wrong in your solution."
+                },
+                {
+                    "feedback": "What might be going wrong? I'm running into the same issue."
+                },
+                {
+                    "feedback": "which function are you using to evaluate each of the expressions of the list in `read_tail`?"
+                },
+                {
+                    "feedback": "I'm using scheme_read after checking if there is an open parenthesis and read_tail otherwise and having the same issue because it doesn't recognise that an open parenthesis as a starting value is not valid. am I thinking about this the right way?"
+                },
+                {
+                    "feedback": "No, you don't need to hardcode checking for an open parenthesis"
+                },
+                {
+                    "feedback": "The check for parentheses is already included in your template code, so you just need to define what you actually do when there’s an open parenthesis."
+                }
+            ]
+        },
+        {
+            "question": "How do i return the 'nil' object when I type just nil it returns the string nil not the object.",
+            "follow-ups": [
+                {
+                    "feedback": "In the Python file, the name `nil` is bound to the nil object"
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk2o077zhz9uo%2FScreen_Shot_20191106_at_4.59.11_PM.png)  i can't figure out why i'm getting this error.. would any one be able to help or do you need to see my code specifically",
+            "follow-ups": [
+                {
+                    "feedback": "just kidding I figured it out my bad... if anyone else get this problem make sure you look at how val is evaluated in scheme reader"
+                },
+                {
+                    "feedback": "I'm still struggling with this error. I'm not sure what to do if the val is a '('  is not not just pop the first one then return the read tail of whats left?"
+                },
+                {
+                    "feedback": "the spec says to just pop and return nil"
+                },
+                {
+                    "feedback": "We have two functions: one that reads the next entire complete expression (`scheme_read`), and one that reads in a list with the opening parenthesis removed (`read_tail`). If, in `scheme_read`, you pop off a token and see that it is an opening parenthesis, your next entire complete expression is thus a list, although you have removed the opening parenthesis. See if you can use this to figure out which functions are called and when. Don’t forget your recursive leaps of faith!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting AttributeError: 'str' object has no attribute 'current.' Any idea why?",
+            "follow-ups": [
+                {
+                    "feedback": "the reason is that, I'm guessing you did src.pop_first(), but then you try and call src.current() is None in the first few line of scheme_read. It's kind of like, and I might be wrong here, doing index of index of a string, like 'car'[0][0], which gives you an error because the zeroth element of car has no zeroth element. But I am not sure how to fix it"
+                },
+                {
+                    "feedback": "I have been getting the same error"
+                },
+                {
+                    "feedback": "check places where you are calling the current() method using some dot notation. also, make sure you are not reassigning src, or other variables that you are call current() with, to something else (i.e. a String)."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdiogspb84nk%2Fk2o80hip28wa%2FScreen_Shot_20191106_at_8.37.45_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I don't understand where I'm going wrong here. Shouldn't read_line, if it's interpreting it as a scheme expression, display (18 6) as a list in scheme?"
+                },
+                {
+                    "feedback": "read_line actually does the same thing as the expression in the question before it, as the function read_line ends up calling scheme_read. It just provides a more concise way to do so"
+                },
+                {
+                    "feedback": "I got it, thank you!"
+                },
+                {
+                    "feedback": "What would be a more concise way?"
+                },
+                {
+                    "feedback": "`read_line(str)` is the same thing as `scheme_read(Buffer(tokenize_lines([str])))`. It’s just for convenience."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2oeajq0qyrk%2FScreen_Shot_20191106_at_11.33.46_PM.png)  For some reason I'm completely stuck on the first test case. Why doesn't this just return:   (",
+            "follow-ups": [
+                {
+                    "feedback": "Update: Just figured it out. If anyone else has this problem, make sure to be very careful about how the interpreter will output."
+                },
+                {
+                    "feedback": "Wait why doesn't it return just  ("
+                },
+                {
+                    "feedback": "remember that we are originally given the input as a string - what then is the type of each returned token?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi5ew7if4c9%2Fk2oft7dtiroc%2FScreen_Shot_20191107_at_12.16.19_AM.png)  not sure why i'm getting this error?",
+            "follow-ups": [
+                {
+                    "feedback": "take a look at code elsewhere in scheme_read / read_tail to see what method is used to remove an item from the `src` Buffer."
+                }
+            ]
+        },
+        {
+            "question": "I really can't figure this out. Someone please help!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fk2p5j36qtk1u%2FScreen_Shot_20191107_at_12.14.23_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "try putting a space between your comma and Pair in the last answer you gave?"
+                },
+                {
+                    "feedback": "Got ‘em, coach! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "How is this not a syntax error?  (1 (2 3) (4 (5)))  When (1 2 3) is an error?",
+            "follow-ups": [
+                {
+                    "feedback": "Notice how the first one has one extra closing parenthesis. read_tail expects everything after the first parenthesis, so in the case of (1 2 3), there is one extra opening parenthesis. 1 2 3) would not error."
+                }
+            ]
+        },
+        {
+            "question": "This is just a general question, what exactly is a delimiter?",
+            "follow-ups": [
+                {
+                    "feedback": "A delimiter is a character or sequence of characters used to separate regions/sections of source code, arbitrary text, or other forms of data streams. For example, in CSV files, commas are delimiters."
+                },
+                {
+                    "feedback": ""
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlhki0n9pD5w%2Fk2prqlfsg1wo%2FCapture.JPG)  I am currently stuck on this test case. In my code I try to read the next complete expression with scheme_read, check for missing end parentheses, and then call read_tail on the rest of the scr. Do I have to include a conditional that checks the front parentheses of an expression in some way as well? I'm not quite sure what I'm missing  Thanks for the help!",
+            "follow-ups": [
+                {
+                    "feedback": "I figured out where I was going wrong. If anyone else has this error, look in the description of read_tail for the conditional when the token is ')'. Make sure your function is implemented according to this description"
+                }
+            ]
+        },
+        {
+            "question": "Is there a certain format I need to put SyntaxError in? I'm not sure what I'm doing wrong.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjjs6g4wagu1xb%2Fk2qn08xdpil%2FScreen_Shot_20191108_at_1.05.27_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "If it's a syntax error, then SyntaxError will be the answer, so it's not."
+                },
+                {
+                    "feedback": "then how should I go about thinking about this test case?"
+                },
+                {
+                    "feedback": "`read_tail` reads in a list **without the opening parenthesis**. So if `1 2 3)` is the list without the opening parenthesis, what is the actual Scheme list, and how is it converted to `Pair`s?"
+                }
+            ]
+        },
+        {
+            "question": "Any tips on solving this problem? I understand why there is an error, but I'm not sure how I'm supposed to avoid it... I followed the instructions on the project page and it doesn't specify anything about this.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdf6t609dm4sp%2Fk2qxirgekek0%2FScreenshot_20191108_at_6.07.08_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re trying to call `len` on a value of a `Pair` rather than the `Pair` itself. Make sure `len` is only ever called on `Pair`s or their `rest`s."
+                }
+            ]
+        },
+        {
+            "question": "Problem 1 > Suite 1 > Case 4  (cases remaining: 5)  >>> read_tail(Buffer(tokenize_lines(['1 2 3)'])))  The current token should be ', but I don't know what this means below:  \"If the current token is ', `, or , the rest of the buffer should be processed as a quote, quasiquote, or unquote expression, respectively. You don't have to worry about this until Problem 6.\"  I entered quote(1 2 3)') but doesn't work. Any hints or an example when the token starts with '?",
+            "follow-ups": [
+                {
+                    "feedback": "`'` is a token in and of itself. Don’t worry about quotes forms until you write the part of the code that handles those forms—you’re just parsing for now. That’s the beauty of separation of concerns."
+                },
+                {
+                    "feedback": "Thank you! I forgot that I shouldn't worry about quotes until problem 6."
+                },
+                {
+                    "feedback": "You’re welcome. Best of luck on the rest of the project!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having a problem with this test case:  read_tail(Buffer(tokenize_lines(['(1 2 3)'])))  > Pair(Pair(1, Pair(2, Pair(3, nil))), nil)  where I should be getting a syntax error. I know it has something to do with calling scheme_read in read_tail but I can't figure out the way I should do that, the syntax error is raised when src.current() is None???",
+            "follow-ups": [
+                {
+                    "feedback": "never mind I figured it out, for those of you having this issue, make sure you're removing your last parentheses in your base case of read_tail, which I forgot to do"
+                },
+                {
+                    "feedback": "wow, thank you. this helped."
+                },
+                {
+                    "feedback": "thank you"
+                },
+                {
+                    "feedback": "Thank you :)"
+                },
+                {
+                    "feedback": "Could someone specify where \" your last parentheses in your base case of read_tail\" is?"
+                },
+                {
+                    "feedback": "If the current token is a parenthesis, it should be removed (think of what method provided to us can accomplish this) and nil should be returned."
+                },
+                {
+                    "feedback": "Thank you for the help Cyrus. I got it lol"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having a hard time unlocking this test.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2si8htt9ci2%2FScreen_Shot_20191109_at_8.34.11_PM.png)  I don't understand why some sort of error is not being returned since the previous line returned and removed the next (and last) expression in src.",
+            "follow-ups": [
+                {
+                    "feedback": "There are still tokens left in `src` \\- remember that `src.current()` returns the first token in `src`."
+                },
+                {
+                    "feedback": "Got it! Thanks for the help!"
+                },
+                {
+                    "feedback": "would it then be 23 ? I'm stuck"
+                },
+                {
+                    "feedback": "After you have read the `(23 4)` expression, the tokens that are left are `[')', '(']`. What would `src.current()` thus return?"
+                },
+                {
+                    "feedback": "oh ok, thanks! I forgot about those parenthesis"
+                }
+            ]
+        },
+        {
+            "question": "How come nothing is being returned? I know it has something to do with the the \"elif val in quotes\" case, but I am returning the pair of quotes and the src called on scheme_read  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk2tgf7iguhgq%2FScreen_Shot_20191110_at_12.32.11_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Oh wait that part is #6, but then I still do not know why it is not returning anything..."
+                },
+                {
+                    "feedback": "Nvm got it!"
+                },
+                {
+                    "feedback": "I'm having the same issue, how did you fix this?"
+                },
+                {
+                    "feedback": "You are writing two functions: `scheme_read` and `read_tail`. Make sure the interactions between the two are set up correctly, and remember that `read_tail` is meant to read lists having stripping away the first `'('`. It sounds like you might not be returning anything if you encounter a list."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5ys2o9a6g3%2Fk2u0ozj0g3l2%2FScreen_Shot_20191110_at_21.42.47.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Can anybody give a hint to this case?"
+                },
+                {
+                    "feedback": "Remember that the state within each case carries on from one call to the next. So by the time you get to the `scheme_read(src)` line, you have already called `pop_first` three times, which removed the first three tokens. `scheme_read` will thus read the next **complete expression** from whatever is left."
+                },
+                {
+                    "feedback": "Thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "Need some help. Thanks  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5ys2o9a6g3%2Fk2u1lg6i8mpn%2FScreen_Shot_20191110_at_22.24.32.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that `read_tail` reads in the next entire list **with the starting parenthesis removed**. So this is the same as reading in a list of tokens `['(', ')']`, or the string `()`. How would we represent this construction?"
+                },
+                {
+                    "feedback": "I thought it should be like this. But Idk how to understand \"with the starting parenthesis removed\".  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5ys2o9a6g3%2Fk2u239qyk48o%2FScreen_Shot_20191110_at_22.38.02.png)"
+                },
+                {
+                    "feedback": "You will never see a parenthesis in the `Pair`s since the parentheses are what denote the Scheme lists in the first place. `()` is the empty list; what variable are we using to represent the empty list?"
+                },
+                {
+                    "feedback": "I get it. Thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "read_tail(Buffer(tokenize_lines(['2 (3 4))'])))  Need help! Thanks  In my opinion, I think it should be  Pair(Pair(2, nil), Pair(3, Pair(4, nil)))  or this one  Pair(2, Pair(3, Pair(4, nil)))  But both said wrong",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you keep track of what’s being nested and what’s not. The first list you wrote corresponds to ((2) 3 4) and the second corresponds to (2 3 4)."
+                },
+                {
+                    "feedback": "The first element should be `2`, and the second element is `(3 4)`. A two- element Scheme list has the form `Pair(first, Pair(second, nil))`. The `2` is self-evaluating, but `(3 4)` is itself a two-element list. Slot the `2` into `first` and a two-element list into `second`, and you will have the right form. Good luck!"
+                },
+                {
+                    "feedback": "So is that should be like  Pair(2,Pair(Pair(3,Pair(4,nil)),nil)"
+                },
+                {
+                    "feedback": "Got it. Thank you very much!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk2vdk2w77cfi%2FScreen_Shot_20191111_at_8.47.10_PM.png)  I think I just don;t understand the question, but I am keep running into this error. What does it mean to 'Call `read_tail` on the rest of `src` and return its result.'. I tried to return read_tail(...), but I guess its not... What am I doing here?",
+            "follow-ups": [
+                {
+                    "feedback": "For example, if you pass in `['(', '+', 1, 2, ')']` to `scheme_read`, you’re supposed to pop off the opening parenthesis and then pass `['+', 1, 2, ')']` to `read_tail`."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnomiq8d21qc%2Fk2vky9aoi070%2F1.jpg)  I seem to have a conceptual issue with using `read_tail()` function.  **From problem 1 prompt:** Read the rest of the combination until the matching closing parenthesis. ( _Hint:_ Which function can we use to read the rest of a list and remove it from the buffer?)  When I attempt to pass `src` to `read_tail()` in order to recursively continue building my return statement, I get various errors. I am not really sure what I am missing because `read_tail(src)` should return a `Pair()` or `nil` which is exactly what I need to complete my `return` statement.  Any hints?",
+            "follow-ups": [
+                {
+                    "feedback": "Calling `read_tail(src)` isn't problematic in and of itself, but it depends on where/how you are making that call. Check what you're passing in as the first parameter of your returned `Pair` and make sure it makes sense"
+                },
+                {
+                    "feedback": "Also remember that a list can have more than one element. If you pass in `[23, 4, ')']`, after you read the first element, you’re still going to have `[4, ')']` left to read—you need to make sure you read the rest of the list. Think about how you could do this recursively, and think about where it would go in the constructed `Pair`."
+                },
+                {
+                    "feedback": "Thank you for your help! I was able to figure out the issue. Earlier in the code, I've` src.pop()` instead of `src.first_pop()` which resulted in the error further down the line."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdj480i0p51u%2Fk2zrg7mqltk0%2Fneed_an_error.png)  I'm a little confused about what to do here, how should I go about _making_ the code error?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to raise any SyntaxErrors in your solution. If you follow all the steps in the problem statement precisely (gonna paste them below), this will naturally occur via the code already written for you.  `scheme_read`:    * If the current token is the string `\"nil\"`, return the `nil` object.   * If the current token is `(`, the expression is a pair or list. Call `read_tail` on the rest of `src` and return its result.   * If the current token is `'`, ```, or `,` the rest of the buffer should be processed as a `quote`, `quasiquote`, or `unquote` expression, respectively. You don't have to worry about this until Problem 6.   * If the next token is not a delimiter, then it must be a primitive expression. Return it. (provided)   *  **If none of the above cases apply, raise an error. (provided)**  `read_tail`:    * If there are no more tokens, then the list is missing a close parenthesis and we should raise an error. (provided)   * If the token is `)`, then we've reached the end of the list or pair. Remove this token from the buffer and return the `nil` object.   * If none of the above cases apply, the next token is the operator in a combination, e.g. src contains `+ 2 3)`. To parse this:      1. Read the next complete expression in the buffer. ( _Hint:_ Which function can we use to read a complete expression and remove it from the buffer?)     2. Read the rest of the combination until the matching closing parenthesis. ( _Hint:_ Which function can we use to read the rest of a list and remove it from the buffer?)     3. Return the results as a `Pair` instance, where the first element is the next complete expression and the second element is the rest of the combination.  Note that raising an error has already been provided for you."
+                },
+                {
+                    "feedback": "The template code will automatically error when it’s supposed to, if you look at it. You just need to figure out and understand when it errors and code accordingly."
+                },
+                {
+                    "feedback": "There’s only one part of the project that requires you to actually handle errors, and that’s Problem 3."
+                },
+                {
+                    "feedback": "My code seems to follow that list exactly. I'm just really confused as to how to go about debugging why it doesn't error. Is there anything wrong with it not throwing an error at all? It doesn't seem to actually affect the functionality."
+                },
+                {
+                    "feedback": "There should be an error thrown - `read_tail` reads in a list of tokens representing a Scheme list **with the opening parenthesis removed**. Since the line being input to `read_tail` is `'(1 2 3)'`, we are implying the full evaluated expression is `'((1 2 3)'`, which is invalid since there is no matching closing parenthesis.  (Creds to Nicholas)"
+                },
+                {
+                    "feedback": "I see what you mean. Figured out what was wrong, just forgot to pop off the closing parenthesis in read_tail, so a single closing brace acted as an essentially infinite amount."
+                },
+                {
+                    "feedback": "Glad you got it figured out!"
+                },
+                {
+                    "feedback": "I am too! And thank you, I appreciate the help."
+                }
+            ]
+        },
+        {
+            "question": "Help passing this test plz.  What is wrong with my attempts?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjbhgcj5er%2Fk33opctp9ge8%2Fokokdmdmdm.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Your second-to-last attempt is almost correct, but has an extra nil"
+                }
+            ]
+        },
+        {
+            "question": "Um, How exactly do I remove the ) token? Is there a method such as pop_first?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you read the problem statement in full. It contains the following info, which you might find useful.  There are two methods defined in `buffer.py` that you'll use to interact with `src`:    * `src.pop_first()`: mutates `src` by removing the first token in `src` and returns it. For the sake of simplicity, if we imagine `src` as a Python list such as `[4, 3, ')']`, `src.pop_first()` will return `4`, and `src` will be left with `[3, ')']`."
+                },
+                {
+                    "feedback": "Oh. I guess pop first does work after all. Thanks!"
+                },
+                {
+                    "feedback": "No problem, best of luck with the rest of the project."
+                }
+            ]
+        },
+        {
+            "question": "How do I return a Pair object?",
+            "follow-ups": [
+                {
+                    "feedback": "Use the Pair constructor."
+                },
+                {
+                    "feedback": "Also, since it's more than 24 hours since the Scheme deadline, you won't earn any points for it, assuming you haven't done it already."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "subject": "[Lab 08] Q1: Insert",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q1\">Q1: Insert</a>\n\n<p> Please post all questions you have below concerning Q1: Insert in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "How can we figure out the length of the linked list or is there a way to do this without finding the length of the list?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need the Linked List length to do this. You do, however, need to know how to check if it's empty."
+                }
+            ]
+        },
+        {
+            "question": "I understand why the staff solution works. But why doesn't this solution work?                    if index == 0:             link = Link(value,Link(link.first,link.rest))         elif link.rest is Link.empty:             raise IndexError         else:             insert(link.rest,value,index-1)",
+            "follow-ups": [
+                {
+                    "feedback": "Re-assigning `link` doesn't mutate the object that `link` points to. It just changes what the name `link` refers to. Therefore there is nothing in your solution that actually mutates the list."
+                }
+            ]
+        },
+        {
+            "question": "How come setting link.rest = Link(link.first, link.rest) works but link.rest = link doesn't?",
+            "follow-ups": [
+                {
+                    "feedback": "`link.rest = link` is an expression that's showed up on a WWPD question before. It sets the rest of a link to itself. So, the rest of the rest of the link becomes the link. And the rest of that becomes the link. And so on and so forth. Basically, the linked list becomes infinitely long, and every link's `first` becomes the first link's `first`. Writing `link.rest = Link(link.first, link.rest)` preserves and shifts the previous value of link.rest instead of having it be lost with no way to reference it."
+                }
+            ]
+        },
+        {
+            "question": "Is it means that every time Link(link.first, link.rest) create a new object of original link, and then let original link.rest refer to the new Link object?",
+            "follow-ups": [
+                {
+                    "feedback": "just want to make sure, the left hand side of statement \"link = link.rest\" is just a random variable name, right? The link.rest of the statement \"link.rest = Link(link.first, link.rest)\" is actually refer to the original list."
+                },
+                {
+                    "feedback": "the variable **link** is pointing to an instance of a Link. when we use **link.rest** , we are changing the value of the instance variable **rest** of the Link that **link** is pointing to.  in this problem, we need to insert the new Link at a specific place, to we iterate up to the Link right before where we need to insert it, and change that Link's **rest** variable to be the new Link."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+{
+    "subject": "[HW1] Q3",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw01/#q3\" target=\"_blank\">Question 3: Largest Factor</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q3 in the follow-ups.<br />If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>\n<p></p>",
+    "threads": [
+        {
+            "question": "I solved the question, but created a vector list and used the .append() function. I was wondering if there is a simpler way of doing this, and if so, please let me know so that I can start thinking about how to do this without creating a vector list.",
+            "follow-ups": [
+                {
+                    "feedback": "If you're up for it, feel free to take a look at sequence iteration and ranges ([2.3.2](https://composingprograms.com/pages/23-sequences.html#sequence- iteration)) which can also be used to solve this problem."
+                },
+                {
+                    "feedback": "I used a while loop and iterated through all possible factors. Though, I feel bad for using a while loop."
+                },
+                {
+                    "feedback": "Using a while loop works. If you have time, there are a few \"smart\" optimizations that you can play around with to make your function go even faster (though not necessary)!"
+                },
+                {
+                    "feedback": "If I gave you a large number that you don't know the divisors of, what will you do to find the divisors? And if I asked you to find the largest one which direction on the number line would you wanna go?"
+                },
+                {
+                    "feedback": "the only way i can think of doing this without a while loop is a lot of if else statements"
+                },
+                {
+                    "feedback": "just think about this and these are my 2 cents:                Let tempNumber = 0;      while count <= 0 and n mod count == 0:     \tcurrentNumber = n / count      \tCheck if currentNumber is greater than tempNumber:      \t\tLet tempNumber = currentNumber;      \tincreasing the count"
+                },
+                {
+                    "feedback": "I did what Parshant is hinting at. If the argument is n = 500, I can avoid checking if 499 ... 251 are all factors. @Hoa, I think you need negation of both of your boolean conditions in the while's signature. I noticed that \"n mod count == 0\" will give you \"True\" only if \"count\" is a factor of n, and at that point, why would you run the loop? I heard that 'while' loops should be avoided in favor of 'for' loops to avoid infinite loops, does this course not bother with that?"
+                },
+                {
+                    "feedback": "ahhh, I was too greedy to make it into one checking condition in while loop.... This should work                while count <= n:        \tcurrentNumber = n / count        \tCheck if (currentNumber is greater than tempNumber) and (n mod count equal 0) and (count is not 1):        \t\tlet tempNumber = currentNumber       \tincreasing count"
+                },
+                {
+                    "feedback": "@Parshant Thank you, it just clicked!  [](/class/jziyku5gomy7aq?cid=217)"
+                },
+                {
+                    "feedback": "Lets say I have an if statement, which returns a value after meeting some criteria. Separately, I have a while statement, which I want to loop (if the criteria is not met).  Q1) If the criteria of the if statement is met, and it returns a value, will the programming just end there or will it go to the while statement? How can I ensure that if the criteria in the if statement is met, the while statement will be ignored?  Q2) Please take a look at the code below. Why is it that only the first if statement is taken into consideration even though both if conditions are met in this case? Thanks!  1| def testing(n):   ---|---   2|  if n==1:   3|  return 1   4|   5|   6|  if n>0:   7|  return 5   8|   9|   10| testing(1)"
+                },
+                {
+                    "feedback": "1\\. If it returns the value, it will ends there and exit the function.  2\\. Since it meets the first condition in the if statement and return 1... Therefore, it will exit the function without going to the second if statement."
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "How am I getting a blank return on my while statement? I wrote a while statement, but when I ran it I ran into the problem where I returned a literally blank answer. The terminal told me 5 was expected, but it returned blank(there was literally nothing in the return section?",
+            "follow-ups": [
+                {
+                    "feedback": "I’m not sure if I understand your question properly but if you do not have a return line then the function will return None by default (which is blank in terminal)"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk01uozuv2f1d%2FScreen_Shot_20190901_at_8.34.39_PM.png)"
+                },
+                {
+                    "feedback": "can you put a print statement inside your while loop to see what it's in there or what does it print"
+                },
+                {
+                    "feedback": "So if I use a print statement then I should start seeing the integers from my while loop?"
+                },
+                {
+                    "feedback": "you can use print statements to see if you are actually returning something when you expect to. the section below the \"but got\" will show what your code returns, so make sure you are returning something with a return statement."
+                }
+            ]
+        },
+        {
+            "question": "Please help. I have a problem with loading my assignment on OK. It shows: \" TabError: inconsistent use of tabs and spaces in indentation Error loading assignment: Error importing file hw01.py Checking for software updates... OK is up to date Thank you so much",
+            "follow-ups": [
+                {
+                    "feedback": "somewhere in your file, you are using both spaces and tabs as the indents for lines of code - if you are in Sublime or Atom, there should be an option to convert all indentations to either spaces or tabs, or you can go through it manually."
+                }
+            ]
+        },
+        {
+            "question": "[redacted]  Could anyone possibly explain why this solution doesn't work (and to that extent, what Error:expected is) Thank you!!",
+            "follow-ups": [
+                {
+                    "feedback": "Try to debug this with something like <https://docs.python.org/2/library/pdb.html>. You should put a breakpoint on the line with the while statement. Or just walk through each line and try to keep track of the value of each variable. The line that stands out to me is the line with the while condition. Does it ever finish? If it does, what happens next?"
+                },
+                {
+                    "feedback": "I copied your code and put in the couples print statement....  [redacted]  When I executed it, it did not go to while loop part...  [redacted]  So the problem laid in your while loop. You should be more specific because if you put condition like that, I think python will default think \"condition == True\""
+                },
+                {
+                    "feedback": "(I made the op) I changed the while loop so that it's while condition == False and it worked!! Thank you so much for all the help!"
+                },
+                {
+                    "feedback": "OP in the future please make a private post with your code--do not share code publicly as you may be flagged for cheating"
+                }
+            ]
+        },
+        {
+            "question": "For context, I named the largest integer to be returned in this question \"bsf.\"  Can someone explain the difference between using \"return bsf\" and \"print(bsf)\" for the last line of code? I used \"print(bsf)\" and all the test cases passed, however the previous questions used \"return ...\" and I was wondering in which cases each should be used or if they are interchangeable. Thanks in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "try this.... at the very bottom, add these lines                x = largest_factor(10)       print(x)  And, in your function replace \"return bsf\" with \"print(bsf)\" or vice versa. Then executing your hw01.py with python3 hw01.py.... I think you will see the different."
+                },
+                {
+                    "feedback": "Correct me if I am wrong. You could use either, depending on the situation. Print has a side effect, which prints its input but its return value is None. So in some cases I am assuming it is not a perfect fit. For this reason, I tend to lean more towards the return statement. For example, lets say we have a function hello(x) which returns 9 for any input. I could say a=hello(x) and do computation with a, because it has a return value. On the other hand, if I had hello(x) which printed 9, and I assigned a=hello(x), it would assign None to a, which may not be very useful in some cases. I am new to this, so I may be wrong but hope it helps a bit!"
+                },
+                {
+                    "feedback": "Yes, I think you are correct.  If you twist this problem a little bit like looking for a maximum of largest factor of 15, 40 and 13.... Then, it would be                max(largest_factor(40), largest_factor(15), largest_factor(13))  If you put print statement inside your function, then it would return nothing since it return None.... But if you put return statement in your function, then the line above would return a maximum number."
+                }
+            ]
+        },
+        {
+            "question": "I made a while loop, making the factor < n, but it still returns n. Why does it return the same value of n when the operator is < not <= ?",
+            "follow-ups": [
+                {
+                    "feedback": "I am not sure what is inside your while loop to make it return n instead of other factors. But \"<\" meaning that it's from the original point to n - 1 and \"<=\" meaning that it's from original point to n"
+                }
+            ]
+        }
+    ]
+}

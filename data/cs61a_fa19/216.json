@@ -1,0 +1,33 @@
+{
+    "subject": "[HW1] Q2",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw01/#q2\" target=\"_blank\">Question 2: Two of Three</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q2 in the follow-ups.<br />If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "So, if the program can only take three positive numbers, should it display an error if one of the a, b, and c is negative?",
+            "follow-ups": [
+                {
+                    "feedback": "You can assume `a`, `b` and `c` are all positive."
+                }
+            ]
+        },
+        {
+            "question": "**\" Use only a single line for the body of the function.\"**  When you want the solution to be single line, do you mean only having a return statement?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                },
+                {
+                    "feedback": "Okay. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "For this specific question, the OK test only tests for the 4 doc tests in the given text parts of the python file. I found a solution that works for those 4 examples, but not for every possible case with the parameters of the question. So the OK test says its successful, should I just accept that:?",
+            "follow-ups": [
+                {
+                    "feedback": "you will be scored against the OK tests, i.e. there are no hidden tests. but, you are free to continue to write code that works according to the specification, or to write your own tests that would break what you have!"
+                }
+            ]
+        }
+    ]
+}

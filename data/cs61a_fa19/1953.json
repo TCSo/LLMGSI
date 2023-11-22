@@ -1,0 +1,538 @@
+{
+    "subject": "[Scheme] Problem 6",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-6-1-pt\">Problem 6</a>\n\n<p> Please post all questions you have below concerning Problem 6 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "What is quasiquote? Did we learn it? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "<https://cs61a.org/articles/scheme-spec.html#quasiquote>"
+                },
+                {
+                    "feedback": "Could you please tell me how to type symbol of quasi-quotation?"
+                },
+                {
+                    "feedback": "You don't need to do this - if you utilize the provided dictionary properly, you will not need to hard-code in the symbol"
+                },
+                {
+                    "feedback": "If you're still curious, it's to the left of the number 1."
+                }
+            ]
+        },
+        {
+            "question": "I am wondering when I do the quote form, no matter what I return, say I write return 1 or 2. For the ''Hello, it didn't show anything at all.",
+            "follow-ups": [
+                {
+                    "feedback": "Can you restate your question? Not sure what you're trying to ask"
+                },
+                {
+                    "feedback": "are we supposed to modify our scheme_read function? Cause I just saw that part is missing"
+                },
+                {
+                    "feedback": "Yes. From the problem description:  Next, complete your implementation of `scheme_read` in `scheme_reader.py` by handling the case for `'`, ```, and `,`. First, notice that `'<expr>`translates to `(quote <expr>)`, ``<expr>` translates to `(quasiquote <expr>)`, and `,<expr>` translates to `(unquote <expr>)`. That means that we need to wrap the expression following one of these characters (which you can get by recursively calling `scheme_read`) into the appropriate special form, which, like all special forms, is really just a list.  For example, `'bagel` should be represented as `Pair('quote', Pair('bagel', nil))`"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why I am getting double parens. Any help?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp3iswjf24o%2Fk2oh6w8ewakc%2FScreen_Shot_20191107_at_12.54.45_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Review what the input of the function is and then what the function should output. I found looking back at the case questions we answered helpful in remembering how the input is formatted"
+                },
+                {
+                    "feedback": "What do you mean? I printed out the whole expression and was getting (quote hello), but when it was returned it was double parentheses"
+                },
+                {
+                    "feedback": "Take a look at how you are constructing your `Pair`s when dealing with quotes. Make sure you isolate the function of the parser from the function of the eval-print loop, and remember that whenever you see a quote, you construct a list (represented as `Pair`s) with `'quote'` as the first element and the complete following expression after it. There is a fairly simple recursive way to achieve this."
+                },
+                {
+                    "feedback": "I am having the same problem. Can someone help?"
+                },
+                {
+                    "feedback": "Make sure that your parser simply returns a list with `quote` as the first element and the next complete expression as the rest of the list. Any further processing will cause issues and is unnecessary. Recursion will come in handy here."
+                },
+                {
+                    "feedback": "I am getting the same issue, but I am using recursion and doing everything else you mentioned in your answer. I also noticed that using a print statement does indeed show only one set of parentheses. So I am also wondering what exactly happens to the return value after scheme_read() executes? Does the return value get passed into do_quote_form, or scheme_eval, or something else?"
+                },
+                {
+                    "feedback": "`scheme_read` takes an array of tokens and parses it into a useful data representation using `Pair`s. This is what is passed to `scheme_eval`, which interprets the Scheme list (aka the `Pair`s) and recursively calls `scheme_eval` and `scheme_apply` until the entire program has been processed. So lexing and parsing `''hello` will turn it into the Scheme list `(quote (quote hello))`, and this is evaluated to `(quote hello)`, since the `quote` procedure just returns its operands without evaluating them."
+                },
+                {
+                    "feedback": "I am constructing a scheme list with quote as the first item. I am constructing a pair that has a recursive call as it's first item? Is this where the extra parenthesis is coming from?"
+                },
+                {
+                    "feedback": "I’m not entirely sure what your question means, but another thing to make sure you do is that you are correctly returning the first element in `do_quote_form`. Remember how linked lists are constructed."
+                },
+                {
+                    "feedback": "Thank you! I got it"
+                }
+            ]
+        },
+        {
+            "question": "Do we need to consider the 2 cases separately for the 2 different types of quotes?",
+            "follow-ups": [
+                {
+                    "feedback": "No; there’s a dictionary available to you that translates a given quote into its keyword"
+                },
+                {
+                    "feedback": "ok, thank you! Also, I am a little bit confused on how to call the recursive calls to scheme_read. Because if I have  scheme_read(Buffer(tokenize_lines([\"`hello\"])))  it should return Pair(quote, 'hello') but if I do scheme_read(hello), there is no conditional handling strings."
+                },
+                {
+                    "feedback": "got it"
+                },
+                {
+                    "feedback": "Same question here. I don't know how to let the scheme_read('hello') return 'hello' instead of hello. Can you give me some hints on how to do it?"
+                },
+                {
+                    "feedback": "got it"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting a \"unknown identifier\" error on the (car '(1 2 3)) test case, even though I have in fact accounted for that in my code and have recursively called scheme_read on the src. I'm not sure what's going wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "I keep getting the same error. Started placing Debug statements all over my code and ended up getting the following:                scm> (car '(1 2 3))       DEBUG: EVALUATING: (car ' (1 2 3))       DEBUG: EVALUATING: car       DEBUG: Thinks 'car' is a symbol'       DEBUG: EVALUATING: '       DEBUG: Thinks ''' is a symbol'       # Error: unknown identifier: '  This compares to the first test in which I get:                scm> ''hello     DEBUG: Quote found in scheme_read: (quote hello)     DEBUG: Quote found in scheme_read: (quote (quote hello))     DEBUG: EVALUATING: (quote (quote hello))     (quote hello)     scm> (quote (1 2))     DEBUG: EVALUATING: (quote (1 2))     (1 2)"
+                },
+                {
+                    "feedback": "Same person as above. I ended up solving the issue. The problem was in my implementation of read_tail and making sure I was making the recursive calls to the proper places"
+                },
+                {
+                    "feedback": "I also had to edit my read_tail function (even though it passed the previous questions' test cases) to account for reading the quotes."
+                },
+                {
+                    "feedback": "Interesting. Perhaps you could go to OH or make a private note to the instructors so that they can take a closer examination at your code to see if either your implementation is flawed (thus requiring more tests), or if there is some other issue going on, since I didn’t have to edit `read_tail` at all when I solved this problem. `scheme_read`, however, had to be edited, of course."
+                },
+                {
+                    "feedback": "Also getting this error. Any tips to solve?"
+                },
+                {
+                    "feedback": "^^^ Same poster as above. More tests are definitely needed. Had to make changes to read_tail."
+                },
+                {
+                    "feedback": "I am very curious what your original implementations of `read_tail` were before encountering problem 6. Would you be able to describe your original reasoning?"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this error but I'm not sure what causes it. In scheme_read, I'm creating a Pair with the words representing the quote and recursively calling scheme_read on the rest of src. Is this what's causing the error?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2pdel7u9bhb%2FScreen_Shot_20191107_at_3.54.51_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are nesting the `scheme_read` recursive call within a new `Pair`"
+                },
+                {
+                    "feedback": "I did set the second parameter of the new Pair as the recursive call. Is there any other part of the code that could cause this error?"
+                },
+                {
+                    "feedback": "Sorry, I worded that poorly. What I meant was, you need to pass in a `Pair` as the second parameter (remember, the second part of a `Pair` is either `nil` or another `Pair`), so instead of just passing in the recursive call as your second argument, pass in a new `Pair` that contains the recursive call"
+                },
+                {
+                    "feedback": "I'm having this error too, and I understand that in the scheme_read implementation you would return Pair( ___, Pair ( scheme_read call, nil)).  What I don't understand is, if there are different kinds of quotes like quasi, under, and regular quote, what should be put in the ___ space to make sure it will work for all kinds of quotes?"
+                },
+                {
+                    "feedback": "^ Nvm I got it! I forgot quotes was a dictionary"
+                },
+                {
+                    "feedback": "when I nest it then I get this:  ((quote hello))  when I don't I get the Error above...  what am I doing wrong?"
+                },
+                {
+                    "feedback": "There is an earlier thread on this post discussion this issue. Check and see if those solutions help you out, first."
+                },
+                {
+                    "feedback": "I had, it wasn't helpful. I appreciate the pointer though"
+                },
+                {
+                    "feedback": "Make sure `do_quote_form` returns the first and only element of `expressions` rather than `expressions` itself, since `expressions` is a list containing one expression within it."
+                },
+                {
+                    "feedback": "thanks :)"
+                },
+                {
+                    "feedback": "that solved it!"
+                },
+                {
+                    "feedback": "Awesome! Best of luck on the remaining questions!"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Because of this error, I think my implementation of do_quote_form is wrong. Is it just concatenating everything in the Pair to a string and returning it?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2ple2ugcyle%2FScreen_Shot_20191107_at_7.39.21_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "do_quote_form should be just a simple return statement.  From the problem statement: \"Implement the `do_quote_form` function so that it simply returns the unevaluated operand to the special form.\""
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2plkoaoti57%2FScreen_Shot_20191107_at_7.45.19_PM.png)     I keep getting the following error, any idea why?",
+            "follow-ups": [
+                {
+                    "feedback": "Got it! You can't use val directly, you're going to have to use val to access 'quote.'"
+                },
+                {
+                    "feedback": "Thanks for actually explaining how you got to the right answer instead of just saying \"got it\" and then leaving!"
+                }
+            ]
+        },
+        {
+            "question": "How do we differentiate between quasiquote and quote",
+            "follow-ups": [
+                {
+                    "feedback": "There's a given dictionary called quotes that you can reference in your code."
+                }
+            ]
+        },
+        {
+            "question": "i figured out the correct answer but originally, i thought of calling read_tail on src but this causes an error. can anyone explain why? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "the functions `scheme_read` and `read_tail` are for reading the input string into a Pair structure - at this point, we are in the evaluation stage, so we are dealing already with Pairs, so these functions are not applicable."
+                }
+            ]
+        },
+        {
+            "question": "Somehow, my output looks like, anyone know why?  scm> ''hello   ()  # Error: expected   # (quote hello)   # but got   # ()",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, found my problem"
+                },
+                {
+                    "feedback": "I'm also having this problem; can you describe where to look for the issue?"
+                },
+                {
+                    "feedback": "Is your `do_quote_form` function somehow returning an empty list? Remember that the `expressions` is a single-element Scheme list with the quoted expression as its only value, and the `rest` is `nil`."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this error:  scm> ''hello  # Error: unknown identifier: quote  # Error: expected  # (quote hello)  # but got  # Traceback (most recent call last):  # ...  # SchemeError: unknown identifier: quote  Run only this test case with \"python3 ok -q 06 --suite 2 --case 1\"  The do_quote_form function seems to work fine, but I really don't know what to put in the scheme-read function. Right now I'm just returning the value in the dictionary that corresponds to the quote symbol, since I assume it'll just be added to the front of the Pair representation of the whole expression. When the scheme_read function returns I would need it to be in the form  Pair('quote', (...))  somehow, right? And I've also considered calling the read_tail function, maybe I should focus on that?",
+            "follow-ups": [
+                {
+                    "feedback": "You are on the right track in terms of the form. However, you don't need to call `read_tail` \\- consider a recursive leap of faith instead"
+                },
+                {
+                    "feedback": "You will essentially have a list that starts with the `quote` function, followed by the entirety of the next expression. What function can you use to read an an entire expression?"
+                },
+                {
+                    "feedback": "Ok it is working now, the problem was that I forgot to put 'nil' at the end of the pair."
+                }
+            ]
+        },
+        {
+            "question": "im getting the error that name do_quote_form is not defined why is this happening and how do i fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "There should be a `do_quote_form` function header in `scheme.py`, whose body you have to fill in. If it isn’t there, you may have accidentally deleted it, and you may want to consider redownloading the project folder and pasting your work into the fresh template."
+                },
+                {
+                    "feedback": "no i did the function and it's there .. :("
+                },
+                {
+                    "feedback": "I'm having the same problem."
+                },
+                {
+                    "feedback": "Can you provide the full traceback? You can try calling `do_quote_form` in the interactive interpreter by running `python3 -i scheme.py` and then immediately calling `(exit)` to enter the Python interpreter. Try calling `do_quote_form`, and see what the traceback is for the error.      If the error doesn’t show up, you probably have a more subtle problem that requires looking at the code, so you may want to go into OH so an instructor can help debug."
+                },
+                {
+                    "feedback": "Okay, the python interpreter shows that do_quote_form is a function, so my code is just messed up. Perhaps I should't be calling do_quote_form in the scheme_read function? That is when the above error message shows up."
+                },
+                {
+                    "feedback": "`scheme_read` shouldn't explicitly call any `do_xxx_form` methods - they're in a different file (scheme.py, whereas `scheme_read` is in scheme_reader.py) anyway."
+                },
+                {
+                    "feedback": "Keep in mind the principle of separation of concerns. The one and only job of `scheme_read` is to turn tokens into Scheme lists, not to evaluate or process any forms, hence why you shouldn’t be calling any of those methods."
+                },
+                {
+                    "feedback": "Okay, I have passed all test cases for this question, but I'm not sure why it works. How and where is do_quote_form called? I understand that it returns the first thing in an expression, which is a pair whose first item has been quoted but I don't under stand where it is used and how it interacts with scheme_read. Also, thanks for yall's help."
+                },
+                {
+                    "feedback": "Special forms are handled in the part of the code for `scheme_eval` that was already written for you. There is a check to see if the symbol is in the `SPECIAL_FORMS` dictionary, and that dictionary has a key for `quote` which points to the `do_quote_form` function, which `scheme_eval` looks up and calls."
+                },
+                {
+                    "feedback": "Thank you, I see it."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyb0om924bv2ew%2Fk2s1ycf634px%2FScreen_Shot_20191109_at_12.59.26_PM.png)  Can someone walk through this for me? I cannot figure out why there need to be so many nested Pairs in the correct answer, I think there only need to be 3 (one for the (,b), one for the unquote with (,b), and one for the quasiquote and everything else).",
+            "follow-ups": [
+                {
+                    "feedback": "Quotes, quasiquotes, and unquotes all work by creating a list with the quote form as the first element and the next expression as the next element. For example, the outermost list would be a quasiquote in the first element and the parsed version of `'(,b)'` as the second element. Thus, the second element is itself a list, whose first element is `',b'`. This, in turn, is its own list with the `unquote` as the first element and `b` as its second element. It’s up to you to translate all these lists into the linked-list form using `Pair`s. The solution is a little hairy, but I recommend starting by diagramming what it should look like using box-and-pointer notation, then translating it to code."
+                }
+            ]
+        },
+        {
+            "question": "(eval (cons 'car '('(4 2))))  Why does this return 4?",
+            "follow-ups": [
+                {
+                    "feedback": "First try to figure out what the output of `(cons 'car '('(4 2)))` would be. Then, remember that `eval` evaluates that output."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk2slmjeneawn%2FScreen_Shot_20191109_at_10.09.59_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "OP^. Anyone have suggestions on how to fix this problem? In scheme_read I am checking if the val is whichever type of item, then return the value of the val through the dictionary with recursion as well. Any ideas?"
+                },
+                {
+                    "feedback": "Whenever you encounter a quote in `scheme_read`, you’re supposed to construct a Scheme list whose first value is `quote` and whose second value is the complete next expression. Make sure you construct the Scheme list from `Pair`s correctly, take a recursive leap of faith, and you should be well on your way. Also remember that the `quote` special form is supposed to return the operand of the form without any evaluation whatsoever."
+                },
+                {
+                    "feedback": "Hmm got it thank you!!"
+                },
+                {
+                    "feedback": "No problem. Best of luck!"
+                }
+            ]
+        },
+        {
+            "question": "I am a little confused about how to use the dictionary. How can we identify if it's quote, quasiquote or unquote?",
+            "follow-ups": [
+                {
+                    "feedback": "Got it"
+                }
+            ]
+        },
+        {
+            "question": "Can someone please explain how we should approach solving this doctest?                scm> (eval (cons 'car '('(4 2))))  we know that the answer will be 4 by testing it in the online scheme interpreter, but we don't get why it's not an error.  So here was our initial evaluation process:  1\\. cons make a list(by evaluating each of the operands `'car` and `'('(4 2))` :  evaluating `'car` ==> `car`  evaluating `'('(4 2))` ==> `('(4 2))`  so `(cons 'car '('(4 2))) ===> (car ('(4 2)))`  2\\. Thus:                (eval (cons 'car '('(4 2)))) ; ===> (eval (car ('(4 2))))  So we thought this should give an error:  \"Error: pair is not callable: (4 2)\"",
+            "follow-ups": [
+                {
+                    "feedback": "Close. Remember that `cons` takes in a `first` and a `rest`. It’s essentially a pair that makes up a linked list that we learned about a while. So if I wanted to create a list with `1` and `2` in it, I would have to do `(cons 1 (cons 2 nil))`, not `(cons 1 2)`. Thus, `car` is the first element of the list, and the _rest_ of the list (not just the second element) is `('(4 2))`. In other words, the expression is `(car '(4 2))`, which is a perfectly valid function call."
+                },
+                {
+                    "feedback": "Thank you for your response!  Could you also explain why `**( '(4 2))**` is equivalent to `**'** **(4**` **2)**?"
+                },
+                {
+                    "feedback": "The `rest` of the list is the list `('(4 2))`, which means the rest of the list is a one-element list whose element is `'(4 2)`. Thus, the completely evaluated list is `(car '(4 2))`, since with `car` as the first element and `'(4 2)` as the second element."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191110_at_5.48.09_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhuohk7245m%2Fk2trq1uqs6ky%2FScreen_Shot_20191110_at_5.48.09_PM.png)  can someone help me with this case? I am returning only the first element of expressions in the do_quote_form and my scheme_read function is just returning a pair with the element inside quotes with a nested pair that contains the recursive call to scheme_read.",
+            "follow-ups": [
+                {
+                    "feedback": "Is your code handling the `unquote` procedure, as well? Keep in mind that the `quotes` dictionary contains all the symbols and their respective procedure names, so you really should be doing a lookup instead of manually checking with `if` statements."
+                },
+                {
+                    "feedback": "yes, I have a one-line solution that just accesses the dictionary."
+                },
+                {
+                    "feedback": "Either way, it looks like your code isn’t handling unquotes correctly, since the comma is getting turned into an element in the Scheme list rather than the wrapping `unquote` procedure."
+                },
+                {
+                    "feedback": "nvm turns out there was a mistake in problem 1 that still allowed me to pass the doctests"
+                }
+            ]
+        },
+        {
+            "question": "Do you need read_tail to complete this problem? When I call it within my recursive call in scheme_read, I keep getting \"SyntaxError: unexpected end of file.\" Any idea why this might be happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Nope. When you encounter a quote, you should be creating a Scheme list with the name of the quote form as the first element and the **complete next expression** as the second element, which sounds a lot like some other function you have written.      I have noticed, however, that a lot of people seem to have written `read_tail` incorrectly such that it passes problem 1 but causes errors in problem 6. If you are still running into issues, try taking a look at that."
+                },
+                {
+                    "feedback": "Ah, that makes sense. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting an error that name 'do_quote_form' is not defined. Anyone know why?",
+            "follow-ups": [
+                {
+                    "feedback": "Have you looked at the earlier thread discussing the same issue? Are you trying to call it from `scheme_reader.py`?"
+                },
+                {
+                    "feedback": "Thanks, I didn't see that!"
+                },
+                {
+                    "feedback": "But it's still erroring. I get (1: '>> ' hello) and I don't know where any of that came from"
+                },
+                {
+                    "feedback": "Can you show me which particular case you’re failing? And make sure that `scheme_read` only ever takes quotes and turns them into elements in the Scheme list, while `do_quote_form` does all the handling for quote forms. You should never be calling `do_quote_form` manually."
+                },
+                {
+                    "feedback": "It's the first case. ''hello  I use scheme_read to find the item in the dictionary that identifies what type of quote it is, then I return a Pair with that item as its first element, and as its second element, another Pair with a first element src and a second element nil. Is that incorrect?"
+                },
+                {
+                    "feedback": "Hmmm, close. When `scheme_read` encounters a quote, it’s supposed to create a Scheme list with `'quote'` as the first element and the **next complete expression** as the second element. You should be recursively calling a function to get the next element, and you should be looking up quotes in the `quotes` dictionary to get the name of the quote form."
+                },
+                {
+                    "feedback": "For example, `'hello` should return `(quote hello)` encoded in `Pair`s, and `'(+ 2 2)` should return `(quote (+ 2 2))` encoded in pairs. You’re close!"
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "You’re welcome! Best of luck on the rest of the project!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error, \"unknown identifier: hello\". Does anyone know why?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that quoted expressions shouldn’t be evaluated to a value"
+                },
+                {
+                    "feedback": "So is it something wrong in my do_quote_form or scheme_read? I'm really stuck"
+                },
+                {
+                    "feedback": "Solved; it was a problem with the former."
+                },
+                {
+                    "feedback": "Try out the following test cases in your scheme interpreter (which can be started by running python3 scheme.py) and if you get the correct output then it’s an issue with your scheme_read:      scm> (quote a)  a  scm> (quote (1 2))  (1 2)  scm> (quote (1 (2 three (4 5))))  (1 (2 three (4 5)))  scm> (car (quote (a b)))  a"
+                },
+                {
+                    "feedback": "Oh nvm glad u got it sorted out!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (cdr '(1 2))       ? 1       -- Not quite. Try again! --              ? 2       -- Not quite. Try again! --              ? nil       -- Not quite. Try again! --              ? quote (1 2)",
+            "follow-ups": [
+                {
+                    "feedback": "Close. `'(1 2)` evaluates to the list `(1 2)`, and the `cdr` of `(1 2)` returns the rest of the list minus the `1`. So it’s a one-element list containing `2`. How is that represented in Scheme?"
+                },
+                {
+                    "feedback": "scm> ''hello              # Error: expected       #     (quote hello)       # but got              Run only this test case with \"python3 ok -q 06 --suite 2 --case 1\""
+                },
+                {
+                    "feedback": "First, make sure your `scheme_read` function is actually handling quotes and returning a Scheme list with the quote’s form as the first element and the next complete expression as the second element.   Second, make sure that you handle quote forms correctly in `scheme_eval` and `do_quote_form`. It should simply return the raw expression without any evaluation."
+                },
+                {
+                    "feedback": "Thanks! After implement `do_quote_form`,problem solved."
+                }
+            ]
+        },
+        {
+            "question": "scm> ''hello  (quote hello)  scm> (quote (1 2))  (1 2)  scm> (car '(1 2 3))  # Error:  # Error: expected  # 1  # but got  # Traceback (most recent call last):  # ...  # SchemeError:  so my code passed the first few cases but I am keep getting stuck on the (car '(1 2 3)) case. I used like a pair within another pair and made it so it will end with nil, but I think I just basically hard coded the code. Is it fine to put Pair within a Pair and put nil at the end of the list or do I have to call either scheme_read function again or read_tail function so it would become iterative?  I am lost in why this is the car function is not getting anything from the list because my code worked for the two cases before.",
+            "follow-ups": [
+                {
+                    "feedback": "You generally want to avoid coding just to pass the cases. The cases are there to help you uncover more subtle errors of your code, but it is easy to accidentally create a solution that caters to the case, not the real solution underneath.      The quote part of `scheme_read` should do nothing other than create a list with the name of the quote form as the first element and the **complete next expression** as the second element. You actually already have a function that will read a complete expression—you just need a recursive leap of faith.      As for the `do_quote_form`, a quoted form does nothing other than return its raw expression without evaluation."
+                }
+            ]
+        },
+        {
+            "question": "Problem 6 > Suite 2 > Case 1  scm> ''hello   hello  # Error: expected   # (quote hello)   # but got   # hello  why do I get hello although in scheme_reader I returned Pair( ,Pair(recursion, nil))?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure for quoted expressions that you return them without evaluating them."
+                },
+                {
+                    "feedback": "nevermind I was popping again"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnouv8acv1xc%2Fk2z38g50eegi%2FScreen_Shot_20191114_at_11.09.29_AM.png)  I'm having this problem and I know that it's an issue with my scheme reader but I'm not sure what I'm doing incorrectly.",
+            "follow-ups": [
+                {
+                    "feedback": "How are you constructing your `Pair`s? Remember that when you encounter a quote, you are supposed to create a two-element Scheme list with the quote form as the first element and the next complete expression as the second expression. A recursive leap of faith will help with the second element."
+                },
+                {
+                    "feedback": "I constructed the Pairs similar to this format Pair(\"specific quote type\", Pair(recursion, nil)), but I think I may have done my recursion incorrectly because the only time \"string is called\" is in the recursive portion."
+                },
+                {
+                    "feedback": "It sounds like your implementation is correct. Try firing up the Python interpreter and trying to manually debug by running `read_line(\"''hello\")` and seeing your output. If it is the expected output, then your issue probably lies within your handling of `do_quote_form`."
+                },
+                {
+                    "feedback": "How would I run read_line? Would I just use python3 or python3 scheme.py? I already did something else suggested on Piazza by pulling up python3 scheme.py on the interpreter and testing (quote a) and (quote hello) to see if the output is correct and it was correct for me."
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnouv8acv1xc%2Fk2z445wmtle0%2FScreen_Shot_20191114_at_11.34.13_AM.png)  This is what I tried."
+                },
+                {
+                    "feedback": "nvm I got it! I was implementing my do_quote_form in an unnecessarily complicated way and that made it buggy"
+                },
+                {
+                    "feedback": "Cool. For the record, you can load the Scheme interpreter interactively by running `python3 -i scheme.py` and then immediately running `(exit)` to get back to the Python interpreter."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this error but I feel a little bit confused. Can somebody help me?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2zdtt63g1ml%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191114_%E4%B8%8B%E5%8D%884.03.14.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like your function is trying to evaluate the entire expression as an operator, which is weird. I’m not sure entirely what’s going on, but double check your implementation for Problem 4 and make sure you’re doing these three steps: 1\\. Evaluate the operator. This is the first element of the list. 2\\. Evaluate all the operands. These are the rests of the elements in the list. 3\\. Apply the operator to the operands. Most of these steps should include a recursive leap of faith somewhere."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # (quote hello)  # but got  # Traceback (most recent call last):  # ...  # AttributeError: 'str' object has no attribute 'current'  Anyone get this error ? seems to be a problem with my call to scheme read",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re trying to pass a single token into `scheme_read` instead of the entire buffer. Are you ever doing anything like `scheme_read(src.pop_first())` or `scheme_read(val)`?"
+                },
+                {
+                    "feedback": "i was passing in val! changing that fixed it (well gave me a different error lmao) thank you!"
+                },
+                {
+                    "feedback": "Ha, well, it’s really one step at a time. Happy debugging!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (car '(1 2 3))   # Error: unknown identifier: '  # Error: expected   # 1   # but got   # Traceback (most recent call last):   # ...   # SchemeError: unknown identifier: '  I'm confused about why I'm getting this error. Please help!",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you use the provided dictionary to map the quote symbol to the actual word (quote, quasiquote, etc.)"
+                },
+                {
+                    "feedback": "It sounds like you haven’t implemented quotes correctly in `scheme_read`. Make sure you replace quotes with a two-element list with the quote form as the first element and the complete next expression as the second element."
+                },
+                {
+                    "feedback": "So when I call scheme_read( '(1 2 3) ) it returns (quote (1 2 3)) , but when I call scheme_read( (car '(1 2 3)) ) it returns (car ' (1 2 3))."
+                },
+                {
+                    "feedback": "Are you saying what it does or asking what it should do?"
+                },
+                {
+                    "feedback": "`read_line(\"(car '(1 2 3))\")` should return the equivalent expression to `(car (quote (1 2 3)))`. It’s up to you to convert that to `Pair`s, but don’t forget your recursive leaps of faith, so you only really have to deal with what to do when you encounter a quote."
+                },
+                {
+                    "feedback": "I think I got it, Thank You!"
+                }
+            ]
+        },
+        {
+            "question": "I am a little confused about how to use the dictionary. How can we utilize if it's quote, quasiquote or unquote? --someone posted a similar question earlier, but replied that they got it! but my partner and i still need help with this. we read earlier that you don't need to separately identify/hard code for each quote, quasiquote, and unquote.",
+            "follow-ups": [
+                {
+                    "feedback": "The input expression `'something` should be mapped to a `Pair` where the first element is 'quote' and the second element is the result of reading in `something`; this is similar to `,something` or ``something` which should be mapped to a `Pair` where the first element is 'unquote' or 'quasiquote' respectively and the second element is the result of reading in `something`. In order to make this generalization simpler, we can simply feed the relevant symbol (i.e. , or ` or ') into the dictionary to get the word."
+                }
+            ]
+        },
+        {
+            "question": "I keep having expressions not being called upon, regardless of what code I input.  Any tips on how I may solve this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxltwsvxyh4kv%2Fk31z248d2lv2%2FScreen_Shot_20191116_at_11.35.15_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are actually returning a value in the case that there’s a quote"
+                },
+                {
+                    "feedback": "how can we fix this issue? Thanks"
+                },
+                {
+                    "feedback": "We need to fill in the scheme_reader.py file too. I missed that part"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "For this problem I think I have a pretty solid code. However. I don't know how I can do the Pair thing without hardcoding the quote. How can I access the dictionary values in a general way. For example, instead of writing 'quote' or 'quasiquote' in the first element of the Pair, how can I access whatever the word is based on what quote is seen (' , or `) Im guessing its quotes[ ] but I don't know what to put inside the [ ]. Any help?",
+            "follow-ups": [
+                {
+                    "feedback": "`val` is the current symbol we are working with. The problem 6 code in scheme_reader runs under an elif clause that executes if `val` is a key of the quotes dictionary. Given this, what do you think should be used? (Don't answer this on Piazza, just answer it to yourself)"
+                },
+                {
+                    "feedback": "Well that was an easy fix. Thanks again cyrus!"
+                }
+            ]
+        }
+    ]
+}

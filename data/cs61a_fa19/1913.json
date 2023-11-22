@@ -1,0 +1,11 @@
+{
+    "subject": "Guerrilla Section 3",
+    "content": "<p>For the solution of 1.4, how can we track for the second element? I thought in the recursive case we used (cddr) to skip the second element but how could we add the second element to the sum then? If the input is (1 2)?</p>\n<p></p>\n<div>\n<div>\n<div>\n<pre>(define (sum-every-other lst)\n      (cond ((null? lst) 0)\n\n            ((null? (cdr lst)) (car lst))\n            (else (&#43; (car lst)\n\n                  (sum-every-other (cddr lst))))))\n</pre>\n</div>\n</div>\n</div>",
+    "threads": [
+        {
+            "subject": "",
+            "content": "<p>You wouldn&#39;t add the second element to the sum. You would sum the first element (1) and the third element (nil, or just 0) and call it a day. The function name implies that you are only summing <em>every other</em> element, so it makes sense to skip the second element.</p>",
+            "threads": []
+        }
+    ]
+}

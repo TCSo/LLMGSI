@@ -1,0 +1,122 @@
+{
+    "subject": "[Lab 05] Q4: Acorn Finder",
+    "content": "<a href=\"https://cs61a.org/lab/lab05/#q4\">Q4: Acorn Finder</a>\n\n<p> Please post all questions you have below concerning Q4: Acorn Finder in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "How am I supposed to check if ‘acorn’ is in the tree? I used label(t) and branches(t) in my conditional statement but it seems that when it comes to sub branches like the sproul case, it doesn’t work.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your solution is recursive so that you can check the label of every node"
+                },
+                {
+                    "feedback": "Oh okay! I didn’t realize I have to use recursion. So do I call acorn_finder each time on the next tree branch?"
+                },
+                {
+                    "feedback": "A tree contains 'acorn' if (1) its label is 'acorn', or (2) one of its branches contains 'acorn'. Remember that a branch of a tree is also a tree!"
+                },
+                {
+                    "feedback": "I see! Thank you so much! It helps a lot!"
+                }
+            ]
+        },
+        {
+            "question": "How do we recursive through the branches? Do we call label on branches? But then when I put t for the input of branches, it turns out ‘list index out of range’.",
+            "follow-ups": [
+                {
+                    "feedback": "No, you can only call `label` on a single tree per call``"
+                }
+            ]
+        },
+        {
+            "question": "I just have one base case for if label is acorn and then the recursive call on else, but I got maximum recursion depth exceed. I don’t see what other base cases I’m missing though.",
+            "follow-ups": [
+                {
+                    "feedback": "You probably aren't reaching your base case correctly then"
+                }
+            ]
+        },
+        {
+            "question": "did anyone else use the bool() function? is there a simpler solution? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "I didn't use the bool() function, but my solution was around 8 lines. It could probably be reduced down to something smaller, but if your solution is greater than 8 lines, then I say, yes, there is likely a simpler solution."
+                },
+                {
+                    "feedback": "ok thanks! my code is around 8 lines too but I was wondering if there was another way to do it"
+                },
+                {
+                    "feedback": "Yeah, not sure how you're doing it, but if it's around 8 lines, that's probably as good as it's gonna get. I don't really have another metric for measuring how simple a solution is lol.  I was able to reduce down to 5 lines using built-in functions, but that doesn't necessarily mean my solution is any simpler to understand, but if you think that less lines is simpler like I do, then just know that there is a way to do it in 5."
+                },
+                {
+                    "feedback": "I think using any() is a pretty good way to do this problem and gives a solution with 3 lines of code."
+                },
+                {
+                    "feedback": "Yeah. Also used that to shorten my solution. Did a bit more tinkering and got it down to one line using the ternary operator. Looks ugly though lol."
+                }
+            ]
+        },
+        {
+            "question": "I have base case and recursion in my function, but when is_leaf(t) (t is one of the branches now), I don't know how to go down and test other b in branches.",
+            "follow-ups": [
+                {
+                    "feedback": "You can use recursion within a loop to make sure all branches are accounted for"
+                }
+            ]
+        },
+        {
+            "question": "I have a base case for when the label is equal to acorn, it should return true, and if not, loop through the elements in branches and recursively call the function again on that element. When the first node is acorn, the function works and returns true, but when it runs the test case acorn_finder(sproul) it isn't returning True (I know the function is going into my True base case (by using print debug statements)) but instead keeps going through the for loop till all the elements have been iterated through (then returning false at the end). Why does it not exit the function when it hits the return?",
+            "follow-ups": [
+                {
+                    "feedback": "update - i figured out something to add to this that makes it work. but however i'm still confused as to why it didn't return True when the function entered my base case in my original question and the label was equal to acorn?"
+                },
+                {
+                    "feedback": "unless you explicitly _return_ a result of a functional call, the function that called it will not return the same value (essentially it will spit out a value that just disappears)."
+                }
+            ]
+        },
+        {
+            "question": "I write two condition statements, return true and false respectively. Otherwise, for every branch call acorn_find on that branch. I don't know where is wrong.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1a8420pzonu%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191002215000.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure that you return False only if none of the nodes have the label \"acorn.\""
+                },
+                {
+                    "feedback": "How to do that?"
+                }
+            ]
+        },
+        {
+            "question": "can I use the function name any in this question? I found a solution without using this function but this function made the code shorter.",
+            "follow-ups": [
+                {
+                    "feedback": "Sure."
+                }
+            ]
+        },
+        {
+            "question": "I wanna ask questions about how to keep the for loop to continue. For codes I wrote. I know where the bugs is. The bug is that recursions would go though one route down to a leaf, and then get stick into branches(t) return [] and keep it forever. But I say if I add is_leaf(f): and return False. It definitely won't work.          So I wanna use boolean value, like is_leaf(f): return 0 and create a recursion tree like return acorn_finder(t[i]) + acorn_finder(t[i+1]), but that would violate the abstract barrier, so I really need some help about this questions. Thanks a lot. I get stuck almost 4 hours.          by the way, in the picture it should be return acorn_finder(i).          For someone who only get stuck in this before deadline If you really solve this problem. I have a suggestion just use Flatten in function in hw3.",
+            "follow-ups": [
+                {
+                    "feedback": "Please do not share code here. It's against the policies of the course.  But to answer your question, the only way to really stop a for loop is with a break or a return statement so simply do not have a return statement in the middle of your for loop if you want to continue it. Do not overthink it and just think of separating your base case from your recursive cases."
+                },
+                {
+                    "feedback": "Thanks a lot, I would delete my codes now. Could you give me some advice on how to separate my base cases and recursive cases. Sorry. I really have no idea."
+                },
+                {
+                    "feedback": "I would suggest just thinking of the process as a whole before coding. Our goal is to go through every single node of the tree and find out whether or not one has 'acorn'. How can we do that?  You have a good idea of using the leaf as a base case. Suppose we just had these leaves for example:                >>> t1 = tree('acorn')       >>> t2 = tree('not acorn')       >>> acorn_finder(t1)       ???       >>> acorn_finder(t2)       ???  What would we return in these cases?  Similarly, suppose we are given a tree that has a label with 'acorn' like this one:                >>> tree('acorn', [tree(2), tree(3, [tree(4), tree(5)])])  Do we really need to go through a recursive process to determine if any nodes have 'acorn' or not?  Those two examples should explain the base cases.  As for the recursive case, take a leap of faith with your code, and assume it works on any tree. Neglecting the label, how can we check if any of the branches of our tree have the word 'acorn'? And if we do find a branch with 'acorn' in it what should we give back? What if we went through every single branch and did not find an 'acorn', what should we do in that case? Think of how to account for these cases in your code properly."
+                },
+                {
+                    "feedback": "Thanks a lot. Bro, I have figured out how to write my codes. Maybe I should not during for loop use something to stop it."
+                }
+            ]
+        },
+        {
+            "question": "My code is resulting in answers like this:  [[[], True], []]  instead of just \"True\" or \"False\". What in my code could be causing this? Is there a way to call the recursive function without creating lists within lists?",
+            "follow-ups": [
+                {
+                    "feedback": "You need to make sure all return expressions evaluate to booleans"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "subject": "[Lab 12] Q7: Let&#39;s Count",
+    "content": "<a href=\"https://cs61a.org/lab/lab12//#q7\">Q7: Let&#39;s Count</a>\n\n<p> Please post all questions you have below concerning Q7: Let&#39;s Count in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi52fmpc4c0%2Fk36a63lm5p8o%2FScreen_Shot_20191119_at_11.57.41_AM.png)  I'm having issues with the last part. I'm grouping by instructors having the appropriate seven, but I'm only outputting one of the instructors, with the wrong count as well.",
+            "follow-ups": [
+                {
+                    "feedback": "If you group by the instructors then say something like <code> HAVING seven ...</code> where the rest of the code filters out the correct seven, this could lead to that error. It's because when you say <code>HAVING</code> then specify the filter on a column, it needs to aggregate the column first. Since you aren't aggregating the column it doesn't make the most sense to use <code>HAVING</code> because the column 7 could be different values, but the aggregation consolidates it into 1. (More information below if you're curious). You can fix this by using a different table filtering technique that we've used earlier in the lab :^)  \\-----------------  (The more information part)  I think what's happening here is that it will aggregate the column <code>seven</code> but the aggregation takes a random value from the column (or maybe it's sorted, I'm not exactly sure what the default aggregation function is in sqlite). It so happens that when grouping by <code>Image 3</code> the aggregation resulted in 7, but the other aggregations for the other groups resulted in something other than 7.  Hopefully that gives some intuition as to why this is happening."
+                }
+            ]
+        },
+        {
+            "question": "In the second question, how to choose the count(pet) column? When I count(pet), it would recount the number of the pet in new table rather than just copy the original data?",
+            "follow-ups": [
+                {
+                    "feedback": "Give the column a name using AS and refer to that name"
+                }
+            ]
+        },
+        {
+            "question": "When creating the table fa19favpets, there are several groups with COUNT 4. But because the limit of printing is 10, I print out different group from the answer then I cannot pass the tests. Do anyone have solutions?",
+            "follow-ups": [
+                {
+                    "feedback": "I’m not sure I understand the issue you are having. What is the output you are getting? Make sure you have a `COUNT` aggregator somewhere in your function and that you also print out the `pet`, and then you can `ORDER BY` that count if you assign it to another name using `AS`."
+                }
+            ]
+        },
+        {
+            "question": "I can't seem to run tests for Q's 6 and 7:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhfjya8h3y5%2Fk39lm958u5vh%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "(Windows 10, Python 3.8.0) All the okpy tests for the required questions worked, just not the optional ones."
+                },
+                {
+                    "feedback": "I got this same error specifically when I do \"group by 'pet'\";  I don't have any idea on what's causing it though"
+                },
+                {
+                    "feedback": "this seems to be a local Windows error (I also am experiencing it for example) - you can load the file into the SQL interpreter and manually check the result of your query there."
+                }
+            ]
+        }
+    ]
+}

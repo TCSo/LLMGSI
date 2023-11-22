@@ -1,0 +1,238 @@
+{
+    "subject": "[HW 03] Q2: Ping-pong",
+    "content": "<a href=\"https://cs61a.org/hw/hw03/#q2\">Q2: Ping-pong</a>\n\n<p> Please post all questions you have below concerning Q2: Ping-pong in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Hey guys, so basically I'm having trouble translating from an iterative approach to a recursive one. So in my iterative approach, I would have a 'k' value that would be set to 1 initially, then a while loop that would keep running as long as k <= n. How would this translate to a recursive function, since the 'n' value in the question refers to the nth number in the sequence, and not easily modifiable to what I'm trying to do.",
+            "follow-ups": [
+                {
+                    "feedback": "Try reading the hint again - you're right that the 'n' input to 'pingpong(n)' does not translate easily, but we can write a helper function with more inputs that might be useful."
+                }
+            ]
+        },
+        {
+            "question": "can I create a new function within pingpong( )?",
+            "follow-ups": [
+                {
+                    "feedback": "As long as you don't use any assignment statements in this new function, yes."
+                }
+            ]
+        },
+        {
+            "question": "My solution is recursive and works for doctests up to n=30, but above that (n>=68) it takes too long (>10s). I understand why (I'm using tree recursion...) but I'm having trouble finding a simpler implementation, especially since there's nothing inherently wrong with my solution. Is there no solution that doesn't use a helper function?",
+            "follow-ups": [
+                {
+                    "feedback": "You can use a memoize decorator, if I'm not wrong, which you can read about in the Extras section of CS61A."
+                },
+                {
+                    "feedback": "Using a helper function helps cut down run-time significantly, which is why it's ideal for this sort of problem"
+                }
+            ]
+        },
+        {
+            "question": "Can anyone list why the answer is this? I can't the point  >>> pingpong(7)  7  >>> pingpong(8)  6  >>> pingpong(15)  1  >>> pingpong(21)  -1  >>> pingpong(22) 0 >>> pingpong(30) 6 >>> pingpong(68) 2 >>> pingpong(69) 1 >>> pingpong(70) 0 >>> pingpong(71) 1 >>> pingpong(72) 0 >>> pingpong(100) 2",
+            "follow-ups": [
+                {
+                    "feedback": "The first thirty terms are listed above the question on the website. It changes direction every time it hits a multiple of 7 or a number with the digit 7 in it.  (These are just doctests, they aren't supposed to be in order or anything.)"
+                },
+                {
+                    "feedback": "1 2 3 4 5 6 7 6 5 4 3 2 1 0 1 2 3 2 1 0 -1 1 0  The list remains the same for each call;  The 7th term is 7, the 8th term is 6, the 15th term is 1, so on"
+                },
+                {
+                    "feedback": "By \"it\", Chris is referring to the index of values, not the values themselves."
+                },
+                {
+                    "feedback": "Hi, by `k` is a multiple of 7 or contains the digit 7, does it mean that k is a ping-pong number if k is the 7th, 14th, 17th, etc. in the series as well as k itself equals to 7, 14 17, etc?"
+                }
+            ]
+        },
+        {
+            "question": "can I use help function?  def help(a, b): '''a and b is just a random name'''",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, helper functions are allowed and encouraged (include them within the body of `pingpong`)."
+                },
+                {
+                    "feedback": "thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I understand the question but don't know where to start.  How can we know the current number should plus one or minus one?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps introduce a variable that takes on two possible values. If the variable is one value, then +1\\. If it’s the other value, -1"
+                },
+                {
+                    "feedback": "But how can I add or minus continuously?"
+                },
+                {
+                    "feedback": "By calling the function within itself with a parameter incremented/decremented"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "How many helper functions are we allowed to use? pingpong.py works fine, but I used 3 helper functions (no assignment statements) within it.",
+            "follow-ups": [
+                {
+                    "feedback": "That's fine for credit, but on a midterm or something it might not be ideal - just as an exercise for yourself, I'd recommend you try to simplify your solution into a single helper function"
+                }
+            ]
+        },
+        {
+            "question": "Is there a way to check if the n'th element contains a seven digit within the helper function? I only managed to do it by writing another recursive function outside the helper and calling it within the helper.",
+            "follow-ups": [
+                {
+                    "feedback": "You can just call the num_sevens function that you already created in question 1"
+                },
+                {
+                    "feedback": "Whoops, I forgot we already wrote that... Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Can I use @memoize to cut down on runtime?",
+            "follow-ups": [
+                {
+                    "feedback": "Technically, @memoize contains assignment statements"
+                },
+                {
+                    "feedback": "memoize is only useful if you have repeated states (I.e., Fibonacci). That shouldn’t really happen for pingpong since you always have a unique index for each number you’re on"
+                }
+            ]
+        },
+        {
+            "question": "I pass all the tests but get \"Function pingpong should not contain '=' for the last part. I defined a helper function and used recursion, does anyone know what I could be doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "I think this means you've used an assignment statement (which is not allowed)."
+                },
+                {
+                    "feedback": "any advice on alternatives to that? In my helper function I made one of the operands for whether or not you add or subtract and assigned it to be negative in an if statement."
+                },
+                {
+                    "feedback": "never mind got it!"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "I created a helper function that takes k and another variable that checks if at the turning point I should +1 or -1, but I keep getting the “k is not defined” error. I’m so confused.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure k is inside the environment in which it is referenced. Perhaps use Python Tutor to break down execution line-by-line"
+                },
+                {
+                    "feedback": "What are you passing in as the parameter of k in the helper function call and how are you using it? We'd need some extra information in order to help. Might be helpful to make a private post to instructors since posting code here wouldn't be a good idea."
+                },
+                {
+                    "feedback": "Thank y’all! I’ll definitely do that!"
+                }
+            ]
+        },
+        {
+            "question": "I think whether the current number should add or minus one depends on how many times(odd times or eve times) we have \"hit\" certain number before.  When we put n in this function, the recursion function would put n-1 in the help function, but we still don't know the times.  I have been stuck for a long time in this question, please help.",
+            "follow-ups": [
+                {
+                    "feedback": "\"I think whether the current number should add or minus one depends on how many times(odd times or eve times) we have \"hit\" certain number before\" Yes that's correct, as the problem states; if you reach a certain index, you will change direction; either increasing or decreasing.  In the problem, think about what n is serving as. Is it static? Dynamic? Perhaps if it's static, you should find a different way of keeping track of it via a parameter in the helper function. You should think really hard about what n in the call pingpong(n) really does."
+                },
+                {
+                    "feedback": "n is static, and I wrote a help function inside, which takes on a parameter k, and k is dynamic.  But if I set k =1 at the beginning, and return 1 if k == 1, then all the n taken in would only get 1.  If I set k = n at the beginning, then I am stuck again because I have no idea how many times I have hit certain index before."
+                },
+                {
+                    "feedback": "Why would k = to n at the very beginning? You are incrementing indices in order to reach \"n\". You are basically keeping track of 3 things in this problem. And your test cases should test for divisibility or if 7 exists."
+                },
+                {
+                    "feedback": "Thank you so so much!  I thought too much."
+                }
+            ]
+        },
+        {
+            "question": "I'm not really sure how I'm supposed to implement a helper function here, and how I'm supposed to continuously add/subtract one and store the total. I am very, very lost!",
+            "follow-ups": [
+                {
+                    "feedback": "Let's break it down. Say we want the value of the sequence at index `n`. The first part is relatively simple - once we implement the base case (1 at index 1), we can take a recursive leap of faith and grab the value of the sequence at index `n - 1`. Then, we either add 1 if the sequence is increasing, or subtract 1 if it's decreasing, and return that value. Think - given an index `n`, can we figure out (perhaps recursively) if the sequence is increasing or decreasing at that index?"
+                },
+                {
+                    "feedback": "I think we would call the helper function at n-1 and see if it's larger or smaller than the helper function at n (unless its a multiple of 7 or contains a 7). I try to do that, but I end up with a maximum recursion depth error"
+                },
+                {
+                    "feedback": "It has to do with your base case then. Your program has no way of stopping thus error."
+                }
+            ]
+        },
+        {
+            "question": "Are you allowed to have assignment statements in the helper function if it is defined outside of the pingpong function?",
+            "follow-ups": [
+                {
+                    "feedback": "No assignments are allowed inside helper."
+                }
+            ]
+        },
+        {
+            "question": "I write the code for Pingpong like this, and the test results are right until pingpong(30), which asked me to check for infinite loops. But I don't know why. Can someone help to explain? Thanks so much!![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjezmdkd5jj%2Fk0voirkrulf7%2F00.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "try checking your num_sevens implementation."
+                },
+                {
+                    "feedback": "don't post your code, unless you want a hard time with the instructors! rather make a private post to the instructors"
+                }
+            ]
+        },
+        {
+            "question": "how many help function can made inside the function pingpong?",
+            "follow-ups": [
+                {
+                    "feedback": "You can make as many helper functions as you need. Though, 1 is enough for this."
+                }
+            ]
+        },
+        {
+            "question": "This is just out of curiosity, but is it possible to do this without any nested functions at all? I really struggled for a good 45+ min before realizing that \"helper function\" was just synonymous with \"nested function\" in this case and that I needed to use at least one. Then it was easy haha. But I need to know for my own sanity if it's possible to do it without one.",
+            "follow-ups": [
+                {
+                    "feedback": "Christopher Nammour asked a question above that implies he had a solution that didn't have a helper function, but the run-times were too long for n > 30"
+                },
+                {
+                    "feedback": "I saw that, but the last line of what he said confused me. I guess just looking at the code I do have, I don’t understand how it could be achieved without the helper function. Anyway, it’s whatever. Thanks."
+                },
+                {
+                    "feedback": "You would have to back-track for each n to see whether or not to add 1 or subtract 1 from the previous value of the sequence, which is extremely computationally intensive"
+                }
+            ]
+        },
+        {
+            "question": "Can we approach this using mutual recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "You can certainly try, although I don't believe that's the recommended solution"
+                }
+            ]
+        },
+        {
+            "question": "My code will change the direction for the sequence, but only for the first term. For example, the sequence goes 1,2,3,4,5,6,7,6,5... My code will cause the sequence to go 1,2,3,4,5,6,7,6,7... It basically only changes direction for the first value. I'm having trouble figuring out how to make the sequence continue to decr/incr without assignment statements.",
+            "follow-ups": [
+                {
+                    "feedback": "herein is a difficulty: at any given point in calculating the sequence, we need to figure out whether we are currently going up or down. however, the places where that changes are only at set points in the sequence. we then need some way of keeping track of that information across recursive calls - how could you do that?"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I am stuck on how to use a separate counter to count up instead of just using n - 1 or an assignment statement. Right now my code is adding a helper function that returns -1 or 1 and pingpong(n -1) to go to the lower term, but it's failing the first case.",
+            "follow-ups": [
+                {
+                    "feedback": "first, the indices of the pingpong sequence start at 1 and increase, so you may have a hard time trying to find swaps if you are decrementing n instead. generally, if there is more information that we need to keep track of across recursive calls that we have arguments for in the original function, then a recursive helper function will be helpful."
+                }
+            ]
+        },
+        {
+            "question": "What should we pass into our helper function when we call it? Currently, I'm passing in 0(starting index), -1(direction: up), and 1(value at index 0)  Ex: helper(0, -1, 1)"
+        }
+    ]
+}

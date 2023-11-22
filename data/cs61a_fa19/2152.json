@@ -1,0 +1,102 @@
+{
+    "subject": "[Lab 12] Q3: Obedience",
+    "content": "<a href=\"https://cs61a.org/lab/lab12//#q3\">Q3: Obedience</a>\n\n<p> Please post all questions you have below concerning Q3: Obedience in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Why did I get this error when I wrote the code in the order provided?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcauk1ond7y5vl%2Fk385ny0zjvgb%2FScreen_Shot_20191120_at_7.27.02_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you filtering your results at all? You shouldn’t be, but it looks like you only have 6 rows in your resulting table, which is much less than it should be. We want simply a table that contains the seven and the professor for **every row** , so no filtering involved."
+                }
+            ]
+        },
+        {
+            "question": "Does anyone know why I'm not passing the test  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jsrrl8lt56h%2Fk39ekxfg7ng9%2F1.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I think you might have a syntax error on some other part of the SQL file, since Ok is seeing some error message coming before the actual printed table."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxvyq8385iy%2Fk3997fnwjptj%2F1.png)  I write 10 rows in my tables, and it ordered and filter automatically. I don't know how to solve it.",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean “automatically”? Do you mean it’s doing it even though you don’t have any `ORDER BY` statements?"
+                },
+                {
+                    "feedback": "Yeah, I think so. I already posted my code in another place privately, can you help me to check it."
+                },
+                {
+                    "feedback": "No, I can’t, unfortunately. Only the instructors can see private posts, and I am not an instructor."
+                },
+                {
+                    "feedback": "can I post it here?"
+                },
+                {
+                    "feedback": "no. Make a private post if you're sharing code."
+                },
+                {
+                    "feedback": "Is there a solution for this? I'm getting the same error without any order by statements"
+                },
+                {
+                    "feedback": "That is… very odd. I don’t think we’re going to be of any help, unfortunately. I’ll bump it to the instructors, but worst-case scenario, if you really are doing it right (and I don’t think that is a super difficult feat for this question), just submit it to Ok as long as it’s working on the online interpreter, and you can make a note to them that your SQLite is being weird and sorting things for you. They can adjust your final grade for the lab, anyway."
+                },
+                {
+                    "feedback": "yeah. sql doesn't guarantee ordering so I don't know why they would run test cases without order by"
+                }
+            ]
+        },
+        {
+            "question": "Im not sure if i am running my terminal command incorrectly, but I am trying to run python3 ok -q obedience while I'm cd'd in my lab12 folder. What am i doing wrong?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk3apl8tdxbxj%2FScreen_Shot_20191122_at_2.21.00_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Looks like you have a syntax error in the statement constructing the obedience table."
+                },
+                {
+                    "feedback": "I tried running the next table too and it did the same thing, it was exactly how I opened the file. I should be entering the python3 command for each problem of sql in the lab12 folder right?"
+                },
+                {
+                    "feedback": "Did you implement your solutions yet?"
+                },
+                {
+                    "feedback": "Yes for the first two questions"
+                },
+                {
+                    "feedback": "That's really weird. Perhaps see if you can manually load in the SQL file via the shell and select all the elements from the tables you've made?"
+                },
+                {
+                    "feedback": "^ What Cyrus said. You should be able to load the file with `sqlite3 --init lab12.sql` if you are using a binary or `python3 sqlite_shell.py --init lab12.sql` if you are just using the Python shell. I *strongly* recommend getting the binary if you haven’t."
+                },
+                {
+                    "feedback": "Ah, whoops, I just realized you fixed it on the next thread. Never mind. Still get the binary, though!"
+                }
+            ]
+        },
+        {
+            "question": "Not sure what it was but I deleted the folder and redownloaded it, and now it works, super weird.. Thanks though!",
+            "follow-ups": [
+                {
+                    "feedback": "oops this was supposed to be for the above post ^^ lol"
+                },
+                {
+                    "feedback": "All good, glad it works!"
+                }
+            ]
+        },
+        {
+            "question": "I wrote my code, but I get the error: near \"from\": syntax error. Any ideas on what could be wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "I used \"from\" to inherit from the students table"
+                },
+                {
+                    "feedback": "Make sure your code is of the form `SELECT [columns] FROM [table];`, using commas between column names if you have more than one."
+                },
+                {
+                    "feedback": "Thanks, didn't realize I only needed one \"from\""
+                }
+            ]
+        }
+    ]
+}

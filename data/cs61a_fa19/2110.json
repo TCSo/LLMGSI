@@ -1,0 +1,137 @@
+{
+    "subject": "[HW 09] Q3: Tail Recursive Accumulate",
+    "content": "<a href=\"https://cs61a.org/hw/hw09//#q3\">Q3: Tail Recursive Accumulate</a>\n\n<p> Please post all questions you have below concerning Q3: Tail Recursive Accumulate in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Is it okay if I write question 2 and 3 in basically the same structure? I wrote the accumulate procedure of question 2 and discovered that it is already tail recursive. So I wrote the accumulate-tail procedure of question 3 in basically the same structure. Is that okay?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes that's perfectly fine. See the note in the problem:  \"  If your implementation for accumulate in the previous question is already tail recursive, you may simply copy over that solution (replacing `accumulate` with `accumulate-tail` as appropriate).  \""
+                },
+                {
+                    "feedback": "thanks"
+                }
+            ]
+        },
+        {
+            "question": "In my first attempt I wrote a helper function where my general approach was to calculate each term of a list and append it to a running list and the base case would look something like this: (eval (append (list 'combiner) lst)). So my recursive call involved passing through the growing list and a counter, in this case n So for example for the first test case the list would grow like this:                (1)       (1 4)       (1 4 9)       (1 4 9 16)       (1 4 9 16 25)       ; with the final base case being       (eval (+ start 1 4 9 16 25)).  My question is: The code calculated the correct values, that is it would pass cases where the N value would not cause recursion errors, but I'm not sure why it would exceed the maximum recursion depth when called on a very large N values like 1000. This despite the fact that there is no computation to be done after my recursive call. It looks like:                (helper (params)       \t;body       \t;body       \t(helper params )",
+            "follow-ups": [
+                {
+                    "feedback": "Are you calling eval in your actual function body? That would mean that your function is not tail-recursive. Also, I'm not sure why you're creating a list. That's definitely not necessary. All you need to do is keep track of the current value."
+                }
+            ]
+        },
+        {
+            "question": "@Akshit (or anyone else that was able to accomplish this) I was able to solve this with a helper function, but as a challenge I wanted to solve this without one. For that, I decided to utilize a solution where I create new versions of the term function such that each term function passed into the recursive call is a \"shifted-by-one\" version of the previous term function. This does work for all but the last test case - `(accumulate-tail + 0 1000 identity)` \\- which exceeds the 10 second limit. How should I alter my approach?",
+            "follow-ups": [
+                {
+                    "feedback": "I just kept track of the total so far in the start variable. The extra parameter for the helper was unnecessary. (This is unrelated to your solution).  Why do you need to use a shifted term function? are you unable to decrement n for some reason?"
+                },
+                {
+                    "feedback": "I implemented keeping track of the total the way you described. The thing was, besides that, I wasn't sure how to keep track of the index to be passed into the term function in subsequent recursive calls. So, I had every tail-call just call (term 1) and instead of passing in the same term function, I passed in a lambda wrapper for the term function that given an index i returned the value of the current term function at index i + 1\\. How did you keep track of the proper index to use?"
+                },
+                {
+                    "feedback": "Update: I am an idiot; the term function is commutative. Thank you for the input - the way you described the solution made me rethink my methodology"
+                },
+                {
+                    "feedback": "For anyone reading this, this means you can combine elements right-to-left instead of left-to-right, which makes the problem much simpler."
+                },
+                {
+                    "feedback": ":) I had the same confusion initially. I believe that's what allowed us to solve the previous part without a helper as well."
+                },
+                {
+                    "feedback": "I'm having the same problem, but I am passing in an updated total for the start parameter with no helper, and I passed the first two cases but get caught at the same case as Cyrus. Does this mean I am just not using an updated start correctly? I get a maximum recursion error not a timeout though."
+                },
+                {
+                    "feedback": "Update: made a dumb mistake and passed in the original accumulate instead of accumulate-tail haha, thanks"
+                }
+            ]
+        },
+        {
+            "question": "Right now, I write an if to differentiate the combiner * and + inorder to make the \"sofar\" track parameter start from 1 for * case to prevent from something like 0*1*2*3 = 0.  Is there any way to deal with that?  Plus, start is outside my helper function right now.",
+            "follow-ups": [
+                {
+                    "feedback": "You should not hard code the combiner function. Consider utilizing the start parameter as the “sofar” parameter, and you’ll realize you don’t even need a helper function."
+                },
+                {
+                    "feedback": "Remember that the natural numbers start at 0, not 1, and you start with whatever number is passed in as the start. Don’t break the abstraction barrier by checking what the combiner is."
+                }
+            ]
+        },
+        {
+            "question": "Somehow I pass the first case but not the second, any ideas on why and what I need to change??  accumulate-tail > Suite 1 > Case 2  scm> (load-all \".\")  scm> (define (square x) (* x x))  square  scm> (accumulate-tail + 0 5 square)  30  # Error: expected  # 55  # but got  # 30",
+            "follow-ups": [
+                {
+                    "feedback": "Are you forgetting the last term? It just so happens that $$30 = 1^2 + 2^2 + 3^2 + 4^2$$ and $$55 = 1^2 + 2^2 + 3^2 + 4^2 + 5^2$$."
+                },
+                {
+                    "feedback": "yes, thank you!!!"
+                },
+                {
+                    "feedback": "but when i change that I fail the first test.."
+                },
+                {
+                    "feedback": "Can you post the error?"
+                },
+                {
+                    "feedback": "accumulate-tail > Suite 1 > Case 1  scm> (load-all \".\")  scm> (define (identity x) x)  identity  scm> (accumulate-tail * 1 5 identity)  720  # Error: expected  # 120  # but got  # 720"
+                },
+                {
+                    "feedback": "Perhaps you've gotten the `start` parameter's purpose mixed up? `start` does not define which natural number we start at, but rather the value that gets combined with the very first term that you obtain using `term`."
+                },
+                {
+                    "feedback": "wow thank you :) Yes I did misunderstand that!!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "If I were to use a helper function to solve this problem, what should my helper function be doing?",
+            "follow-ups": [
+                {
+                    "feedback": "Well, again, you don’t really need a helper function for this method, but, in general, the helper methods can be used to keep track of what the running total is so far, and then you can redefine that as the argument for the next tail call. As a hint, the `start` argument provided for you need not actually be used only once and never again."
+                }
+            ]
+        },
+        {
+            "question": "If I'm doing it without a helper function would it make sense to just call the function recursively using combiner for certain variables for the start variable?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting 24 for my output for the first case. Any idea as to what might be happening? I can't seem to find where it could've gone wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "You might be forgetting the last term - the expected output is 120, and it so happens that $$24 = 1 * 2 * 3 * 4$$ while $$120 = 1 * 2 * 3 * 4 * 5$$"
+                },
+                {
+                    "feedback": "Got it . Thanks!"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "OK. So I'm passing the first test case for when term is identity. However, I don't know where to include term in my code which is why I only pass when its identity . Any hints?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm I got it."
+                }
+            ]
+        },
+        {
+            "question": "I have used this without a helper function. But I am not entirely sure if it is tail recursive or not.   But if it passes all the test cases and does not give a timeout/recursion dept error than does that mean that it is tail recursive?",
+            "follow-ups": [
+                {
+                    "feedback": "yeah most likely."
+                }
+            ]
+        }
+    ]
+}

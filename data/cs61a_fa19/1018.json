@@ -1,0 +1,275 @@
+{
+    "subject": "[Cats] Problem 8",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-8-2-pt\">Problem 8</a>\n\n Please post all questions you have below concerning Problem 8 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nSome tips if you&#39;re stuck:\n- Call the <code>send</code> function on a dictionary with the keys <code>id:</code> and <code>progress:</code>. You can create this dictionary with <code>{&#39;id&#39;: ___ , &#39;progress&#39;: ___ }</code>.\n- A good way to count the number of correct words is using iteration (a <code>for</code> or <code>while</code> statement).",
+    "threads": [
+        {
+            "question": "Is there a chance for Len(typed) to be greater than len(prompt)?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, but this shouldn't make a difference in your implementation"
+                },
+                {
+                    "feedback": "wait why does this not matter? if you have typed = 'a fine man' and prompt = 'a fine', won't you get index out of bounds if your loop goes up to len(typed)?"
+                },
+                {
+                    "feedback": "It does have to be accounted for, but not in an explicit case. The solution to this question is reminiscent to that of question 3 - think of how you were able to avoid any indexing errors for that one"
+                },
+                {
+                    "feedback": "I don't think it needs to be accounted for as per the test cases (even implicitly). That's why I was wondering if I missed a part of the problem."
+                },
+                {
+                    "feedback": "Ah sorry for the confusion"
+                }
+            ]
+        },
+        {
+            "question": ">>> report_progress(typed, prompt, 1, print_progress) # print_progress is called on the report  Why does the second unlock question ask for more than one line of returns?",
+            "follow-ups": [
+                {
+                    "feedback": "In addition to calling send, report_progress returns a value."
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "What does calling send mean? As in how do you call a function on a dictionary?",
+            "follow-ups": [
+                {
+                    "feedback": "You call `send` and pass in a dictionary as its parameter. Think about it abstractly, if you have some function `f(x)` you can think of it as calling `f` \"on\" `x`."
+                },
+                {
+                    "feedback": "Calling send literally means we pass in the dictionary."
+                },
+                {
+                    "feedback": "Yeah. Like                d = {'a': 1} # a dictionary       send(d) # calling send on a dictionary"
+                }
+            ]
+        },
+        {
+            "question": "print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress'])   >>> typed = ['I', 'have', 'begun']   >>> prompt = ['I', 'have', 'begun', 'to', 'type']   >>> print_progress({'id': 1, 'progress': 0.6})   >>> report_progress(['I', 'begun'], prompt, 2, print_progress)  I am having trouble with this test case. Shouldn't the first line of the output be the same as that of the previous test cases?",
+            "follow-ups": [
+                {
+                    "feedback": "The report_progress function goes \"up to the first incorrect word, divided by the number of `prompt` words.\" In this case, the first incorrect word is 'have.' Also make sure that you change the ID number as well."
+                },
+                {
+                    "feedback": "Can you please explain this? Why is 'have' considered incorrect?"
+                },
+                {
+                    "feedback": "It's not. There are no \"incorrect words\" per se, but the last two words of the prompt are missing. So your progress is 3 / 5 = 0.6"
+                },
+                {
+                    "feedback": "What will print_progress print in the above test? Will it be 0.6?"
+                },
+                {
+                    "feedback": "report_progress(['I', 'begun'], prompt, 2, print_progress). What did the previous print_progress print? It prints out using: print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress']) which means it defines a lambda function that takes in d, a dictionary in this case, and prints out d['id'] and d['progress']. So essentially the ID and progress from a dictionary. What will report_progress(['I', 'begun'], prompt, 2, print_progress) output to the console when the dictionary is passed in the print_progress function?"
+                }
+            ]
+        },
+        {
+            "question": "If len(typed)>len(prompt), should it return 1?",
+            "follow-ups": [
+                {
+                    "feedback": "Not necessarily, for example, if `typed` = \"I have a dog\" and `prompt` = \"I ate\", the progress should be 0.5"
+                }
+            ]
+        },
+        {
+            "question": ">>> from typing import report_progress >>> print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress']) >>> typed = ['I', 'have', 'begun'] >>> prompt = ['I', 'have', 'begun', 'to', 'type'] >>> print_progress({'id': 1, 'progress': 0.6}) ID: 1 Progress: 0.6 >>> report_progress(typed, prompt, 1, print_progress) # print_progress is called on the report ID: 1 Progress: 0.4 0.4 # Error: expected # ID: 1 Progress: 0.6 # 0.6 # but got # ID: 1 Progress: 0.4 # 0.4 I keep on getting this error. I have a counter variable that I am updating but for some reason my function is still returning .2 lower than it should be. Could anyone possibly help me?",
+            "follow-ups": [
+                {
+                    "feedback": "Your counter is probably not being updated correctly"
+                }
+            ]
+        },
+        {
+            "question": "We can use break in this problem right?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "I just searched online what break was, but have we covered it in class yet?"
+                },
+                {
+                    "feedback": "No, I don't think it is covered explicitly in this class. You won't be expected to know if for exams or to use it in assignments. However, it is good to know for general programming outside of class, as you can speed up your programs greatly by skipping redundant loops"
+                }
+            ]
+        },
+        {
+            "question": "What if I'm being foiled by a rounding error?                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     Running tests          ---------------------------------------------------------------------     Problem 8 > Suite 1 > Case 13          >>> from typing import report_progress     >>> print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress'])     >>> report_progress(['extraterrestrial', 'experimentalist', 'incomputable', 'lictorian', 'sordellina'], ['extraterrestrial', 'experimentalist', 'incomputable', 'lictorian', 'sordellina', 'pudsy'], 32, print_progress)     ID: 32 Progress: 0.8333333333333335     0.8333333333333335          # Error: expected     #     ID: 32 Progress: 0.8333333333333334     #     0.8333333333333334     # but got     #     ID: 32 Progress: 0.8333333333333335     #     0.8333333333333335          Run only this test case with \"python3 ok -q 08 --suite 1 --case 13\"     ---------------------------------------------------------------------     Test summary         12 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm I solved it. I was getting the percentage of progress, then dividing it by 100, which does funky things with floats."
+                }
+            ]
+        },
+        {
+            "question": "Is the Friday's lecture necessary to do Q8 and 9? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "No"
+                }
+            ]
+        },
+        {
+            "question": "How do we even start the question unlocks? I don't understand what the problem is asking.",
+            "follow-ups": [
+                {
+                    "feedback": "Jk figured it out, it's just printing things not actually calling the report progress function"
+                }
+            ]
+        },
+        {
+            "question": "In this question, we create a dictionary right?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "Okay, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I used a break statement in this problem is that fine?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes but there's another way to do the problem without using breaks"
+                }
+            ]
+        },
+        {
+            "question": "How do we account for cases where len(typed) > len(prompt) properly? For example, if typed = ['1','2','3','4'] and prompt = ['1', '2', '3'], should the progress be 1.0 or 0.75? My solution returned 1.0.",
+            "follow-ups": [
+                {
+                    "feedback": "1.0"
+                }
+            ]
+        },
+        {
+            "question": "When I call send on the dictionary that I create I get the error: \"KeyError: 'id'\". Any tips on calling send on the dictionary/creating the dictionary? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "Same question!"
+                },
+                {
+                    "feedback": "You're likely not creating the dictionary properly"
+                },
+                {
+                    "feedback": "Where can I find information/examples on how to fix this? I currently am using one of the arguments passed into the function in my dictionary."
+                },
+                {
+                    "feedback": "dict_example = {'key1': some_val, 'key2': some_other_val}       print(dict_example['id']) # raises a KeyError       print(dict_example['key1']) # prints the value of some_val"
+                },
+                {
+                    "feedback": "I am still having this problem. I'm not sure of how to approach this."
+                }
+            ]
+        },
+        {
+            "question": "How can we get the progress to print in line 2? I was able to get line 1 with the correct output but can't figure out how to make line 2 print the progress. thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to print the progress explicitly. You just need to make sure you return the progress"
+                },
+                {
+                    "feedback": "thank you!"
+                },
+                {
+                    "feedback": "I am still slightly confused by this; can you elaborate a little bit more on it please?"
+                },
+                {
+                    "feedback": "What he means is that all you have to do is calculate the progress as required by the prompt and return it. Printing it is not useful to us, however, we do need to store it in a dictionary along with 'id' and apply the given function, send, on that dictionary.  Anonymous was asking how to print progress in line 2 when, in reality, it is not necessary to answer the question.  Does that clarify things?"
+                },
+                {
+                    "feedback": "yes! thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I was reading the question 8 prompt, and it says, \"it should end a message to the multiplayer server that is...\"  Should it say, \" **send** a message to the multiplayer server\"?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, it should be sending a message haha."
+                },
+                {
+                    "feedback": "Ok, just making sure. :)"
+                }
+            ]
+        },
+        {
+            "question": "So I got the code and the main loop. This prints the: ID: X Progress: Y. How can I get the second line which would just be Y. Its just printing nothing for me.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are returning the progress. You don't need an explicit print statement"
+                },
+                {
+                    "feedback": "return progress? or send?"
+                },
+                {
+                    "feedback": "send will print out the ID: X, Progress Y line. you need to then return the progress fraction itself within report_progress."
+                },
+                {
+                    "feedback": "OK! that makes sense. But once I return send, the function stops and returning the progress wont appear. Are they supposed to be returned in different places (tabs)?"
+                },
+                {
+                    "feedback": "NVM. Got it!"
+                }
+            ]
+        },
+        {
+            "question": "Do for loops stop once it hits a return statement?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                }
+            ]
+        },
+        {
+            "question": "I was able to count the number of words correct, but I know I should stop counting the rest of the list once I know that the first pair is incorrect. How should I implement this idea?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjkx114m5n7%2Fk192rbj9tgqx%2FQ8.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "You can use the `break` keyword, or re-write your for loop to be a while loop and add an additional condition"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting syntax errors on the dictionary. The hint mentions to \"create this dictionary with `{'id': ___ , 'progress': ___ }`.\" which is what I tried to do.  I'm a little bit confused as to how to implement this if the values for id are being passed through the GUI? Are the blanks determined by a loop?",
+            "follow-ups": [
+                {
+                    "feedback": "The blanks would be determined by your code somehow. The first blank should represent the player's id # and the second blank should represent their progress. To calculate the progress you'll need a loop. Hope that answers your question."
+                },
+                {
+                    "feedback": "'id' and 'progress' serve as keys. You now need to pass in values to your dictionary"
+                },
+                {
+                    "feedback": "Got it! Thank you!!! That was a silly question. I should have read it more carefully."
+                }
+            ]
+        },
+        {
+            "question": "How do we figure out what precision the test case expects us to return for progress? Some cases want only two decimal places, while others want many.",
+            "follow-ups": [
+                {
+                    "feedback": "A safe bet is just to divide once: compute the number of correct words typed, compute the number of words typed, and then divide. Anything that involves more dividing or multiplying than that is likely to cause rounding errors."
+                }
+            ]
+        },
+        {
+            "question": "can someone help me how to unlock the test cases? I've tried printing everything and it doesn't work.",
+            "follow-ups": [
+                {
+                    "feedback": "In the first `report_progress` example, `typed` contains 3/5 of the words in `prompt`, so `print_progress` will be called as `print_progress(1, 0.6)` (just like the previous example. Then `0.6` is returned."
+                },
+                {
+                    "feedback": "I still cant figure it out, are we supposed to call send?"
+                },
+                {
+                    "feedback": "You're outputting send; as well as outputting a value that is outputted by report_progress on a 2nd line if required."
+                }
+            ]
+        }
+    ]
+}

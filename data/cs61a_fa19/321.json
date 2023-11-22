@@ -1,0 +1,297 @@
+{
+    "subject": "[Hog] Problem 1",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-1-2-pt\">Problem 1</a>\n\n<p> Please post all questions you have below concerning Problem 1 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "def roll_dice(num_rolls, dice=six_sided):  In problem 1, why does it say dice=six_sided? What if the dice is make_test_dice?",
+            "follow-ups": [
+                {
+                    "feedback": "`dice=six_sided` is a default argument, meaning that if we don't specify what dice is, we will use six_sided dice. If we passed in a test_dice, then the default argument gets overridden and we use test_dice!"
+                },
+                {
+                    "feedback": "On the project webpage it says                roll_dice(2, dice=fixed_dice)  Why does it pass the second argument like this? Its effect seems to be the same as                roll_dice(2, fixed_dice)  while                roll_dice(num_rolls=2, fixed_dice)  does not work and                SyntaxError: positional argument follows keyword argument  is displayed."
+                },
+                {
+                    "feedback": "I recommend checking out Chapter 1.4 in our textbook which talks about default argument values: <http://composingprograms.com/pages/14-designing- functions.html#default-argument-values>  Also, your default arguments must follow your non-default ones. This is to avoid confusion about which argument goes to which parameter."
+                },
+                {
+                    "feedback": "What is the difference between writing dice= and not?"
+                }
+            ]
+        },
+        {
+            "question": "[redacted]",
+            "follow-ups": [
+                {
+                    "feedback": "Answered in private. Please do not share answers to the unlocking tests!"
+                }
+            ]
+        },
+        {
+            "question": "In problem 1, how do we pass the test case roll_dice(1, counted dice)? The program always starts from the first value of the test dice (4) but the autograder expects the answer to be 6.",
+            "follow-ups": [
+                {
+                    "feedback": "Test dice remember where they left off the last time you rolled them. They do start with the first value but if you roll them again you will start where you left off in the ordering!"
+                },
+                {
+                    "feedback": "I am also confused on how to account for this in our solution; my solution works for many cases, except for this one when we re-roll the same dice."
+                },
+                {
+                    "feedback": "If you're only failing this case, make sure that you are calling the dice exactly `num_rolls` times inside your `roll_dice` function. Otherwise, you could be calling it too many times and the test dice advance through their number cycle."
+                },
+                {
+                    "feedback": "I seem to be having the same issue. Do we need to assign an index for the number the dice stops at? This is the only case I'm failing."
+                },
+                {
+                    "feedback": "Dalton is right when he says that we’ve probably called the dice too many times. Take a close look at your code — that was my problem!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble with the pig out case - my code successfully sums all the dice rolls, but seems to ignore my if statements to account for a 1 being rolled. Any advice?",
+            "follow-ups": [
+                {
+                    "feedback": "Try creating an if statement within the while loop"
+                }
+            ]
+        },
+        {
+            "question": "How should I go about ensuring that the number of rolls affects how many numbers of make_test_dice are read?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm not entirely sure what you mean, but you shouldn't have to call `make_test_dice` if you are talking about writing the function itself."
+                }
+            ]
+        },
+        {
+            "question": "For Hog Problem 1 test:                >>> from hog import *     >>> counted_dice = make_test_dice(4, 1, 2, 6)       >>> roll_dice(3, counted_dice)     1     >>> roll_dice(1, counted_dice)  # Make sure you call dice exactly num_rolls times!     6  Why is roll_dice(1, counted_dice) equals to 6??",
+            "follow-ups": [
+                {
+                    "feedback": "Oh, I got it. I have to count all of them. Never mind! :)"
+                },
+                {
+                    "feedback": "can you explain this"
+                },
+                {
+                    "feedback": "I am also confused as to why it's 6. The first time we will roll the dice 3 times so it will result in: 4, 1, 2 giving us our answer of 1, but if we roll the dice once shouldn't it just be 4? Or is it \"picking up\" where we left off?"
+                },
+                {
+                    "feedback": "The test dice remembers the last roll and picks up where you left off."
+                },
+                {
+                    "feedback": "I still don't get it :( how did it pick up from where it left off?"
+                },
+                {
+                    "feedback": "In the first line, \">>> roll_dice(3, counted_dice)\", we made the dice roll 3 times on counted_dice:  1st roll = 4  2nd roll = 1  3rd roll = 2  so our answer is 2:  counted_dice = make_test_dice(4, 1, 2, 6)  ^ (we are right here, the line left off at the value 2)  The second line, \">>>roll_dice(1, counted_dice)\" is rolling one more time, so:  counted_dice = make_test_dice(4, 1, 2, 6)  ^ (we are now right here, the extra roll moved the value to 6)  I hope this helped :)"
+                }
+            ]
+        },
+        {
+            "question": "for some reason when I created the while loop with the if condition concerning dice() == 1, the function is only returning 1. Any ideas on what is wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "As I don't know what your actual code is, it's difficult for me to debug. However, I would recommend running python -i hog.py and manually tracing out the function with various inputs. To make your debugging process even easier, try isolating various portions of your program and figuring out exactly where the problem is and where it's not. Finally, add print() statements to visualize the function's execution and aid in debugging."
+                },
+                {
+                    "feedback": "FYI, every time you call dice( ), Python sets a new iteration of the dice roll. If you are on a test dice, which is deterministic based on the values you restrain it, it will iterate to the next one."
+                },
+                {
+                    "feedback": "If you write print statements like `print(\"DEBUG:\", ...)`, you can even run `python ok -q ...` and see the debug output without it messing up the test cases (ok ignores all lines starting with `\"DEBUG:\"`)"
+                }
+            ]
+        },
+        {
+            "question": "I wrote a while loop with an if condition that works perfectly when the function roll_dice is called on six_sided or four_sided, but does not work when the second argument is make_test_dice. When roll_dice is called on make_test_dice(4, 6, 1) or any other combination for that matter, it returns an infinite loop. Any idea why that might be?",
+            "follow-ups": [
+                {
+                    "feedback": "That shouldn't happen if your while loop's condition is based on the num_rolls parameter. If the condition is based on the num_rolls parameter, it shouldn't matter what kind of dice you are rolling; it should only matter that you iterate through the loop num_rolls times."
+                }
+            ]
+        },
+        {
+            "question": "my code is only making it to case 4, and fails case 5 which is: roll_dice(1, counted_dice). The answer is 6, but I keep getting 2. Does anyone have advice?",
+            "follow-ups": [
+                {
+                    "feedback": "it gets roll_dice(3, counted_dice) correct so Im not sure why it gets it wrong for when num_rolls = 1."
+                },
+                {
+                    "feedback": "see the comments that are in that failed test - make sure you are still rolling the dice by calling dice() num_rolls amount of times, even if free bacon comes into play."
+                },
+                {
+                    "feedback": "Follow up, I'm still really stuck on this problem. Is there any advice into what to do?"
+                },
+                {
+                    "feedback": "+1 I'm also really stuck on this case. any advice?"
+                },
+                {
+                    "feedback": "You're currently short circuiting when your dice roll hits 1 instead of completing all the roles (I'm assuming you're returning 1 in your if statement). Think about how you can complete all the roles without breaking your while loop (hint - booleans and a 2nd if statement after your while loop)."
+                }
+            ]
+        },
+        {
+            "question": "Hi, can anyone explain why in the test cases for problem 1, roll_dice(9, make_test_dice(6)) doesn't return 6? Since we made a new test dice, it should start at the beginning of the list, and since there is only one possible outcome, shouldn't it return 6 for all 9 rolls of the test dice? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, it does return 6 for all 9 rolls, but the test is simulating that you have rolled 9 dice all in the same turn, and roll_dice returns the total points in each turn."
+                }
+            ]
+        },
+        {
+            "question": "Why does Python say                UnboundLocalError: local variable 'some_variable' referenced before assignment  when I perform += operation of a parameter/argument of a function in a function nested therein, while I can return that parameter in another nested function?  Like this:                def f(x):           def f1():               return x           def f2():               x += 1  where f1() works and f2() does not and gives the aforementioned error message.",
+            "follow-ups": [
+                {
+                    "feedback": "@317"
+                }
+            ]
+        },
+        {
+            "question": "Why is there a difference between adding to a sum variable by dice() each time a while statement loops and adding to the sum variable by an integer assigned to dice() each time a while statement loops?",
+            "follow-ups": [
+                {
+                    "feedback": "There shouldn't be a difference, as long as you call dice() for each iteration of the while loop."
+                },
+                {
+                    "feedback": "Ah, I figured it out. I was calling dice() more than once for each iteration of the loop so it was using different numbers in the same loop and messing things up"
+                }
+            ]
+        },
+        {
+            "question": "I wrote a while loop that makes logical sense since I am keeping track of the sum of the rolls, the number of rolls and everything, but when I run a debug prompt it seems like my while loop only returns the value of that specific roll (i.e. if I had fixed_dice = (3, 4) and ran roll_dice(2, dice=fixed_dice), I would only return 4 because that was the second value). Anyone know what might be wrong with my while loop?",
+            "follow-ups": [
+                {
+                    "feedback": "As long as the while loop's condition is based on num_rolls, it should be fine. It's even getting to the second roll which is a good sign. Maybe check your return value"
+                },
+                {
+                    "feedback": "maybe by virtue of how you are saving the results of rolls, you are saving the roll result instead of adding it to a total so far?"
+                }
+            ]
+        },
+        {
+            "question": "When I run a test case, for example, case 2 with roll_dice(2, make_test_dice(4, 6, 1)), I seem to always get 15, even when I have an if statement within my while loop returning 1. Anyone have an idea why I might have this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm not sure what you're exact code is, so it would be hard for me to debug. However, I recommend tracing your program execution on paper or using print statements to see what is actually happening. Make sure you don't call dice() more than num_rolls (2 in this test case) times."
+                }
+            ]
+        },
+        {
+            "question": "I wrote a while loop based on num_rolls that seems to make sense, however when I try to run roll_dice(2, fixed_dice) with fixed_dice=make_test_dicee(1,2), it seems to take the second possible outcome first i.e. returning 2 on the first roll and 1 on the second.",
+            "follow-ups": [
+                {
+                    "feedback": "I have this same problem - were you able to resolve it?"
+                },
+                {
+                    "feedback": "you may be calling dice() once more than you intended, and may not be recording the first time you call it?"
+                }
+            ]
+        },
+        {
+            "question": "I'm not exactly sure how to make my function still cycle through all num_rollls times even if pig out occurs; cany anyone point me in the right direction?",
+            "follow-ups": [
+                {
+                    "feedback": "Basically, you want to set the score variable that you return to 1, but you don't want to exit the while loop when you run into a 1. You still continue to call dice(), but you want to stop adding to the score variable because it should remain as 1."
+                }
+            ]
+        },
+        {
+            "question": "How do I get the dice to roll the required amount of times (going through the numbers it has to) even if it reaches a 1? So if it was supposed to roll 3 times, it will roll through 3 numbers even if one of the number is a 1?",
+            "follow-ups": [
+                {
+                    "feedback": "You should write code such that it doesn't stop rolling dice even if it encounters a 1, but rather it checks every roll to see if a 1 was rolled, and keeps track of that separately. Use that value in your code to make a decision on what to return."
+                }
+            ]
+        },
+        {
+            "question": "When I write this,  total = total + six_sided()  it shows  unsupported operand type(s) for +: 'int' and 'function'  How can I probably solve this thing?",
+            "follow-ups": [
+                {
+                    "feedback": "For number 1, it is not safe to assume that the dice is six_sided - remember, a dice function is passed into roll_dice with the parameter name \"dice\" \\- use that instead of six_sided"
+                },
+                {
+                    "feedback": "Following up on this, I'm a bit confused about how we actually access the outcomes of the dice being rolled. If I had this:  total = total + dice()  isn't that still adding a function to an integer? How do I get it so I'm actually adding a number (the number rolled by the dice) to total? Hope that makes sense, thanks!"
+                },
+                {
+                    "feedback": "Oh never mind, sorry for that question! dice() is now working for me"
+                }
+            ]
+        },
+        {
+            "question": "How do you call an if/else statement to check whether dice rolls a 1 without breaking the while loop?",
+            "follow-ups": [
+                {
+                    "feedback": "figured it out! I was ordering my code wrong"
+                }
+            ]
+        },
+        {
+            "question": "Trying to check my solution for Problem 1 of Hog, but it doesn't seem to be checking my work. Instead, I get:  Question 1 > Suite 1 > Case 1  >>> from hog import *  >>> roll_dice(2, make_test_dice(4, 6, 1))  0  # Error: expected  # 10  # but got  # 0  Run only this test case with \"python3 ok -q 01 --suite 1 --case 1\"  This appears to be checking an unlocking test question, or is it? I have entered my code for this problem, but am not sure what is occurring here. Help! Thx.",
+            "follow-ups": [
+                {
+                    "feedback": "It's checking your code against the unlocking test question because you know what that answer should be since you solved it to unlock the test. Your code has an error somewhere in it that returns 0."
+                },
+                {
+                    "feedback": "Oh, thank you. Didn't realize that."
+                }
+            ]
+        },
+        {
+            "question": "After going through the understanding part of the problem, I started to write code but repeatedly got an error I didn't understand. So, I just redownloaded the zip, and when I tried running the file without anything changed I keep getting this error. File \"/Users/*******/Desktop/Classes/CS61a/projects/hog/hog.py\", line 3, in from dice import six_sided, four_sided, make_test_dice File \"/Users/*********/Desktop/Classes/CS61a/projects/hog/dice.py\", line 51 nonlocal index ^ SyntaxError: invalid syntax",
+            "follow-ups": [
+                {
+                    "feedback": "When I commented out problem three where line 51 is it started working, but when I uncomment I get an error saying I didn't define six_sided. Then when I add a space in between dice=six_sided > dice = six_sided, I get the original error again."
+                },
+                {
+                    "feedback": "you do not need to make any changes to files other than hog.py. if the problem persists, I would try redownloading the file for hog.py again!"
+                }
+            ]
+        },
+        {
+            "question": "what is nonlocal doing? ex: nonlocal index",
+            "follow-ups": [
+                {
+                    "feedback": "this is allowing us to change variables that we would not normally be able to change - more on this later in the course."
+                }
+            ]
+        },
+        {
+            "question": "My code isn't returning anything at all. I have unlocked all tests and checked my code multiple times to ensure that it is correct and even when I try to debug it interactively, it won't return anything. I know it's vague but can anyone help with this issue? I've tried removing and then re-downloading the entire file too.",
+            "follow-ups": [
+                {
+                    "feedback": "Check to make sure that you don't have two files with the same name in two different places. I had that issue where ok was running tests in one folder but my code was written in a different folder."
+                }
+            ]
+        },
+        {
+            "question": "I've been stuck on trying to pass Case 5. I understand what is happening and know why the function should return 6 instead of 4, but what am I missing from my code to implement that?",
+            "follow-ups": [
+                {
+                    "feedback": "this test is making sure that you call the dice function exactly num_rolls times when roll_dice is called, so you can implement that behavior by making sure that is the case in your code!"
+                }
+            ]
+        },
+        {
+            "question": "How do I cycle through the values of dice roll in my code as inputs? For example if I have a fixed dice = make_test_dice(3,4) and I call roll_dice(2, dice=fixed_dice) my code spits out 8, instead of 7. So I think that means my while loop is just adding up 4 twice, rather than adding 3, then adding the 4 to get 7. Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "calling dice repeatedly will do the cycling for you, as part of the dice functions you are given."
+                }
+            ]
+        },
+        {
+            "question": "Question 1 > Suite 2 > Case 3  >>> from hog import *  >>> dice = make_test_dice(5, 4, 3, 2, 1)  >>> roll_dice(1, dice) # Roll 1 (5)  5  >>> roll_dice(4, dice) # Reset (4, 3, 2, 1)  1  >>> roll_dice(2, dice) # Roll 2 (5, 4)  7  # Error: expected  # 9  # but got  # 7  Does anyone know why this is happening??",
+            "follow-ups": [
+                {
+                    "feedback": "difficult to debug without seeing the code, but I would make sure you are calling dice _exactly_ num_rolls times, and that you are storing the sum correctly as you make rolls."
+                }
+            ]
+        },
+        {
+            "question": "Is the def statement we are provided with complete or do we have to expand on it in order to run our code and yield a result?",
+            "follow-ups": [
+                {
+                    "feedback": "you need to fill in the body of the roll_dice function, but do not need to change anything in the header of the function (i.e. the line beginning with def)"
+                }
+            ]
+        }
+    ]
+}

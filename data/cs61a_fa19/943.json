@@ -1,0 +1,26 @@
+{
+    "subject": "[HW 03] Q6: Anonymous factorial",
+    "content": "<a href=\"https://cs61a.org/hw/hw03/#q6\">Q6: Anonymous factorial</a>\n\n<p> Please post all questions you have below concerning Q6: Anonymous factorial in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "my idea for this question is to repeatedly call mul and sub on n and return that using a lambda function, but i'm not sure how to set up the syntax for this. am i heading in the right direction?",
+            "follow-ups": [
+                {
+                    "feedback": "I am also having trouble with this."
+                },
+                {
+                    "feedback": "You are heading in the right direction. Try writing each lambda function you have nested, individually. That helped me. And I believe there are a few nested lambda functions, at least mine had some."
+                },
+                {
+                    "feedback": "You can do this problem with only two lambda functions (which is the intended solution)."
+                },
+                {
+                    "feedback": "Something to think about: if you had unlimited space you'd first bind the lambda to f and then call f recursively, right? Given that you only have one line, the only way you could possibly have access to the function called f is if f were an argument to the lambda."
+                },
+                {
+                    "feedback": "I found a solution with 3 lambdas, but I can't figure out a way to reduce it to 2."
+                }
+            ]
+        }
+    ]
+}

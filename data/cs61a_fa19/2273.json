@@ -1,0 +1,17 @@
+{
+    "subject": "[Lab 13] Q8: Driving the Cyber Highways",
+    "content": "<a href=\"https://cs61a.org/lab/lab13//#q8\">Q8: Driving the Cyber Highways</a>\n\n<p> Please post all questions you have below concerning Q8: Driving the Cyber Highways in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Could you give some hints? I could figure it out by creating new table. But I do not know whether there are better methods",
+            "follow-ups": [
+                {
+                    "feedback": "Once you have solved the previous part, you can simply join the `stores` table with the `shopping_list` table and just take the `SUM` of the `Mbs`, no grouping required."
+                },
+                {
+                    "feedback": "fyi, the \"Mb\" column is not called \"Mb\" but \"Mbs\""
+                }
+            ]
+        }
+    ]
+}

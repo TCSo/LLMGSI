@@ -1,0 +1,47 @@
+{
+    "subject": "[HW 07] Master Thread",
+    "content": "<a href=\"https://cs61a.org/hw/hw07/\">HW 07</a> is released and will be due Thursday, November 07 at 11:59 pm.\n\n<p>Please post question-specific questions in their respective threads, and post general questions below (submitting, autograder, etc.). Come to office hours if you have any further questions. :) Good luck!\n</p><p>\n</p><p>Q1: Longest increasing subsequence: &#64;1893\n</p><p>Q2: Derive Sum: &#64;1892\n</p><p>Q3: Derive Product: &#64;1891\n</p><p>Q4: Make Exp: &#64;1890\n</p><p>Q5: Derive Exp: &#64;1889\n\n</p><p>\n</p>",
+    "threads": [
+        {
+            "question": "Whenever I try to run python3 editor, it says that Port 31415 is already in use and to go to  <http://localhost:31415> and stop the editor. But when I go to that link, it is just a page that says \"The connector service is running.\" and there is nothing to click. What should I do to stop the editor?",
+            "follow-ups": [
+                {
+                    "feedback": "I think running python editor -p 314156 and then going to 127.0.0.1:314156 should work"
+                },
+                {
+                    "feedback": "I think running python editor -p 314156 and then going to 127.0.0.1:314156 should work"
+                },
+                {
+                    "feedback": "I tried that and got this error:  OverflowError: getsockaddrarg: port must be 0-65535.  Then I tried \"python editor -p 31415\" and it gave me the same message as the very first time."
+                },
+                {
+                    "feedback": "Try restarting your system and running normally"
+                }
+            ]
+        },
+        {
+            "question": "Why do I get this when I try to test my code in ok?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkvrmz5t48s3fx%2Fk2mw36mv4q7j%2FScreen_Shot_20191105_at_10.15.18_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "you are likely missing a parenthesis somewhere - check to make sure that every parenthesis has a matching pair where you expect it."
+                }
+            ]
+        },
+        {
+            "question": "Why is there no download link in the homework 7 page? How do I get the files?",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm found it"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjezmdkd5jj%2Fk2osqq7q3do4%2F000.JPG)  Never see this before. Anyone can help? I'm crazy now",
+            "follow-ups": [
+                {
+                    "feedback": "Can you try the suggestions in @1994?"
+                }
+            ]
+        }
+    ]
+}

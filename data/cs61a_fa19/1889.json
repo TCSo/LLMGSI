@@ -1,0 +1,78 @@
+{
+    "subject": "[HW 07] Q5: Derive Exp",
+    "content": "<a href=\"https://cs61a.org/hw/hw07//#q5\">Q5: Derive Exp</a>\n\n<p> Please post all questions you have below concerning Q5: Derive Exp in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "For the                (derive x^3 'x)   test case, why isn't the answer:                (* 3 (make-exp 'x 2))  ?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you evaluate `(make-exp 'x 2)`"
+                },
+                {
+                    "feedback": "I tried evaluating it to '(^ x 2) and it didn't work either?"
+                },
+                {
+                    "feedback": "The quotation mark was causing the problem nvm"
+                }
+            ]
+        },
+        {
+            "question": "(derive x^2 'x)  What should this code return? I tried （* 2 x), （* 2 (^ x 1)), but neither works. Why?",
+            "follow-ups": [
+                {
+                    "feedback": "It could be because you were using an international keyboard? Or perhaps there was another space in one of your attempted solutions"
+                },
+                {
+                    "feedback": "Solved. THX!"
+                },
+                {
+                    "feedback": "WOOOOOOOOOOOOOO!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error. Can somebody give me a hint?  [屏幕快照_20191105_上午10.53.30.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2m7q5sn11re%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191105_%E4%B8%8A%E5%8D%8810.53.30.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Look for any function calls you made that only take in numbers, such as `=`. For instance, `(= 'a 0)` will give you the same type of error because `'a` isn't a number. It looks like you're passing a lambda function as the first argument into a function call that only takes in numbers."
+                }
+            ]
+        },
+        {
+            "question": "any ideas as to why this is erroring?  scm> (derive x^2 'x) ; Remember products have the form (* a b)  error  # Error: expected  # (* 2 x)  # but got  # error  thanks :)",
+            "follow-ups": [
+                {
+                    "feedback": "Does it literally just only say \"error\" as the error?"
+                },
+                {
+                    "feedback": "That's probably because your `exp?` function isn't returning True in your derive function for `(* 2 x)`. So take a look at your `exp?` function"
+                }
+            ]
+        },
+        {
+            "question": "Passed all test cases but unclear why `derive-exp` takes an argument `var` if it's not used?",
+            "follow-ups": [
+                {
+                    "feedback": "Probably has something to do with the extensions, i.e. implementing the chain rule properly"
+                },
+                {
+                    "feedback": "Yeah, to implement Chain Rule, it's necessary."
+                }
+            ]
+        },
+        {
+            "question": "Did anyone **not** use _derive_ procedure to solve _Q5_?  All test cases pass, but I suspect that I should have somehow used derive in my solution (like in derive-product for instance).",
+            "follow-ups": [
+                {
+                    "feedback": "How do you implement chain rule functionality without using derive? Asking for a friend :^)"
+                },
+                {
+                    "feedback": "Chain rule wasn't a required part of Q5, so I assume you haven't implemented that. Given the instructions \"Reduce the power of the exponent by one, and multiply the entire expression by the original exponent\" I see nothing that indicates the need to call `derive`. However, when implementing the chain rule (if you choose to do so) I would assume you need to do so."
+                },
+                {
+                    "feedback": "Yep Cyrus is right."
+                }
+            ]
+        }
+    ]
+}

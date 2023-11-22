@@ -1,0 +1,203 @@
+{
+    "subject": "[HW 08] Q1: List Comprehensions",
+    "content": "<a href=\"https://cs61a.org/hw/hw08//#q1\">Q1: List Comprehensions</a>\n\n<p> Please post all questions you have below concerning Q1: List Comprehensions in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Tried submitting, looks like the assignment hasn't been created yet. (You're probably already working on it)",
+            "follow-ups": [
+                {
+                    "feedback": "Looks like it’s up now."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain how the parameters of macros work? How does Scheme know that \"for\", \"if\", and \"in\" aren't parameters?",
+            "follow-ups": [
+                {
+                    "feedback": "They're treated as unused parameters."
+                },
+                {
+                    "feedback": "but if they are unused it shouldn't make a difference if we delete them. but it doesn't seem to work after i do so"
+                },
+                {
+                    "feedback": "Well their specific values aren't used but they are still useful as placeholders such that the form is correct. Observe that this still works:                scm> (list-of (* x x) fr x fojerofij '(3 4 5) frkerof (odd? x))     (9 25)  But this doesn't:                scm> (list-of (* x x) for x in '(3 4 5) (odd? x))     Traceback (most recent call last)     0   (list-of (* x x) for x in (quote (3 4 5)) (odd? x)) [frame = Global]     #[list-of] expected 7 operands, received 6."
+                },
+                {
+                    "feedback": "The key is that macros rewrite *before* they evaluate, so even if you pass in nonexistent symbols such as `for` into the macro, it will never appear in the final output, so Scheme never tries to evaluate `for`, so you never get an error. This is explained more in-depth in a comment I made right below this thread."
+                }
+            ]
+        },
+        {
+            "question": "For the optional part, I'm confused as to how define-macro would use the variadic special form. When the Specification says \"`(<name> [param] ...)` can be [variadic](https://cs61a.org/articles/scheme-spec.html#variadic- functions)\", does this mean that the entire list of the name and the parameters can be variadic, or we can treat an individual parameter as variadic?",
+            "follow-ups": [
+                {
+                    "feedback": "The variadic constructor only takes in one parameter, and in a list of parameters only one constructed variadic is allowed, and it must be at the end"
+                },
+                {
+                    "feedback": "If you’re referring to the parameters passed into your macro, you can actually define parameters that will never get used. For example:   ```   (define-macro (foo expr not used variables)   foo)   ```   If I use `foo` and never refer to any of the variables from `not` to `variables`, they will never get evaluated, so it doesn’t matter what we pass into them, even if evaluating them would otherwise result in an error. For example:   ```   scm> (foo (+ 2 2) (/ 1 0) (1) non-existent-variable)   4   ```   All those expressions after `(+ 2 2)` would normally cause an error, but they are discarded since they are never used in the macro. In the same way, we could do this:   ```   scm> (foo (+ 2 2) not used variables)   4   ```   And we get the same result. You can do the same thing with the `list-of` macro: passing the symbols `for`, `in`, and `if` won’t cause an error even if they are nonexistent symbols, as long as they line up with variables that aren’t used in the macro itself. Hope that makes sense!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting a \"str is not callable: x\" error, but I don't know what I'm doing wrong. Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "Can you post the case which you’re failing? It’s hard to tell from just the error."
+                },
+                {
+                    "feedback": "It's suite 1 case 1. I'm trying to map over a filtered list. I don't even use the term 'x,' so I don't know how to fix it."
+                },
+                {
+                    "feedback": "For that case, the symbol `x` is passed in as `var` into the macro. Make sure you aren’t accidentally putting `var` as the operator of a call expression, like `(var [..])`."
+                },
+                {
+                    "feedback": "I think I just left out the word \"list.\" It works now! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error, can someone give me some hint?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2v2ugmf1993%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191111_%E4%B8%8B%E5%8D%883.47.11.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The first argument of the `filter` procedure is the predicate function, and the second argument is the list. Right now, it looks like your first argument is the list, which is causing the error."
+                },
+                {
+                    "feedback": "I have the same problem except I know the second argument is the list and the first is the filter expression. Any thoughts?"
+                },
+                {
+                    "feedback": "If your error is the same (argument 0 of filter has the wrong type (Pair)), that means you’re trying to pass a list in as the argument for the predicate function."
+                },
+                {
+                    "feedback": "I think what Nicholas is trying to say is that the filter expression (in this case 'odd? x) ) is itself a Pair/list. Passing in the filter expression alone is feeding Scheme a list, not a one argument function."
+                },
+                {
+                    "feedback": "^ Yes, essentially. I suspect you’re trying to do something like `(filter filter-expr (...))`, but `filter-expr` is the expression, not the filter itself. Try doing something like `(list 'filter filter-expr (...))` so that the `filter` procedure is evaluated after the macro is applied, so `filter- expr` will also get evaluated normally."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this error but I'm pretty sure I'm not using x and I added list to map and filter and lambda procedure before them. Any hints?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2v37cmurdst%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191111_%E4%B8%8B%E5%8D%883.56.47.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The symbol `x` is passed into the `var` formal parameter for this test case, so check if you’re accidentally evaluating `var` and then trying to reference its value."
+                },
+                {
+                    "feedback": "^ I struggled with the same problem for a while, then I remembered to read the description again, I found this part of the hint very helpful: __  _\" You may find it helpful to refer to the `for` loop macro introduced in lecture. **The filter expression should be transformed using a** **`lambda`** in a similar way to the map expression in the example.\"_  I found that my macro worked if i didn't try to use the filter (I just used the unfiltered lst, which still failed okpy), but once I tried to use the filter, I got the same error message so I knew that was where the problem was for me. Good luck."
+                }
+            ]
+        },
+        {
+            "question": "For the optional question, if I simply define the filter-expr to be variadic without changing anything else:                (define-macro (list-of map-expr for var in lst if (variadic filter-expr))  I will get an error:                (list-of (* x x) for x in '(3 4 5) if (odd? x))     # Error: bool is not callable: #t  What is the cause of this error here?",
+            "follow-ups": [
+                {
+                    "feedback": "Since `filter-expr` is variadic, it is actually a list that contains all the arguments after the unused `if` argument. What is happening is that you are, at some poing, putting `filter-expr` back into the returned expression, so if you pass in, say, `(= 1 1)` as the expression, `filter-expr` actually becomes `((= 1 1))`, since it’s a one-element list since it’s variadic.      When this is evaluated by Scheme, it will first evaluate the inner list to get `#t`, and then it tries to evaluate the outer expression `(#t)`. However, `#t` is not a procedure, so it errors."
+                },
+                {
+                    "feedback": "I see. Thanks a lot."
+                }
+            ]
+        },
+        {
+            "question": "Hey:) any idea why this is erroring and how to fix it? It seems that odd is being passed a pair, but I don't understand where that could be coming from...  # Error: expected  # (9 25)  # but got  # Traceback (most recent call last):  # ...  # SchemeError: pair is not callable: (odd? x)",
+            "follow-ups": [
+                {
+                    "feedback": "You might be trying to put `filter-expr` at the beginning of a Scheme expression, which is not a callable function. This would happen if you have something like this:   ```   scm> (define expr '(odd? x))   expr   scm> (eval (expr))   Traceback (most recent call last):   0 (eval (expr))   1 (expr)   Error: pair is not callable: (odd? x)   ```   Double-check to make sure `filter-expr` is never at the beginning of a in the returned expression."
+                }
+            ]
+        },
+        {
+            "question": "I am confused about the optional macro parameters. Do we use dot to replace it ? or could you please explain how to use it ? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "I have explained this in the third thread from the top, in response to the question starting with “   For the optional part, I'm confused as to how define-macro would use the variadic special form.” Check up there and see if that helps you understand. You don’t actually need to use the `variadic` keyword or dot notation at all."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy4rswsditj4ke%2Fk2wclrhlq8t6%2Fhw08.PNG)  Why i ama failing the first test but passing the second?  Thanks !!",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like your returned expression is using the expression `filter-expr` in a context where it doesn’t understand the parameters of `filter-expr`. Make sure you correctly use the `var` symbol so that `filter-expr` is always evaluated in a context where the symbol in `var` is defined."
+                }
+            ]
+        },
+        {
+            "question": "Just a random question why doesn't this output (4) but rather an empty list.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk2wle6a01z5l%2FScreen_Shot_20191112_at_5.13.18_PM.png)  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "This should actually output a SchemeError:                scm> (define-macro (list-of bruh) (list 'bruh))     list-of     scm> (list-of 4)     Traceback (most recent call last):       0\t(list-of 4)       1\t(bruh)       2\tbruh     Error: unknown identifier: bruh  The traceback reveals the behavior of the macro you wrote. To generate an output of (4), observe:                scm> (define-macro (list-of bruh) (list 'list bruh))     list-of     scm> (list-of 4)     (4)"
+                },
+                {
+                    "feedback": "In case you were curious why you didn’t get an error when Cyrus did, it is probably because you defined `bruh` as a variable in an earlier statement in the interactive Scheme interpreter. (Never thought I’d say that in my life.)"
+                },
+                {
+                    "feedback": "Could you explain why                (define-macro (list-of bruh) (list 'list bruh))  yields (4) when (list-of 4) is inputted? Shouldn't it return (list 4)?"
+                },
+                {
+                    "feedback": "Remembers that macros are apply-then-eval rather than the normal eval-then- apply. We first apply the macro, and then we evaluate whatever the macro returns.       For `(list-of 4)`, `4` is passed in a `bruh` to the macro. It doesn’t matter that we haven’t evaluated `4` because `4` is already a value, but it is the **raw expression** that is passed in. Anyway, we see that the macro returns `(list 'list bruh)`. This means that the macro returns a list whose first element is the symbol `list` and whose second element is the value of evaluating `bruh`, which is `4`. Thus, `(list 4)` is returned **from the macro**.       Finally, we still have to evaluate the result of the macro. Evaluating `(list 4)` returns a single-element list with `4`, aka `(4)`."
+                },
+                {
+                    "feedback": "thanks bruh"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh17agsbf2ra%2Fk2woborl5e9n%2FScreen_Shot_20191112_at_6.36.02_PM.png)   I am able to pass the first case but not the second case. Any ideas on how to approach this? Also, I'm not sure what to do with var; I used it as arguments for both the lambda functions for filter and map, but this isn't correct.",
+            "follow-ups": [
+                {
+                    "feedback": "The `var` is the symbol for the statements that are used in both the `map` expression and the `filter` expression, but those only take full functions as their predicates. Maybe you should wrap them in `lambda` procedures?"
+                },
+                {
+                    "feedback": "I think I'm doing that with var, but I'm not sure why I am returning an empty list for the second case."
+                },
+                {
+                    "feedback": "Can you check if that inner list comprehension statement works as intended, first? That way, you can isolate the problematic case and then debug more efficiently."
+                },
+                {
+                    "feedback": "I got it! I messed up the order of map and filter. Thanks Nicholas!"
+                },
+                {
+                    "feedback": "Awesome. Good work!"
+                }
+            ]
+        },
+        {
+            "question": "Where should I look if I want to get started on this? I'm extremely confused :(",
+            "follow-ups": [
+                {
+                    "feedback": "Read through [the macro information section on the Lab 11 page](https://cs61a.org/lab/lab11/#macros)"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting the error \"SchemeError: str is not callable: lambda\". I have it as 'lambda in my code and a similar format to lecture, so I'm not sure why it isn't working.  Sorry I accidentally didn't put \"list\" in front, my bad!"
+        },
+        {
+            "question": "I'm not sure how to include the var parameter. Right now I'm trying to apply the map expression to the filtered elements of the list, but I keep getting an unknown identifier error. I suspect this has something to do with the fact that I do not use the var parameter anywhere.",
+            "follow-ups": [
+                {
+                    "feedback": "The `map` function needs to take in an entire function. However, you are only provided the `map-expr`, such as `(* x x)`, and the `var`, such as `x`. How could you combine those two to make a fully self-contained function that you can pass into the `map` function? If you are still stuck, think about how you would write a normal call to `map` first, then figure out how to transform the arguments into such a form."
+                },
+                {
+                    "feedback": "Thank you, I got it now."
+                }
+            ]
+        },
+        {
+            "question": "Is the optional parameter part in scope for the final or content for this class?",
+            "follow-ups": [
+                {
+                    "feedback": "I don't think it is directly in scope, but it is an extension of what is in scope (macros). So I suppose it could show up on the final.  If it does show up, I think there would be definitely be a fair bit of introduction/setup to the problem so everyone is on equal footing."
+                }
+            ]
+        },
+        {
+            "question": "Trying to map over a filtered list but got this! Can anyone tell me what might be wrong?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjdaa6lv5hg%2Fk2zeh4hijz3n%2F1114.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I missed a quotation!! It works now!"
+                }
+            ]
+        }
+    ]
+}

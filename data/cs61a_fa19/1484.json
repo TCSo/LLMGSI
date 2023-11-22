@@ -1,0 +1,150 @@
+{
+    "subject": "[Lab 7] Q5: Cumulative Sum",
+    "content": "<a href=\"https://cs61a.org/lab/lab07/#q5\">Q5: Cumulative Sum</a>\n\n<p> Please post all questions you have below concerning Q5: Cumulative Sum in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I guess I am having a hard time trying to figure out how to \"mutate\" the tree: in my recursive function, should I return a value, such as a sum in my base case, or should I return a Tree in my base case?",
+            "follow-ups": [
+                {
+                    "feedback": "You never return a value - you should use recursion to modify each label of the tree, but that doesn't involve returning anything"
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "How can we have a recursive sum if we never return a value? All of my answers come up with errors of adding integers and NoneType objects"
+                },
+                {
+                    "feedback": "Your function should do two things:  1) make recursive calls to itself  2) modify a certain label  If you use a loop properly, you will be fine with this. Never worry about returning a value."
+                },
+                {
+                    "feedback": "But to modify a certain label, we need to add it's child nodes' labels. And to add the child's nodes labels through recursion, we need to return them"
+                },
+                {
+                    "feedback": "Yes on the first part, no on the second."
+                }
+            ]
+        },
+        {
+            "question": "How to make sure the values add together? My code seems to do nothing to the label if the tree is not leaf. Can somebody give me some hints?",
+            "follow-ups": [
+                {
+                    "feedback": "Try adding from the inside out - aka, make sure the elements with the largest depth are summed up, then their parents are summed up, and so on and so forth"
+                },
+                {
+                    "feedback": "How doe we sum values up from the inside out if we don't return anything? Referring to the previous answer."
+                },
+                {
+                    "feedback": "Consider making your recursive call in the line before you mutate the tree. That way, inner branches get mutated first."
+                }
+            ]
+        },
+        {
+            "question": "I'm struggling to figure out how my recursive call should play into mutating my list -- i'm currently using a for loop to go through the branches of every tree recursively, however, I'm not sure if I should be mutating within the for loop or not, and if the recursive call should be directly mutating my list?",
+            "follow-ups": [
+                {
+                    "feedback": "You should mutate within the for loop so that all the branches of the tree get mutated. If your method mutates the tree passed into it, then making a recursive call will also mutate the tree by definition."
+                }
+            ]
+        },
+        {
+            "question": "I am having trouble with this Q. Should I sum from leaves to the top? Or the other way around?",
+            "follow-ups": [
+                {
+                    "feedback": "Your implementation should start summation from the lowest-level branches and then work its way back up to the top of the tree"
+                },
+                {
+                    "feedback": "Got it! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble with this question. My method analyzes the branches in the correct order, from bottom to top, but I'm having trouble with mutation. What tips would you have for implementing the summation correctly?  # Error: expected   # Tree(16, [Tree(8, [Tree(5)]), Tree(7)])   # but got   # Tree(22, [Tree(8, [Tree(5)]), Tree(7)])",
+            "follow-ups": [
+                {
+                    "feedback": "The summation is simpler than you might expect - it ends up being a 3 line iterative/recursive solution"
+                },
+                {
+                    "feedback": "ok, thank you! i got it"
+                }
+            ]
+        },
+        {
+            "question": "How are we supposed to reach the branches at the bottom first?",
+            "follow-ups": [
+                {
+                    "feedback": "Mutate the passed-in tree _after_ you make the recursive call"
+                },
+                {
+                    "feedback": "Nvm, figured it out!"
+                },
+                {
+                    "feedback": "@Cyrus are you suggesting storing the sum of all child nodes in a variable in the loop and adding it to the node's label after the loop?"
+                },
+                {
+                    "feedback": "That could work; or you could just add each child node to the node's label directly"
+                }
+            ]
+        },
+        {
+            "question": "I am getting an error whenever I try to access tree class attributes of t. Why is this happening and how can I do this problem if I can't use t.branches, t.label etc?",
+            "follow-ups": [
+                {
+                    "feedback": "wait, I think the issue is with my recursive step, somewhere I'm accidentally passing in a list for t"
+                }
+            ]
+        },
+        {
+            "question": "I have managed to mutate the tree successfully, but I can't do it without returning anything.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyl6vrdwz3u6ag%2Fk1vimoktpfv4%2FScreen_Shot_20191017_at_7.29.46_PM.png)  How do I not return the label for the root node?",
+            "follow-ups": [
+                {
+                    "feedback": "I think I can use an if statement to see if the current node is the root node and not return the label if it is. But I don't know how to see if the current node is the root node"
+                },
+                {
+                    "feedback": "That isn't necessary. Don't rely on using returned values - just rely on values you can access normally"
+                }
+            ]
+        },
+        {
+            "question": "Should I make a new list of branches for mutating the items of the branches or mutate while iterating? I believe that since I am not changing the list but only changing the objects inside the list, it shouldn't be a problem.",
+            "follow-ups": [
+                {
+                    "feedback": "Mutating branches do not require adding or removing branches. So, you do not have to create a new list of branches."
+                }
+            ]
+        },
+        {
+            "question": "When I call \"t.branches\", I keep getting: \"AttributeError: 'list' object has no attribute 'branches'\". What am I doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are using OOP tree, and that the class Tree appears in your file"
+                }
+            ]
+        },
+        {
+            "question": "based on the above suggestions, if we are not supposed to be returning any value, then what does our base case look like???",
+            "follow-ups": [
+                {
+                    "feedback": "There isn't really a base case that has to be explicitly accounted for. With the proper implementation, the function will not make any recursive calls naturally."
+                }
+            ]
+        },
+        {
+            "question": "What happens when we get to the second-lowest branch, does the for loop end and we skip to the t.label = sum([])...?  I'm confused if the mutation occurs every node that is traversed or until a leaf is reached.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fk3yogmyr7pls%2FScreen_Shot_20191209_at_8.54.01_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The for loop just loops through every branch in `t.branches`, and if `t.branches` is empty (AKA the node is a leaf), then the for loop is skipped entirely. This also has the effect of creating our implicit base case."
+                },
+                {
+                    "feedback": "Honestly I kind of hate the provided solution; I think a clearer way to see what’s going on is to have a solution like this:                def cumulative_sum(t):           for b in t.branches:               cumulative_sum(b)               t.label += b.label  Here we can more clearly see that nothing happens if `t` is a leaf. This is also the case in the staff solution (the sum call will return 0 since there are no branches, so you’ll just end up re-assigning `t.label` to be itself)"
+                },
+                {
+                    "feedback": "Thanks for the detailed response. That’s the solution I originally wrote. The staff solution confused me. Are they exactly the same thing (i.e., identical environment diagrams)?"
+                },
+                {
+                    "feedback": "At intermediate steps the environment diagrams will differ, since in the provided solution, we only increase each parent tree’s label when cumulative_sum finishes running on _all_ of its children, whereas in our solution we increase each parent tree’s label every time cumulative_sum finishes running on _one_ of its children. However, the overall results should be identical, so they will have identical environment diagrams at the end of execution. Also note that new frames don’t get opened for sum because it is a built-in."
+                }
+            ]
+        }
+    ]
+}

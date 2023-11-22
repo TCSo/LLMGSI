@@ -1,0 +1,49 @@
+{
+    "subject": "[Lab 08] Q9: Shuffle",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q9\">Q9: Shuffle</a>\n\n<p> Please post all questions you have below concerning Q9: Shuffle in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "PS C:\\Users\\...\\cs61a\\lab\\lab08> python ok -q shuffle     =====================================================================     Assignment: Lab 8     OK, version v1.14.15     =====================================================================          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     Running tests          Traceback (most recent call last):       File \"C:\\Users\\...\\AppData\\Local\\Programs\\Python\\Python37\\lib\\runpy.py\", line 193, in _run_module_as_main         \"__main__\", mod_spec)       File \"C:\\Users\\...\\AppData\\Local\\Programs\\Python\\Python37\\lib\\runpy.py\", line 85, in _run_code         exec(code, run_globals)       File \"ok\\__main__.py\", line 46, in <module>       File \"ok\\client\\cli\\ok.py\", line 209, in main       File \"ok\\client\\protocols\\grading.py\", line 46, in run       File \"ok\\client\\protocols\\grading.py\", line 62, in grade       File \"ok\\client\\sources\\ok_test\\models.py\", line 69, in run       File \"ok\\client\\sources\\ok_test\\doctest.py\", line 70, in run         # 3. Doctest Parser       File \"ok\\client\\sources\\ok_test\\models.py\", line 253, in _run_case       File \"ok\\client\\sources\\common\\interpreter.py\", line 44, in run       File \"ok\\client\\sources\\common\\interpreter.py\", line 181, in interpret       File \"ok\\client\\sources\\common\\interpreter.py\", line 233, in _interpret_lines       File \"ok\\client\\utils\\output.py\", line 57, in write       File \"C:\\Users\\...\\AppData\\Local\\Programs\\Python\\Python37\\lib\\encodings\\cp1252.py\", line 19, in encode         return codecs.charmap_encode(input,self.errors,encoding_table)[0]     UnicodeEncodeError: 'charmap' codec can't encode character '\\u2661' in position 14: character maps to <undefined>  Anyone know what's causing this",
+            "follow-ups": [
+                {
+                    "feedback": "I'm getting this too; i'm assuming it's a problem with the autograder"
+                },
+                {
+                    "feedback": "Same here :/"
+                },
+                {
+                    "feedback": "I’m actually not getting that error. Maybe the problem is confined to Windows?"
+                },
+                {
+                    "feedback": "Likely. Probably has something to do with the unnecessarily complex characters in the doctests"
+                },
+                {
+                    "feedback": "[shuffle.py](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjn6gqa2tVwNe%2Fk229j04xpba1%2Fshuffle.py)     Try replacing `tests/shuffle.py` with this to see if the issue goes away. I removed the suits and replaced them with the first letter of the suit."
+                },
+                {
+                    "feedback": "Thanks! Could you upload it to pastebin or something? I'm not seeing the file"
+                },
+                {
+                    "feedback": "I just updated the above comment to include the missing link."
+                },
+                {
+                    "feedback": "Appreciate it, it works now"
+                }
+            ]
+        },
+        {
+            "question": "What does it mean that range has no attribute 'insert'  half_1.insert(i*2+1, half_2[i])   AttributeError: 'range' object has no attribute 'insert'                for i in range(len(cards)//2):           half_1.insert(i*2+1, half_2[i])       return half_1",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like `half_1` is the result of calling the `range` method. Did you initialize `half_1` correctly?"
+                },
+                {
+                    "feedback": "half_1 = cards[:len(cards)//2]       half_2 = cards[len(cards)//2:]       for i in range(len(cards)//2):           half_1.insert(i*2+1, half_2[i])       return half_1              this is the full code. I do not call the range. so confusing"
+                },
+                {
+                    "feedback": "I figure out. Thanks"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,206 @@
+{
+    "subject": "[HW 04] Replace Leaf",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q5\" target=\"_blank\" rel=\"noopener noreferrer\">Q5: Replace Leaf</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q5: Replace Leaf in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>\n<p></p>",
+    "threads": [
+        {
+            "question": "In the test case, one of the leaves for print_tree(replace_leaf(yggdrasil, 'thor', 'freya')) is expected to be 'thor.' However, to my understanding all instances of 'thor' should be replaced with 'freya'. Am I misunderstanding?",
+            "follow-ups": [
+                {
+                    "feedback": "`replace_leaf` only replaces the labels of leafs, not the labels of trees with branches"
+                },
+                {
+                    "feedback": "Are leaves still branches?"
+                },
+                {
+                    "feedback": "leaf nodes might be the branch of some higher node if there is more than one node in a tree. remember that leaves are a specific type of node, and branches are an attribute of a node."
+                }
+            ]
+        },
+        {
+            "question": "return tree[0]  TypeError: 'NoneType' object is not subscriptable  What does this error mean?",
+            "follow-ups": [
+                {
+                    "feedback": "This means `tree` is None"
+                }
+            ]
+        },
+        {
+            "question": "If I want to modify the value from old to new, it seems that I can only do this by t[0] = new (because leaf(t) = new will cause syntax error), but obviously it violates the abstraction barrier. Can anyone help me with that? Thank you in advance",
+            "follow-ups": [
+                {
+                    "feedback": "Instead of modifying the original tree, perhaps return a new tree with the value you desire"
+                },
+                {
+                    "feedback": "I tried return tree(new) but its still not working"
+                }
+            ]
+        },
+        {
+            "question": "If I do:  if leaf:  if same:  return --  I get error saying all branches must be the same.  But, if I do:  if leaf and same:  return ---  This works.  Why doesn the above case yield the same result as the below one?",
+            "follow-ups": [
+                {
+                    "feedback": "You might be accidentally including other lines within the `if leaf:` clause"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting only ‘Odin’ returned. Do we need to check is_leaf or is it okay to just go with conditions if label(t) equals to old and also else?",
+            "follow-ups": [
+                {
+                    "feedback": "You do need to check `is_leaf`, since only the labels of leafs get replaced"
+                },
+                {
+                    "feedback": "Ok! Now I checked is_leaf and also check if the leaf is equals to old, but I’m not sure what should be the branches of this base case. At the end I have an else and returns t but now it seems that my code is skipping all the checks and directly returns t without changing anything at all."
+                },
+                {
+                    "feedback": "You shouldn’t add any branches, just a new leaf with the new label"
+                },
+                {
+                    "feedback": "Should I just return leaf on new then? I also tried tree on new but it’s still only returning ‘odin’."
+                },
+                {
+                    "feedback": "what do you mean by \"on new\"?"
+                }
+            ]
+        },
+        {
+            "question": "I was trying to use label function to creat a new tree, but it says the name haven't been defined. What's the reason?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuizz1qeb5c2%2Fk1dygtpmqcze%2F1.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It should be “label” not “lable”"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Sovled",
+            "follow-ups": [
+                {
+                    "feedback": "Nice Job man"
+                }
+            ]
+        },
+        {
+            "question": "Has anyone encountered the error where instead of replacing the old with 'freya' it replaces it just with 'f'? Not sure why it replaces it with 'f' instead of 'freya', I returned a tree with label new.",
+            "follow-ups": [
+                {
+                    "feedback": "are you indexing into the string anywhere unintentionally?"
+                },
+                {
+                    "feedback": "I am getting this as well."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1hnh4ee8tys%2FScreen_Shot_20191008_at_2.36.38_AM.png)  Does anyone know why this might be happening? I treated this like a regular tree problem but can not seem to get past this part."
+        },
+        {
+            "question": "# Error: expected     #     odin     #       balder     #     \tfreya     #     \tfreya     #       frigg     #     \tfreya     #       thor     #     \tsif     #     \tfreya     #       freya     # but got     #     odin     #       balder     #         freya     #         freya     #       frigg     #         freya     #       thor     #         sif     #         freya     #       freya       Is my test case broken or did I miss something in my code?",
+            "follow-ups": [
+                {
+                    "feedback": "You might want to download the package again as it seems like a compiler error. Alternatively, you could try using a different IDE and see if anything changes."
+                },
+                {
+                    "feedback": "Impossible to tell from just this output alone, but I would think it's something wrong in the code. I don't think there was anything wrong with the released assignment/autograder. Make sure you are creating branches properly because this looks like all you have is one root (\"odin\") that has 9 branches, each of which is a leaf."
+                },
+                {
+                    "feedback": "I get the same problem too. How did you solved it?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1ioehjep0wl%2FScreen_Shot_20191008_at_7.50.13_PM.png)  can someone explain why this is happening.  I said return tree(new) if it is leaf and the t is same as old.  but its not making any changes.",
+            "follow-ups": [
+                {
+                    "feedback": "solved."
+                }
+            ]
+        },
+        {
+            "question": "I tried this problem 2 different ways and in both, I get the same tree as the test case, but it still says there is an error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7gaoth9k4bm%2Fk1js0o4wgppw%2FScreen_Shot_20191009_at_1.26.59_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "try redownloading your hw files, copying over the code, and resubmitting."
+                }
+            ]
+        },
+        {
+            "question": "![](https://i.gyazo.com/36dfff6e06c4839112f8daed5d877a76.png)  An issue I'm having is trying to change the label without either calling `t[0]` or returning a new tree.",
+            "follow-ups": [
+                {
+                    "feedback": "we changed the branches of a tree by creating new trees in the lab question sprout_leaves - try a similar approach for this question. make sure you are obeying the abstraction!"
+                }
+            ]
+        },
+        {
+            "question": "Why does changing the leaf values of the original tree not work? I thought changes to an array (that's been passed in as a parameter) in a function will replicate to the original array.",
+            "follow-ups": [
+                {
+                    "feedback": "theoretically it is practically able to work, but you are committing all sorts of abstraction violations in the process (John will burn your code)."
+                }
+            ]
+        },
+        {
+            "question": "Are leaves still branches of trees?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                }
+            ]
+        },
+        {
+            "question": "I feel like I am pretty close to the solution, however, in the tree that is being returned, for every leaf that shouldn't be changed(i.e. \"sif\") is being altered to \"None\". Does anyone know why this would be happening? All the thor names that should be changed are being changed, too.",
+            "follow-ups": [
+                {
+                    "feedback": "You are likely not returning anything in the case that `is_leaf(t)` and `label(t) != old` are both true. What should be returned in that case?"
+                },
+                {
+                    "feedback": "When you say both are true, do you mean I am probably not returning anything when the leaf != old only? Because I thought I tried that and it returned True instead of the actual label. Am i misunderstanding?"
+                },
+                {
+                    "feedback": "I meant you probably aren't returning anything in the case that                is_leaf(t) and label(t) != old  which is why you are ending up with None, since returning nothing implicitly returns None."
+                },
+                {
+                    "feedback": "Oh I see, thank you"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting a 'bool' object is not subscriptable error. What does this mean?",
+            "follow-ups": [
+                {
+                    "feedback": "Most likely, you are trying to index to a boolean value.                >>> a = True       >>> a[0]     will give you `TypeError: 'bool' object is not subscriptable`.   My guess is that you are trying to index to `is_leaf` function call which returns a boolean value"
+                }
+            ]
+        },
+        {
+            "question": "I am receiving an error in which something is going wrong with 'new' even though it is not being altered.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvg9bh28fr137%2Fk1mvkqdzouah%2FScreen_Shot_20191011_at_6.13.07_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Replace the erroneous . with a ,"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwy6v40fshb1g3%2Fk1ptxrwbrqx2%2F1.png)  Can somebody please expalin what happens with the expected value...",
+            "follow-ups": [
+                {
+                    "feedback": "is it means that my original tree is modified?"
+                },
+                {
+                    "feedback": "Your doctest is messed up - change \"True1111111\" to \"True\" in your file"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvsdafp47b4pg%2Fk1ra0ep3fy8u%2F%E6%88%AA%E5%B1%8F20191014%E4%B8%8B%E5%8D%888.17.20.png)  I get the same output with the annotation as you can see in the left part. But the expect answer is changed in the right part and I don't know why. I tried to redownload the file but get the same result. How can I solve it? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "did you change the indentation of the test, or anything in the test in any way? just to be sure, I would try copy and pasting the doctests from a fresh copy of the code."
+                }
+            ]
+        }
+    ]
+}

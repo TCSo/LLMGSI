@@ -1,0 +1,25 @@
+{
+    "subject": "[Lab 02] Q8: I Heard You Liked Functions...",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q8\">Q8: I Heard You Liked Functions...</a>\n\n<p> Please post all questions you have below concerning Q8: I Heard You Liked Functions... in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I've stuck in this problem for a whole afternoon so I came to look for some helps.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvqck3p4cg6g9%2Fk0d676nle77b%2F5.JPG)  This is my code inside the body of cycle function.  In fact, I tried python tutor and it gives me the ERROR: TypeError: unsupported operand type(s) for -: 'function' and 'int'  But when I tried it in the okpy, it tells me that Error:  expected   # 5   # but got   # <function cycle.<locals>.funcy.<locals>.calc.<locals>.<lambda> at 0x000002095AA62AE8>  That's kind of comfusing... I'm still trying to debug and hoping for helpful advices!  Thanks a lot!",
+            "follow-ups": [
+                {
+                    "feedback": "You're making it a bit too complicated on yourself - since the value of x is already bound, you don't have to keep re-assigning f to be a new function. Just keep track of the value of x as you repeatedly/cyclically apply functions to it, then return the value"
+                },
+                {
+                    "feedback": "Thank you so much. I just stuck in the loop dilemma made by myself:3 And I have worked it out now after reading your advice!! It helps a lot:)"
+                }
+            ]
+        },
+        {
+            "question": "Is there a way to solve this problem without using 4 if/else statements?",
+            "follow-ups": [
+                {
+                    "feedback": "Theoretically, you can create a list of functions then access that list via a counter in order to get which function to apply, but that's overkill and uses a lot of memory. if-else statements work best, especially because [Python does not have switch-case statements](https://www.pydanny.com/why-doesnt-python- have-switch-case.html)."
+                }
+            ]
+        }
+    ]
+}

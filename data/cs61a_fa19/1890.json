@@ -1,0 +1,90 @@
+{
+    "subject": "[HW 07] Q4: Make Exp",
+    "content": "<a href=\"https://cs61a.org/hw/hw07//#q4\">Q4: Make Exp</a>\n\n<p> Please post all questions you have below concerning Q4: Make Exp in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I'm getting stuck on constructing the 'base' and 'exponent' functions. I believe I'm overthinking it. The only way I can think of accessing the base of an exponent that has already been created is by parsing into it and I don't know how to do that.",
+            "follow-ups": [
+                {
+                    "feedback": "an exponent expression is a linked list like what you'd get if you inputted '(^ base exponent). How can you access an element of a 'pair' in scheme?"
+                },
+                {
+                    "feedback": "Feel free to take a look at how the `multiplier` and `multiplicand` procedures are implemented as a reference"
+                }
+            ]
+        },
+        {
+            "question": "scm> x^2  for this unlock test, why the answer is not 'error'?",
+            "follow-ups": [
+                {
+                    "feedback": "if you look above in the unlock test in question, this is a name that is defined with some value."
+                }
+            ]
+        },
+        {
+            "question": "I got the error \"unknown identifier: ^\" but shouldn't this \"^\" symbol be written explicitly in the code?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk2m66cmd4xdt%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191105_%E4%B8%8A%E5%8D%8810.10.17.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The ^ is part of the name x^2. It's not a variable defined anywhere. You are trying to use it like a function, but there's no function called ^ anywhere."
+                },
+                {
+                    "feedback": "Oh! But then how am I supposed to achieve \"In other cases, you can represent the exp as a triple `(^ base exponent)`.\" this statement in the description?"
+                },
+                {
+                    "feedback": "The first ^ in that list is just a quoted symbol. So if you want to have a list with the ^ as the first element, you can just quote it.                scm> '^       ^       scm> '(^ 1 2 3)       (^ 1 2 3)"
+                },
+                {
+                    "feedback": "Thank you! Just figured it out!"
+                }
+            ]
+        },
+        {
+            "question": "for the test your understanding inputs, why is (base x^2) not output (^ base (^ x 2))?",
+            "follow-ups": [
+                {
+                    "feedback": "The base of $$x^2$$ should be $$x$$, mathematically speaking."
+                },
+                {
+                    "feedback": "I don't quite get the output of this problem. Can someone explain? I think its like (^ x (2)) or (^ base (^ x 2)) or smth"
+                },
+                {
+                    "feedback": "oh! nevermind it was very simple"
+                },
+                {
+                    "feedback": "Could you explain how you got it?"
+                },
+                {
+                    "feedback": "Ask yourself - how do you represent the symbol `x` in scheme?"
+                }
+            ]
+        },
+        {
+            "question": "how do I check if exp is exp?",
+            "follow-ups": [
+                {
+                    "feedback": "You have to implement the following method:                (define (exp? exp)       'YOUR-CODE-HERE     )  Feel free to use `(product? x)` as a reference for your implementation"
+                },
+                {
+                    "feedback": "What is it asking in this case? I'm confused what the function (exp? exp) wants us to do"
+                },
+                {
+                    "feedback": "It's asking if the input is a valid exponential"
+                }
+            ]
+        },
+        {
+            "question": "What does it mean by \"or when `base` is a number, by returning numbers from the constructor `make-exp`\"？  I see in the test cases it returns the computed exponent. Should we use the procedure \"expt\"?"
+        },
+        {
+            "question": "How do I make a set of if-else statements in scheme?",
+            "follow-ups": [
+                {
+                    "feedback": "Use the cond form"
+                },
+                {
+                    "feedback": "Yeah nvm got it. I didn't know that, unlike in `if`, `cond` required another set of parentheses around each `(<condition> <suite>)` pair"
+                }
+            ]
+        }
+    ]
+}

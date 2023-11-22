@@ -1,0 +1,78 @@
+{
+    "subject": "[Lab 7] Q4: Link to List",
+    "content": "<a href=\"https://cs61a.org/lab/lab07/#q4\">Q4: Link to List</a>\n\n<p> Please post all questions you have below concerning Q4: Link to List in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": ">>> from lab07 import *  >>> s = scale([1, 5, 2], 5)  >>> type(s)  <class 'generator'>  >>> list(s)  [5, 25, 10]  >>> m = scale(naturals(), 2)  NameError: name 'naturals' is not defined  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # NameError: name 'naturals' is not defined  Why am I getting this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Download a fresh copy of the lab - older versions of the lab07.py file had a missing function"
+                }
+            ]
+        },
+        {
+            "question": "I only have [1, 2] returned but I can't find where I'm wrong when I'm making recursive calls on updated link. I change link to link.rest each time. Any hints?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1s5s6jrgvkb%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191015_%E4%B8%8A%E5%8D%8811.05.36.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your stopping condition is correct"
+                },
+                {
+                    "feedback": "I used link.rest is Link.empty as my base case. Is there anything wrong with it?"
+                },
+                {
+                    "feedback": "That results in iteration being cut short - it ends too early"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk1sd7hd35ggb%2FScreen_Shot_20191015_at_2.34.41_PM.png)  any clue why I keep getting this error? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "Your recursive call is likely not checking for if the link is empty - empty links are represented by empty tuples"
+                },
+                {
+                    "feedback": "if link.rest is Link.empty, is that a sufficient condition? Thats what I did but its giving error."
+                },
+                {
+                    "feedback": "No."
+                },
+                {
+                    "feedback": "Figured it, for anyone stuck refer to the below test:  >>> link_to_list(Link.empty)   []"
+                }
+            ]
+        },
+        {
+            "question": "I got \"'tuple' object has no attribute 'first'\" error when I tried to check if link is Link.empty and used link.rest.first and link.first in my recursive case, but I don't see why link can't have \"first\" as attribute.",
+            "follow-ups": [
+                {
+                    "feedback": "Uhh, hard to tell here, but I am guessing `link.rest.first` is causing the issue. The `link` object might not be empty but `link.rest` could be (for e.g., `Link(1)` )"
+                },
+                {
+                    "feedback": "Uh okay. Actually I checked if link.rest is empty, if it is, it shouldn’t go to the case where I have link.rest.first. I’m a little bit confused. How am I supposed to access the value of each link then?"
+                },
+                {
+                    "feedback": "In linked list problems in general, it is a good practice to minimize numbers of .rest.rest.... or .rest....first chain (because you have to take care of length 1/2/3 linked lists as a separate case).  For this problem, you should be able to solve without having to call link.rest.first since you can add one element at a time to the list per iteration."
+                }
+            ]
+        },
+        {
+            "question": "for those stuck on this question, remember that the extend method will always return None"
+        },
+        {
+            "question": "Any reason why this might be happening? I used recursion and conditionals to create a list but not sure why I am creating a nested list.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1tpiv9kq6l1%2FScreen_Shot_20191016_at_1.07.01_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I think you might be appending the result of the recursive call to the list you want to return? Think about what the type of the return value of your recursive call should be."
+                }
+            ]
+        },
+        {
+            "question": "When I wrote \"append\" in order to add the value of link.first to a list, it works.  However, when I used to add the value of link.first by using +=, it gave me error.  Can any one explain why this is?  Ex)  lst = []  lst.append(link.first) ---> works  lst += link.first ---> error  The error says  Traceback (most recent call last):   # ...   # TypeError: 'int' object is not iterable",
+            "follow-ups": [
+                {
+                    "feedback": "If the Linked List contains an integer as its first element, then link.first gives back an integer. If you want to use += with a list on the left hand side, then the right hand side should be an iterable object. Integers are not iterable, hence the error. Append does not require the parameter to be an iterable however."
+                }
+            ]
+        }
+    ]
+}

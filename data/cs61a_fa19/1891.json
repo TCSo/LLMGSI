@@ -1,0 +1,84 @@
+{
+    "subject": "[HW 07] Q3: Derive Product",
+    "content": "<a href=\"https://cs61a.org/hw/hw07//#q3\">Q3: Derive Product</a>\n\n<p> Please post all questions you have below concerning Q3: Derive Product in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Hi, does anyone know what \"SchemeError: operand 1 (y) is not a number\" means? The test results show like this:  (load-all \".\")  ; Expected: y   ; Actual : SchemeError: operand 1 (y) is not a number   (derive '(* x y) 'x)  ; Expected: (+ 1 y)   ; Actual : SchemeError: operand 1 (y) is not a number   (derive '(+ x (* x y)) 'x)  ; Expected: (+ (* y (+ x 3)) (* x y))   ; Actual : SchemeError: operand 1 (y) is not a number   (derive '(* (* x y) (+ x 3)) 'x)  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "hi I'm having this same issue, what was the fix?"
+                },
+                {
+                    "feedback": "oh got it, wasn't supposed to be using addend and augend"
+                },
+                {
+                    "feedback": "I'm getting this error too despite not using addend and augend, any ideas?"
+                },
+                {
+                    "feedback": "This is my error:  scm> (load-all \".\")  scm> (derive '(* x y) 'x)  # Error: operand 1 (y) is not a number  # Error: expected  # y  # but got  # Traceback (most recent call last):  # ...  # SchemeError: operand 1 (y) is not a number"
+                },
+                {
+                    "feedback": "Try thinking about your operators in your approach and what types of arguments they can take in as operands. For example, the (+ a b) procedure can only take in numbers (or variables if they are defined as some number). Hopefully this helps."
+                },
+                {
+                    "feedback": "Was stuck on this for a while, consider what the person above said and potentially take a look at your derive sum code. Think about being general. Hope this helps!"
+                }
+            ]
+        },
+        {
+            "question": "Should we consider derivatives of products with more than 2 functions?",
+            "follow-ups": [
+                {
+                    "feedback": "A single product has two inputs, so as long as you properly derive the inputs it will work when products are chained together"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected   # (+ (* y (+ x 3)) (* x y))   # but got   # (+ (* x y) (* (+ x 3) y))  Anybody having this error? Not sure what I need to change since I believe I'm implementing the product rule correctly.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your operations are in the correct order - there is a specific order that the question expects you to follow: \"The `ok` tests expect the terms of the result in a particular order. First, multiply the derivative of the multiplier by the multiplicand. Then, multiply the multiplier by the derivative of the multiplicand. Sum these two terms to form the derivative of the original product. In other words, `f' g + f g'` not some other ordering\""
+                },
+                {
+                    "feedback": "You seem to be returning `fg' + gf'`"
+                },
+                {
+                    "feedback": "Ah I see, thank you so much!!!"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Why is it returning your-code-here with the rest of the operators evaluated?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpijl4b72g8%2Fk2moud9b9aoq%2FScreen_Shot_20191105_at_6.53.11_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I think you put a literal sign (') around the `your-code-here`? (or around the list containing it?) Try removing them, and also remove literals where need be."
+                },
+                {
+                    "feedback": "I'm getting this error as well. Could you please explain what you said above a bit more please?"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error where I pass 1 and 3 but not 2. Anyone have any ideas on fixing it[F85163364D8D4309BFF22252BC1C7CC2_4_5005_c.jpeg](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzxir9t86u9%2Fk2mtsafm5uhv%2FF85163364D8D4309BFF22252BC1C7CC2_4_5005_c.jpeg)?",
+            "follow-ups": [
+                {
+                    "feedback": "I have this same issue"
+                },
+                {
+                    "feedback": "Are you at any point breaking the abstraction barrier? You should never be actually be handling the internal contents of the expression, only the ADT functions that you have been given."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191106_at_9.07.09_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk2o9374mj29a%2FScreen_Shot_20191106_at_9.07.09_PM.png)  I keep getting this error when I run my code. The weird thing is that on the scheme interpreter I pass the last test, but this one is an edge for me. I get the correct answer but with reversed locations within. I also tried reversing where I use multiplicand and multiplier but it did not change anything. Can anyone tell me whats wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "It seems like you might have your addend and augend flipped in `derive-sum`"
+                }
+            ]
+        }
+    ]
+}

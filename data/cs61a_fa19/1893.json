@@ -1,0 +1,292 @@
+{
+    "subject": "[HW 07] Q1: Longest increasing subsequence",
+    "content": "<a href=\"https://cs61a.org/hw/hw07//#q1\">Q1: Longest increasing subsequence</a>\n\n<p> Please post all questions you have below concerning Q1: Longest increasing subsequence in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Could anyone give me a hint on how to apply filter on this problem? And why this has anything to do with the length?",
+            "follow-ups": [
+                {
+                    "feedback": "Try looking at the helper at the top. Could you use filter somewhere in there?"
+                },
+                {
+                    "feedback": "`length` is useful in this problem somewhere, though not necessarily in the same place as `filter`"
+                },
+                {
+                    "feedback": "I didn't use filter in the helper function, I just used recursion...should I apply filter anywhere in the longest-increasing-subsequence procedure?"
+                },
+                {
+                    "feedback": "I don’t believe so - using `filter` simplifies the helper function greatly though, I highly recommend you use it"
+                }
+            ]
+        },
+        {
+            "question": "I wonder how does \"larger values\" relate to the longest-increasing- subsequence?",
+            "follow-ups": [
+                {
+                    "feedback": "It is useful when utilized in a recursive manner - try breaking down the problem (without code) knowing what’s available. If you find another way of solving the problem without it, that’s fine - you’re not required to use the skeleton"
+                }
+            ]
+        },
+        {
+            "question": "under the \"define with-first\", why can't I just use (cons first (longest- increasing-subsequence rest))? what is the problem here?",
+            "follow-ups": [
+                {
+                    "feedback": "When in doubt, test it and see for yourself"
+                }
+            ]
+        },
+        {
+            "question": "What does \"SchemeError: unquote outside of quasiquote\" mean?",
+            "follow-ups": [
+                {
+                    "feedback": "You can read more about quasiquoting and unquoting on the spec (<https://cs61a.org/articles/scheme-spec.html>), but this probably means you have an extra comma somewhere[](https://cs61a.org/articles/scheme-spec.html)"
+                }
+            ]
+        },
+        {
+            "question": "what does a 'begin' means",
+            "follow-ups": [
+                {
+                    "feedback": "nvm it just takes sequence of procedures."
+                },
+                {
+                    "feedback": "I also had to look it up. I don't believe it was mentioned in lecture."
+                },
+                {
+                    "feedback": "<https://cs61a.org/articles/scheme-spec.html#begin>"
+                }
+            ]
+        },
+        {
+            "question": "I got a \"pair is not callable\" error, and I think it's because the interpreter takes (2 3) as a pair rather than a list when making the recursive call.  Any advice please? Thanks a lot!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhqakxjj43g%2Fk2j9glhubuts%2FScreen_Shot_20191103_at_09.18.41.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm fixed it"
+                },
+                {
+                    "feedback": "How did you fix it? I have the same error :("
+                },
+                {
+                    "feedback": "This error means you are calling a pair as if it is a procedure, meaning your syntax is improperly constructed"
+                },
+                {
+                    "feedback": "How did you fix the \"nil is not callable\" error?"
+                },
+                {
+                    "feedback": "Make sure you have a check for your base case to handle the case when the list `nil`."
+                }
+            ]
+        },
+        {
+            "question": "In the test it gave me this error, but I did use \"length\" to compare the length of with-first and without-first and the longer one should be returned. Where might the error come from?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhqakxjj43g%2Fk2ja1ghoiv5k%2FScreen_Shot_20191103_at_09.35.06.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This means the way you are computing `with-first` and/or `without-first` is incorrect."
+                },
+                {
+                    "feedback": "Got it. Thank you!"
+                },
+                {
+                    "feedback": "hi did you figure out what you did wrong? im getting the same answer"
+                },
+                {
+                    "feedback": "nvm!"
+                },
+                {
+                    "feedback": "getting same error.... any hints???"
+                }
+            ]
+        },
+        {
+            "question": "If I cannot use the web editor, is there a way for me to debug my codes? And is there a command like print in scheme?",
+            "follow-ups": [
+                {
+                    "feedback": "You can use the Ok autograder"
+                },
+                {
+                    "feedback": "You may want to consider doing the scheme work in atom and installing a package that will highlight the syntax so it is easier to read. That way you can use the standard Ok autograder."
+                }
+            ]
+        },
+        {
+            "question": "I have a quick question, what exactly is the purpose of define without-first? For my code, it seems that most of the list building comes from define with- first",
+            "follow-ups": [
+                {
+                    "feedback": "Also what is the purpose of with-first?"
+                },
+                {
+                    "feedback": "`with-first` and `without-first` are the two recursive branches to be explored. Their names kind of speak for themselves - `with-first` should be the longest increasing subsequence of the list that includes the first element, and `without-first` should be the longest increasing subsequence that does not include the first element. The final part of the problem is to choose between the two in some manner."
+                }
+            ]
+        },
+        {
+            "question": "For without-first, I think I should recursively call the function on the rest list. But how do we deal with define with-fisrt code?",
+            "follow-ups": [
+                {
+                    "feedback": "Check out the helper function"
+                },
+                {
+                    "feedback": "What do you mean by \"check out the helper function\"? \"large-values-rest\" give us a list containing repeated values, how can we get rid of the repeated values?"
+                },
+                {
+                    "feedback": "The recursive call should take of those"
+                }
+            ]
+        },
+        {
+            "question": "longest-increasing-subsequence > Suite 1 > Case 1              scm> (load-all \".\")       # Error: unexpected end of file              Run only this test case with \"python3 ok -q longest-increasing-subsequence --suite 1 --case 1\"  why am I getting this error",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably missing a parenthesis"
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure what the use of the length function would be, any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "From the skeleton code, there are 2 types of sequences we can get. Can you figure out what those are?  So once we figure that out, which sequence do we want? Maybe answering that question will help you figure out why we would potentially want to use length."
+                }
+            ]
+        },
+        {
+            "question": "large values rest gives us all the values greater than x though not in increasing order. Where should I implement this condition?",
+            "follow-ups": [
+                {
+                    "feedback": "If your recursive call is correct, you won't need to explicitly implement this condition"
+                },
+                {
+                    "feedback": "ok thanks. Any hints on the if condition, having trouble coming up with the right one."
+                },
+                {
+                    "feedback": "Think what the end goal of the problem is - to find the **longest** increasing subsequence."
+                },
+                {
+                    "feedback": "Got it. Thank you :)"
+                }
+            ]
+        },
+        {
+            "question": "How would we ensure that the elements of the list that don't appear consecutively still are in the subsequent list?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps looking at and utilizing the helper function `larger-values`, which indeed you write, can help with this dilemma."
+                }
+            ]
+        },
+        {
+            "question": "Why am I getting the following error?      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk2kvt8kaqurs%2FScreen_Shot_20191104_at_12.33.09_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are calling a procedure with more arguments than it takes in"
+                },
+                {
+                    "feedback": "It's not telling me which call had an extra operand, how do I figure that out?"
+                },
+                {
+                    "feedback": "Unfortunately you'll have to examine each call one-by-one - reformatting your code with the provided editor may help clarify what arguments you're passing in"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error \" SchemeError: unknown identifier: larger-values- rest\" does anyone know how I can fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "The variable is named large-values-rest"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error even though I've included base cases for is lst is null for both the helper function and longest-increasing-subsequence: scm> (longest-increasing-subsequence '(1)) # Error: argument 0 of car has wrong type (nil) # Error: expected # (1) # but got # Traceback (most recent call last): # ... # SchemeError: argument 0 of car has wrong type (nil)",
+            "follow-ups": [
+                {
+                    "feedback": "I would test out your helper function separately and make sure that's totally correct and not erroring first. Go into the scheme interpreter through `python3 scheme` then type `(load-all \".\")` to load the hw file you're testing. Then try out the function. Once that's working, maybe use some print statements to see what kind of lists you're going through. Again, you'll have to use the scheme interpreter because there isn't a `print('DEBUG:'...)` option for scheme yet (at least not that I'm aware of). Hopefully one of these things will shed some light as to where the error is coming from. If this is still occurring after a little bit of debugging, feel free to come to OH or making a private post on piazza. Sometimes debugging questions are hard to answer in this kind of thread format."
+                },
+                {
+                    "feedback": "I have the same error but my helper function is fully functional"
+                }
+            ]
+        },
+        {
+            "question": "I've been stuck for a few days on this problem. I submitted a private post, but no one replied, so I'll try to describe my issue generically here. For the test case of (1 9 2 3), my with-first returns (1 9), and my without-first returns (9), so it returns (1 9). I have no idea where I went wrong or what to do, can I get some insight?",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry we couldn't get to your post quickly enough - all of us have also been busy with midterms too (cries on the inside)! I think we resolved the issue there, so I'll mark this resolved."
+                }
+            ]
+        },
+        {
+            "question": "What does this mean?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk2muek6kylpv%2FScreen_Shot_20191105_at_9.26.55_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Can't say for sure without context on these issues, but you are trying to call a null value somewhere in your code. It's _probably (no guarantees)_ something to do with a wrong recursive call (i.e., passing in wrong arguments). There's a couple more people who had issues sort of like this, so you could search it on Piazza and see what the fixes were!"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand the point of with-first and without-first, what do they do?",
+            "follow-ups": [
+                {
+                    "feedback": "We are doing tree recursion in this instance. All possible increasing lists can be broken up into two categories: one that uses the first element and one that does use the first element. We then determine which of those two cases ultimately has the longer list."
+                }
+            ]
+        },
+        {
+            "question": "SchemeError: too many operands in form  Can someone tell me what this error means? Thank you"
+        },
+        {
+            "question": "When I run my program within the provided 61A Scheme IDE, I often get this popup, even if I do close/refresh the IDE:  _A long-running operation is currently in progress._  _If the editor isn 't responding, open the terminal that you used to start the IDE (where you ran python editor) and stop the process by pressing Ctrl C._  _Run python editor again, then refresh this page._  _If this window keeps appearing while using the interface, try closing some files (particularly if you 've just run a program for a very long time!)._  It usually goes away, though, and my terminal Scheme compiler has no problem running my code. Not sure where the problem is?",
+            "follow-ups": [
+                {
+                    "feedback": "If it goes away, then nothing is wrong. It’s just a notification to let you know that it’s doing _something_ so that you don’t get worried it froze or anything.  If it doesn’t go away, you might accidentally have an infinite loop, or your program just otherwise doesn’t exit."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting an error saying \"Formals must be a list\".... what does this mean ?",
+            "follow-ups": [
+                {
+                    "feedback": "got it, it was an issue with the formatting of a lambda!"
+                }
+            ]
+        },
+        {
+            "question": "I keep on getting this error no matter what I do. What does this mean and how can I fix it?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk2p9mlp3jngt%2FScreen_Shot_20191107_at_2.09.57_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you're treating a scheme list as a function. Something like this would produce the same error:                > (define x '(3 ()))     x       > (x 5)       Traceback (most recent call last):       0\t(x 5)     Error: pair is not callable: (3 ())"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjdaa6lv5hg%2Fk2pc53lpr8op%2F1.png)  I don't understand this. What should I do/check to get everything right?",
+            "follow-ups": [
+                {
+                    "feedback": "`(filter <procedure> <lst>)`      It looks like `<lst>` part of it is a procedure/function  (sorry the coding stuff when I originally typed this out wasn't showing up and made me look like I was speaking NONSENSE, sorry"
+                },
+                {
+                    "feedback": "Thank you sooo much!! It turned out to be a spelling mistake at <lst> part"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk2pgku81c4w9%2FScreen_Shot_20191107_at_5.25.21_PM.png)  I keep getting this error for this problem. Anyone know what my problem might be here or what I am doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "You seem to be calling `(1)` so you probably have an extra pair of parentheses somewhere"
+                },
+                {
+                    "feedback": "Hmm, I tried looking for extra parentheses but I couldn't find any, guess I'll keep looking into that thanks"
+                }
+            ]
+        },
+        {
+            "question": "Why is this happening? I looked over my code and couldn't find a way to solve it. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlbq5ud56hh3ca%2Fk2pojgg8d7j5%2Fst.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you accidentally trying to build a list with `(list first rest)` rather than `(cons first rest)`?"
+                }
+            ]
+        }
+    ]
+}

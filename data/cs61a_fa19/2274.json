@@ -1,0 +1,88 @@
+{
+    "subject": "[Lab 13] Q7: Bang for your Buck",
+    "content": "<a href=\"https://cs61a.org/lab/lab13//#q7\">Q7: Bang for your Buck</a>\n\n<p> Please post all questions you have below concerning Q7: Bang for your Buck in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "![Bang for your Buck](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy93d3z7mqh5nt%2Fk3extxvfbfl5%2FScreen_Shot_20191125_at_1.22.14_PM.png)  Shouldn't the output include kbook instead of wbook? Since 94.99/3.8 (kbook) < 114.29/4.4 (wbook)",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, it was 99.99*"
+                },
+                {
+                    "feedback": "PSA for anyone else with this output: Make sure you’re using the MSRP and not the store’s lowest price."
+                }
+            ]
+        },
+        {
+            "question": "I think i haven't fully understood this question. My approach right now is to select the min(products.MSRP/products.rating) and order by category. But I'm not sure how to select the value with the lowest cost/rating.",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, I wasn't ordering the table correctly"
+                }
+            ]
+        },
+        {
+            "question": "Is it possible to do this question with one SELECT statement? I was able to do it by creating another table but I'm not sure if this was the intended solution...",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, it’s possible. Try using the `lowest_prices` table from the previous problem and joining it with the `products` table to calculate the lowest MSRP per rating point, grouping by the category."
+                },
+                {
+                    "feedback": "Yeah that's what I did but the problem is that my table displays the value of MSRP/rating for each row. I created another table to extract the items and stores but is there any way to hide/delete a column?"
+                },
+                {
+                    "feedback": "you can SELECT only specific columns that you want included in the output."
+                },
+                {
+                    "feedback": "Wait but don't aggregate functions only appear in the columns clause? If I use an aggregate function in my SELECT statement, a column for the aggregate function will always appear in the output. I'm not sure how to get rid of this column in my final result. Thanks for all the help!"
+                },
+                {
+                    "feedback": "Nevermind, I figured it out"
+                },
+                {
+                    "feedback": "I'm stuck here too, how'd you figure out a way to do it with only one select statement? I can't find a way to do it without having a column for the aggregate function showing up."
+                },
+                {
+                    "feedback": "Keep in mind that you can also have aggregate functions in the HAVING clause"
+                },
+                {
+                    "feedback": "I thought HAVING could only be used to filter groups, how would you use it to filter individual entries from within the group in order to obtain the min(MSRP/rating) from each group?"
+                },
+                {
+                    "feedback": "`WHERE`, in essence filters out individual entries before they are aggregated into groups, and `HAVING` filters the individual groups after they have been grouped. This is why you can use aggregator functions in `HAVING` functions but not `WHERE` clauses. For example, `SELECT category FROM products GROUP BY category HAVING MIN(rating) >= 4;` would select all the categories from `products` which have at least one product rated at at least 4 stars."
+                }
+            ]
+        },
+        {
+            "question": "Hey! for some reason all of the stores seem to show up as 'Hallmart' even though the items are correct. any Idea why?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy6pkl2h5qc%2Fk3gzeeulw9w%2Fbut_got.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "It could be a number of reasons. Are you joining your tables correctly? You shouldn’t need to join more than two tables for this last question, assuming your previous question works correctly."
+                },
+                {
+                    "feedback": "I'm having this same problem - do I need another condition in my HAVING clause other than making sure the MSRP/RATING is equal to the minimum?"
+                },
+                {
+                    "feedback": "ok never mind, i got it - i was writing my having and where clause in the wrong order"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyb0om924bv2ew%2Fk3hu1dp7kokv%2FScreen_Shot_20191127_at_1.59.42_PM.png)  Can't get past this error. I'm not really quite sure what I'm doing, right now I'm grouping by category and have a HAVING MIN(MSRP/rating) statement. Where am I going wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Not too sure but are you checking if the name of the product in the product table is equal to the name in your lowest_prices table? Cuz you're getting the same product in your output."
+                },
+                {
+                    "feedback": "Hmm now I'm getting only one line, GameStation | Hallmart. How do I make it so all 3 return?"
+                },
+                {
+                    "feedback": "So if you have your grouping by category, you have your having clause, and you have your where statement where the item names from both tables are the same. If you did this then there might* be an issue with the columns you're selecting. Maybe try adding an alias to your tables in the from clause. Since lowest_prices and products have the same column called name."
+                },
+                {
+                    "feedback": "ayee thanks dude"
+                }
+            ]
+        }
+    ]
+}

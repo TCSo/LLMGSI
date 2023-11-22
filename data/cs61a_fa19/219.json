@@ -1,0 +1,135 @@
+{
+    "subject": "[HW1] Q5",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw01/#q5\" target=\"_blank\">Question 5: Hailstone</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q5 in the follow-ups.<br />If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "It is quite confusing that the result is 10; 5.0; 16.0; 8.0; 4.0; 2.0; 1.0. It is not the same as the given results. And I do not know how to change the form of the outcome. Could any one offer some instruction, many thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "Keep in mind the difference between the // and / operators."
+                },
+                {
+                    "feedback": "Oh, thank you very much, get it!"
+                },
+                {
+                    "feedback": "I had a similar issue. Thanks !"
+                },
+                {
+                    "feedback": "You can also force the type to Integer to get rid of the decimals by writing int(x)."
+                }
+            ]
+        },
+        {
+            "question": "I was thinking about defining a function within the provided function, using n as a formal parameter. In a sense, n would be used as a formal parameter for 2 different local frames (I think). Would this violate the instructions requiring to use only a \"single argument\"? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "I think as long as the function hailstone only has one parameter, you don't violate the \"single argument\" instruction since the user only need provide a single argument. Subdividing problems in the way you've described is good practice as long as you do take into account the added overhead you've described. Do the costs outweigh the benefits?"
+                },
+                {
+                    "feedback": "Defining a function inside the hailstone function would technically pass the tests (and you'd get full credit), but you would be missing the point of the assignment, which is to have you practice loops! I'm assuming you're implementing a recursive version of hailstone, which is something you'll do later in the course. For now, do try to stick to loops without defining inner functions"
+                }
+            ]
+        },
+        {
+            "question": "Are we permitted to use techniques that we have not yet learned in class to solve the problems?",
+            "follow-ups": [
+                {
+                    "feedback": "For your own sake, please do not use techniques we haven't learned yet (otherwise you will likely miss the point of the exercise, which will hurt you on exams)"
+                }
+            ]
+        },
+        {
+            "question": "For the hailstone question, I wrote the loop and think I found the right way of doing it. I don't really know what I need to return though... Any suggestions??",
+            "follow-ups": [
+                {
+                    "feedback": "From the instructions: \"... and returns the number of steps in the sequence ... \""
+                },
+                {
+                    "feedback": "I also am struggling with this, is there a built-in python function for this, or do we have to make our own function that counts rows or something?"
+                },
+                {
+                    "feedback": "Maybe you can use a parameter to record the times you run the loop?"
+                },
+                {
+                    "feedback": "I was thinking about doing that, but the thought of only being able to use a single argument lingers in the back of my mind. Maybe we can do something regarding the differences of a print() and return statement?"
+                },
+                {
+                    "feedback": "@Bryanna Gavino: You're overthinking it. \"Write a function that takes a single argument ...\" refers to the single variable you pass the function."
+                },
+                {
+                    "feedback": "@anon Ah, my bad. Sorry for prolonging the whole \"single argument\" issue, but I thought parameters were the same as variables. I was probably mistaking the definitions of these terms. I'm beginning to think that I can have as many variables within a function while only having one parameter... I believe I have a better sense of these terms now. Thanks for the clarification."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Any help with this error?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you have accidentally edited the doctest in the hailstone function. This line:                >>> a:  should instead be this:                >>> a  This is giving you an error because when ok is checking the doctest, it does not work because is is invalid syntax."
+                },
+                {
+                    "feedback": "okay, then how should I fix it?"
+                },
+                {
+                    "feedback": "nvm! Just solved it! Thank you so much :)"
+                }
+            ]
+        },
+        {
+            "question": "Hi, my OK doesn't work for problem 5. Whatever code I wrote (wrong code), it still passed the test. It was fine this afternoon, I just had this problem tonight. Did I do something wrong??",
+            "follow-ups": [
+                {
+                    "feedback": "are you running \"python ok -q\" with the correct question? if so, then you could try redownloading the lab files and replacing the hw01 file with a fresh file, and copy over your same code. if the issue persists, please post a follow up!"
+                },
+                {
+                    "feedback": "Yes, after replacing it, it worked. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I was able to get the sequence, but I cannot find a way to include the initial number in the sequence... any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "The initial number is given by the variable n, correct? You would just have to find a way to display n before any of the loops."
+                },
+                {
+                    "feedback": "yes, but ive tried printing just n before the loops, or in the return statement, and i get error messages or the rest of the sequence doesn't print?, ive gotten it to print after but never before my loops,,"
+                },
+                {
+                    "feedback": "huh. For me it worked by simply printing n and then doing the while loop. IDK"
+                },
+                {
+                    "feedback": "i think it was actually an issue with how I was reading the error! i got it to work just putting it above my loop but thank you for the help!!!"
+                }
+            ]
+        },
+        {
+            "question": "I'm almost done, but I keep missing the last 1 in the list.... Any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "Add an additional print(n) statement after your while loop if your while loop ends when n = 1"
+                }
+            ]
+        },
+        {
+            "question": "why is that I always got decimal instead of integers?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5gkcbz6l4as%2Fk05wzlyv3vpa%2FQQ%E6%88%AA%E5%9B%BE20190904164850.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you understand the difference between the // and / operators"
+                },
+                {
+                    "feedback": "thanks"
+                },
+                {
+                    "feedback": "Hi, I have the same problem, but I still don't understand why doing the floor division + modulo makes the result a float?  For example: If we say x = 25  x // 10 + x%10 = 2 + 5 = 7 and not 7.0 right?  Thank you!"
+                },
+                {
+                    "feedback": "In general, division gives us a float (4/2 = 2.0) and floor division and modulo gives us ints (4//2 = 2 and 5%2 = 1). Adding two ints together will result in another int so 25 // 10 + 25 % 10 = 2 + 5 = 7 and adding a float to an int will give us a float so 25 / 10 + 25 % 10 = 2.5 + 5 = 7.5"
+                }
+            ]
+        }
+    ]
+}

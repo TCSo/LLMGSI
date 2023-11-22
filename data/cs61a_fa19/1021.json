@@ -1,0 +1,493 @@
+{
+    "subject": "[Cats] Problem 5",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-5-2-pt\">Problem 5</a>\n\n Please post all questions you have below concerning Problem 5 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nHere are some tips if you&#39;re stuck:\n- Applying the diff function to every word in valid_words can be done in one line with a list comprehension or dictionary comprehension\n- Here&#39;s a common Python pattern for finding the key that has the largest value in a dictionary:\n<pre>\n&gt;&gt;&gt; d = {&#39;a&#39;: 2, &#39;b&#39;: 5, &#39;c&#39;: 4}\n&gt;&gt;&gt; max(d, key=d.get)\n&#39;b&#39;\n</pre>",
+    "threads": [
+        {
+            "question": "There's a bit of a contradiction between the instructions and the code comment. Just wanted to clarify it.  The instructions say that we should return user word \"if the difference is greater than limit,\" but the comment in the code says to return user_word \"if that difference is greater than or equal to limit.\"  So if we have that the difference is equal to the limit, do we return the user word or do we return the word with the lowest difference?",
+            "follow-ups": [
+                {
+                    "feedback": "I believe that was a mistake in the code and that the intent is for everyone to check difference > limit, not difference >= limit. I'll let the project people know"
+                },
+                {
+                    "feedback": "Gotcha. Thanks for clarifying."
+                },
+                {
+                    "feedback": "The comment in the code has since been updated. No need to re-download if you’ve already downloaded, but just FYI for anyone who is wondering what this is all about"
+                },
+                {
+                    "feedback": "I pass all test cases if I use \"<=\" but I fail if I use just \"<\". So did you mean that the intent is for everyone to check difference <= limit?"
+                },
+                {
+                    "feedback": "Nvm, I did the comparison other way around so \"<=\" is equivalent to \">\""
+                },
+                {
+                    "feedback": "I have \"<=\" in my code, but when I change it to \">\", it doesn't work.  Also not sure if I can post my code here so someone can have a look at it."
+                },
+                {
+                    "feedback": "Edit: By doesnt work, I mean it doesnt pass all test cases. When I have \"<=\", it passes all test cases."
+                },
+                {
+                    "feedback": "I'm assuming that's because you're checking something like `not <=` which is equivalent to >. As long as you pass the test cases that's fine"
+                },
+                {
+                    "feedback": "I have the same problem. If I use just > then I don't pass all the cases but if I use <= then I pass all the test cases. Is it fine if i use <="
+                },
+                {
+                    "feedback": "nevermind I understand that > is equivalent to <="
+                }
+            ]
+        },
+        {
+            "question": "first_diff = lambda w1, w2, limit: w1[0] != w2[0]       autocorrect(\"inside\", [\"idea\", \"inside\"], first_diff, 0.5)  Why does the function return 'inside'? Shouldn't it return 'idea' because running first_diff on it would return 0, and 'idea' is the first word in the list?",
+            "follow-ups": [
+                {
+                    "feedback": "The first check is whether the user_word is contained within the valid_words list. If it isn't, then it looks for the least difference."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzwa9tw9to36rd%2Fk0y9lhg0emjg%2F1.PNG)  Why this case isn't 'worry'?  'worry' and 'car' have the same lowest difference and 'worry' is the first in `valid_words.`",
+            "follow-ups": [
+                {
+                    "feedback": "They don't actually. abs_diff returns the absolute difference in character length between two words. 'worry' is 5 characters, and 'wor' is 3 characters, so abs_diff('wor', 'worry', 10) gives 2 (since abs(5 - 3) == 2). 'car' is 3 characters, though, so abs_diff('wor', 'car',10) gives 0 ( since abs(3 - 3) == 0 )."
+                },
+                {
+                    "feedback": "Thank you so much!!!"
+                }
+            ]
+        },
+        {
+            "question": "I don't entirely understand what first_diff is supposed to do; I thought that difference functions are supposed to return a number value, but I don't see how first_diff ( first_diff = lambda w1, w2, limit: w1[0] != w2[0] ) can return a number value.",
+            "follow-ups": [
+                {
+                    "feedback": "When used in a numerical context, the boolean value True is considered to be 1 and the boolean value False is considered to be 0"
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use the built-in function \"index\" for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "That should not be necessary, and it hasn't been taught to us yet, so stick away for now"
+                }
+            ]
+        },
+        {
+            "question": "Any suggestions for this problem? Not sure where to use the max and min function.",
+            "follow-ups": [
+                {
+                    "feedback": "Without giving too much away, think of what we're trying to find here. If user_word is not in valid_words, then we are instructed to \"return the word from `valid_words` that has the lowest difference from the provided `user_word` based on the `diff_function`.\" So really, how do we find the word from valid_words with the lowest difference, and is there a way we can use min or max to do this part? You may also find it helpful to look at examples of how the optional key argument works. <https://www.programiz.com/python- programming/methods/built-in/min>"
+                },
+                {
+                    "feedback": "are we allowed to use dictionaries?"
+                },
+                {
+                    "feedback": "There doesn't seem to be any restriction on dictionaries for this problem, but I was able to do it without them."
+                },
+                {
+                    "feedback": "You can try storing a word with lowest diff and updating it everytime you iterate the list as well. Problem should be doable withoht dicts"
+                }
+            ]
+        },
+        {
+            "question": "the instruction in problem5 says that if the difference is greater than limit then return user_word, but in typing.py, it says that if difference greater than or equal to limit then return user_word. which one is correct?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzx7w1oc5ez2yu%2Fk0yv0t7n4kf2%2FWeChat4e81e9e0e5a0fe7b6f511d67f53f240e.png)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzx7w1oc5ez2yu%2Fk0yv14uho4qi%2FWechatIMG692.jpeg)",
+            "follow-ups": [
+                {
+                    "feedback": "\"Greater than or equal to\" is correct, I believe."
+                },
+                {
+                    "feedback": "See the first followup. It's been clarified that the comment in the code was incorrect. We are checking for difference > limit, not difference >= limit."
+                }
+            ]
+        },
+        {
+            "question": "I cannot see the reason why (autocorrect(\"inside\", [\"idea\", \"inside\"], first_diff, 0.5), first_diff = lambda w0,w1,limit: w[0] != w[1]. Since both terms in the list (i.e. 'idea', 'inside') return False (or 0). in the list because all of these 0th term are 'i'. This means both of the differences are less than 0.5. Then we should return the first one, which is 'idea'. But the answer says 'inside', totally lost.",
+            "follow-ups": [
+                {
+                    "feedback": "Let me clarify my question, why does the above function output is 'inside' but not 'idea' instead?"
+                },
+                {
+                    "feedback": "The first condition of the problem specifies that if the word is already in the list, we just return the word. Inside is already in the list, so we return it."
+                },
+                {
+                    "feedback": "thanks! helps a lot"
+                }
+            ]
+        },
+        {
+            "question": "How are we suppose to know which word made the code went wrong because they imported valid_words from other sources? Thank you![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzoahqdkwhg2h7%2Fk109vfa1faip%2FScreen_Shot_20190925_at_10.42.05_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You can look at the file if you want."
+                }
+            ]
+        },
+        {
+            "question": "In the description, a hint says \"Hint: Try using `max` or `min` with the optional `key` argument.\"  I managed to do the problem without max and mins, but I would still like to know what solution/line of thinking this hint would be pointing to.",
+            "follow-ups": [
+                {
+                    "feedback": "“Otherwise, `autocorrect` returns the word from `valid_words` that has the **lowest** difference from the provided `user_word` based on the `diff_function`.” So you can obtain the “minimum value” (using a custom lambda as the key) of `valid_words`"
+                },
+                {
+                    "feedback": "I managed to do it with two for loops but I dont think it is the best/correct way.  Im trying to ultilize the key argument. But key only takes in one argument, while the diff_function takes in three. Is there a way where I can pass in two of the elements first?  Or, if this is not the right direction, any tips?"
+                },
+                {
+                    "feedback": "You can create your own function/lambda. This lambda should take in a key (i.e. element of a list) and return the proper value of diff_function corresponding to this key. Think - what does each element of the list represent (i.e. which parameter should the key be passed in as)?"
+                },
+                {
+                    "feedback": "Got it! Thank you!"
+                },
+                {
+                    "feedback": "When I submit my code, can I leave the two for loops(commented) in it?"
+                },
+                {
+                    "feedback": "No, according to the composition guide [here](https://cs61a.org/articles/composition.html#remove-commented-out-code)"
+                },
+                {
+                    "feedback": "It's best to remove code that isn't used, unless there's some reason to leave it there for future readers to read it."
+                }
+            ]
+        },
+        {
+            "question": "Why does the user word \"insider\" return \"idea\" rather than \"inside\" with first_diff? I can't understand that one case of the function.",
+            "follow-ups": [
+                {
+                    "feedback": "autocorrect(\"inside\", [\"idea\", \"insider\"], first_diff, 0.5)  Both 'idea' and 'insider' will return false, which is 0, from first_diff.  Since they have the same value, we return the word that first appears in the list, which is 'idea'"
+                },
+                {
+                    "feedback": "Why do both 'idea' and 'insider' return false? Isn't first_diff checking 'i' != 'idea' and 'i' != 'insider' which would both return True?"
+                },
+                {
+                    "feedback": "first_diff, if given two words (and a limit but that's unused), checks to see if the two words have the same first letter. If so, it returns False. Otherwise it returns True.  A call to first_diff( 'inside', 'idea', 0.5) would check if 'i' != 'i', not if 'i' != 'idea'. It is clear that 'i' == 'i' so 'i' != 'i' is False and that is what first_diff returns. You can use the same logic to determine why first_diff( 'inside', 'insider', 0.5) returns False as well."
+                }
+            ]
+        },
+        {
+            "question": "Why isn't the split function from utils.py working in typing.py? I was able to use it for other implementation but not for this particular problem.",
+            "follow-ups": [
+                {
+                    "feedback": "There doesn't seem to be any parameter calling split() on would be useful for. split() only works on strings, so you need to pass in a String for it to work.  valid_words is a list of words, so it won't work in split. diff_function is a function and limit is an integer, so neither will work. The only string parameter is user_word, but that's already one word so there's no need to split it.  You can use split() in the code, but like I said, make sure you're giving it a String and not a list or some other type."
+                },
+                {
+                    "feedback": "how do i split up the values of each character in each word in the list?"
+                },
+                {
+                    "feedback": "I don't think you need to do this work. Maybe you should think in another way."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk11po7c2s550%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190926_%E4%B8%8B%E5%8D%8810.53.20.png)  We passed one case but failed this one. Could somebody kindly explain why does this case return 'rowing'?",
+            "follow-ups": [
+                {
+                    "feedback": "The difference function here takes in two strings and returns the number of characters not equal to one another. \"tsting\" differs greatly from \"testing\" in this regard - only the character at index 0 (t) is equal in both strings. However, \"tsting\" and \"rowing\" share an i in index 3, an n in index 4, and a g in index 5. So its difference is lower."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  This question in the instructions on the website says autocorrect returns the user word if the difference is greater than the limit, but in the doc text in the python file it says it returns user word if the difference is greater than OR equal to the limit. Just a heads up, the difference is allowed to equal the limit, so the instructions on the website are right but ignore the doc string.  Thought that might be helpful",
+            "follow-ups": [
+                {
+                    "feedback": "This has been rectified in newer versions"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk0bmarj88qjl%2FScreen_Shot_20190908_at_4.37.27_PM.png)  For some reason, I got this error, saying my program returned \"gesting\" after running the program, despite the word \"gesting\" not existing in words.txt.",
+            "follow-ups": [
+                {
+                    "feedback": "Wrong screenshot![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk13228bu86qg%2FScreen_Shot_20190927_at_9.25.23_PM.png)"
+                },
+                {
+                    "feedback": "That means it’s returning user_word (incorrectly) instead of the valid_word with the smallest distance; check all your logic"
+                },
+                {
+                    "feedback": "I checked the logic with a debug statement, and by calling the diff_function, the function returns a value greater than limit, which is why \"gesting\" was returned."
+                },
+                {
+                    "feedback": "In that case shouldn't gesting be getting returned, since the function returns a value greater than limit?"
+                }
+            ]
+        },
+        {
+            "question": "Why does diff_function take in the limit argument? Does it use it for anything?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. You will see this in action in questions 6 and 7."
+                }
+            ]
+        },
+        {
+            "question": "**First_diff says to return the first difference no matter what, but the autocorrect function is supposed to return the user_word if the difference is greater than the limit, so how do I fix my code so it doesn 't return user_word when limit is exceeded specifically for when first_diff is run?**",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyrgfler648%2Fk14ad4lqhvg%2FScreen_Shot_20190928_at_6.08.00_PM.png)"
+                },
+                {
+                    "feedback": "I have the same issue with first_diff"
+                },
+                {
+                    "feedback": "That is not what first_diff is saying. first_diff just returns 1 if the 0th letter of string1 matches the 0th letter of string2. wrod and word share the same first letter. So first_diff called on those two strings will yield 1, which is >= the limit. Therefore you should return user_word  This is completely wrong, ignore this"
+                },
+                {
+                    "feedback": "I thought it returns 1 if w1[0] is not equal to w2[0]? Also, it did return user_word, which is 'wrod', but it is expecting word ?"
+                },
+                {
+                    "feedback": "Oops yes I mean it returns 1 if the 0th letter of string1 is not equal to the 0th letter of string2. Also there was a mistake in the description: see the first followup in this thread. It should return user_word if the return value of first_diff on all the strings is greater (not greater than or equal to) limit. Since the first letters are equal in this case, then first_diff returns 0 which is < limit. Since we're < limit, we should return \"word\""
+                },
+                {
+                    "feedback": "[problem_5.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdiudyo0z4r3%2Fk17e6jt85y38%2Fproblem_5.png)  Why am I getting 1 instead of 0?"
+                },
+                {
+                    "feedback": "You're getting 1 because if you run the code                first_diff(\"wrod\", [\"word\",\"rod\"], 1)  What will happen is python will say w1 is 'wrod' and w2 a list: [\"word\",\"rod\"]. And when you do w1[0], you get 'w', and when you do w2[0], you get 'word'. When you check w1[0] != w2[0], you will get True, which translates to 1. Thus that is why you're getting a 1 and not a 0.  Now, if you're running this with the function autocorrect, you will actually go through each word in the list, and then you will find that \"wrod\" != \"word\" would return 0, since their first letters are equal and thus w1[0] != w2[0] is not satisfied, giving it a 0 value. And so we return the value with the lowest difference, which is \"word\""
+                }
+            ]
+        },
+        {
+            "question": "Will we be penalized for using the index function? (all test cases passed)",
+            "follow-ups": [
+                {
+                    "feedback": "Nope"
+                }
+            ]
+        },
+        {
+            "question": "Am I supposed to compare letters from two strings each time? This is the error I have:  Problem 5 > Suite 1 > Case 1  >>> from typing import autocorrect, lines_from_file  >>> abs_diff = lambda w1, w2, limit: abs(len(w2) - len(w1))  >>> autocorrect(\"cul\", [\"culture\", \"cult\", \"cultivate\"], abs_diff, 10)  'cult'  >>> autocorrect(\"cul\", [\"culture\", \"cult\", \"cultivate\"], abs_diff, 0)  'cul'  >>> autocorrect(\"wor\", [\"worry\", \"car\", \"part\"], abs_diff, 10)  'car'  >>> first_diff = lambda w1, w2, limit: w1[0] != w2[0]  >>> autocorrect(\"wrod\", [\"word\", \"rod\"], first_diff, 1)  'word'  >>> autocorrect(\"inside\", [\"idea\", \"inside\"], first_diff, 0.5)  'idea'  # Error: expected  # 'inside'  # but got  # 'idea'",
+            "follow-ups": [
+                {
+                    "feedback": "You need to return the user's word if the valid words list contains it."
+                }
+            ]
+        },
+        {
+            "question": "Why is the first case in unlocking the question not cult? am very confused :(",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that when an expression gets evaluated to a string, the quotes are preserved when the string gets implicitly printed to the console"
+                },
+                {
+                    "feedback": "OMGGGJfjdslaifio ty"
+                }
+            ]
+        },
+        {
+            "question": "My 48th test case failed, and I'm really struggling to find the bug in my code that would cause it. This is the failed test case:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk15w0icnihfc%2FScreen_Shot_20190929_at_9.02.15_PM.png)      Is there anything special about this test case that make it unique to the rest?",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind! Figured out that I was testing for limit twice, instead of just once."
+                }
+            ]
+        },
+        {
+            "question": "Whenever I call accuracy in my code, it returns 0.0, So when user word is cul and a valid word is cult, it should return 100% but instead it returns 0.0. but all my test cases for #4 passed. Has anyone else had this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "It shouldn't be 100%, it should be 0.0. The word has to match exactly, not only containing the first few letters. I assume you're referring to question 3?"
+                },
+                {
+                    "feedback": "Yes I was refering to #3, I see now, thank you!"
+                },
+                {
+                    "feedback": "Can you give a hint as to how to find the amount of difference ?"
+                },
+                {
+                    "feedback": "one of the arguments provide is a diff_function, for this purpose."
+                }
+            ]
+        },
+        {
+            "question": ">>> autocorrect(\"inside\", [\"idea\", \"insider\"], first_diff, 0.5)  'insider'  # Error: expected  # 'idea'  # but got  # 'insider'  Shouldn't the answer be 'insider' because the smallest difference is between 'inside' and 'insider' which is 1 as oppose to 'inside' and 'idea' which is 2?  Why does it expect 'idea'?",
+            "follow-ups": [
+                {
+                    "feedback": "Keep the definition of first_diff (the difference function being used) in mind:                first_diff = lambda w1, w2, limit: w1[0] != w2[0]"
+                },
+                {
+                    "feedback": "They are both false because 'i' == 'i' for both cases and that is less than limit 0.5. So shouldn't it go on to find the least difference?"
+                },
+                {
+                    "feedback": "\"if multiple strings have the same lowest difference according to the `diff_function`, `autocorrect` should return the string that appears first in valid_words.\" keep in mind what the difference corresponding to each pair is here"
+                },
+                {
+                    "feedback": "Also, the value `False` is mathematically equivalent to 0"
+                }
+            ]
+        },
+        {
+            "question": "what is the difference between min(dict1) and min(dict1, key = dict1.get)? When I print these two functions the output is the same but one word in my code and the other one doesn't",
+            "follow-ups": [
+                {
+                    "feedback": "`min(dict1)` finds the smallest key of `dict1`. `min(dict1, key = dict1.get)` finds the key with the smallest corresponding value in `dict1`."
+                }
+            ]
+        },
+        {
+            "question": "if using the min/max function on a dictionary, how do you account for finding which index appears first in valid_words? (in the case of an equal diff) does the min function guarantee some sort of behavior for what it'll return evaluating something like                d = {'a': 2, 'b': 5, 'c': 4, e: '5'}     >>> max(d, key=d.get)",
+            "follow-ups": [
+                {
+                    "feedback": "The min function will return the first minimum if there are multiple minimums."
+                },
+                {
+                    "feedback": "don't dictionaries not guarantee an order?"
+                },
+                {
+                    "feedback": "They actually do in Python 3.6 and above"
+                },
+                {
+                    "feedback": "oh ok thanks"
+                }
+            ]
+        },
+        {
+            "question": "autocorrect(\"inside\", [\"idea\", \"insider\"], first_diff, 0.5)  Why this one doesn't return inside since both difference words are bigger than 0.5",
+            "follow-ups": [
+                {
+                    "feedback": "This is answered above 2 questions above but. first_diff is:  lambda w1, w2, limit: w1[0] != w2[0]  So when you apply first_diff on `user_word` and each element of the `valid_words` list, you get that i != i and i != i respectively for both, which means both evaluates to 0; false values are 0 by default. They're false because i is equal to i in both cases thus we do not satisfy w1[0] != w2[0]  Then we are also told in the prompt that: \"if multiple strings have the same lowest difference according to the `diff_function`, `autocorrect` should return the string that appears first in `valid_words`.\"  Thus, we would return \"idea\" since the difference for both strings in valid_words compared to the user_word are the same ( 0 for both ). And so the first index of valid_words is \"idea\" and so we return \"idea\" and not inside or \"insider\""
+                },
+                {
+                    "feedback": "But the problem also says this \"However, if the difference is greater than `limit`, then `user_word` is returned instead\" ???"
+                },
+                {
+                    "feedback": "Difference is not greater than limit though. Difference here is 0 in both cases, and limit is .5. Thus diff < limit and so we return the 1st element of valid_words"
+                }
+            ]
+        },
+        {
+            "question": "If we were to use a dictionary to test which word has the smallest difference, how would we go about using an if-condition if we went and tried to apply it using dictionary comprehension? I keep getting an error that I'm not implementing it correctly but it might be due to what I'm attempting to input into the if component of the dictionary comprehension.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjml3blnxun712w%2Fk172lojfnuvx%2Fcats02.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Note* I'm trying to figure out how to see if the difference is less than the limit."
+                },
+                {
+                    "feedback": "Maybe storing the differences as values under 1 key in your dictionary and compare them to the limit might help. And I think you can do min on the list values if you are trying to get the minimum difference. Not quite getting your question, apologies if I didn't give the answer you were looking for."
+                },
+                {
+                    "feedback": "It's okay. Thanks for the help! I figured it out."
+                }
+            ]
+        },
+        {
+            "question": "What are the parameters of the diff_function?",
+            "follow-ups": [
+                {
+                    "feedback": "diff_function is a lambda function; for example:  Lambda w1, w2, limit: w1[0] != w2[0]. Where its parameters could be the user word, an element of valid words and limit."
+                },
+                {
+                    "feedback": "How do you return the word with the least difference if the diff-function returns only a number?"
+                },
+                {
+                    "feedback": "Possibly making a variable that stores the word with a current lowest difference and replace it if you do see one with a lower difference."
+                },
+                {
+                    "feedback": "I've tried to do this, I've been using a while loop and calculating and checking differences against each other to end up with the lowest one. This works, I always get the lowest difference at the end of the while loop. The issue is, I'm having trouble returning the same word as the one with the lowest difference. Any ideas?"
+                },
+                {
+                    "feedback": "You can store the word though? There's no way you'd lose track of it as you iterate through your paragraph strings. Not entirely understanding your question. You'd also have to run diff_function on your current iteration of the list as well, if you didn't do that."
+                }
+            ]
+        },
+        {
+            "question": "I end up with this error:  >>> from typing import autocorrect, lines_from_file  >>> words_list = sorted(lines_from_file('data/words.txt')[:10000])  >>> autocorrect(\"testng\", words_list, lambda w1, w2, limit: 1, 10)  Traceback (most recent call last):  ...  File \"ok/client/utils/timer.py\", line 49, in run  self.result = self.fn(*self.args, **self.kargs)  File \"<string>\", line 1, in <module>  File \"/Users/jsimlin/Desktop/cats/typing.py\", line 122, in autocorrect  return min_difference(user_word, valid_words, min_word, min_num)  File \"/Users/jsimlin/Desktop/cats/typing.py\", line 117, in min_difference  return min_difference(user_word, valid_words[1:], min_word, min_num)  File \"/Users/jsimlin/Desktop/cats/typing.py\", line 117, in min_difference  return min_difference(user_word, valid_words[1:], min_word, min_num)  File \"/Users/jsimlin/Desktop/cats/typing.py\", line 117, in min_difference  return min_difference(user_word, valid_words[1:], min_word, min_num)  [Previous line repeated 989 more times]  File \"/Users/jsimlin/Desktop/cats/typing.py\", line 110, in min_difference  if len(valid_words) == 0:  RecursionError: maximum recursion depth exceeded while calling a Python object  # Error: expected  # 'a'  # but got  # Traceback (most recent call last):  # ...  # RecursionError: maximum recursion depth exceeded while calling a Python object  Do I need to use max or min with the key argument as required. Does this prevent from python thinking my code has a RecursionError?",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I got the code for two different scenarios but I'm not quite sure how to approach coding the problem of the difference greater than the limit. Should I have write another if statement or should i combine it with the scenario where I would return user_word if the user_word is in valid_word? Also, I'm not sure how to find the different as an int bc when I try to code it, it is listed as a string and I cannot compare str & limit (int). Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "To answer your first statement, if your difference is greater than the limit, you'd just return user word. When you use diff_function, you should be getting back an int when you pass in your user word, an element from the list of valid words and limit."
+                },
+                {
+                    "feedback": "Thanks! That solved most of the problems. Error on case 47 right now. Going to try and fix it"
+                },
+                {
+                    "feedback": "How were you able to compare the two. How can you refer to the value of the diff, instead of the string in the dictionary?"
+                },
+                {
+                    "feedback": "The value of the diff for some word `w` is computed by calling `diff_function(user_word, w, limit)`."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydle8pd1941cf%2Fk17lbfpxfjoq%2Fcats_prob_5.png)  I keep getting this error. I don't understand how my code could work for the other 2 cases and not this particular one? Any ideas?",
+            "follow-ups": [
+                {
+                    "feedback": "It's very hard to give any input without knowing how you're implementing this, but I would assume that you're not storing your smallest diff_function return effectively. Ideally you would iterate through your list of valid words and apply diff_function on it and store the smallest value by comparing it with others. It seems like there may be gaps in the comparisons you're doing during the iterations."
+                },
+                {
+                    "feedback": "Thanks, that helped."
+                }
+            ]
+        },
+        {
+            "question": "how can you refer to the value that is mapped to a given key in a dictionary?",
+            "follow-ups": [
+                {
+                    "feedback": "`dict[key]`"
+                },
+                {
+                    "feedback": "Thanks! That did it!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdin7srpz4me%2Fk18m49vbi0x3%2FScreen_Shot_20191001_at_6.48.53_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Can someone please explain this to me? And some guidance on how to fix it?"
+                },
+                {
+                    "feedback": "Someone also asked this above. But just to put the answer simply, you are returning the user_word when you should be instead returning the word with the smallest difference, since there are words in the words_list that have a difference less than 10.  'getting' is a word in the word_list and if we use the diff_function given in the test case, it will basically sum up the number of letters that are different between 'getting' and 'gesting' and then add up their difference in lengths.  'getting' and 'gesting' are the same length, but only differ by one letter, so the difference between them is 1. This is clearly less than 10, so we should be returning 'getting' rather than the user_word which is only returned if all words exceed the limit or if its already in the word list which it isn't (as you can verify by opening the words.txt file)."
+                }
+            ]
+        },
+        {
+            "question": "Can we use map on this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "That's not recommended since it hasn't been taught to us and isn't necessary for the solution"
+                }
+            ]
+        },
+        {
+            "question": "first_diff = lambda w1, w2, limit: 1 if w1[0] != w2[0] else 0       autocorrect(\"inside\", [\"idea\", \"inside\"], first_diff, 0.5)  In this test case, why would the answer be inside.",
+            "follow-ups": [
+                {
+                    "feedback": "If `user_word` is in `valid_words`, `user_word` is returned."
+                }
+            ]
+        },
+        {
+            "question": "Otherwise, `autocorrect`returns the word from `valid_words` that has the lowest difference from the provided `user_word` based on the`diff_function`. However, if the difference is greater than `limit`, then `user_word` is returned instead.  In the case where the difference is greater than limit, is it still referring to the lowest difference or is it just any difference?",
+            "follow-ups": [
+                {
+                    "feedback": "The lowest difference."
+                }
+            ]
+        },
+        {
+            "question": "How can I understand \"If the `user_word` is contained inside the `valid_words` list, `autocorrect` returns that word.\"??  Since the whapuka is contained inside the valid_words but why expected \"cogman\"?  >>> autocorrect('whapuka', ['seambiter', 'cogman', 'polymorphistic'], lambda x, y, lim: min(lim + 1, abs(len(x) - len(y))), 1)   'whapuka'  # Error: expected   # 'cogman'   # but got   # 'whapuka'",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry, I looked wrong. it is not contained."
+                },
+                {
+                    "feedback": "NVM, I have solved by myself. Thanks."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvuxunsqw3j%2Fk1a4amy4zgno%2Fscreenshot.jpg)  In the last unpssed case, since **both 'idea' and 'inside' get 0 in the function first_diff**, the autocorrect should return the string that appears first in `valid_words.`  (accodring to the instruction on cs61a.org)  So why should the function return 'inside' instead of 'idea'? Can anyone help to explain it?",
+            "follow-ups": [
+                {
+                    "feedback": "Someone already asked this, but short explanation, inside is already in the word list, so we just return it."
+                },
+                {
+                    "feedback": "Sorry I misunderstood the already-posted question. Thank you for explaining it again!"
+                }
+            ]
+        }
+    ]
+}

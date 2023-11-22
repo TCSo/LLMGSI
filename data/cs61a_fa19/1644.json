@@ -1,0 +1,39 @@
+{
+    "subject": "[Lab 08] Q14: Number of Trees",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q14\">Q14: Number of Trees</a>\n\n<p> Please post all questions you have below concerning Q14: Number of Trees in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can someone explain the solution to this problem? I don't quite get it.",
+            "follow-ups": [
+                {
+                    "feedback": "There's a lot to it, but you can conduct as much research on [Catalan numbers](https://brilliant.org/wiki/catalan-numbers/) (this question's solution finds the nth Catalan number) as you like"
+                },
+                {
+                    "feedback": "To clarify, you don’t actually need to know the formula or the definition for Catalan numbers to solve this problem. Think about how you could use pure recursion to solve this. Think tree recursion and how you could split your recursive cases."
+                },
+                {
+                    "feedback": "+1"
+                }
+            ]
+        },
+        {
+            "question": "Is num_trees(2) suppose to be 1 or 2? Based off the equations on the wikipedia, it says it's suppose to be 2, but the doctests say it's 1.",
+            "follow-ups": [
+                {
+                    "feedback": "It is 1 as there is only one full binary tree with two leaves (see the doctest). You'll have to modify the equation slightly to make it useful for this problem."
+                },
+                {
+                    "feedback": "The indexing is different compared to what Wikipedia uses (the question's solution starts at 1; Wikipedia starts at 0)"
+                }
+            ]
+        },
+        {
+            "question": "I have no idea what to do. How do I start?  I thought that if I had been given a tree, I could easily find the number of leaves of the tree and compare it to n. But how do I do it the other way around without having to check for an infinite number of trees?",
+            "follow-ups": [
+                {
+                    "feedback": "given that we are trying to find the number of trees with **X** leaves, we have to explore all possible binary splits of **X**. for example, if we are looking for the number of binary trees with 3 leaves, we could split these 3 into 1 in the left child, and 2 in the right child, or vice versa.  this is where a recursive call may come into play."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "subject": "Scheme Discussion Packet, Problem 6.3 Help",
+    "content": "<p>I am confused about the implementation to 6.3 from the Scheme DIscussion Packet. In the line that says</p>\n<p></p>\n<pre>(&#43; (label tree) (sum (map tree-sum (branches tree))))) </pre>\n<p></p>\n<p>I don&#39;t understand why we call the map function on (tree-sum (branches tree)) instead of just doing </p>\n<p></p>\n<pre>(sum (tree-sum (branches tree)))))</pre>",
+    "threads": [
+        {
+            "subject": "",
+            "content": "<p>tree-sum takes in a &#34;tree&#34; as an argument. (branches tree) is a list of trees not a single tree. In order to apply tree-sum to every single branch, we need to use map function</p>",
+            "threads": []
+        },
+        {
+            "question": "oh that makes sense, thank you!"
+        }
+    ]
+}

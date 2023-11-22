@@ -1,0 +1,188 @@
+{
+    "subject": "[Scheme] Problem 7",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-7-1-pt\">Problem 7</a>\n\n<p> Please post all questions you have below concerning Problem 7 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyg44defrnj709%2Fk2pg4nbih9ka%2FScreen_Shot_20191107_at_5.12.14_PM.png)Hi, I'm having trouble getting the function to evaluate whenever something is being defined.",
+            "follow-ups": [
+                {
+                    "feedback": "What are you currently trying to do to the passed in expressions?"
+                },
+                {
+                    "feedback": "I've been calling scheme_eval through everything inside the expression then returning the last item"
+                },
+                {
+                    "feedback": "Even though you want to return the last item, make sure that you are still evaluating each item before the last item!"
+                },
+                {
+                    "feedback": "Yea I know, I'm evaluating all the items until the last one. For some reason it doesn't work for the test cases containing a \"define\" statement"
+                },
+                {
+                    "feedback": "fixed it"
+                },
+                {
+                    "feedback": "I'm also getting this error and I'm solving this problem in a similar way as you are. Any hints on how to fix it?"
+                },
+                {
+                    "feedback": "make sure you're doing scheme_eval before the return eval_all statementt"
+                },
+                {
+                    "feedback": "In my if cases, scheme_eval goes before the eval_all case. Is that the same as what you're trying to say?"
+                },
+                {
+                    "feedback": "I had eval_all in my else statement"
+                },
+                {
+                    "feedback": "That's what I have too."
+                },
+                {
+                    "feedback": "are you doing scheme_eval(expressions.first, env)"
+                },
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "are you checking if expressions.rest is nil"
+                },
+                {
+                    "feedback": "Yea"
+                },
+                {
+                    "feedback": "what worked for me was instead of checking if expressions.rest is not nil, i changed it to is nil"
+                },
+                {
+                    "feedback": "That's what I had the whole time so I'm still not sure what's wrong, but thank you for trying to help!"
+                },
+                {
+                    "feedback": "Here's a hint. By the time you get to evaluate x, the interpreter doesn't know what x is. Therefore, did you evaluate the define method before getting to x?"
+                },
+                {
+                    "feedback": "Similar problem...I am wondering why it is necessary to evaluate everything before the last item if we ultimately just need to return what the last item evaluates to?"
+                }
+            ]
+        },
+        {
+            "question": "If the list shouldn't be mutated, why isn't the answer (1 2 3)?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdiogspb84nk%2Fk2s02o3f44gz%2FScreen_Shot_20191109_at_12.06.38_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "`eval_all` should return the result of the last expression in the list. It is used in `LambdaProcedure` bodies and other situations where the function body has multiple statements. So `eval_all`ing the list `(1 2 3)` should return the evaluated form of the last element, `3`. The list, however, doesn’t change."
+                },
+                {
+                    "feedback": "The above is correct, although the main answer to your question is that inputting `lst` into the interpreter prints out `repr(lst)` \\- make sure you understand how `__repr__` is implemented within `Pair`"
+                },
+                {
+                    "feedback": "Whoops, my bad. I thought the question was asking why `eval_all` didn’t return `(1 2 3)`."
+                },
+                {
+                    "feedback": "Fair point; didn't think of that possibility."
+                },
+                {
+                    "feedback": "what the value of lst???"
+                },
+                {
+                    "feedback": "Remember that this is a WWPD (What Would **Python** Do?), not a WWSD (What Would **Scheme** Do?) question. How are Scheme lists represented in Python?"
+                },
+                {
+                    "feedback": "I'm still very stuck on this test case...could I have some guidance on maybe what I should think about? I don't get why it's not (1 2 3)? am i missing quotes?"
+                },
+                {
+                    "feedback": "Again, we are in Python, so you have to use Python notation. How do we represent `(1 2 3)` using structures in Python?"
+                },
+                {
+                    "feedback": "wouldn't it be [1, 2, 3]?"
+                },
+                {
+                    "feedback": "^nvm got it! thanks for the help!"
+                }
+            ]
+        },
+        {
+            "question": "X should put a procedure, no? What should this display?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fk2s9j6kowpjk%2FScreen_Shot_20191109_at_4.26.27_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I got it. Remember from the previous question that \"x\" is equal to 0."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure why I am getting this error:  >>> eval_all(Pair(4, Pair(5, nil)), env)  # Error: expected  # 5  # but got  # Traceback (most recent call last):  # ...  # SchemeError: int is not callable: 5  when it passed the first test  >>> eval_all(Pair(2, nil), env)  2  any ideas?  Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "I suspect that you are at some point trying to evaluate the `rest` of `expressions`, which in this case would be `(5)`. `5` is not a procedure, so you’re getting the error. I would consider either a recursive leap of faith or iteration."
+                }
+            ]
+        },
+        {
+            "question": "When I write print (expression.first), my code is giving me the value of expression.first but when I try return expression.first, it gives me nothing.  For the test case: eval_all(Pair(2, nil), env) , both print and return are working but for the test case: eval_all(Pair(4, Pair(5, nil)), env) , return is not working. Any thoughts on why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "I’m afraid I don’t quite understand your question. Do you mean that if `expressions` is a Scheme list longer than one, then nothing is being returned?"
+                },
+                {
+                    "feedback": "Yes.      Somehow, my program is not returning anything.   I even tried debugging and wrote                     return expressions.first.                       (For the case when I had Pair(2,nil) it did return 2 but when I ran it for Pair(4,Pair(5,nil)) and my expressions was Pair(5,nil) it returns none.)"
+                },
+                {
+                    "feedback": "That’s weird. Do you have `if` statements in your `eval_all` statement? Make sure that something is always returned no matter which `if` statement body is executed."
+                },
+                {
+                    "feedback": "Oh got it! Thanks!"
+                },
+                {
+                    "feedback": "No problem! Best of luck with the rest of the project!"
+                }
+            ]
+        },
+        {
+            "question": "I am checking is expressions.rest is equal to 'nil'. However, I am getting an error that says   \"AttributeError: 'nil' object has no attribute 'rest'\". How can I fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "This means that `expressions` is already a `nil` object. You should probably be checking if `expressions` is `nil` as well."
+                },
+                {
+                    "feedback": "I checked that as well using an if statement, but it continues to give me the same error :("
+                },
+                {
+                    "feedback": "That means that even if `expressions` is `nil`, you are still trying to find out the `first` or `rest` of expressions when you should be exiting out and treating it as a base case."
+                }
+            ]
+        },
+        {
+            "question": "how do we approach this question?",
+            "follow-ups": [
+                {
+                    "feedback": "`eval_all` evaluates every expression given in the list `expressions`, and it will return the value of the final expression. You can choose to either do this recursively or iteratively (both have a fairly elegant solution), but you will have to add logic to determine when to return from `eval_all` and give the value of the evaluated expression."
+                }
+            ]
+        },
+        {
+            "question": "Trying to unlock this test:  scm> (begin (define x (+ x 1)) 42 (define y (+ x 1)))  scm> x  what should it return and why it doesn't return : Pair(+, Pair(x, Pair(1, nil))) ?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the `define` procedure always returns the defined symbol, and remember that `begin` returns the result of the **last** expression, although it evaluates all of them. Thus, it would return the value of the `(define y (+ x 1))` expression, which returns `y`, since that’s the symbol that was defined."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqzl1x8dq7m5k7%2Fk2x0wqdq9agy%2FCapture.PNG)  I keep getting this error, can anyone help?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are evaluating every expression in the environment `env`"
+                },
+                {
+                    "feedback": "I am, and I called scheme_eval on every expression before returning it but I still cant figure out whats wrong"
+                },
+                {
+                    "feedback": "Figured it out, my lookup function was incorrect"
+                }
+            ]
+        },
+        {
+            "question": "Running tests  \\---------------------------------------------------------------------   Problem 7 > Suite 2 > Case 2  scm> (begin 30 '(+ 2 2))   4  # Error: expected   # (+ 2 2)   # but got   # 4  Run only this test case with \"python3 ok -q 07 --suite 2 --case 2\"   \\---------------------------------------------------------------------   Test summary   3 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Is your `do_quote_form` function implemented properly? It seems like you’re evaluating the second statement even when you aren’t supposed to. Alternatively, it’s possible you are accidentally evaluating the last statement twice."
+                }
+            ]
+        }
+    ]
+}

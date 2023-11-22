@@ -1,0 +1,28 @@
+{
+    "subject": "[Lab 09] Q4: Make Adder",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q4\">Q4: Make Adder</a>\n\n<p> Please post all questions you have below concerning Q4: Make Adder in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Here's a tip. Think back to the way you would write this in Python. I was making a silly mistake."
+        },
+        {
+            "question": "I used a lambda function to solve this, but when I change my lambda function into a regular function just to try it out. It gives me this \"str is not callable: adder,\" which adder is the name of my nested function. Like in python we would usually use the assignment operator when dealing with higher- order functions or call the function and the nested function at once. I think I might have missed something when watching the lecture, but I can't figure out why defining a lambda would work but a \"regular\" function wouldn't work. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "I am also wondering why defining a new function resulted in confusing error, but returning lambda passed all the test cases."
+                },
+                {
+                    "feedback": "If I'm understanding what you mean by a regular function, then Scheme should allow you to do this without lambdas. Here's an example of a procedure that returns a procedure. In this example, I use it to curry a two parameter function, f:                scm> (define (curry f)       \t(define (g x)       \t\t(define (h y)       \t\t\t(f x y)\t       \t\t)       \t\th       \t)       \tg            )       curry       scm> (define square_x_then_add_y (lambda (x y) (+ (* x x) y)))       square_x_then_add_y       scm> (square_x_then_add_y 4 1)       17       scm> (define curried_version (curry square_x_then_add_y))       curried_version       scm> ((curried_version 4) 1)       17  In Python, this is equivalent to:                >>> def curry(f):       ...\tdef g(x):       ...\t\tdef h(y):       ...\t\t\treturn f(x,y)       ...\t\treturn h       ...\treturn g       >>> square_x_then_add_y = lambda x, y: (x*x) + y       >>> square_x_then_add_y(4, 1)       17       >>> curried_version = curry(square_x_then_add_y)       >>> curried_version(4)(1)       17  In your case, I suppose this is happening because you are defining the function, and since it is the only expression in the body, Scheme is treating it as the return value. In our specific interpreter, define procedures return the name of the function that they create and when you call make_adder with a number, it will return the word adder which cannot be called.  The solution is to just add a primitive expression to the end that evaluates to the function you just defined in the local frame so it can be returned (which is why I have lines that just say h and g in my code)."
+                }
+            ]
+        },
+        {
+            "question": "**How to comment in scm? Is it not the use # in front of sentence?**",
+            "follow-ups": [
+                {
+                    "feedback": "Semicolons create comments in Scheme"
+                }
+            ]
+        }
+    ]
+}

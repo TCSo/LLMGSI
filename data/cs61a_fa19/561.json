@@ -1,0 +1,30 @@
+{
+    "subject": "[Lab 02] Q3: Lambdas and Currying",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q3\">Q3: Lambdas and Currying</a>\n\n<p> Please post all questions you have below concerning Q3: Lambdas and Currying in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Why is k equal to 9 after add_ten(n) was executed?",
+            "follow-ups": [
+                {
+                    "feedback": "This question is meant to be in the Q5 thread. Ignore"
+                }
+            ]
+        },
+        {
+            "question": "how should we approach this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Take note of the fact that nested functions can access bindings in parent frames, as long as it doesn't reassign them."
+                }
+            ]
+        },
+        {
+            "question": "Why does lambda f: lambda x: lambda y: f(x, y) return a function instead of an integer when running the doc test?",
+            "follow-ups": [
+                {
+                    "feedback": "You are creating a double-nested-lambda. When the first lambda gets called, it returns a function. When this function gets called, it returns another function. Finally, when this function gets called, it returns an integer. Observe the environment diagram [here](https://tinyurl.com/y4w5ngun). Notice how the parameter `func` seems to be completely ignored. How can you simplify your solution and make sure `func` gets used?"
+                }
+            ]
+        }
+    ]
+}

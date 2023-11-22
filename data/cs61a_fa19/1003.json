@@ -1,0 +1,83 @@
+{
+    "subject": "[Lab 04] Q6: Enumerate",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q6\">Q6: Enumerate</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q6: Enumerate in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I got an assertion error on “len(s1) == len(s2)” but I don’t see why though.",
+            "follow-ups": [
+                {
+                    "feedback": "If you used the hint and tried using `couple`, make sure that the length of your two inputs are always equal."
+                },
+                {
+                    "feedback": "I think they are...one of them is s and the other is a list of all the indices. Shouldn’t they be always equal? I’m so confused."
+                },
+                {
+                    "feedback": "Use debug statements to verify each list's length"
+                },
+                {
+                    "feedback": "Thank y’all! I’ve figured out what’s wrong!"
+                }
+            ]
+        },
+        {
+            "question": "Should we use recursion for this question?",
+            "follow-ups": [
+                {
+                    "feedback": "I would not recommend using recursion for this question."
+                }
+            ]
+        },
+        {
+            "question": "What's the approach to splitting the string in the ('five', 5) doctest?",
+            "follow-ups": [
+                {
+                    "feedback": "Strings are basically just sequences of characters, meaning they are iterable"
+                }
+            ]
+        },
+        {
+            "question": "I know it has not yet been covered in lecture, but is it fine if I use the list.index( ) function to solve this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "sure (as long as it passes the autograder) but you should not need to"
+                }
+            ]
+        },
+        {
+            "question": "I've been debugging it and printing the lengths and even printing my return statement--everything matches what the expected response is until I leave it with just the return statement (which appears to be correct when I print it) however it says Assertion Error still. I don't know what's wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "What does the assertion error say?"
+                },
+                {
+                    "feedback": "No worries, I fixed it! Thanks anyway!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7hif85g75c1%2Fk12sqzcb81aj%2FScreen_Shot_20190927_at_3.47.06_PM.png)At first I get this error so I switch my arguments but then I get an assertion error",
+            "follow-ups": [
+                {
+                    "feedback": "I have checked and the lengths are the same"
+                },
+                {
+                    "feedback": "Post the full AssertionError"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7hif85g75c1%2Fk12vaocacswq%2FScreen_Shot_20190927_at_6.16.46_PM.png)"
+                },
+                {
+                    "feedback": "due to the fact that the assertion is being raised, the two things that you are passing in are not the same length. think of the specific test in question, `enumerate('five', 5)` and think how the lengths of the two lists you are passing into couple may change."
+                }
+            ]
+        },
+        {
+            "question": "Running tests  \\---------------------------------------------------------------------   Doctests for enumerate  >>> from lab04 import *   >>> enumerate([6, 1, 'a'])   [[0, 6], [1, 1]]  # Error: expected   # [[0, 6], [1, 1], [2, 'a']]   # but got   # [[0, 6], [1, 1]]  \\---------------------------------------------------------------------   Test summary   0 test cases passed before encountering first failed test case  I added a -1 to my range function because it kept giving a string index error, but now it just doesn't do the last element case. I have been stuck on this for a while now, but I can't seem to get around it.",
+            "follow-ups": [
+                {
+                    "feedback": "range will go up to but not including the second argument that is passed in, if more than one argument is provided. what is the index of the last element in a list, and what would need to be passed in then for that index to be included in the range?"
+                }
+            ]
+        }
+    ]
+}

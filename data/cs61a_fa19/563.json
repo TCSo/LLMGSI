@@ -1,0 +1,58 @@
+{
+    "subject": "[Lab 02] Q1: WWPD: Lambda the Free",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q1\">Q1: WWPD: Lambda the Free</a>\n\n<p> Please post all questions you have below concerning Q1: WWPD: Lambda the Free in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "For the question that asks what Python displays for                >>> lambda x: x  # A lambda expression with one parameter x  I'm not sure what the Python interpreter would display other than the function's signature (as shown below)                <function <lambda> at 0x000002921F5C9620>  This answer doesn't get accepted, so I'm confused as to what the question is looking for.",
+            "follow-ups": [
+                {
+                    "feedback": "In the instructions, it says to just write Function, instead of that blurb."
+                },
+                {
+                    "feedback": "Oops, didn't see that. Thanks!"
+                },
+                {
+                    "feedback": "."
+                }
+            ]
+        },
+        {
+            "question": ">>> b = lambda x: lambda: x # Lambdas can return other lambdas!  >>> c = b(88)  >>> c()  why c() is 88 here? What's the difference between it and c?",
+            "follow-ups": [
+                {
+                    "feedback": "Calling b with a number returns a lambda that returns that number. So c ends up being a lambda."
+                },
+                {
+                    "feedback": "print_lambda = lambda z: print(z)  >>> print_lambda  >>>one_thousand  For one_thousand, nothing is returned. How do I enter that into python?"
+                },
+                {
+                    "feedback": "Just saw that we are supposed to type Nothing."
+                }
+            ]
+        },
+        {
+            "question": "Calling \"one_thousand\" is just calling a print statement given from lambda z: print(z), which returns no value. How come pressing enter without any value doesn't work?",
+            "follow-ups": [
+                {
+                    "feedback": "You are supposed to type the phrase \"Nothing\" in this case."
+                }
+            ]
+        },
+        {
+            "question": "How does the code work  >>>x=None  >>>x  >>>lambda x:x  Because I got different results in python interpreter and terminal for what python displays",
+            "follow-ups": [
+                {
+                    "feedback": "If nothing prints, you are supposed to type \"Nothing\", and if a function signature prints, you are supposed to type \"Function\""
+                }
+            ]
+        },
+        {
+            "question": ">>> higher_order_lambda = lambda f: lambda x: f(x)  >>> g = lambda x: x * x  >>> higher_order_lambda(2)(g)      I’m really confused what 2 and g belong here.",
+            "follow-ups": [
+                {
+                    "feedback": "`higher_order_lambda` is a function that takes in a parameter `f`. This function returns a function that takes in a parameter `x`. That last function returns the value of `f(x)`. Armed with this knowledge, try to see how `higher_order_lambda(2)(g)` works. Remember the rules of evaluation!"
+                }
+            ]
+        }
+    ]
+}

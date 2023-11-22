@@ -1,0 +1,135 @@
+{
+    "subject": "[HW 04] Next Fibonacci",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q6\" target=\"_blank\" rel=\"noopener noreferrer\">Q6: Next Fibonacci</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q6: Next Fibonacci in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "The doctests for this question include the following:                    >>> from construct_check import check         >>> # ban all assignment statements         >>> check(this_file, 'make_fib',         ...       ['List'])         True  It doesn't appear as if the call to `check` checks for assignment statements. Is the comment incorrect, or is the test incorrect?",
+            "follow-ups": [
+                {
+                    "feedback": "For reference, an instructor came in and said the comment was wrong, but their response got deleted."
+                }
+            ]
+        },
+        {
+            "question": "It seems that the function returns a number, but to keep the cycle using, do we make use of the print function?",
+            "follow-ups": [
+                {
+                    "feedback": "No."
+                },
+                {
+                    "feedback": "How can we use nonlocal when the original function doesn't take in a parameter?  Also, do we define two new functions in this question, or just one?"
+                },
+                {
+                    "feedback": "Figured it out!"
+                },
+                {
+                    "feedback": "Stuck again, totally forgot to not use assignment statements. To create a list, dont we need to use assignment statements. Also, the new function we define doesnt take in anything, so how can i work around that to get the desired function? Thanks"
+                },
+                {
+                    "feedback": "Im confused, are well allowed to use lists? Also we r not allowed assignment statements?"
+                },
+                {
+                    "feedback": "Assignment statements are allowed. Lists are not."
+                }
+            ]
+        },
+        {
+            "question": "(Never mind, misread terminal)"
+        },
+        {
+            "question": "Could you guys give some hints? I am so confused about how I can use nonlocal when the original and fib functions don't take in any parameter.",
+            "follow-ups": [
+                {
+                    "feedback": "Create some variables in the function `make_fib`, mark them nonlocal inside an inner function, use them in the inner function (which returns some value), then in `make_fib` return the inner function"
+                }
+            ]
+        },
+        {
+            "question": "I created a function inside make_fib and passed in an argument then makes it nonlocal, but I got the error “name is parameter and nonlocal”. Why is that?",
+            "follow-ups": [
+                {
+                    "feedback": "The whole point of the nonlocal keyword is to make use of variables that aren’t parameters (i.e. in a parent frame). Declare variables inside make_fib, then declare the inner function, and inside the inner function, use the nonlocal keyboard"
+                },
+                {
+                    "feedback": "Oh thank you! I didn’t realize I shouldn’t be passing any arg into inner function. But I assigned the arg to some value and updated it inside inner function, but now I got 1 instead of 0."
+                },
+                {
+                    "feedback": "you are likely not setting the variables correct to begin with - Python Tutor would be a good place to start debugging this!"
+                }
+            ]
+        },
+        {
+            "question": "How do I update the value after nonlocal? How can I add the current value to the previous one when it’s not stored?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps make variables for both the previous and current values"
+                },
+                {
+                    "feedback": "How do we treat the first two element(0 and 1) then? When I tried to assign both respectively, I got wrong on the first element."
+                },
+                {
+                    "feedback": "you may need to account for the work you do inside the helper function to initially assign the values."
+                }
+            ]
+        },
+        {
+            "question": "Do we need to use yield within the solution for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "This can be done without yield."
+                }
+            ]
+        },
+        {
+            "question": "I created three variables outside the inner function and tried to shift the latter two forward every time fib is called, but I’m stuck on how to update the three variables within inner function. Can some give me a hint?",
+            "follow-ups": [
+                {
+                    "feedback": "Assignment statements are allowed"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqgv8fwilsk5lr%2Fk1hltaim5lqk%2FCS_Question_3.JPG)  I keep running my code, and I think the order of the code makes sense but I keep getting this error. Can  anyone give me intuition as to what this means, or what my error is?",
+            "follow-ups": [
+                {
+                    "feedback": "You are calling an integer like a function which is not allowed. Make sure make_fib is not returning an integer in any of the cases."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvtpqmt16l1iw%2Fk1i8xgt76aj8%2F%E6%8D%95%E8%8E%B7.PNG)  Does anyone know what it means?",
+            "follow-ups": [
+                {
+                    "feedback": "you can just write:  >>> nonlocal fib_one, fib_two"
+                },
+                {
+                    "feedback": "NVM. It may be sth. wrong with the IDE. I've passed the test"
+                }
+            ]
+        },
+        {
+            "question": "I passed all the test cases, but my linter is giving me a warning that my variables in the parent frame that I use non local on are \"unused-variable\". Just curious if there is something wrong with my code stylistically/composition wise. Is it bad practice to use non-locals like this? or is it just an edge case my linter isn't picking up?",
+            "follow-ups": [
+                {
+                    "feedback": "Don't worry about composition for homework assignments. We only check composition on projects. I think that's an edge case your linter isn't picking up."
+                }
+            ]
+        },
+        {
+            "question": "Hi, this appears each time I try to pass the tests for this question, what can I do (I haven't done the question above, but even if I just write return 0 nothing works! What can I do to pass this test without having passed the question above? Thank you!![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5c767lc66t%2Fk1o2gpozz7hk%2FCaptura_de_pantalla_20191012_a_las_14.21.47.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Python expects stuff after a define statement. To do nothing, you can put in `pass`."
+                }
+            ]
+        },
+        {
+            "question": "Does anyone know what this error means? it seems that I've passed all the other cases but when it checks if I used lists (I didn't) I get this error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxdxipkru262cw%2Fk1o70lhc3xc7%2FThis_file_error.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm I figured it out you gotta change this_file to 'hw04.py'"
+                }
+            ]
+        }
+    ]
+}

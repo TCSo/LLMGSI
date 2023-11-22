@@ -1,0 +1,60 @@
+{
+    "subject": "[Scheme] Problem 8",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-8-1-pt\">Problem 8</a>\n\n<p> Please post all questions you have below concerning Problem 8 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I understand what do_lambda_form does but what does it return?",
+            "follow-ups": [
+                {
+                    "feedback": "The `lambda` procedure returns the constructed procedure itself."
+                },
+                {
+                    "feedback": "Thanks Cyrus"
+                },
+                {
+                    "feedback": "Ahh sorry I meant Nicholas"
+                },
+                {
+                    "feedback": ":o"
+                },
+                {
+                    "feedback": "Top Ten Anime Betrayals."
+                },
+                {
+                    "feedback": "Ha, never even noticed that. Glad I could help, though!"
+                },
+                {
+                    "feedback": "Y'all should know his name by now"
+                }
+            ]
+        },
+        {
+            "question": "How would I unpack the expressions.rest? I am able to construct the Pair with lambda and expressions.first, but recursively calling do_lambda_form on expressions.rest results in this error.                Problem 8 > Suite 1 > Case 1          scm> (lambda (x y) (+ x y))     # Error: too few operands in form          # Error: expected     #     (lambda (x y) (+ x y))     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: too few operands in form          Run only this test case with \"python3 ok -q 08 --suite 1 --case 1\"",
+            "follow-ups": [
+                {
+                    "feedback": "Keep in mind that you wrote a function in problem 7 that is specifically made to handle multi-expression bodies and return the value of the last expression. Consider reusing that to handle the body of the lambda function."
+                }
+            ]
+        },
+        {
+            "question": "I am pretty lost.. Right now I am just trying to return a LambdaProcedure with expressions.first as the second argument (the formals), and expressions.rest as the third argument (the body). I feel like I am missing something, and I do not know what to put in for the first (self) argument. Any help?",
+            "follow-ups": [
+                {
+                    "feedback": "Check out the constructor for `LambdaProcedure`:   ```   def __init__(self, formals, body, env):   \"\"\"A procedure with formal parameter list FORMALS (a Scheme list),   whose body is the Scheme list BODY, and whose parent environment   starts with Frame ENV.\"\"\"   self.formals = formals   self.body = body   self.env = env   ```   We ignore the `self` parameter because that is implied, so the first argument we pass in is actually bound to `formals`. Likewise, the second and third arguments we pass in are bound to `body` and `env`, respectively. `formals` should already be defined for you in `do_lambda_form`, so you just have to figure out what to pass in for `body` and `env`, which you have already figured out. Just rearrange your arguments a bit."
+                },
+                {
+                    "feedback": "Thanks for the response! I still have an error saying I feed in the wrong number of positional arguments."
+                },
+                {
+                    "feedback": "Make sure you are calling the `LambdaProcedure` constructor with three arguments - the first being the list of formals, the second being the list of body expressions, and the third argument being the proper parent environment. i.e. `some_lambda_proc = LambdaProcedure(formals, body, env)`"
+                },
+                {
+                    "feedback": "Oh that worked. My issue was that I was calling the __init__ method, which then requires a self argument. So I just called the constructor with the same three arguments and that worked. Thank you so much!"
+                },
+                {
+                    "feedback": "No problem. Remember that for constructing objects you don't need to manually call the `__init__` method. That method gets called for you under-the-hood."
+                }
+            ]
+        }
+    ]
+}

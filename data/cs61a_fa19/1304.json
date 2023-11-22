@@ -1,0 +1,452 @@
+{
+    "subject": "[Ants] Problem 9",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-9-4-pt\">Problem 9</a>\n\n<p> Please post all questions you have below concerning Problem 9 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I am lost as to why bodyguard is not firing for the thrower ant. Does anyone have any pointers in a direction?              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     Running tests          ---------------------------------------------------------------------     Problem 9 > Suite 3 > Case 2          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))     >>> #     >>> # Testing bodyguard performs thrower's action     >>> bodyguard = BodyguardAnt()     >>> thrower = ThrowerAnt()     >>> bee = Bee(2)     >>> # Place bodyguard before thrower     >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)     >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)     >>> colony.places[\"tunnel_0_3\"].add_insect(bee)     >>> bodyguard.action(colony)     >>> bee.armor     2          # Error: expected     #     1     # but got     #     2          Run only this test case with \"python3 ok -q 09 --suite 3 --case 2\"     ---------------------------------------------------------------------     Test summary         8 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "If the ThrowerAnt isn't firing, then that implies that either your action function in the BodyGuard class isn't correctly calling the contained ant's action method or your code doesn't properly contain the ThrowerAnt if the bodyguard is placed on a tile first and then the ThrowerAnt is placed second."
+                },
+                {
+                    "feedback": "Encountering the exact problem right now, not sure how to debug.    * Add to Phrasebook       * No word lists for English -> Traditional Chinese...       * Create a new word list...   * Copy"
+                },
+                {
+                    "feedback": "I have a problem with this part. When I Implement method action, the contained_ant is empty. In which section I should assignment the contained_ant?"
+                },
+                {
+                    "feedback": "The contain_ant method should handle all assignments of contained_ant."
+                },
+                {
+                    "feedback": "In contained_ant is empty (None). How can I assign it by another ant object?"
+                },
+                {
+                    "feedback": "is there an argument required for contain_ant?"
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "the contained_ant instance variable will be the ant instance if it contains an ant, and is otherwise None. the method signature for contain_ant is already provided in the skeleton code."
+                }
+            ]
+        },
+        {
+            "question": "I am wondering in order to perform the contained ant's actions, which method should I call? Should I call from Insect class, Ant class, or simply just call that contained ant and use a dot notation?",
+            "follow-ups": [
+                {
+                    "feedback": "The last one seems the best. Calling the Ant class is equivalent to doing the dot notation, so it's really up to you."
+                },
+                {
+                    "feedback": "Ok let me try to work it out, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "For part 3, \"If the `ant` currently occupying a `Place` can contain the `insect` (an `Ant`) passed to `add_insect`, then it does.\" I am stuck here, for \"the ant currently occupying a Place\", how can I access the current ant? I tried to use Place.ant but it didn't work. And for \"then it does\", I still couldn't get it, what it should do?",
+            "follow-ups": [
+                {
+                    "feedback": "Suppose p0 is a Place object. Then you can make the following call to get the ant in the place:                >>> p0.ant  If you are doing:                >>> Place.ant  Then that won't work since ant is an instance attribute and not a class attribute and you will get an error since you can't access it.  The second part of the statement is simply saying that if the BodyGuard ant is given an ant to contain, and it can contain it, then we make it so the BodyGuard contains the ant. As an example, if we had a BodyGuard ant at p0 that isn't containing anything, and we try to put a ThrowerAnt at p0, then the BodyGuard should contain the ThrowerAnt."
+                }
+            ]
+        },
+        {
+            "question": "I am stuck here for this test:  Problem 9 > Suite 3 > Case 2  >>> from ants import *   >>> beehive, layout = Hive(AssaultPlan()), dry_layout   >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))   >>> #   >>> # Testing bodyguard performs thrower's action   >>> bodyguard = BodyguardAnt()   >>> thrower = ThrowerAnt()   >>> bee = Bee(2)   >>> # Place bodyguard before thrower   >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)   >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)   >>> colony.places[\"tunnel_0_3\"].add_insect(bee)   >>> bodyguard.action(colony)   Traceback (most recent call last):   File \"C:\\Users\\thefi\\Desktop\\cs61a\\projects\\ants\\ants.py\", line 410, in action   self.contained_ant.actions(colony)   AttributeError: 'ThrowerAnt' object has no attribute 'actions'  Any clus on which part I did wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm I figured it out!"
+                },
+                {
+                    "feedback": "I have the same question"
+                },
+                {
+                    "feedback": "ThrowerAnts do not have an actions() method, but rather an action() method."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpps6alw2lg%2Fk1l29bqc2opk%2FCapture.PNG)  Do I need to change anything in remove_insect?",
+            "follow-ups": [
+                {
+                    "feedback": "remove_insect should already account for container ants. Verify that you are correctly adding the contained ant to the contained_ant instance attribute of BodyGuard."
+                },
+                {
+                    "feedback": "I have the same problem and I am stuck on it for a long time.  For function contained_ant function, is this right?                self.contained_ant = ant  And What should we do in the action?"
+                },
+                {
+                    "feedback": "Solved. Thanks"
+                },
+                {
+                    "feedback": "can you tell me how to solve the question? I face the same question for the whole evening. I thing self.contain_ant = ant is just right."
+                },
+                {
+                    "feedback": "There is a difference between self.contained_ant and self.contain_ant. self.contain_ant is the method that will attempt to contain the ant that is passed in, and self.contained_ant is the ant that container ant has. Verify that you aren't mixing these two things up."
+                },
+                {
+                    "feedback": "I've assigned self.contained_ant=ant in my contain_ant method and am failing this test case as well. Why is this wrong?"
+                },
+                {
+                    "feedback": "It might be the case that you are adding the BodyGuard ant to the place incorrectly then. I would try putting some print statements in add_insect to see if it is properly adding the ThrowerAnt to the BodyGuard if the BodyGuard is placed second."
+                }
+            ]
+        },
+        {
+            "question": "cannot figure out why I'm getting this error, any help?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk1l898bnfjjf%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191010_%E4%B8%8B%E5%8D%8814.41.19_%E4%B8%8B%E5%8D%88.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The issue is that your code is not throwing an AssertionError when the program tries to put a third ant into a place. You are only allowed either one ant, or one container ant and a non container ant in a single place (AKA a maximum of two ants in a single place), but your program is allowing a third."
+                },
+                {
+                    "feedback": "Thank you very much! Now fixed this case. But if my code is not throwing an AssertionError when adds two bodyguards, what could be the problem? I think by checking the can_contain function in previous cases the code could lead it to AssertinError...  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk1l9ie7fv217%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191010_%E4%B8%8B%E5%8D%8815.16.52_%E4%B8%8B%E5%8D%88.png)"
+                },
+                {
+                    "feedback": "nvm, never mind, I think there should be a problem with my can_contain code"
+                },
+                {
+                    "feedback": "^I am having a problem with a similar test case (except it's the one before). I can't figure out what exactly is going wrong."
+                },
+                {
+                    "feedback": "my problem was that my can_contain function didn't work correctly. if the two ants the program tries to pass in are both containers or if the container has already contain an ant, then error should be raised."
+                },
+                {
+                    "feedback": "Solved! I just wasn't calling the can_contain function correctly."
+                },
+                {
+                    "feedback": "I'm having a little trouble determining how we can check if the ant being contained is a container in the can_contain function, any suggestions?"
+                },
+                {
+                    "feedback": "An ant is a container if and only if they have an attribute called is_container and that attribute is truthy."
+                },
+                {
+                    "feedback": "I have the same problem as not returning assertion error when there are more than two ants in a place, but I do have an else condition for that. Any hints on how to overcome this?"
+                },
+                {
+                    "feedback": "I have a similar problem and have been stuck for hours. I keep getting:  \"\"\"  Problem 9 > Suite 3 > Case 8  >>> from ants import *   >>> beehive, layout = Hive(AssaultPlan()), dry_layout   >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))   >>> #   >>> # Testing single BodyguardAnt cannot hold two other ants   >>> bodyguard = BodyguardAnt()   >>> first_ant = ThrowerAnt()   >>> place = colony.places['tunnel_0_0']   >>> place.add_insect(bodyguard)   >>> place.add_insect(first_ant)   DEBUG: ANT IN PLACE BEFORE ADDING INSECT: BodyguardAnt(2, tunnel_0_0)   DEBUG: ANT IN PLACE: BodyguardAnt(2, tunnel_0_0) , INSECT CONTAINED IN ANT IN PLACE: ThrowerAnt(1, None)   >>> second_ant = ThrowerAnt()   >>> place.add_insect(second_ant)   DEBUG: ANT IN PLACE BEFORE ADDING INSECT: BodyguardAnt(2, tunnel_0_0)   DEBUG: ANT IN PLACE: BodyguardAnt(2, tunnel_0_0) , INSECT CONTAINED IN ANT IN PLACE: ThrowerAnt(1, None)  # Error: expected   # Traceback (most recent call last):   # ...   # AssertionError: Two ants in tunnel_0_0   # but got     Run only this test case with \"python3 ok -q 09 --suite 3 --case 8\"   \\---------------------------------------------------------------------   Test summary   14 test cases passed before encountering first failed test case  \"\"\"  OR:  \"\"\"  Problem 9 > Suite 3 > Case 3  >>> from ants import *   >>> beehive, layout = Hive(AssaultPlan()), dry_layout   >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))   >>> #   >>> # Testing bodyguard performs thrower's action   >>> bodyguard = BodyguardAnt()   >>> thrower = ThrowerAnt()   >>> bee = Bee(2)   >>> # Place thrower before bodyguard   >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)   >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)   DEBUG: ANT IN PLACE BEFORE ADDING INSECT: ThrowerAnt(1, tunnel_0_0)   DEBUG: BodyguardAnt(2, None)   DEBUG: ANT IN PLACE: BodyguardAnt(2, None) , INSECT CONTAINED IN ANT IN PLACE: ThrowerAnt(1, tunnel_0_0)   Traceback (most recent call last):   File \"C:\\Users\\\\_______\\Desktop\\cs61a\\projects\\ants\\ants.py\", line 59, in add_insect   assert self.ant is None, 'Two ants in {0}'.format(self)   AssertionError: Two ants in tunnel_0_0  # Error: expected  # but got   # Traceback (most recent call last):   # ...   # AssertionError: Two ants in tunnel_0_0  Run only this test case with \"python3 ok -q 09 --suite 3 --case 3\"   \\---------------------------------------------------------------------   Test summary   9 test cases passed before encountering first failed test case  \"\"\"  Depending on the booleans in my last if statement in the add_insect def statement.  I still don't really understand the similar posts about the topic... any hints?"
+                },
+                {
+                    "feedback": "nvm got it"
+                }
+            ]
+        },
+        {
+            "question": "I am getting this error. Any suggestions on where I am going wrong?  Problem 9 > Suite 3 > Case 3  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))  >>> #  >>> # Testing bodyguard performs thrower's action  >>> bodyguard = BodyguardAnt()  >>> thrower = ThrowerAnt()  >>> bee = Bee(2)  >>> # Place thrower before bodyguard  >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)  >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)  >>> colony.places[\"tunnel_0_3\"].add_insect(bee)  >>> bodyguard.action(colony)  Traceback (most recent call last):  File \"/Users/devyanshi/Desktop/cs61a/ants/ants.py\", line 411, in action  return self.contained_ant.action(colony)  File \"/Users/devyanshi/Desktop/cs61a/ants/ants.py\", line 256, in action  self.throw_at(self.nearest_bee(colony.beehive))  File \"/Users/devyanshi/Desktop/cs61a/ants/ants.py\", line 242, in nearest_bee  if random_or_none(new_place.bees) and (self.min_range <= n <= self.max_range):  AttributeError: 'NoneType' object has no attribute 'bees'  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AttributeError: 'NoneType' object has no attribute 'bees'  Run only this test case with \"python3 ok -q 09 --suite 3 --case 3\"",
+            "follow-ups": [
+                {
+                    "feedback": "You are getting this error because `new_place` is None. Make sure it is being set properly"
+                },
+                {
+                    "feedback": "I tried printing out the values of new_place and that seems to be working so I don't understand where the problem is"
+                },
+                {
+                    "feedback": "nvm i got it. thanks!"
+                },
+                {
+                    "feedback": "Same problem here, how did you solve it?"
+                }
+            ]
+        },
+        {
+            "question": "I'm running into a problem where the contained ant's Place is not updating when the BodyguardAnt dies. Which part of the code is best to implement this? Or is there another way to fix this that I'm overlooking?",
+            "follow-ups": [
+                {
+                    "feedback": "This is already implemented for you in `Place.remove_insect`; I suggest you read through it to make sure the given implementation works with your code. Note that you must use the names `contained_ant` and `is_container`                            # Special handling for container ants                 if self.ant is insect:                     # Bodyguard was removed. Contained ant should remain in the game                     if hasattr(self.ant, 'is_container') and self.ant.is_container:                         self.ant = self.ant.contained_ant                     else:                         self.ant = None                 else:                     # Contained ant was removed. Bodyguard should remain                     if hasattr(self.ant, 'is_container') and self.ant.is_container \\                             and self.ant.contained_ant is insect:                         self.ant.contained_ant = None                     else:                         assert False, '{0} is not in {1}'.format(insect, self)"
+                },
+                {
+                    "feedback": "I got it now, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I am getting an error where the container part of the ant is not functioning properly. I know that I need to somehow redirect the damage done to the contained ant to the container, but am unsure how.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh172oqsk2r0%2Fk1mrvuy1bx49%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "The container ant should automatically take the place of the ant it contains, assuming you follow number 3 in the instructions:  Modify `Place.add_insect` to allow a container and a non-container ant to occupy the same place according to the following rules:    * If the `ant` currently occupying a `Place` can contain the `insect` (an `Ant`) passed to `add_insect`, then it does.   * If the `insect` (an `Ant`) passed to `add_insect` can contain the `ant`currently occupying a `Place`, then it does. Also, set the `Place`'s `ant`to be the container insect.   * If neither `Ant` can contain the other, raise the same`AssertionError` as before (the one already present in the starter code)."
+                },
+                {
+                    "feedback": "I still don't quite understand how or where to implement this function."
+                },
+                {
+                    "feedback": "there is a Place.add_insect function that already has code to add insects to specific places. for this question, you should add code to this function to account for the fact that we may add an insect to a place that already contains an insect, since one of the two insects may be a container ant. Cyrus's breakdown above is pretty good in terms of pseudocode for how to do it."
+                }
+            ]
+        },
+        {
+            "question": "I'm receiving an error where my inner ant is being returned as a tuple, (ThrowerAnt(1, tunnel_0_0), None). Does anyone know why this might be happening? This is the only thing breaking my code.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out, but now I recieve a recursion error  RecursionError: maximum recursion depth exceeded"
+                },
+                {
+                    "feedback": "Perhaps you are calling a method within itself instead of the parent method within the child's method"
+                },
+                {
+                    "feedback": "I received such an error because I am calling the contained ant's action within the bodyguard's action method, since that the only place where a colony argument is located that could be used within the thrower ant action's method, however, I realized that doing so would cause an infinite recursion. I do not really see how I could not call the action method of the thrower ant within the bodyguard ant."
+                }
+            ]
+        },
+        {
+            "question": "Problem 9 > Suite 3 > Case 2  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))  >>> #  >>> # Testing bodyguard performs thrower's action  >>> bodyguard = BodyguardAnt()  >>> thrower = ThrowerAnt()  >>> bee = Bee(2)  >>> # Place bodyguard before thrower  >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)  >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)  >>> colony.places[\"tunnel_0_3\"].add_insect(bee)  >>> bodyguard.action(colony)  Traceback (most recent call last):  File \"/Users/kelvinlee/Desktop/ants/ants.py\", line 476, in action  self.contained_ant.action(colony)  File \"/Users/kelvinlee/Desktop/ants/ants.py\", line 280, in action  self.throw_at(self.nearest_bee(colony.beehive))  File \"/Users/kelvinlee/Desktop/ants/ants.py\", line 269, in nearest_bee  return helper(self.place, beehive)  File \"/Users/kelvinlee/Desktop/ants/ants.py\", line 263, in helper  elif current.bees:  AttributeError: 'NoneType' object has no attribute 'bees'  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AttributeError: 'NoneType' object has no attribute 'bees'  Run only this test case with \"python3 ok -q 09 --suite 3 --case 2\"  \\---------------------------------------------------------------------  Test summary  8 test cases passed before encountering first failed test case  I'm having some trouble with this case, anyone knows whats wrong with it?",
+            "follow-ups": [
+                {
+                    "feedback": "and my problem 4 was passed tho"
+                },
+                {
+                    "feedback": "If you have a variable called current, make sure it is never None so you can get its bees attribute."
+                }
+            ]
+        },
+        {
+            "question": "Problem 9 > Suite 3 > Case 2  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))  >>> #  >>> # Testing bodyguard performs thrower's action  >>> bodyguard = BodyguardAnt()  >>> thrower = ThrowerAnt()  >>> bee = Bee(2)  >>> # Place bodyguard before thrower  >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)  >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)  >>> colony.places[\"tunnel_0_3\"].add_insect(bee)  >>> bodyguard.action(colony)  >>> bee.armor  2  # Error: expected  # 1  # but got  # 2  Run only this test case with \"python3 ok -q 09 --suite 3 --case 2\"  Im not sure why I cant get 1",
+            "follow-ups": [
+                {
+                    "feedback": "Check the first followup for more detail, but essentially you need to verify that the ThrowerAnt is being properly contained by the BodyGuard when placed second and that you are calling its action method inside of the BodyGuard's action method."
+                },
+                {
+                    "feedback": "I think its properly contained tho"
+                },
+                {
+                    "feedback": "Hi, I'm having the same problem. While debugging, I realised that the issue is the action method. Right now, my BodyGuaurd ant's action method checks if self.contained_ant is True and then calls self.contained_ant.action(colony). Not sure where I'm going wrong"
+                },
+                {
+                    "feedback": "self.contained_ant is an Ant object. If you are checking if it is equal to True, then that will always naturally give False as Ants are not booleans."
+                },
+                {
+                    "feedback": "I see. But how can I check if there is an ant? I tried the is_ant attribute, which doesn't work."
+                },
+                {
+                    "feedback": "If there is no ant in a BodyGuard, then contained_ant should be None (As seen in the constructor of BodyGuard ant). If contained_ant is not None, then that implies there is an ant in there."
+                },
+                {
+                    "feedback": "Got it, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Are we supposed to use contained_ant within to modify the add_insect constructor?",
+            "follow-ups": [
+                {
+                    "feedback": "sure"
+                }
+            ]
+        },
+        {
+            "question": "How would you remove a Bodyguard Ant without touching the ant contained inside of it? Should you make a list at the place you want to add the Bodyguard Ant and include both the Bodyguard Ant (with the contained ant in side of it) and then the contained ant by itself, or...?",
+            "follow-ups": [
+                {
+                    "feedback": "This functionality is already implemented for you (copied from above):                            # Special handling for container ants                 if self.ant is insect:                     # Bodyguard was removed. Contained ant should remain in the game                     if hasattr(self.ant, 'is_container') and self.ant.is_container:                         self.ant = self.ant.contained_ant                     else:                         self.ant = None                 else:                     # Contained ant was removed. Bodyguard should remain                     if hasattr(self.ant, 'is_container') and self.ant.is_container \\                             and self.ant.contained_ant is insect:                         self.ant.contained_ant = None                     else:                         assert False, '{0} is not in {1}'.format(insect, self)"
+                },
+                {
+                    "feedback": "Hm.. I'm still not sure where I'm going wrong. The bodyguard ant seems to be containing the thrower ant fine, but place.ant returns None after you try to remove the bodyguard ant. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjgnofkd5ka%2Fk1ph2ddlirom%2Fproblem_9_container_help_1013.PNG)"
+                },
+                {
+                    "feedback": "Make sure your add_insect method is actually changing the ant that's in the place. I had the same issue."
+                }
+            ]
+        },
+        {
+            "question": "Problem 9 > Suite 3 > Case 11 >>> from ants import * >>> beehive, layout = Hive(AssaultPlan()), dry_layout >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9)) >>> # >>> # test proper call to death callback >>> original_death_callback = Insect.death_callback >>> Insect.death_callback = lambda x: print(\"insect died\") >>> place = colony.places[\"tunnel_0_0\"] >>> bee = Bee(3) >>> bodyguard = BodyguardAnt() >>> ant = ThrowerAnt() >>> place.add_insect(bee) >>> place.add_insect(ant) >>> place.add_insect(bodyguard) Traceback (most recent call last): File \"/Users/Desktop/cs61a/projects/ants/ants.py\", line 47, in add_insect assert self.ant is None, 'Two ants in {0}'.format(self) AssertionError: Two ants in tunnel_0_0 # Error: expected # but got # Traceback (most recent call last): # ... # AssertionError: Two ants in tunnel_0_0 Run only this test case with \"python3 ok -q 09 --suite 3 --case 11\" \\--------------------------------------------------------------------- Test summary Passed: 9 Failed: 9 [oooook.....] 50.0% passed Backup... 100% complete \\---------------------------------------------------------------------- I'm still confused on how to modify add_insect properly",
+            "follow-ups": [
+                {
+                    "feedback": "There should be only one ant in place (i.e. one `place.ant`).   Hint: Try using `can_contain` and `contain_ant` you defined in `BodyguardAnt` class"
+                }
+            ]
+        },
+        {
+            "question": "I got this error but I don't see why self.place.bees (where I'm checking if the BodyGuardAnt's place has bee) doesn't work.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1pjsfb4cmpr%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191013_%E4%B8%8B%E5%8D%883.13.34.png)",
+            "follow-ups": [
+                {
+                    "feedback": "`self.place` is equal to None. Make sure it is being set properly"
+                },
+                {
+                    "feedback": "Why would it be equal to None? Shouldn't self represent the BodyGuardAnt in the current place?"
+                },
+                {
+                    "feedback": "When a BodyguardAnt gets added to a place, you have forgotten to update its place attribute to reflect that change."
+                }
+            ]
+        },
+        {
+            "question": "When my bodyguard ant gets removed it takes the test_ant with it (replacing the bodyguard ant also places the test ant inside of it). Does anyone have any advice on how to proceed? I can't seem to get this to work.",
+            "follow-ups": [
+                {
+                    "feedback": "Check out Place's remove_insect method. It might be the case that your BodyguardAnt isn't correctly identified as a container, or that it never had a contained_ant to begin with (so it has the value None)."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain why when I call BodyguardAnt.contained_ant(self.ant,insect) or BodyguardAnt.contained_ant(insect,self.ant) in the add_insect method, I get the error  \"'NoneType' object is not callable\"?",
+            "follow-ups": [
+                {
+                    "feedback": "Well first off, contained_ant is supposed to be an Ant object. You cannot call those like functions.  Second off, BodyguardAnt shouldn't even have a class attribute called contained_ant since it's supposed to be an instance attribute, so you should call it on a specific instance of a BodyguardAnt and not the whole class itself.  Lastly, if a BodyguardAnt instance has no ant contained within it, then it will be None."
+                },
+                {
+                    "feedback": "ah ok, i meant to type contain_ant instead of contained_ant. Thanks, it is quite clear that contained_ant is an object. my b"
+                },
+                {
+                    "feedback": "Ah, in that case, the second way you did it should work. BodyguardAnt.contain_ant(insect, self.ant) will put the ant at this place into the insect (which is presumably a BodyGuard ant). if you're getting this error, then that means, somewhere, you're calling None like a function. It might be inside of contain_ant itself if you're getting the error on this line."
+                }
+            ]
+        },
+        {
+            "question": "How do you make sure that the armor of the contained ant is not harmed?",
+            "follow-ups": [
+                {
+                    "feedback": "could somebody please help, I am still stuck on this :("
+                },
+                {
+                    "feedback": "Stuck on this too, please help"
+                },
+                {
+                    "feedback": "make sure that `place.ant` is the container ant instead of the contained ant"
+                }
+            ]
+        },
+        {
+            "question": "I've been stuck for the past couple of hours:   How do we make sure that the contained ant does not die with the bodyguard ant?  My hypothesis was to add a condition in the action method of bodyguard? Is that the right way to think about it? Can you give me further clues, I'm really stuck",
+            "follow-ups": [
+                {
+                    "feedback": "See Kendrick's follow up for a hint."
+                }
+            ]
+        },
+        {
+            "question": "Can we call \"Ant.action(self, colony)\" to access the contained_ant's action?",
+            "follow-ups": [
+                {
+                    "feedback": "No because self doesn't refer to the contained_ant but instead the Container ant."
+                },
+                {
+                    "feedback": "If you would like to call an instance method on an object, you can do `object_name.method_name(parameters)` to avoid having to pass in a value for the `self` parameter."
+                }
+            ]
+        },
+        {
+            "question": "Are we supposed to define a new attribute 'name' to the ant class? I keep getting an error saying: AttributeError: 'Ant' object has no attribute 'name'",
+            "follow-ups": [
+                {
+                    "feedback": "No"
+                }
+            ]
+        },
+        {
+            "question": "From the prompt, it says 'set the `Place`'s `ant` to be the container insect.' What is this mean and how do I solve this problem. Error: >>> # Testing removing a bodyguard doesn't remove contained ant >>> place = colony.places['tunnel_0_0'] >>> bodyguard = BodyguardAnt() >>> test_ant = Ant(1) >>> # add ant first >>> place.add_insect(test_ant) >>> place.add_insect(bodyguard) >>> colony.remove_ant('tunnel_0_0') >>> place.ant is test_ant False # Error: expected # True # but got # False",
+            "follow-ups": [
+                {
+                    "feedback": "`place` has an instance attribute `ant` (`self.ant` in `Place` class). \"set the `Place's `ant to be the container insect\" means that this `self.ant` should be container ant instead of the ant contained inside."
+                },
+                {
+                    "feedback": "Do I have to set self.ant's (is_container) value to True to make it to container ant? Should I also do this implementation when self.ant value is pass to the contain_ant function?"
+                }
+            ]
+        },
+        {
+            "question": "How can we call the contained_ant action inside action method of BodyGuardAnt? And do we need to call Bee.reduce_armor on contained_ant's damage to damage bees?",
+            "follow-ups": [
+                {
+                    "feedback": "Does the `contained_ant` have a method that will take their action when called?   With the goal to reduce redundant code using OOP in mind, is there a method that you can call that already does this?"
+                }
+            ]
+        },
+        {
+            "question": "How do we access the \"ant currently occupying a place\"? for part 3",
+            "follow-ups": [
+                {
+                    "feedback": "`ant` is an attribute of a Place"
+                },
+                {
+                    "feedback": "Ah, so self.ant would be the ant in the current place?"
+                },
+                {
+                    "feedback": "Depends where you are. Inside an instance method in the class `Place`, this works. But if you're in a method of a class that has a `place` attribute, you need to write `self.place.ant`"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting the error: ThrowerAnt has no attribute contained_ant. Am I modifying my classes wrong in this case?",
+            "follow-ups": [
+                {
+                    "feedback": "Probably, something to check for is whether you are adding an `is_container` attribute to every necessary class."
+                },
+                {
+                    "feedback": "I did added is_container attribute to every necessary class but its keep giving me the same error. Need help!."
+                }
+            ]
+        },
+        {
+            "question": "why is self.ant assigned to insect in add_insect?",
+            "follow-ups": [
+                {
+                    "feedback": "That occurs when self.ant is None. So if we are trying to add an insect to a Place, and it currently has no ant attribute, we can just set self.ant to be insect (essentially putting the insect into the Place)."
+                }
+            ]
+        },
+        {
+            "question": "is can_contain supposed to be a class attribute in the Ant class?",
+            "follow-ups": [
+                {
+                    "feedback": "No, the class attribute that represents whether or not an ant is a container is `is_container`"
+                }
+            ]
+        },
+        {
+            "question": "Where do you think I am going wrong in my code? Im confused.  Problem 9 > Suite 3 > Case 2  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))  >>> #  >>> # Testing bodyguard performs thrower's action  >>> bodyguard = BodyguardAnt()  >>> thrower = ThrowerAnt()  >>> bee = Bee(2)  >>> # Place bodyguard before thrower  >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)  Traceback (most recent call last):  File \"/Users//Desktop/cs61a/projects/ant/ants.py\", line 53, in add_insect  assert self.ant is None, 'Two ants in {0}'.format(self)  AssertionError: Two ants in tunnel_0_0  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # AssertionError: Two ants in tunnel_0_0  Run only this test case with \"python3 ok -q 09 --suite 3 --case 2\"  \\---------------------------------------------------------------------  Test summary  8 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, fixed it, my conditionals were just in a weird order in add_insect"
+                }
+            ]
+        },
+        {
+            "question": "Conceptually, I'm not sure what action bodyguard ants are supposed to do if they aren't containing another ant. Is there something specific? Thanks in advance for any responses!",
+            "follow-ups": [
+                {
+                    "feedback": "They don't do anything in that case"
+                },
+                {
+                    "feedback": "from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))     >>> #     >>> bodyguard = BodyguardAnt()     >>> bodyguard.action(colony) # Action without contained ant should not error  I'm a bit confused then when it comes to this doctest. How do we prevent an error if we don't implement anything in the case that contained_ant == None?"
+                },
+                {
+                    "feedback": "What error would be thrown? Just because an action doesn't do anything does not mean an error will be thrown"
+                },
+                {
+                    "feedback": "Ah, got it, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Is it possible if I can please get any hints of why I am getting this error? In my add_insect method, I currently check if---redacted---  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdind6ryr4mj%2Fk1ubeu1b5hue%2FScreen_Shot_20191016_at_5.33.07_PM.png)/",
+            "follow-ups": [
+                {
+                    "feedback": "I redacted some of your post because it gave out too much for the fellow students. One thing you should keep in mind is that when you have a containerAnt and a non-containerAnt in the same place, the place's Ant (place attribute's `self.ant`) should be set to the container ant, not the contained ant"
+                }
+            ]
+        },
+        {
+            "question": "please help?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5gk45uqr445h%2Fk1udw2jwb6zv%2FScreen_Shot_20191017_at_00.29.19.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind, i got it. I forgot to add is_container attribute to bodyguard ant and also, there was something wrong with my can_contain function"
+                }
+            ]
+        },
+        {
+            "question": "I am getting the following error:                Problem 9 > Suite 3 > Case 2          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> colony = AntColony(None, beehive, ant_types(), layout, (1, 9))     >>> #     >>> # Testing bodyguard performs thrower's action     >>> bodyguard = BodyguardAnt()     >>> thrower = ThrowerAnt()     >>> bee = Bee(2)     >>> # Place bodyguard before thrower     >>> colony.places[\"tunnel_0_0\"].add_insect(bodyguard)     >>> colony.places[\"tunnel_0_0\"].add_insect(thrower)     BodyguardAnt(2, tunnel_0_0) ThrowerAnt(1, None)     Traceback (most recent call last):              self.ant.contain_ant(self.ant, insect)     TypeError: contain_ant() takes 2 positional arguments but 3 were given          # Error: expected          # but got     #     Traceback (most recent call last):     #       ...     #     TypeError: contain_ant() takes 2 positional arguments but 3 were given          Run only this test case with \"python3 ok -q 09 --suite 3 --case 2\"     ---------------------------------------------------------------------     Test summary         8 test cases passed before encountering first failed test case  I'm not sure how 3 arguments are given when the function call seems to only have 2 (one on either side of the only comma)",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, I am silly."
+                }
+            ]
+        },
+        {
+            "question": "Are we supposed to modify the Assert line? isn't the line alway give AssertionError? Since self.ant is not empty in the else case.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6refm6jl9q1g8%2Fk1vr5wibn7ag%2FScreen_Shot_20191017_at_23.28.24.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Yep. Except with the addition of the BodyguardAnt, there are now cases where there could be two ants in one space, so assering that there is not ant in that space is no longer the correct thing to do. See what the new condition should be."
+                }
+            ]
+        },
+        {
+            "question": "(Just ignore this post. I meant to put it in a comment.)"
+        }
+    ]
+}

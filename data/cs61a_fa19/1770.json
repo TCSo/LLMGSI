@@ -1,0 +1,160 @@
+{
+    "subject": "[HW 06] Q4: Pow",
+    "content": "<a href=\"https://cs61a.org/hw/hw06//#q4\">Q4: Pow</a>\n\n<p> Please post all questions you have below concerning Q4: Pow in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "scm> (pow 2 5)  # Error: int is not callable: 1  # Error: expected  # 32  # but got  # Traceback (most recent call last):  # ...  # SchemeError: int is not callable: 1  If I can't use ints to modifiy n, how are we supposed to implement the hints?",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind i got it"
+                },
+                {
+                    "feedback": "What did you change? I keep getting the same error."
+                },
+                {
+                    "feedback": "Generally if you have something like the following:                (+ (2) 3)  This will give the error above because it will try calling 2 as a procedure. Whilst:                (+ 2 3)  Works fine."
+                },
+                {
+                    "feedback": "I also got this error, but I don't think it's because I put a number in parens.When I run in the editor I'm getting  (load-all \".\")  ; Expected: 32   ; Actual : SchemeError: int is not callable: 2   (pow 2 5)  Maybe I'm not utilizing the arguments correctly?"
+                },
+                {
+                    "feedback": "I'm getting the same error as well. I'm not sure how to format it to where it won't try calling an integer as a procedure."
+                },
+                {
+                    "feedback": "I'm getting the exact same error and I don't know what's wrong with it."
+                },
+                {
+                    "feedback": "You most likely have an extraneous pair of parentheses somewhere, even if it’s not super obvious - look closely"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting a maximum recursion depth exceeded error, even though when I ran the same code in python tutor it worked, any help would be appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "When you say \"same code\" do you mean a Python equivalent of your scheme program? If so, perhaps you missed a base case"
+                },
+                {
+                    "feedback": "yes, I ran the python equivalent. I figured it out though, I was missing a pair of parentheses."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting \"bool is not callable\" error. However when I change if to cond, I get 8192 instead of 32 for (pow 2 5).",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out! I wasn't returning the right thing for my base case, but I still don't get why can't I use if here?"
+                },
+                {
+                    "feedback": "There is a base case, and two recursive branches (one for odd numbers, one for even numbers) so there are at least 3 distinct returned possibilities, meaning `cond` is better suited for this problem"
+                },
+                {
+                    "feedback": "Got it! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "What is the purpose of checking whether or not n is even or odd? Why can't you just subtract 1 from n with each recursion call until n reaches 0 and then returning 1 for the base case?  Python equivalent:  def pow(b,n):  if n == 0:  return 1  return b * pow(b,n-1)",
+            "follow-ups": [
+                {
+                    "feedback": "From the problem description we are asked to \"implement a procedure `pow` for raising the number `b` to the power of a nonnegative integer `n` **for which the number of operations grows logarithmically (as opposed to linearly)**.\" The code you have provided grows linearly with time (because n decreases by 1 every time). So it is an acceptable way to calculate the power of a number, but does not meet the order of growth demanded from the problem. Using the hints, you can create a logarithmic pow function."
+                }
+            ]
+        },
+        {
+            "question": "I have my base cases within my cond statement, but in the else within the cond I am having trouble structuring my code. I am trying to get an even case within the else as well as an odd case, however, I always seem to get an \"operand 0 (none) is not a number\" when I try to implement the even and odd. Just to clear up, I have an initial cond statement with the base cases and an else statement. The else statement has an additional cond statement which then has the even and odd cases. Can someone clear up what I am doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "You can have more than two conditions in a cond statement. There's no need to fit everything into the else. Here's an example:                scm> (define (spooky num)       \t(cond [(= 31 num) \"Happy Halloween!\"]        \t      [(= 13 num) \"Friday The Thirteenth!\"]       \t      [(= 9 num) \"Cats Have 9 Lives!\"]        \t      [else \"Not Spooky!\"]       \t)            )       spooky       scm> (spooky 9)       \"Cats Have 9 Lives!\"       scm> (spooky 2345)       \"Not Spooky!\"       scm> (spooky 31)       \"Happy Halloween!\"       scm> (spooky 13)       \"Friday The Thirteenth!\""
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm getting a maximum recursion error, but unlike in the previous post about it, i know I'm not missing any parentheses. what could be the reason?",
+            "follow-ups": [
+                {
+                    "feedback": "You're likely not reaching a base case properly"
+                }
+            ]
+        },
+        {
+            "question": "All the test cases pass for my code, and I tried to use the format outlined by the directions, but how do I make sure that the number of operations grows logarithmically? Thanks in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure that your code resembles the hints, and you should be good"
+                }
+            ]
+        },
+        {
+            "question": "What is happening right now?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyyd494x694%2Fk2e4be2ahidj%2FScreen_Shot_20191030_at_7.56.32_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It seems like you are passing a lambda expression as the argument into a function that takes a number as input. Verify your parenthesis are correct."
+                }
+            ]
+        },
+        {
+            "question": "do we use recursion for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "Also, I just want to add that a lot of Scheme questions use recursion of some sort, because Scheme does not have `for` loops or `while` loops!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting your-code-here as my output, no matter what I try",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps your terminal is in a different directory then the file you're editing? Try making a private post with your code if you're still getting the error after verifying you're in the right directory."
+                }
+            ]
+        },
+        {
+            "question": "Why can't you use if for this problem? Are we limited to using cond?",
+            "follow-ups": [
+                {
+                    "feedback": "Because there is one base case and two recursive cases"
+                }
+            ]
+        },
+        {
+            "question": "I'm still getting a maximum recursion depth error, but I think I have all the base cases. What could I be missing?",
+            "follow-ups": [
+                {
+                    "feedback": "Your recursive call is likely wrong - make sure that your recursive calls match the hints"
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191101_at_3.43.20_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhl9cy4r411%2Fk2gq5fnlruee%2FScreen_Shot_20191101_at_3.43.20_PM.png)  suddenly i cannout run my code in the terminal, can someone help?",
+            "follow-ups": [
+                {
+                    "feedback": "I have the same problem too"
+                },
+                {
+                    "feedback": "I also have this problem"
+                },
+                {
+                    "feedback": "same"
+                },
+                {
+                    "feedback": "same!"
+                },
+                {
+                    "feedback": "please see @1864!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this error for some reason, and I don't know how to fix it.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlx2xhbqzpklj%2Fk2h2u2yxw35t%2Ferror.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "@1880"
+                }
+            ]
+        }
+    ]
+}

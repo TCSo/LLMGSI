@@ -1,0 +1,76 @@
+{
+    "subject": "[HW 03] Q1: Num Sevens",
+    "content": "<a href=\"https://cs61a.org/hw/hw03/#q1\">Q1: Num Sevens</a>\n\n<p> Please post all questions you have below concerning Q1: Num Sevens in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I thought that I wrote it without any assignment statements, but it is still saying that I have an assignment statement. I did define a function. Would that cause it? Or would saying \"if n==7\" result in that response?",
+            "follow-ups": [
+                {
+                    "feedback": "No, the if statement isn't the problem. If you have assignment statements in your helper function, that can also set off the test."
+                },
+                {
+                    "feedback": "Perhaps you assigned a lambda to a variable?"
+                },
+                {
+                    "feedback": "The only place I have an equal sign in the code is in the line if n==7. Is there anything else that could be causing it? Any other symbol?"
+                },
+                {
+                    "feedback": "I'm pretty sure only '=' (or something like '+=', '-=', etc.) can cause that error."
+                },
+                {
+                    "feedback": "Check every single line in the method thoroughly, and worst comes to worst, copy your code elsewhere, start from scratch, and write in your code line-by- line (run Ok after inputting each line), seeing after which line the error gets thrown."
+                },
+                {
+                    "feedback": "Thanks all for your suggestions. It wound up just being that I was saving the file to the wrong place."
+                }
+            ]
+        },
+        {
+            "question": "i am trying to create a counter variable that will keep track of how many times a 7 is found, but i don't think the counter variable's value is being saved? every time i call the function again, the counter variable doesn't update, any hints on how to approach this?",
+            "follow-ups": [
+                {
+                    "feedback": "Using a helper function that calls itself and takes in the counter as a parameter may do the trick"
+                }
+            ]
+        },
+        {
+            "question": "what does this error mean?  \" maximum recursion depth exceeded in comparison\"",
+            "follow-ups": [
+                {
+                    "feedback": "Your recursive algorithm isn't reaching a base case as it's supposed to, so it repeats infinitely."
+                },
+                {
+                    "feedback": "when I test my code it works, wouldn't that mean that it doesn't repeat infinitely?"
+                },
+                {
+                    "feedback": "So it works on your own test cases but doesn't work on the test cases given by the auto-grader? If that's the case, your algorithm is likely too inefficient to compute results for high values of `n`."
+                }
+            ]
+        },
+        {
+            "question": "Confused about how we can count with out assignment? As in how to count without the usual counter = counter + 1 ?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider a way to solve this problem without incrementing a counter, but rather returning an incremented value"
+                }
+            ]
+        },
+        {
+            "question": "I think my base case is correct where you want to return 1 or 0 depending on whether the digit is 7 or not but I am confused as to how I should go about the recursive call of the helper function? Any hints as to how to both iterate through n while also returning counter (addition of previous return statements)?",
+            "follow-ups": [
+                {
+                    "feedback": "Try having a look at the discussion worksheet if you haven't already. There's a problem that involves incrementing as the solution and should belp your in returning a counter :). As for the recursive call, think about how you can truncate one digit after checking it is a seven and how num_sevens behaves in a call.  Edit: To be specific, it is problem 1.3 on the discussion worksheet on Recursion"
+                },
+                {
+                    "feedback": "I'm still confused about how to remove/reset the value n without any assignment statements"
+                },
+                {
+                    "feedback": "That is not really helpful because they advised us that it would be helpful to use a healper function, so that makes the implementation of iterating different because we'd want to update the counter as well as update n."
+                },
+                {
+                    "feedback": "Think about how you can truncate a n. If your helper function takes in n, how are you able to remove the ones digit from n and pass that in?"
+                }
+            ]
+        }
+    ]
+}

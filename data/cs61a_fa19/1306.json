@@ -1,0 +1,134 @@
+{
+    "subject": "[Ants] Problem 7",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-7-2-pt\">Problem 7</a>\n\n<p> Please post all questions you have below concerning Problem 7 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Problem 7 > Suite 2 > Case 3 >>> from ants import * >>> beehive, layout = Hive(AssaultPlan()), dry_layout >>> dimensions = (1, 9) >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions) >>> # >>> # Testing NinjaAnts do not block bees >>> p0 = colony.places[\"tunnel_0_0\"] >>> p1 = colony.places[\"tunnel_0_1\"] # p0 is p1's exit >>> bee = Bee(2) >>> ninja = NinjaAnt() >>> thrower = ThrowerAnt() >>> p0.add_insect(thrower) # Add ThrowerAnt to p0 >>> p1.add_insect(bee) >>> p1.add_insect(ninja) # Add the Bee and NinjaAnt to p1 >>> bee.action(colony) >>> bee.place is ninja.place # Did NinjaAnt block the Bee from moving? False >>> bee.place is p0 False # Error: expected # True # but got # False I took a similar approach as to the Fire Ant problem, and I'm unsure as to why the bee is dying prematurely...",
+            "follow-ups": [
+                {
+                    "feedback": "Do you handle it? Could you tell me something?"
+                },
+                {
+                    "feedback": "^It is definitely something wrong with your blocked(). Try changing it up and see what happens."
+                },
+                {
+                    "feedback": "For me, it had to do with blocked() shortcircuiting due to an error."
+                }
+            ]
+        },
+        {
+            "question": "What does 'Locked:4' mean in  Test summary  Locked: 4  82 test cases passed! No cases failed.",
+            "follow-ups": [
+                {
+                    "feedback": "It means you haven't unlocked the test cases for later questions. It's fine, you will receive credit for everything up to number 7."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1k98nrfynk1%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191009222126.png)Don't know why it failed. Could anyone give me a help?",
+            "follow-ups": [
+                {
+                    "feedback": "Double check your implementation of the blocked() method in the Bee class - it should return `False` if either there is no `Ant` in the `Bee`'s `place` or if there is an `Ant`, but its `blocks_path` attribute is `False`.``"
+                },
+                {
+                    "feedback": "I have the same problem ;("
+                },
+                {
+                    "feedback": "Where's the bee then? How could it just vanish from both p1 and p0?"
+                },
+                {
+                    "feedback": "For me I changed up the doc test and found out the ninja got killed by the bee, even through the is_blocking is set to false for NinjaAnt"
+                },
+                {
+                    "feedback": "So, do you figure it out?"
+                },
+                {
+                    "feedback": "I also seem to have an issue of the ninja ant dying even though blocks_path is set to False"
+                },
+                {
+                    "feedback": "Make sure you using `blocks_path` correctly in blocked()."
+                }
+            ]
+        },
+        {
+            "question": "Problem 7 > Suite 2 > Case 9          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> #     >>> # Testing Bee does not crash when left alone     >>> bee = Bee(3)     >>> colony.places[\"tunnel_0_1\"].add_insect(bee)     >>> bee.action(colony)     Traceback (most recent call last):       File \"C:\\Users\\yeet\\Desktop\\cs61a\\projects\\ants\\ants.py\", line 167, in action         self.sting(self.place.ant)       File \"C:\\Users\\yeet\\Desktop\\cs61a\\projects\\ants\\ants.py\", line 141, in sting         ant.reduce_armor(self.damage)     AttributeError: 'NoneType' object has no attribute 'reduce_armor'          # Error: expected          # but got     #     Traceback (most recent call last):     #       ...     #     AttributeError: 'NoneType' object has no attribute 'reduce_armor'  I assume this means there's something wrong with my \"blocked\" method and how the dot notation is written, could someone help me out? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "OP here. Deleted and reformatted my answer, for some reason that worked."
+                },
+                {
+                    "feedback": "I got the same problem as you.. how do you solve it?"
+                }
+            ]
+        },
+        {
+            "question": "Problem 7 > Suite 2 > Case 3          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> #     >>> # Testing NinjaAnts do not block bees     >>> p0 = colony.places[\"tunnel_0_0\"]     >>> p1 = colony.places[\"tunnel_0_1\"]  # p0 is p1's exit     >>> bee = Bee(2)     >>> ninja = NinjaAnt()     >>> thrower = ThrowerAnt()     >>> p0.add_insect(thrower)            # Add ThrowerAnt to p0     >>> p1.add_insect(bee)     >>> p1.add_insect(ninja)              # Add the Bee and NinjaAnt to p1     >>> bee.action(colony)     >>> bee.place is ninja.place          # Did NinjaAnt block the Bee from moving?     False     >>> bee.place is p0     True     >>> ninja.armor     1     >>> bee.action(colony)     Traceback (most recent call last):       File \"/Users/admin/Desktop/cs61a/projects/ants/ants.py\", line 175, in action         self.move_to(destination)       File \"/Users/admin/Desktop/cs61a/projects/ants/ants.py\", line 147, in move_to         place.add_insect(self)       File \"/Users/admin/Desktop/cs61a/projects/ants/ants.py\", line 770, in add_insect         raise BeesWinException()     ants.BeesWinException          # Error: expected          # but got     #     Traceback (most recent call last):     #       ...     #     BeesWinException:           Run only this test case with \"python3 ok -q 07 --suite 2 --case 3\"  Not sure why this is the only case that failed. Can anyone explain the error to me? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the same bug..."
+                },
+                {
+                    "feedback": "hi, i fixed it by basically rewriting everything on a blank ants.py file. hope it works for you!"
+                },
+                {
+                    "feedback": "I fixed my issue too! For me the issue was with the implementation of bee.blocked in that I mixed up some of the booleans and return values (and the case if there is no ant in a Place became an issue too), but the mixup was such that most of the test cases passed anyways"
+                },
+                {
+                    "feedback": "bruh I have the same issue. help"
+                },
+                {
+                    "feedback": "I'm pretty sure my blocked() method is correct, and the iteration through the bees is the same as the fireant problem"
+                },
+                {
+                    "feedback": "I don't even understand what this error is saying"
+                },
+                {
+                    "feedback": "never mind got it"
+                },
+                {
+                    "feedback": "I did not get it. Can someone please explain?"
+                },
+                {
+                    "feedback": "Having the same issue! Can anyone help?"
+                },
+                {
+                    "feedback": "Having the same issue please help"
+                },
+                {
+                    "feedback": "I would try redownloading the file and copying over your code - somehow your bees action method might have gotten changed, unless you are moving the bee from your NinjaAnt methods."
+                }
+            ]
+        },
+        {
+            "question": "Problem 7 > Suite 2 > Case 6          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> #     >>> # Testing NinjaAnt strikes all bees, even if some expire     >>> test_place = colony.places[\"tunnel_0_0\"]     >>> for _ in range(3):     ...     test_place.add_insect(Bee(1))     >>> ninja = NinjaAnt()     >>> test_place.add_insect(ninja)     >>> ninja.action(colony)   # should strike all bees in place     Traceback (most recent call last):       File \"C:\\Users\\Lenovo\\Desktop\\CS61A\\ants\\ants.py\", line 341, in action         Bee.reduce_armor(list(self.place.bees)[i], self.damage)     IndexError: list index out of range          # Error: expected          # but got     #     Traceback (most recent call last):     #       ...     #     IndexError: list index out of range          Run only this test case with \"python3 ok -q 07 --suite 2 --case 6\"     ---------------------------------------------------------------------     Test summary         9 test cases passed before encountering first failed test case  No idea what went wrong...",
+            "follow-ups": [
+                {
+                    "feedback": "If you are iterating over a list somewhere in your code, make sure you do not go out of range of the list. This might occur if the list you are acting on changes size as you iterate."
+                }
+            ]
+        },
+        {
+            "question": "For some reason, it's not telling me what cases I am failing...my terminal instead looks like this when I run python3 ok -q 07:  Test summary  Locked: 4  0 test cases passed! No cases failed.  But when I do                python3 ok --score  I get credit for all the questions before question 7 so I know all those cases passed..can someone tell me whats happening??"
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzv5veoy6s1%2Fk1sjma0yfw5p%2FScreen_Shot_20191015_at_5.34.13_PM.png)  I am stuck in this question...",
+            "follow-ups": [
+                {
+                    "feedback": "nvm solved it."
+                },
+                {
+                    "feedback": "How did you end up solving it?"
+                },
+                {
+                    "feedback": "Are we allowed to add in the blocks_path attribute?"
+                },
+                {
+                    "feedback": "Wow I'm being really silly, that's what we're supposed to do."
+                },
+                {
+                    "feedback": "first modify the `Ant` class to include a new class attribute `blocks_path` that is `True` by default.  Second, modify the `Bee`'s method `blocked` to return `False` if either there is no `Ant` in the `Bee`'s `place` or if there is an `Ant`, but its `blocks_path` attribute is `False`.  You have to include the block path on the Ants class and the Bees class as it says on the question."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "subject": "[Lab 04] Q3: GCD",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q3\">Q3: GCD</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q3: GCD in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Are we allowed to use lists?",
+            "follow-ups": [
+                {
+                    "feedback": "If you use recursion properly (which is required), lists will not be necessary"
+                },
+                {
+                    "feedback": "ok, thanks"
+                }
+            ]
+        },
+        {
+            "question": "I'm confused as to how to even start to address the problem. Can I get some hints please?",
+            "follow-ups": [
+                {
+                    "feedback": "The problem description basically describes exactly what you have to do. As a starting point, try finding the smaller and larger of `a` and `b`, and go from there."
+                }
+            ]
+        },
+        {
+            "question": "When I test out the cases in python, my code seems to work but when I put it through the ok test, there seems to be a bug. I don't know what's wrong...  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlx2xhbqzpklj%2Fk1363oqfu7zy%2Flab04_error_2.PNG)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlx2xhbqzpklj%2Fk13677syb6k4%2Flab_04_correct.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "You prolly accidentally modified one of the doctests; compare with the original file re-extracted from the original zip"
+                },
+                {
+                    "feedback": "That worked! Thank you!!"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,126 @@
+{
+    "subject": "[Lab 11] Q1: WWSD: Macros",
+    "content": "<a href=\"https://cs61a.org/lab/lab11//#q1\">Q1: WWSD: Macros</a>\n\n<p> Please post all questions you have below concerning Q1: WWSD: Macros in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can someone help me understand this please?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjcauk1ond7y5vl%2Fk2uxry6wiu9g%2FScreen_Shot_20191111_at_1.25.28_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "`if-else-5` is a macro that takes in a `condition` expression and a `consequent` expression. It then returns a new expression (since it starts with a quasiquote) starting with `if` and unquoting `condition` and `consequent` so they evaluate to the expressions that were passed in, with `5` as the final argument in the expression. See if you can figure out the rest."
+                },
+                {
+                    "feedback": "Since the consequent gets evaluated (unquoted) when the macro procedure is like returning the expression, why doesn't (if-else-5 #f (/ 1 0) error?  I thought that it would not depend on the condition because it is being evaluated BEFORE the return expression (if ,condition ,consequent 5) is evaluated."
+                },
+                {
+                    "feedback": "The resulting expression that you would get for that is `(if #f (/ 1 0) 5)`. Remember that `if` is a special form and doesn’t evaluate anything except for the value it needs to return. Since the predicate is false, it will only evaluate the `5` and then return it."
+                },
+                {
+                    "feedback": "scm> (define-macro (if-else-5 condition consequent) `(if ,condition ,consequent 5))  scm> (if-else-5 #t 2)  why does this return 2?"
+                },
+                {
+                    "feedback": "`(if-else-5 condition consequent)` returns `consequent` (evaluated) if `condition` evaluates to a truthy value and returns 5 otherwise. #t is truthy, so `consequent` (which is just 2) is evaluated and returned."
+                },
+                {
+                    "feedback": "thanks cyrus"
+                },
+                {
+                    "feedback": "No problem"
+                },
+                {
+                    "feedback": "scm> (define x 2)  scm> `(1 ,(+ x 2) 3)  ? (1 (4) 3)  \\-- Not quite. Try again! --  Why is this incorrect?"
+                },
+                {
+                    "feedback": "Be careful with your parentheses - what does `(+ x 2)` evaluate to\\?"
+                },
+                {
+                    "feedback": "ah, got it, thanks"
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain why (f (quote (2 3 4))) errors but (f (list (2 3 4))) does not? Isn't quote also a built in like list?  f is a macro defined as:  (define-macro (f x) (car x))",
+            "follow-ups": [
+                {
+                    "feedback": "The `f` macro returns just the first symbol in the expression, so `(f (list (2 3 4)))` becomes just `list`, which points to the `#[list]` function. However, `(f (quote (2 3 4)))` becomes `quote`, and `quote` is a special form rather than an actual symbol pointing to a procedure, so it tries to look up the `quote` symbol and fails because it doesn’t exist."
+                },
+                {
+                    "feedback": "Check out @2029 for a very similar issue with the `begin` special form, which isn’t a symbol pointing to a procedure, either."
+                },
+                {
+                    "feedback": "wow I see. Thanks"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm having trouble understanding some of the WWSD. For instance, in the below code:                scm> (define-macro (g x) (+ x 2))     scm> (g (+ 2 3))  Why the second line shows an error, but the below code evaluates the operand and then and then add them together:                scm> (define-macro (h x) (list '+ x 2))     scm> (h (+ 2 3))  Also, I was trying to make more test cases, but I have no explanation for some of them:                scm> (define-macro (h x) ('+ x 2))       h       scm> (h 2)       Traceback (most recent call last):         0\t(h 2)         1\t((quote +) x 2)       Error: str is not callable: +       scm> (define-macro (h x) `(+ ,x ,2))       h       scm> (h 2)       4       scm> (define-macro (h x) `(+ x ,2))       h       scm> (h 2)       2002  Specifically, what is the difference between `('+ x 2)` and ``(+ ,x ,2)`? aren't they supposed to behave the same way? and why is ``(+ x ,2) `behave like this?",
+            "follow-ups": [
+                {
+                    "feedback": "First, `(define-macro (g x) (+ x 2))` takes in `x` **as an expression**, not a value. The macro tries to add `2` to the expression but fails because you can’t add numbers to expressions. However, if you did something like `(define- macro (g x) (+ (eval x) 2))`, it would work, but this ruins the point of macros, which is essentially to replace code. Meanwhile, the second block `(define-macro (h x) (list '+ x 2))` correctly returns a list (which is a Scheme expression) starting with the string `+` and substituting the expression that was passed in into the larger expression.       Finally, for the first part of your final question, the opening parenthesis is not part of the quoted expression in `('+ x 2)`, so Scheme evaluates it as a scheme expression while evaluating the macro. It sees that the operand is `'+`, which is evaluated to the string `+`, but since that isn’t an operator, it errors. `\\`(+ ,x ,2)`, however, starts with the quasiquote outside the list, so it is interpreted as a literal list and not an expression, with elements inside unquoted, and this list is the expression that is returned.       I don’t know why your last case is outputting `2002`. ``(+ x ,2)` will return the expression `(+ x 2)` after the macro is evaluated, ignore the value of `x` because it is not unquoted in the quasiquote, and the evaluated form of `2` is still `2`. Thus, `(+ x 2)` is evaluated in the parent frame, but since there is no value bound to `x` in the parent frame, it errors—at least, it should.   ```   scm> (define-macro (g x) `(+ x ,2))   g   scm> (g 2)   Traceback (most recent call last):   0 (g 2)   1 (+ x 2)   2 x   Error: unknown identifier: x   ```"
+                },
+                {
+                    "feedback": "Thanks Nicholas"
+                }
+            ]
+        },
+        {
+            "question": "Why does this return a SchemeError?[FFCC5909628A4F49B4316F62650DEDA9_4_5005_c.jpeg](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzxir9t86u9%2Fk2w9ob7ggawd%2FFFCC5909628A4F49B4316F62650DEDA9_4_5005_c.jpeg)",
+            "follow-ups": [
+                {
+                    "feedback": "Copy-pasted from Nicholas above: `(f (quote (2 3 4)))` becomes `quote`, and `quote` is a special form rather than an actual symbol pointing to a procedure, so it tries to look up the `quote` symbol and fails because it doesn’t exist."
+                }
+            ]
+        },
+        {
+            "question": "little bit confused about 'begin' function  anybody can explain for begin? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "`begin` evaluates all expressions passed into it in order and returns the value of the last one.                scm> (begin 1 2 3)     3     scm> (begin (+ 1 2) (+ 3 5) 420)     420     scm> (begin (print 1) (print 2) 3)     1     2     3  The form is just `(begin expr1 expr2 expr3 ...)` where `expr1`, `expr2`, etc. are the expressions you wish to evaluate"
+                },
+                {
+                    "feedback": "but when we doing  (list 'begin expr expr) in the twice function why this return two expr?"
+                },
+                {
+                    "feedback": "(define-macro (twice expr)  (list 'begin expr expr))"
+                },
+                {
+                    "feedback": "It isn't _returned_ twice; it is _evaluated_ twice. Assuming you're referring to the `print` example, `(print expr)` doesn't return anything, but as a side effect of evaluation prints `expr` to the console."
+                },
+                {
+                    "feedback": "so it means evaluates the expressions THAN return the value of the last one.  And after the evaluate the (print 'woof) _(print 'woof), _the italic (print 'woof) does not have any value after evaluate right?"
+                },
+                {
+                    "feedback": "`print` never has a return value. But yes, `begin` evaluates each expression, one by one, but only returns the value of the last one after it’s finished evaluation."
+                },
+                {
+                    "feedback": "got it Thanks"
+                }
+            ]
+        },
+        {
+            "question": "Why does `(g 2)` evaluates to `4` given `(define-macro (g x) (+ x 2))`  So is x assigned to be a list of 2 in the macro or something? Like f being assigned to be (list print 'woof) in the example in the lab Topics?",
+            "follow-ups": [
+                {
+                    "feedback": "Calling `(g 2)` means that 2 will be subbed in for x without 2 being evaluated, so the return expression becomes 4: `(+ 2 2)`. The rules of evaluation then say the return expression should be evaluated, and then that result is returned and evaluated. Evaluating 4 just results in 4.       _EDIT: Revised as per Nicholas’s suggestion below_"
+                },
+                {
+                    "feedback": "In terms of the rules given [here](https://cs61a.org/lab/lab11/#macros):        *  **Evaluate operator** \\- `g` evaluates to `g`   *  **Apply operator to unevaluated operands** \\- this results in the following expression being evaluated, which evaluates to 4: `(+ 2 2)`   *  **Evaluate the expression returned by the macro in the frame it was called in** \\- 4 just evaluates to 4       _EDIT: Revised as per Nicholas’s suggestion below_"
+                },
+                {
+                    "feedback": "Hmmm, I disagree slightly. The internals of macros are still evaluated like normal functions would. This means that unless something is quoted in a macro, it will still be evaluated before being returned. Calling `(g 2)` means that `2` is passed in as `x`, and `(+ x 2)` would still be evaluated, which means the **macro** returns `4`. `4` evaluated still gets `4`, so that doesn’t change.       The behavior that Cyrus describes would occur if you did something like this:   ```   (define-macro (g x)   (list '+ x 2))   ```   Or this:   ```   (define-macro (g x)   `(+ ,x 2))   ```   This way, `define-macro` returns a **list**, which is an expression, and that gets evaluated down to `4` for the final result outside of the macro. Again, for `(g 2)`, `2` would be passed in as `x`, and then the **macro** would return the expression `(+ 2 2)`. This is then evaluated again in the final evaluation step to get `4`."
+                },
+                {
+                    "feedback": "Yeah Nick’s right, not sure what I was thinking. Mb"
+                },
+                {
+                    "feedback": "Why then is (+ 2 3) not evaluated when we call (g (+ 2 3)) ? I would have thought that (+ 2 3) would be passed into x, and then the final expression (+ (+ 2 3) 2) is evaluated to get 7."
+                },
+                {
+                    "feedback": "scm> (define-macro (g x) (+ x 2))     g     scm> (g (+ 2 3))     Traceback (most recent call last):       0\t(g (+ 2 3))       1\t(+ x 2)     Error: operand 0 ((+ 2 3)) is not a number  The macro gets applied with the operands unevaluated, meaning `(+ 2 3)` does not get simplified to 5. So, there is an error since the + operator must take in 2 numbers. If the exact same procedure wasn't a macro, it would work fine.                scm> (define (g x) (+ x 2))     g     scm> (g (+ 2 3))     7"
+                },
+                {
+                    "feedback": "To elaborate, the error is equivalent to the following:   ```   (+ '(+ 2 3) 2)   ```   or   ```   (+ (list '+ 2 3) 2)   ```   Both give the same error as the macro if you passed in `(g (+ 2 3))`."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+{
+    "subject": "[Lab 04] Q1: Skip Add",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q1\">Q1: Skip Add</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q1: Skip Add in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I'm getting a FileNotFound Error while trying to run the OKPY check for Q1.                FileNotFoundError: [Errno 2] No such file or directory: 'lab03.py'  It seems to me that the .ok file is trying to check something in a lab03.py file, even though lab 03 never existed (because of the midterm). Is this just an issue with the name of the files?",
+            "follow-ups": [
+                {
+                    "feedback": "It's possibly a name with the files, let me check"
+                },
+                {
+                    "feedback": "Yep, either redownload in 30m or change the doctest to say lab04.py instead of lab03.py"
+                },
+                {
+                    "feedback": "Manually changing the doctest worked. Thanks."
+                }
+            ]
+        },
+        {
+            "question": "I didn’t use helped function and I take n-2 as the parameter in recursive call, but I keep getting “nonetype + int” error. I don’t see a nonetype though.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, problem resolved."
+                },
+                {
+                    "feedback": "how did you solve it?"
+                },
+                {
+                    "feedback": "nvm got it"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6wldnh09m0nu%2Fk12l2mbemo8f%2FScreen_Shot_20190927_at_1.32.45_PM.png)  I'm not sure why I'm getting this error. My code works for skip_add(5) and skip_add(10). I also didn't use While or For.",
+            "follow-ups": [
+                {
+                    "feedback": "Please make a private post with your code."
+                }
+            ]
+        },
+        {
+            "question": "Doctests for skip_add >>> from lab04 import * >>> skip_add(5) # 5 + 3 + 1 + 0 9 # Error: expected # but got # 9 I'm getting 9, but the test keeps failing. How do I fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Maybe you accidentally deleted a line from the doctest? Try looking at a fresh copy of lab04.py and seeing if that's the case"
+                },
+                {
+                    "feedback": "yes it worked! thank you!"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,209 @@
+{
+    "subject": "[HW 04] Totals",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q4\" target=\"_blank\" rel=\"noopener noreferrer\">Q4: Totals</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q4: Totals in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>\n<p></p>",
+    "threads": [
+        {
+            "question": "In the function totals_tree, the function print_tree is used. But I cannot find where the code is? Could you please help me ?",
+            "follow-ups": [
+                {
+                    "feedback": "I understand. Thanks"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # 6  # 1  # 5  # 3  # 2  # but got  # 6  # 1  # [5, [3], [2]]  I keep getting this error but I don't know how to fix it. Can somebody help me?",
+            "follow-ups": [
+                {
+                    "feedback": "When you add on [5, [3], [2]] that should be a tree with label 5 and branches [tree(3), tree(2)], make sure your code produces this."
+                },
+                {
+                    "feedback": "thanks! problem solved"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # 6  # 1  # 5  # 3  # 2  # but got  # 6  # 5  # 3  # 2  could someone please explain how to fix this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're not overwriting any branches with your recursive calls."
+                },
+                {
+                    "feedback": "got it, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # 9  # 3  # 2  # 1  # 6  # 1  # 5  # 3  # 2  # but got  # 9  # 3  # 2  # 1  # 6  # 1  # 5  # 3  # 2  can someone tell me why this is not passing the test?",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind"
+                },
+                {
+                    "feedback": "Hi can you tell me how you fixed this? I am having the same problem with a test case for this problem (expected output looks exactly the same as actual output) and I don't know how to fix it."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # 3  # 2  # 1  # but got  # 3  # ['weight', 2]  # ['weight', 1]",
+            "follow-ups": [
+                {
+                    "feedback": "Check your leaf base case."
+                }
+            ]
+        },
+        {
+            "question": "Could someone give a hint? Thank you so much!  >>> from hw04 import *  >>> t, u, v = examples()  >>> print_tree(totals_tree(t))  3  2  1  >>> print_tree(totals_tree(u))  6  1  5  3  2  # Error: expected  # 6  # 1  # 5  # 3  # 2  # but got  # 6  # 1  # 5  # 3  # 2",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're not appending each branch to the one before it, but append it to the original tree"
+                },
+                {
+                    "feedback": "I got what you mean. But I cannot find where I made this mistake...I used a 'for b in branches' loop and also return tree at the end including a list comprehension... I think I append each branch to the original tree..."
+                },
+                {
+                    "feedback": "Nmd, figured it out. Thanks."
+                },
+                {
+                    "feedback": "I called left on m but got the error “must call left on mobile”. Isn’t m a mobile though?"
+                },
+                {
+                    "feedback": "it is, unless you somehow reassigned it to be something else."
+                },
+                {
+                    "feedback": "Oh is it because I called “left on i for i in branches(m)” so that it makes i a tree not a mobile anymore?"
+                },
+                {
+                    "feedback": "remember that branches takes in a tree! you cannot pass a mobile into it."
+                }
+            ]
+        },
+        {
+            "question": "I’m getting this weird return. I checked is_leaf and both my base case and recursive case returns a tree (just the recursive one has branches while the base case doesn’t). Does anyone know why?![](https://piazza.com/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fklfjxrpijers%2FIMG_6669.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "it seems like you are not returning a tree with branches when first called on a non-leaf root - check your call to tree in this case specifically."
+                }
+            ]
+        },
+        {
+            "question": "[IMG_4A9ADD5DD1BE1.jpeg](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpenx7ey2da%2Fk1e5uuswbpxc%2FIMG_4A9ADD5DD1BE1.jpeg)  I don't understand why the sum of the length of the first mobile is 9. Shouldn't it be 6? 4+2",
+            "follow-ups": [
+                {
+                    "feedback": "The labels in the tree should be the total weight underneath that label. See how you underlined 3 and 6? Then the label above those ones should be 3 + 6 = 9."
+                },
+                {
+                    "feedback": "Thank you"
+                }
+            ]
+        },
+        {
+            "question": "Hey there, I have a technical question. I ran the code for this question and the error I got was invalid syntax, but the \"invalid syntax\" (see below) was not part of my code, it was part of the next problem. It says that there's something wrong with \"def replace_lead(t, old, new):\" and that's not something I exactly control. any help would be appreciated :)  Traceback (most recent call last):  File \"/Users/crystal/Desktop/cs61a/homework/hw04/hw04.py\", line 165  def replace_leaf(t, old, new):  ^  SyntaxError: invalid syntax",
+            "follow-ups": [
+                {
+                    "feedback": "Check the preceding lines of that one for syntax errors"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnokkpc831oz%2Fk1fiqdw653sy%2FScreenshot_from_20191006_144715.png)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnokkpc831oz%2Fk1fiqnkxtk54%2FScreenshot_from_20191006_144727.png)  Shouldn't the 1 and 5 be switched on the expected output for print_tree(totals_tree(u))?  Because the additional tree is on the side length 1, not the side length 5 in the code for u?",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind i misread the question"
+                }
+            ]
+        },
+        {
+            "question": "I can't figure out why there are brackets around the 3... any ideas?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi8kxwa4dy%2Fk1grthwps9yw%2FBildschirmfoto_20191007_um_11.49.53.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your created trees don't have lists as labels"
+                }
+            ]
+        },
+        {
+            "question": "Hello! Very confused here since I seem to get what is expected but am not passing the doctests, can someone tell me what I'm overlooking?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjjzd058lyeugr%2Fk1h6cyb7j64z%2FScreen_Shot_20191007_at_6.25.03_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "(I checked the spacing and that doesn't seem to be the issue)"
+                },
+                {
+                    "feedback": "have you tried redownloading the HW files and making a new submission?"
+                },
+                {
+                    "feedback": "yeah, I did. It still doesn't work though."
+                },
+                {
+                    "feedback": "also, I downloaded my friend's code (which passed all the test cases on his computer) and tried to run okpy on it, and it failed the same case. The okpy file was in the same folder as his code. This was just to see if the problem was with my computer or something, but it also didn't work. We also have exactly the same code for this particular question.  I'm sorry I dont know how to make this a private post  \\--redacted--"
+                },
+                {
+                    "feedback": "Please do not post your code publicly. You can make a private post by clicking new post and there should be an option to make the post private"
+                },
+                {
+                    "feedback": "sounds like something that would be easier to resolve in office hours, as it's difficult to diagnose from just the error. were you able to figure this out?"
+                }
+            ]
+        },
+        {
+            "question": "I have been on this problem for a long time. I'm using recursion with a base case to check if m is a weight, but I've had no success. pls help",
+            "follow-ups": [
+                {
+                    "feedback": "nvm I figured it out by making the base case return a tree"
+                }
+            ]
+        },
+        {
+            "question": "Doctests for totals_tree          >>> from hw04 import *     >>> t, u, v = examples()     >>> print_tree(totals_tree(t))     3       2       1     >>> print_tree(totals_tree(u))     6       1       5         3         2          # Error: expected     #     6     #       1     #       5     #     3     #     2     # but got     #     6     #       1     #       5     #         3     #         2  Not sure how I can get all the outputs on one indentation level. Do i need a for or while loop to keep count of something?",
+            "follow-ups": [
+                {
+                    "feedback": "some solutions do not need a for or while loop. how are you creating the second level trees right now? in order to get 3 and 2 on the right \"indentation level\", they have to be the children of the tree with root 5 in the solution."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1ine23txtaz%2FScreen_Shot_20191008_at_7.21.58_PM.png)  Okay I have first a for loop that goes over everything in the branches and have a base case that checks if that index is either a leaf or a tree. if it is a tree then it would recursively call the replace_leaf function again with that index as a tree, but if it is a leaf then it would check if that is same as the old, if it is then it would return new.  However, in the terminal it is keep saying that there is a nontype object is not subscriptable and my funcion is not even returnning a list a number. so can anyone tell me what the problem is?",
+            "follow-ups": [
+                {
+                    "feedback": "somewhere in your code, you are attempting to index into or loop through the elements of something that is equal to None. check the return types of functions that you are using, and make sure you are not unexpectedly changing any values to None."
+                }
+            ]
+        },
+        {
+            "question": "Can someone give me advice on how to approach this problem? I'd assume we need a base case that returns the weight after checking if m is_weight. Would the next step be to build two trees with recursion for both the right and left sides of m, and then appending them to a final tree?",
+            "follow-ups": [
+                {
+                    "feedback": "this problem will follow an approach similar to the recursive tree construction that happened in last week's lab (sprout_leaves), where there is a base case, and then it is being recursive built up from the base case. something different about this problem is that we are working from a mobile and creating the labels at each node ourselves - I would start by checking out your approach to that lab question and see if you can conceptually translate to this one."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  anything I try to code, this error comes up. Is something wrong with the methods?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk1mzb5ghh2ke%2FScreen_Shot_20191011_at_8.06.49_PM.png)"
+        },
+        {
+            "question": "mobile(side(5, weight(1)),   side(1, mobile(side(2, weight(3)),   side(3, weight(2)))))  Can somebody explain why this print 6  1  5  3  2  instead of 6  5  1  2  3  ?",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind I misread the question..."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhgdjbqv3yn%2Fk1qp54zwtpu1%2FFailedCase.png)  Been trying to solve this error I believe the problem is in my recursive call.  Does anyone know what's happening?",
+            "follow-ups": [
+                {
+                    "feedback": "You are calling `total_weight` on an object that isn't a mobile or a weight."
+                }
+            ]
+        },
+        {
+            "question": "when I begin this problem. It messes up the next problem and won't let me test my code for this problem. Then my code for Q five won't test either. Whether I delete my last code or not. Is the file corrupted?",
+            "follow-ups": [
+                {
+                    "feedback": "now its not letting me submit. My assignment."
+                },
+                {
+                    "feedback": "sounds like something to bring to office hours or to describe in more detail - not sure exactly what is going on from reading this description. it sounds that this may have been caused by missing parentheses or indentation problems from your code, causing your computer to not be able to read any of the code in your file correctly."
+                }
+            ]
+        }
+    ]
+}

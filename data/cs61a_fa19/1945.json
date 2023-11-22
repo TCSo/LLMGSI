@@ -1,0 +1,507 @@
+{
+    "subject": "[Scheme] Problem 14",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-14-2-pt\">Problem 14</a>\n\n<p> Please post all questions you have below concerning Problem 14 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am wondering why this would give me an error:  Problem 14 > Suite 1 > Case 2   (cases remaining: 4)     scm> (let ((a 1) (b a)) b)   Choose the number of the correct choice:   0) SchemeError   1) 1   2) x   3) y",
+            "follow-ups": [
+                {
+                    "feedback": "It's because of (b a). Because of how the let function works in scheme, the variables you're locally defining can't refer to other variables you're locally defining in the same let statement. For that reason, a value can't be assigned to b because b can't access the fact that we've bound a to 1."
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpps6alw2lg%2Fk2qmbv6esnuq%2F1.PNG)  In this case, shouldn't the answer to this problem be 4, since it can't refer to the other variables in the same let statement? I'm not sure how to solve this."
+                },
+                {
+                    "feedback": "In the scope of the _body_ of the let expression, x is equal to 5 (since it was assigned as such within the assignment portion of the let expression), so adding 3 to x yields 8."
+                },
+                {
+                    "feedback": "To follow up here, the issue with the test case you provided is that it attempts to define b as a local variable bound to a in the let statement. However, we cannot reference other variables also defined in the let statement. In the case here, we are referencing x, a local variable, in the body of the let statement. That is allowed since we can reference local variables in the body of a let statement. We just cannot reference local variables when trying to define another local variable in a let statement."
+                }
+            ]
+        },
+        {
+            "question": "I'm a little confused as to how to best approach this. Should I be iterating through bindings, creating a new list of symbols and values separately, and then creating a frame with those lists passed in?",
+            "follow-ups": [
+                {
+                    "feedback": "It is up to you exactly how you want to do the implementation, but the ultimate goal is to make a new child frame that has the values bound to their respective parameters. Your approach of first creating a list of formal parameters and a list of values is certainly a valid approach."
+                }
+            ]
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "same"
+                },
+                {
+                    "feedback": "I don’t see any content on Aditya’s followup. What are you seeing?"
+                },
+                {
+                    "feedback": "I think Anon was joking there"
+                },
+                {
+                    "feedback": "… Oh. Got it."
+                }
+            ]
+        },
+        {
+            "question": "While writing number 14, one of my lines of code was check_formals(x) where x was an integer. Considering the fact that check_formals takes in the parameter formals, which in this case was x, and applies formals.first and formals.rest on it, it should have given me an attribute error and it didn't. I am wondering why?",
+            "follow-ups": [
+                {
+                    "feedback": "If you look closely at the definition of `check_formals`, it will continue to check while `formals` is an instance of `Pair`. If you never pass in a `Pair` to `check_formals` to begin with, it will immediately exit and return no error. Maybe there should be a check to assert that `formals` is an instance of `Pair`, but you should never be passing an atom to `check_formals`."
+                },
+                {
+                    "feedback": "Yeah, I had the exact issue and I solved it as Nicholas mentioned above by complying with how check_formals is written. That being said, my implementation definitely violates some abstraction barriers and is kinda jank."
+                },
+                {
+                    "feedback": "Hmmm, how specifically are you violating the abstraction barriers? You may want to consider refactoring since that will probably affect the composition score."
+                },
+                {
+                    "feedback": "Its violating abstraction barriers, because if I want to check if a given input passes `check_formals` I shouldn't be modifying the input to comply with how `check_formals` is coded, since in theory that part is abstracted away. Regardless I'll submit as is for the checkpoint and then refactor it later."
+                },
+                {
+                    "feedback": "Keep in mind that `check_formals` is defined to take in a Scheme list of symbols, so it’s not a violation of an abstraction barrier to build that list and then pass it in."
+                },
+                {
+                    "feedback": "Just wanted to add there is no composition score for this project, but violating abstraction barriers is a big no-no even if it doesn't directly affect your score. That said, as Nicholas says above, you're likely in the clear for that."
+                },
+                {
+                    "feedback": "So do we need to create Pair instance to pass in? Because general, the expression has been the Pair instance"
+                },
+                {
+                    "feedback": "Figured out"
+                },
+                {
+                    "feedback": "In essence, yes, `check_formals` *must* take in a Scheme list, which is represented by `Pair`s. Even if it is a single formal, it must be represented as a single-element Scheme list, aka `Pair(formal, nil)`. However, you should be constructing your lists regardless of its length, so you don’t have to worry too much about the specifics."
+                },
+                {
+                    "feedback": "In case anyone is reading this again, I did refactor my code and you do not need to pass it in as a `Pair(formal, nil) `there is an easier way to solve it that does not violate abstraction as we discussed above."
+                }
+            ]
+        },
+        {
+            "question": "How to make a child frame? because it takes two variables, vals and formals. How could i get vals and formals from bindings! Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "Remember the `Frame#make_child_frame` function you defined in problem 10. You can manually build a list of formals and values by iterating through the bindings and taking the formal as the first element and the value as the second element."
+                },
+                {
+                    "feedback": "is there a way to convert a python list to a Pair object?"
+                },
+                {
+                    "feedback": "Not really. You could, however, write your own function to convert a Python list to a Scheme list, or you could just build the Scheme list on the fly, completely bypassing the Python list."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk2scxtpz60iv%2FScreen_Shot_20191109_at_6.06.19_PM.png)  I keep getting this error... Not sure how to deal with it?",
+            "follow-ups": [
+                {
+                    "feedback": "You need to make sure every element in the `bindings` list has exactly two elements. You can do this with the `check_form` function. The form of it is `check_form(expr, min, max)`, and it will error if `expr` is not a list or if it is a list with fewer than `min` elements or greater than `max` elements."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure why my code isn't properly checking for errors. I used check_form on each clause of bindings and check_formals after iterating through bindings and getting 2 separate Pairs (one for formals and one for values). I thought that the check_formals would raise the SchemeError, but it isn't.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2se5zghe9ac%2FScreen_Shot_20191109_at_6.39.22_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The bindings passed to the `let` procedure can’t access one another’s values, so `a` should be undefined in the binding `(b a)`, since it is only defined in the previous binding, which should be inaccessible."
+                },
+                {
+                    "feedback": "Is it because I'm making one frame with all of the clauses in bindings? I thought that's what we were suppose to do."
+                },
+                {
+                    "feedback": "You are building a child frame as you evaluate the `let` procedure, but evaluating all the values for the bindings should still be done in the parent frame, since the newly defined variables cannot access one another in the bindings."
+                },
+                {
+                    "feedback": "Oh I see, thank you!"
+                },
+                {
+                    "feedback": "I am also having this problem. How do we make it look up the value of a in the parent frame?"
+                },
+                {
+                    "feedback": "The parent frame is the original `env` that is passed into the `do_let_form` function, and you construct a child frame from that parent frame. But all your evaluations for the values in `bindings` should always be done in the parent frame, or `env`."
+                },
+                {
+                    "feedback": "I am evaluating the values of the bindings in the parent frame, however, I am still getting this output. What am I doing wrong?"
+                },
+                {
+                    "feedback": "I think I gave the wrong answer last time. The expected behavior should be that, for the `(b a)` binding, you try to evaluate `a` to get a value to assign to `b`, but there is no value assigned to `a`, so it errors out. So the issue looks like you aren’t evaluating values at all and instead assigning the variables directly to the expressions for values."
+                },
+                {
+                    "feedback": "In which function should the values be evaluated?"
+                },
+                {
+                    "feedback": "you should use a function that you already implemented earlier - what function do we use to evaluate a expression?"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why my code is raising this SchemeError. Can someone explain what is wrong with my code?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwv9zbexo6p2hx%2Fk2sgo4hmi5z%2FScreen_Shot_20191109_at_7.50.59_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you aren’t evaluating the values of the values in the bindings before you assign them to their symbols. Make sure you evaluate before assigning them in the new frame."
+                },
+                {
+                    "feedback": "Got it, thank you!"
+                },
+                {
+                    "feedback": "Can someone please explain the bindings in this problem...which \"x\" is y bound to? the 2 or the 5?"
+                },
+                {
+                    "feedback": "`y` should be bound to the `5`. All the bindings are evaluated **in the parent frame**, and the parent frame of the inner `let` statement is the frame resulting from the outer `let` statement. In the outer let statement, `x` is bound to `5`, so `y` evaluates `x` and gets a value `5`, so `y` is bound to `5`."
+                },
+                {
+                    "feedback": "Why does x get bound to 2 rather than 5 in the last line?"
+                },
+                {
+                    "feedback": "I don’t quite understand your question. `x` is bound to `2` in the inner let statement, but the `x` in the `(y x)` binding refers to the outer `x`, which is set to `5`. So in the inner frame, `x = 2` and `y = 5`."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk0ifnw5z0%2Fk2sjj0hjimdp%2Fstaiduioa.PNG)  **Why am I getting this scheme error? I am not calling scheme_eval on y, I am simply setting y to be one of the formals.**",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you aren’t correctly binding the symbols to the values given in the bindings of the `let` procedure. Make sure you’re making a new frame and defining those symbols as their respective values given in the `bindings` parameter of `make_let_frame`."
+                }
+            ]
+        },
+        {
+            "question": "I was able to create two python lists of the formals and values, however, I need to find a way to create those lists into a scheme list that can be passed into make_child_frame. Any tips????? Thank you in advance.",
+            "follow-ups": [
+                {
+                    "feedback": "I would either convert your code to directly generate two Scheme lists from the list of bindings rather than Python lists, or you could write a helper method that will take in a Python list and return the same list as a Scheme list. Either way works, but the first method seems more elegant."
+                }
+            ]
+        },
+        {
+            "question": "I am trying to make a scheme_list for the values, and I am getting an error by calling scheme_eval on the rest of the given list (in this case I am calling scheme_eval on the number 5). I don't know why this is giving me an error since it should just return 5.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnppik1642l7%2Fk2ti1lo6kyc9%2FScreen_Shot_20191110_at_1.16.33_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I think what is happening is that you’re trying to call `scheme_eval` on `(5)` rather than `5`. Make sure you’re properly getting the second element of the list and not the `rest` of the list."
+                },
+                {
+                    "feedback": "Think of it like the difference between `cadr` and `cdr`."
+                },
+                {
+                    "feedback": "Thank you"
+                },
+                {
+                    "feedback": "I understand that this is the error that's occurring for me as well, but I don't understand how to get the second element of the list. When I try to do this (and I think I'm doing it right because it prints the right thing), I get the following error: Traceback (most recent call last): # ... # AttributeError: 'tuple' object has no attribute 'first' What do I do?"
+                },
+                {
+                    "feedback": "Never mind, figured it out! Was storing as a tuple instead of a Pair xD"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrof67k04fi%2Fk2toiu2e61nk%2Ftemp.png)  Can someone explain why the second let doesn't seem to work?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like your value of `x` isn’t getting shadowed by the inner `let` definition. Make sure you’re handling your frames right—it’s hard to tell exactly what your error is without seeing your code, but remember that each frame is a child of the frame the `let` was called in, and `bindings` is always evaluated in the parent frame, not the child frame that is being built."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191110_at_6.55.01_PM.jpg](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k52hj8236b%2Fk2tu3h3j3jvs%2FScreen_Shot_20191110_at_6.55.01_PM.jpg)  I am passing a scheme list of formals and values into make_child_frame. Do not know why I am getting this error????",
+            "follow-ups": [
+                {
+                    "feedback": "Evaluating your `let` procedure is leading to your interpreter returning the frame, which is unintelligible to Scheme, rather than the correct value. Check if you’re ever returning a `Frame` instance such as `env` accidentally."
+                }
+            ]
+        },
+        {
+            "question": "Hey,  Any ideas on why I am not erroring here and how to fix it?  Problem 14 > Suite 2 > Case 1  scm> (let ((a 1 1)) a)  1  # Error: expected  # SchemeError  # but got  # 1",
+            "follow-ups": [
+                {
+                    "feedback": "Ensure that every list in `binding` has a length of exactly 2. You can achieve this with the `check_form` function, which uses the following syntax:   `check_form(expr, min, max)`   The function errors if `expr` is not a list with a length at least `min` and at most `max` and returns nothing otherwise."
+                },
+                {
+                    "feedback": "Thank you!!!"
+                }
+            ]
+        },
+        {
+            "question": "Hello!  In tackling this problem, we've taken the following approach:  1) check_form and check_formals on the individual bindings by iterating through the input bindings.  2) breaking down the contents of each binding in order to obtain the symbol and value each binding contains.  We thought that step 2 was necessary in order to make use of make_child_frame, which takes as input a scheme list of formals and values. How far off is this approach, because it seems to turn into a \"how do we convert a python list into a scheme list\" question in this way?  Thanks for the guidance!",
+            "follow-ups": [
+                {
+                    "feedback": "Your approach is correct. However, what I would recommend doing is to build a Scheme list as you go rather than a Python list. Remember that you can always prepend to a list by using `a = Pair(new_value, a)`. The order will be reversed, but it ultimately shouldn’t matter. Start with `symbols = nil` and `values = nil` then keep prepending the symbol and value to the lists."
+                },
+                {
+                    "feedback": "Thank you for your help Nicholas!!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvlvhhwu9t3su%2Fk2vdsvdunxvw%2F1.png)Does someone know how to fix this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you trying to evaluate the `.rest` of a binding? For example, `bindings.rest.rest` would give you `(5)`, and if you try to evaluate that, you would get an error. Make sure you have a `.first` in the appropriate place to get the second element."
+                },
+                {
+                    "feedback": "Your response helps a lot. Thank you!"
+                },
+                {
+                    "feedback": "In the example shown above is bindings.first the symbol (define or let) and bindings.rest the expression (x 5)? Just want to clarify what constitutes as \"symbol\""
+                },
+                {
+                    "feedback": "Can someone give an example of a bindings Scheme List"
+                },
+                {
+                    "feedback": "An example could be `((x 5) (y 4) (z 3))`, which represents binding x to 5, y to 4, and z to 3."
+                },
+                {
+                    "feedback": "so in this case does bindings.first represent (x 5)? Would bindings.first.first be x? And bindings.first.rest.first would be y?"
+                },
+                {
+                    "feedback": "Almost. `bindings.first` is `(x 5)` and `bindings.first.first` is `x`, but to get `y`, you need to do `bindings.rest.first.first` since `bindings.rest` is `((y 4) (z 3))`"
+                },
+                {
+                    "feedback": "Any hints as to how we can obtain the values in each binding to build a list of values? How do we access the values in each binding"
+                },
+                {
+                    "feedback": "Remember that you can always prepend to a list by using `a = Pair(new_value, a)`. The order will be reversed, but it ultimately shouldn’t matter. Start with `symbols = nil` and `values = nil` then keep popping off the first value of `bindings` and prepending them to `symbols` and `values`."
+                },
+                {
+                    "feedback": "What is the purpose of prepending? Whats the difference between that and append? I get that one goes before and one goes after, but why can't we append? Im not sure also why you are setting the same value a to the variable a"
+                },
+                {
+                    "feedback": "Oh is a supposed to be the previous scheme list?"
+                },
+                {
+                    "feedback": "Prepending means adding to the beginning, while appending means adding to the end. Technically, the `append` function actually concatenates two lists together rather than adding a single element to the end of a list, which is a little confusing, but that’s just how Scheme works."
+                },
+                {
+                    "feedback": "Oh, well so basically what I am trying to do is:  while bindings is not nil:   symbols = Pair(bindings.first.first, symbols)   values = Pair(bindings.first.rest, values)   bindings = bindings.rest  To create a scheme list for the symbols, and scheme list for the values"
+                },
+                {
+                    "feedback": "Is it acceptable to use the while loop?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk2w6riwfo8bi%2FScreen_Shot_20191112_at_10.25.10_AM.png)  i dont understand why this errors?",
+            "follow-ups": [
+                {
+                    "feedback": "The bindings in `let` statements always have to be evaluated **in the parent frame**. When we try to bind `b` to `a`, we look up `a`, but since `a` doesn’t exist in the **parent frame** (only in the new child frame), we error out."
+                }
+            ]
+        },
+        {
+            "question": "I just started working on this problem, but I don't understand why I keep getting this error?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2w82aqq49ez%2FScreen_Shot_20191112_at_11.00.43_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You’re trying to trying to call `lookup` on `None`. Check every place where you call `.lookup` and see if you can figure out when those variables are `None`. I’ve noticed this arises pretty often in a problem from implementing parent-frame lookups in problem 2, as well."
+                },
+                {
+                    "feedback": "You will get this error if your `make_let_frame` returns None"
+                },
+                {
+                    "feedback": "^ Actually, that’s more likely to be your problem. I was thinking of problem 11."
+                },
+                {
+                    "feedback": "That's interesting because when I return some test value like 1 or \"hello\" I still get this error."
+                },
+                {
+                    "feedback": "What are the lines preceding your screenshot? For reference, when I manually return `None`, I get the following:                  File \"C:\\Users\\Cyrus\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 36, in scheme_eval         first = scheme_eval(first, env)       File \"C:\\Users\\Cyrus\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 548, in optimized_eval         result = original_scheme_eval(result.expr, result.env)       File \"C:\\Users\\Cyrus\\Desktop\\cs61a\\projects\\scheme\\scheme.py\", line 24, in scheme_eval         return env.lookup(expr)     AttributeError: 'NoneType' object has no attribute 'lookup'          # Error: expected     #     8     # but got     #     Traceback (most recent call last):     #       ...     #     AttributeError: 'NoneType' object has no attribute 'lookup'"
+                },
+                {
+                    "feedback": "I get something like this.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk2w8s1bnr00s%2FScreen_Shot_20191112_at_11.21.07_AM.png)"
+                },
+                {
+                    "feedback": "I think I fixed this error by returning env.make_child_frame(formals, vals). Now I get a different error but that's because I have not specified what formals and vals are."
+                },
+                {
+                    "feedback": "You sound like you're headed on the right track. Keep working on your solution and if you have any further problems feel free to ask for additional help"
+                },
+                {
+                    "feedback": "Of course!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (let ((a 1) (2 2)) a)   1  # Error: expected   # SchemeError   # but got   # 1  Why is this happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are checking the parameters using `check_formals` \\- 2 isn't a symbol so it shouldn't be allowed as a parameter"
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Why does my code behave this way?  Should I handle exceptions?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjoehh8k5pk%2Fk2x0ds6ha4zp%2FScreen_Shot_20191113_at_00.12.56.png)",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjoehh8k5pk%2Fk2x0vbknkgkr%2FScreen_Shot_20191113_at_00.26.53.png)"
+                },
+                {
+                    "feedback": "Make sure you are returning nil everywhere that nil should be returned and that you aren't accidentally returning None - None and nil aren't the same thing."
+                },
+                {
+                    "feedback": "Yeah turned out I was returning None by print(nil) in scheme_reader. Thank you!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "I'm failing one case of tests.scm that involves \"let.\" I'm not sure what could cause the error (potentially my implementation for \"begin\")?  Test:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2xphelqxfn5%2FScreen_Shot_20191113_at_11.55.17_AM.png)  Error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2xpi2xh6k0t%2FScreen_Shot_20191113_at_11.55.27_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I wonder if the issue might lie somewhere within your `begin` statement. One of the `(begin (define x (+ x 1)) (...))` might not be executing correctly. Could you walk me through your current implementation for `eval_all`?"
+                },
+                {
+                    "feedback": "In my eval_all, I first check if the given argument is nil (in which I return None), then check if the rest of the expression is nil (in which I call scheme_eval), and my final case would be calling scheme_eval on the first of the expression and eval_all on the rest of the expression."
+                },
+                {
+                    "feedback": "Hmmm. Your reasoning sounds correct. I’m not sure what the issue would be. Could you paste the following code into your Scheme interpreter and see if you get the same result? ``` scm> (define x 2) x scm> ((begin (define x (+ x 1)) +) 3 (begin (define x (+ x 1)) x)) 7 ```"
+                },
+                {
+                    "feedback": "(Also, this is a good chance to practice debugging yourself, so based on whatever results you get from testing what I gave, try to figure it out yourself! It’s a good skill to learn for the future, as well.)"
+                },
+                {
+                    "feedback": "I did end up debugging it and found the error in scheme_eval, thank you for the suggestion!"
+                },
+                {
+                    "feedback": "Awesome! I’m personally curious what your error is, if you would mind elaborating?"
+                },
+                {
+                    "feedback": "When I originally implemented scheme_eval, I managed to pass all the test cases without calling check_procedure. I thought it was fine until it ended up causing a negative effect in tests.scm."
+                }
+            ]
+        },
+        {
+            "question": "What is the min and max for the expr we want to check using check-form?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that each binding is a pair (in a literal sense)"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why my code show this, I pass all the previous test.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxdyae8r2t748%2Fk2xx3kpumnin%2F%E6%88%AA%E5%B1%8F20191113%E4%B8%8B%E5%8D%883.29.36.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Is `nil` recognized correctly when you run it in the Scheme interpreter? It looks like `nil` is not a recognized keyword for some reason."
+                },
+                {
+                    "feedback": "Are you still passing the tests for Q1?"
+                },
+                {
+                    "feedback": "Yea, I can still pass Q1, and other tests including nil."
+                },
+                {
+                    "feedback": "oh, I find my mistake, is this mistake in the question 1? I may pass the test but not totally correct.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxdyae8r2t748%2Fk2xxwi8k6si1%2F%E6%88%AA%E5%B1%8F20191113%E4%B8%8B%E5%8D%883.51.28.png)"
+                },
+                {
+                    "feedback": "It looks like your `scheme_read` function is parsing `nil` as a symbol and not replacing with with the actual `nil` value of `()`. Does `scheme_read` returns the `nil` object when it encounters the string `'nil'`?"
+                },
+                {
+                    "feedback": "Alternatively, the error could be how you are handling `nil` in your `read_tail` function—or rather, that you are handling it at all instead of taking the recursive leap of faith to let `scheme_read` read the next full expression and checking for `'nil'` manually. Either of those could be your error, I think."
+                },
+                {
+                    "feedback": "Yes, It is that I missed one situation in scheme_read, thank you very much!"
+                },
+                {
+                    "feedback": "Can you explain how we should be handling `nil` in `read_tail`. Should we be checking to see if the current value in `src` is equal to nil and if so do a call to `scheme_read` then?"
+                },
+                {
+                    "feedback": "`nil` is already handled in `scheme_read`, and if you make your recursive calls correctly, you should never even have to worry about or check for it at all."
+                }
+            ]
+        },
+        {
+            "question": "Is there a difference/preference between using `scheme_cons(formal, val)` and `Pair(formal, val)` for creating scheme lists?",
+            "follow-ups": [
+                {
+                    "feedback": "`scheme_cons` just calls the `Pair` constructor, so no. In fact, I didn't even know `scheme_cons` was a function before you pointed it out haha."
+                },
+                {
+                    "feedback": "Hmmm, I wonder if there are abstraction barriers being violated here… Probably not?"
+                }
+            ]
+        },
+        {
+            "question": "How can we access values in `bindings`?  for `((x 5))`:  `bindings.first.first` \\---> `x`  `bindings.first.rest` \\---> `(5)` (not good)  I don't think I should be using `scheme_eval` here.",
+            "follow-ups": [
+                {
+                    "feedback": "Almost there. Try `bindings.first.rest.first`."
+                }
+            ]
+        },
+        {
+            "question": "Is this an issue with question #1? I'm confused...  Problem 14 > Suite 2 > Case 1  scm> (define x 3)  x  scm> (define y 4)  y  scm> (let ((x (+ y 2))  .... (y (+ x 2)))  .... (cons x (cons y nil)))  Traceback (most recent call last):  k (most recent call last):  File \"ok/client/sources/ok_test/scheme.py\", line 57, in evaluate  exp = self.scheme.read_line(code)  File \"/Users/druborup/Desktop/cs61a/projects/scheme/scheme_reader.py\", line 194, in read_line  return scheme_read(Buffer(tokenize_lines([line])))  File \"/Users/druborup/Desktop/cs61a/projects/scheme/scheme_reader.py\", line 142, in scheme_read  return read_tail(src)  File \"/Users/druborup/Desktop/cs61a/projects/scheme/scheme_reader.py\", line 173, in read_tail  return Pair(scheme_read(src), read_tail(src))  File \"/Users/druborup/Desktop/cs61a/projects/scheme/scheme_reader.py\", line 173, in read_tail  return Pair(scheme_read(src), read_tail(src))  File \"/Users/druborup/Desktop/cs61a/projects/scheme/scheme_reader.py\", line 173, in read_tail  return Pair(scheme_read(src), read_tail(src))  File \"/Users/druborup/Desktop/cs61a/projects/scheme/scheme_reader.py\", line 163, in read_tail  raise SyntaxError('unexpected end of file')  File \"<string>\", line None  SyntaxError: unexpected end of file  # Error: expected  # (6 5)  # but got  # Traceback (most recent call last):  # ...  # SyntaxError: unexpected end of file",
+            "follow-ups": [
+                {
+                    "feedback": "It’s very possible. Sometimes subtle errors in implementations don’t get caught until much later."
+                },
+                {
+                    "feedback": "do you have any hints as to what causes src.current to be None and thus error?  Thank you!"
+                },
+                {
+                    "feedback": "just figured it out! it was actually an issue with read_scheme, if anyone else has this issue make sure you careful about when you remove values"
+                },
+                {
+                    "feedback": "+1 for sharing the cause"
+                }
+            ]
+        },
+        {
+            "question": "What is happening in my code?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyyd494x694%2Fk2zhlt1ftk5m%2FScreen_Shot_20191114_at_5.51.58_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Your `check_form` call may have the wrong minimum"
+                }
+            ]
+        },
+        {
+            "question": "I'm not really sure why this is happening?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyyd494x694%2Fk2ziuzz8s4dd%2FScreen_Shot_20191114_at_6.26.43_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Double check your `do_define_form` and make sure you return the name of the procedure to be defined"
+                }
+            ]
+        },
+        {
+            "question": "How do I create a new, empty Pair? For example if I want to create a new variable called symbols that is an initially empty Pair that I will add more Pairs to through iteration.",
+            "follow-ups": [
+                {
+                    "feedback": "The empty list is represented by `nil` or `()`."
+                },
+                {
+                    "feedback": "So would it be symbols = ( ) symbols = Pair() symbols = nil symbols = Pair(nil)? I tried all of those but it's giving me: SchemeError: cdr can only be a pair, nil, or a promise but was ()"
+                },
+                {
+                    "feedback": "In the Python interpreter code, the empty list is represented with the variable `nil` which is assigned for you"
+                },
+                {
+                    "feedback": "Of the options you listed, it would be `symbols = nil`."
+                }
+            ]
+        },
+        {
+            "question": "I cannot pass Problem 14 > Suite 2 > Case 1                Problem 14 > Suite 2 > Case 1          scm> (define x 3)     x     scm> (define y 4)     y     scm> (let ((x (+ y 2))     ....       (y (+ x 2)))     ....      (cons x (cons y nil)))     (6 5)     scm> (let ((x 'hello)) x)     hello     scm> (let ((a 1) (b 2) (c 3)) (+ a b c))     6     scm> (define z 0)     z     scm> (let ((a (define z (+ z 1)))) z)     0          # Error: expected     #     1     # but got     #     0  I'm literally passing all other 225 cases this is the only one I'm failing. If I comment out `optimize_tail_calls `then it passes, but once I uncomment it this is the only case fails. As you can see everything above passes in the same suite. Any help would be much appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "[deleted]"
+                },
+                {
+                    "feedback": "I am having the exact same issue. Anyone?"
+                },
+                {
+                    "feedback": "Try using debug statements to see what frames are being defined and what frame you are trying to evaluate the `z` in. There’s not much I can help you with specifically without looking at your code; you’re just going to have to apply debugging techniques, which is more of an art than a science. If you are evaluating in the wrong frame, try to double check exactly how frames are handled in the `do_let_form` function, and if you still can’t find the problem, keep adding debug statements until you find the bug. Good luck, though!"
+                },
+                {
+                    "feedback": "A friend of mine having this issue changed eval_all to scheme_eval and fixed it. When you change eval_all to tail the last subexpression every time, you get the error, because calling eval_all doesn’t necessarily mean the last subexpression is a tail."
+                },
+                {
+                    "feedback": "Hmmm, while you are correct, the idea of setting `tail = False` simply means that you cannot delay evaluation any further and must return a value. Remember that we have a lot of recursive calls to `scheme_eval`, so even if some `scheme_eval` further down on the stack has set `tail = True` (which means it is trying to evaluate in a tail context), if the `scheme_eval` that it returns its `Thunk` to has set `tail = False`, then it will immediately evaluate that `Thunk` to a value anyway. The point is that so long as `scheme_eval` has set `tail = False`, you will never return a `Thunk`, and if you have `scheme_eval` with `tail = True`, you will always return a `Thunk`. If you have a `scheme_eval` with `tail = True` in a context which is ultimately not a tail context, it will still get evaluated immediately in the next level up of `scheme_eval`. The point I’m ultimately trying to make is that while you are correct, the source of the issue is more likely somewhere else. It could also be that `scheme_eval` and `eval_all` are two completely different functions, since one takes in a single expression while the other takes in a list of expressions. Either way, I’m glad it works, but I would encourage digging deeper to find what the real reason could be in your free time, for the sake of practicing debugging skills and gaining a deeper understanding."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 05] Q6: Add Characters",
+    "content": "<a href=\"https://cs61a.org/lab/lab05/#q6\">Q6: Add Characters</a>\n\n<p> Please post all questions you have below concerning Q6: Add Characters in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I keep getting an IndexError: string index out of range even though I have implemented checks to make sure my function isn't indefinitely recursive. How do I go around this issue?",
+            "follow-ups": [
+                {
+                    "feedback": "Index out of range isn't an infinite recursion. Rather, it is trying to access an index of a list or character of a string that isn't defined. For example, calling test[4] on test = 'abc' would yield an index out of range error."
+                }
+            ]
+        }
+    ]
+}

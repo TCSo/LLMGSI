@@ -1,0 +1,839 @@
+{
+    "subject": "[Ants] Optional Problem",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#optional-problem-0-pt\">Optional Problem</a>\n\n<p> Please post all questions you have below concerning Optional Problem in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "can anyone give me so idea about the extra credit? What does the action argument in make_slow mean, does that mean the initial action?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes.  The idea with make_slow is that we want to return a function that will call Bee.action every other time tick. Let's suppose we had a Bee that just moves forward one place forward every time we call Bee.action(), for example. Then if the SlowThrower hits this Bee, then it will move forward every other time we call Bee.action.  In make_slow, you shouldn't worry about how we set Bee.action to the function we have made in make_slow (that's for the function apply_effect to worry about), but rather just focus on how we can make it so the Bee's action is called whenever colony.time is even."
+                },
+                {
+                    "feedback": "Oops, but what if it is the initial action, why we don't just get the action by using bee's argument in its class?"
+                },
+                {
+                    "feedback": "Because make_effect will be changing what Bee.action is bound to.  Suppose we had the following class:                class X:          \tdef f(self):     \t\treturn \"Hello!\"  And then we initialized an instance of the class and rebound f:                >>> x = X()     >>> x.f()     \"Hello!\"     >>> x.f = lambda: \"World!\"     >>> x.f()     \"World!\"  In this example, there is no way to get back the original function that returned \"Hello!\" once we rebound it without making a new object for x (which we don't want to do here).  In this question, we will be rebinding Bee.action temporarily, so we'll need something to store the original Bee.action so it can be used again once the status effect wears off. That is why we pass it in as an argument."
+                },
+                {
+                    "feedback": "OH, thanks!!!!"
+                },
+                {
+                    "feedback": "Thanks!!!! That helps a lot!!!"
+                },
+                {
+                    "feedback": "How do we alter the bee's action in apply_effect? Without using global, it won't be able to modify the bee parameter, right?"
+                }
+            ]
+        },
+        {
+            "question": "If `action` is already the action method of the bee, why is the `bee` parameter of `make_slow` even necessary?",
+            "follow-ups": [
+                {
+                    "feedback": "I didn't use it in my answer. I'm supposing that it's so you can use it in make_effect since it expects a function that takes in both an action and a bee."
+                },
+                {
+                    "feedback": "Oh that makes sense, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Is it acceptable to reset the bee's direction inside of `apply_effect`? I'm not sure of another way to reset the bee's direction back to normal after `duration` turns. Or should this somehow be handled inside of `make_scare` or the `Bee` class?",
+            "follow-ups": [
+                {
+                    "feedback": "You could handle it in the ScaryThrower class"
+                },
+                {
+                    "feedback": "Yeah that’s what I changed it to, although now my solution involves three instance variables and the effect feels redundant. I’m really not sure how the extra credit is graded, instructor clarification on that would be very helpful."
+                },
+                {
+                    "feedback": "I'm thinking it's not acceptable to just handle it in the `ScaryThrower` class. From the instructions: \"Make sure to test your code! Your code should be able to apply multiple effects on a target; each new effect applies to the current (possibly affected) action method of the bee.\" So I'm pretty sure `apply_effect`, `make_scare`, and the `Bee` class are the only acceptable places to handle resetting the direction at the proper time, since applying the effect for a given duration should work properly for any arbitrary bee. There are so many restrictions, this just seems impossible:  \\- apply_effect doesn't know what effect is being applied  \\- make_scare doesn't know how long the effect is applied  \\- bees don't know what effects are on them or how long they will last  \\- direction needs to be reset when the scare effect runs out"
+                },
+                {
+                    "feedback": "I used a janky solution where I reverse the Bee's direction at the beginning of make_scare, call the default action method, and then set the direction back to normal. This causes the direction to reset when make_scare stops running!"
+                },
+                {
+                    "feedback": "Thanks a bunch!"
+                },
+                {
+                    "feedback": "There's a hint in the Bee Class about where to change direction using destination variable and adding another class instance (same way as we did with Queen Ant :) I think this is the good way to implement this code."
+                },
+                {
+                    "feedback": "If you set the direction back to normal every time, then how do you ensure the backwards function lasts two turns, and that they can't be scared more than once?"
+                }
+            ]
+        },
+        {
+            "question": "For the inner and outer slow, I am not understanding why the inner slow remains at 2 for timesteps 2 and 3 whereas the outer slow decrements. Shouldn't they both decrement at each timestep?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about the way that the inner slow and the outer slow stack. Outer slow gets called at every timestep, but it only calls the inner slow for even values of `colony.time.` So the inner slow decrements every other timestep. Then when the outer slow finishes, the inner slow effectively becomes the outer slow, and decrements at every timestep."
+                }
+            ]
+        },
+        {
+            "question": "For the LaserAnt problem, does the 0.05/insect damage reduction carry over between turns, or should it reset to 2 each turn?",
+            "follow-ups": [
+                {
+                    "feedback": "It carries over"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyatitqleci3ey%2Fk1ll55i9dr82%2FScreen_Shot_20191010_at_20.41.31.png)  Don't know why but I kept getting this Errors. Only passed 5/8 case. Any thoughts would be highly appreciated. Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "This happened everytime SlowThrower was called. I think I passed all ScaryThrower by adding an instance variable as hinted in ant.py and checked just as Queen class."
+                },
+                {
+                    "feedback": "Nevermind problem solved. I indented return statement of make_slow to be of its own inner func LOL @@"
+                }
+            ]
+        },
+        {
+            "question": "I have passed 7/8 of the test cases, and I am currently stuck on the last one.  The issue I am having is when there are multiple stacked effects applied in this order: (scared, slow1, slow2, slow3). I understand from the instructions that each effect's duration only decrements when it is called. From the last doctest and the project page, what I believe should happen instead is that slow 1 becomes the new innermost action once scared's duration drops to 0, but in my implementation when the duration on the innermost effect \"scared\" hits 0, the bee's instance action to the class Bee's action (since I stored it as the \"previous action\" when the scared effect was applied first).  When I only apply multiple slow effects, there is no problem since the durations of the effects lower to zero in the reverse order they were applied. Thus the stored actions in each effect are correctly applied when the respective duration hits zero.  I am wondering if this is me not understanding the problem or if the idea behind storing previous actions in my implementation is incorrect. Thank you in advance.",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the exact same problem - my code works for all but the last test case. Did you ever manage to find a fix?"
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "I had the same problem for the longest time. I managed to fix it by adding debugging print statements before and after each of my action calls."
+                },
+                {
+                    "feedback": "When duration reaches 0, you can let this action function simply do nothing, rather than changing the bee's action function. If you reset the action function of bee's to Bee's, all the action functions in the stack will be discarded as well."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhqakxjj43g%2Fk1lvtr56bdir%2FScreen_Shot_20191011_at_01.41.12.png)  There is a 'colony' argument in the call bee.action(colony), but why it just says that action() is missing one argument?  Any advice? Thanks a lot!",
+            "follow-ups": [
+                {
+                    "feedback": "You probably have this set up so Bee.action is rebound to another function you made.  I made a similar mistake, so I'm gonna just guess what you did. Dunno if you actually did this though. Your returned function should not have self as a parameter since it is no longer a bound method of the Bee class, but just a regular Python function. If you have both self and colony as a parameter, then the colony will be passed into the self parameter, and nothing gets bound to colony, which gives the error you see."
+                },
+                {
+                    "feedback": "Got it - and yes, I made the same mistake. Thank you very much!"
+                }
+            ]
+        },
+        {
+            "question": "whats the difference between apply_Effect and make_slow/make_scare. To me it seems that their purpose overlaps quite a bit and am unable to understand properly differentiate them in my implementation.",
+            "follow-ups": [
+                {
+                    "feedback": "`make_slow` and `make_scare` generate and return methods that are a version of the current bee's action but with the desired effect applied. The job of `apply_effect` is to actually make the `bee` use the method generated by some effect parameter (the value of which is either the method `make_slow` or `make_scare`) as its action for `duration` turns"
+                },
+                {
+                    "feedback": "But I am really struggling with how to reverse those effects, because make_apply isn't called every time bee.action is called right?? Struggling to modify the duration and reserve the effect."
+                },
+                {
+                    "feedback": "To modify the duration, consider using a nonlocal statement. In order to \"reverse the effects\", store the old action in a variable and call it within the new action as necessary."
+                },
+                {
+                    "feedback": "I understand that when you call the new action method, you have to modify duration but since the frame you create when you call the new action method does not have the apply_effect frame in its environment chain, im not sure how you would access the duration variable using nonlocal"
+                },
+                {
+                    "feedback": "remember that a function's parent frame is where the function is defined - how can you define the new action method such that the apply_effect frame is in its environment chain?"
+                }
+            ]
+        },
+        {
+            "question": "Unable to access colony.time in make_slow. How do i access it?",
+            "follow-ups": [
+                {
+                    "feedback": "make_slow is supposed to return an action function. An action function takes in an AntColony object that you can use to access colony.time, so if you make an action function within make_slow, you will be able to access colony.time."
+                },
+                {
+                    "feedback": "I'm also confused about this. does that mean that we have to run make_slow before we can access colony.time?"
+                },
+                {
+                    "feedback": "Make_slow cannot access colony.time. Instead, you need to access it in the function which make_slow returns because that function should take a colony as an argument."
+                },
+                {
+                    "feedback": "Another way to think about this is that an action function, by definition, takes in colony as its argument. Therefore, we can call colony.time within an action method."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhqakxjj43g%2Fk1mhmetfk1kt%2FScreen_Shot_20191011_at_11.50.47.png)  When I tested this case interactively, it shows that the bee isn't slowed when bee.action is called for the third time, but the colony.time is 3 and the bee shouldn't move.  I find it weird because this effect works when bee.action is called for the first and second time but not the third time. I checked that in my throw_at method of SlowThrower, duration is 3 when apply_effect is called; in my apply_effect method, if duration is greater than 0, then duration is reduced by 1 and new_action is called, otherwise (if duration is 0) the method bound to the original action is called.  Where could this problem come from? Thank you in advance for any advice!",
+            "follow-ups": [
+                {
+                    "feedback": "I have the same issue, please help"
+                },
+                {
+                    "feedback": "Your high-level description sounds correct, so I suspect you have an error in your actual implementation. I can’t help you much other than to suggest tracing your code carefully through all the checks as the Python interpreter would and see when something could be wrong."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain to me why the Case 2 test case evaluates to tunnel_0_1 instead of tunnel_0_2? Here is my thinking:  colony.time | bee.place.name # slow affect  1 | tunnel_0_4 # 1 SLOW  2 | tunnel_0_3  3 | tunnel 0_3 # 2 SLOWS  4 | tunnel_0_2  5 | tunnel_0_2 # 3 SLOWS ( last one)  Am i missing something?",
+            "follow-ups": [
+                {
+                    "feedback": "U only slow for 3 durations. So #1 slow. Then #2 u move. Then #3 u slow. Then u need to remove the slow effect."
+                }
+            ]
+        },
+        {
+            "question": "How can I keep track of the very first action of the bee? So that after duration is over, I can return back to that? If I create a variable first action in apply_effect, that is modified everytime that function is called.",
+            "follow-ups": [
+                {
+                    "feedback": "figured"
+                },
+                {
+                    "feedback": "How did you keep track of the durations for each action? i made a list of the different actions but I don't think this is the best way"
+                },
+                {
+                    "feedback": "nvm"
+                }
+            ]
+        },
+        {
+            "question": "How can we use nonlocal to keep track of the duration in calls to the new action?",
+            "follow-ups": [
+                {
+                    "feedback": "refer to below post."
+                }
+            ]
+        },
+        {
+            "question": "When a scarythrower or slowethrower's action is initiated, it calls apply_effect and from their I reassing bee.action to either make_slow or make_thrower. From there and on, whever the bee.action is called, make_slow and make_thrower are called. How can I keep track of duration (in apply_effect) in make_slow or make_thrower? Any help would be very much appreciated thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "i have the same problem. i tried making duration an instance variable for Bees but that doesn't work because different actions have different durations associated with them"
+                },
+                {
+                    "feedback": "figured it out, I had to define a new function to keep track of duration"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I made a new function to apply the new effect on bees, but it said 'not callable'?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzwa9tw9to36rd%2Fk1mpq9yi4re7%2F%E6%8D%95%E8%8E%B7.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "The value of new_action is None at that line"
+                },
+                {
+                    "feedback": "Thank you! (It was a so stupid question.)"
+                },
+                {
+                    "feedback": "I am getting the same error how did you fix it?"
+                }
+            ]
+        },
+        {
+            "question": "Problem EC > Suite 1 > Case 2  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> # Testing Slow  >>> slow = SlowThrower()  >>> bee = Bee(3)  >>> colony.places[\"tunnel_0_0\"].add_insect(slow)  >>> colony.places[\"tunnel_0_4\"].add_insect(bee)  >>> slow.action(colony)  >>> colony.time = 1  >>> bee.action(colony)  >>> bee.place.name # SlowThrower should cause slowness on odd turns  'tunnel_0_4'  >>> colony.time += 1  >>> bee.action(colony)  >>> bee.place.name # SlowThrower should cause slowness on odd turns  'tunnel_0_3'  >>> for _ in range(3):  ... colony.time += 1  ... bee.action(colony)  **> >> bee.place.name**  **' tunnel_0_0'**  **# Error: expected**  **# 'tunnel_0_1'**  **# but got**  **# 'tunnel_0_0'**  Can't figure out why I got this. Any advice please? Thanks a lot!!",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having the same problem. Any help would be very much appreciated"
+                },
+                {
+                    "feedback": "The slow effect seems to be wearing off one turn too early. How are you handling effect duration?"
+                },
+                {
+                    "feedback": "I tried creating a new function within apply_effect that contains nonlocal variable duration. When duration >0, bee.action is bonded to effect and and duration-1. Otherwise, bee.action is bounded to the original action."
+                },
+                {
+                    "feedback": "I am having the same problem and am doing it the same way Anonymous just above described. What is going wrong?"
+                },
+                {
+                    "feedback": "If you bind `bee.action` to another method (such as back to the original action), then the function that handles the `action` calls for that bee is no longer going to be called, so the effect gets completely bypassed."
+                }
+            ]
+        },
+        {
+            "question": "When I place scarythrowers at the start of the game, the bees don't show up for a while and then when they do, it's in the middle of board. Is this suppose to be GUI bug since I passed the test, but the tests weren't exhaustive?",
+            "follow-ups": [
+                {
+                    "feedback": "Do the bees still get scared as they should? Some of the bees actually spawn farther ahead of some others."
+                }
+            ]
+        },
+        {
+            "question": "PSA for anyone who is completely stuck on this problem like I was: One thing that really helped me figure this out is to treat the \"temporary\" change as a permanent change. So instead of replacing the original action method and then trying to revert that change later, try instead replacing the original action method permanently with a new method that contains both the original action method and the new effected action method, and can determine which one of the two to call",
+            "follow-ups": [
+                {
+                    "feedback": "thank you so much! i never thought about doing this"
+                },
+                {
+                    "feedback": "glad I helped"
+                },
+                {
+                    "feedback": "Do you have any hints for how to get previous behavior working? Been trying to get that to work for the last several hours with no luck..."
+                },
+                {
+                    "feedback": "Make sure you keep a copy of the previous action method, and when the duration expires, call it instead of the new functionality"
+                },
+                {
+                    "feedback": "thanks, that helped me"
+                },
+                {
+                    "feedback": "@richard this post saved my life. thanks"
+                }
+            ]
+        },
+        {
+            "question": "Why is it that on the last case, when slow is applied 3 times, each slow has a decreasing amount of duration. I thought the provided code implied that duration of slow is always 3 turns:  >>> for _ in range(3): # slow bee three times   ... slow.action(colony)   >>> colony.time = 1   >>> bee.action(colony) # scared, but also slowed thrice   >>> bee.place.name   'tunnel_0_4'   >>> colony.time = 2   >>> bee.action(colony) # scared and slowed thrice   >>> bee.place.name   'tunnel_0_5'   >>> colony.time = 3   >>> bee.action(colony) # slowed thrice   >>> bee.place.name   'tunnel_0_5'   >>> colony.time = 4   >>> bee.action(colony) # slowed twice   >>> bee.place.name   'tunnel_0_4'   >>> colony.time = 5   >>> bee.action(colony) # slowed twice   >>> bee.place.name   'tunnel_0_4'   >>> colony.time = 6   >>> bee.action(colony) # slowed once   >>> bee.place.name   'tunnel_0_3'   >>> colony.time = 7   >>> bee.action(colony) # status effects have worn off   >>> bee.place.name",
+            "follow-ups": [
+                {
+                    "feedback": "if you have slow3(slow2(slow1(action))), when colony.time is even, all 'slow's durations are decremented, since the slow3 allows slow2 to run, which allows slow 1 to run, etc."
+                }
+            ]
+        },
+        {
+            "question": "I am struggling to get the `duration` to change each time the `bee `performs its action. Is `duration `changing within the `apply_effect `function? If so, how does `duration` change? This function seems to only be called when the `bee` is first affected. Does it need to be called each time a `bee `performs an `action`, too?  I have tried to decrease duration `by 1 within a helper function (that is within apply_effect) but this only changes its value once. Any help would be much appreciated.`",
+            "follow-ups": [
+                {
+                    "feedback": "I had apply_effect bind a function to bee.action . That replacement function decremented 'duration' in apply_effect's frame."
+                },
+                {
+                    "feedback": "How do we know bee's action has been called to then decrement duration? Thanks!"
+                },
+                {
+                    "feedback": "Whatever is bound to `bee.action` is what is called when the bee takes its action, so define a function that can also access the duration, and bind `bee.action` to that function."
+                }
+            ]
+        },
+        {
+            "question": "I am using an instance variable to keep track of the number of turns of a particular bee? That's fine right?",
+            "follow-ups": [
+                {
+                    "feedback": "No, as you'll have to stack effects in the later doctests, storing them within an instance variable won't work. (I'm sure you could make it all a list and such, but I assure you there are better methods)"
+                }
+            ]
+        },
+        {
+            "question": "for the ec problem, are we allowed to create an __init__ function in Bee, or is there another way to initialize instance variables?",
+            "follow-ups": [
+                {
+                    "feedback": "Correct, that is how you initiialize instance vars"
+                }
+            ]
+        },
+        {
+            "question": "Any ideas why my function is failing the test? what does the error mean?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy4rswsditj4ke%2Fk1ogx7y2itfw%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "I am confused why I am moving from tunnel_0_8 to tunnel_0_6 ,like a jump of 2?"
+                },
+                {
+                    "feedback": "I'm guessing that your slows are calling the bee's action independently. As in, slow1 is making the bee move, and then slow2 is making the bee move when colony.time is even. You might want to make a private post for instructors if you need more detailed help with the code."
+                },
+                {
+                    "feedback": "OP did you solve this issue? encountering the same issue and not sure how to change the structure of my code to accommodate for multiple function calls"
+                },
+                {
+                    "feedback": "Something I tried to do was treat all additional calls to the function as extending the duration rather than just having duration being passed in as an argument; doesn't completely work though"
+                },
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand how inner/outer works. I could probably figure it out for the case that two calls to the effect are stacked, but how does it work if there are more, like 5 calls?",
+            "follow-ups": [
+                {
+                    "feedback": "If your implementation stacks correctly in the case of two calls, then theoretically it should stack for an arbitrary number of calls properly"
+                }
+            ]
+        },
+        {
+            "question": "I implemented LaserAnt, passed the sanity test, and changed implemented to True, but it doesn't appear as an option when I play the game. Any insight?",
+            "follow-ups": [
+                {
+                    "feedback": "Likely a GUI bug"
+                },
+                {
+                    "feedback": "LaserAnt shows up for me, there's a scroll bar under the ant selection you need to manipulate."
+                }
+            ]
+        },
+        {
+            "question": "How do I keep from completely overwriting the previous bee.action method?",
+            "follow-ups": [
+                {
+                    "feedback": "+1"
+                },
+                {
+                    "feedback": "Store it in a separate variable before you reassign it"
+                },
+                {
+                    "feedback": "That's not working for me. Is there something similar to copy() for lists?"
+                },
+                {
+                    "feedback": "That is not necessary. If you store the old action in a variable, reference that variable in your new action, and then outside of that new action set the bee's action to the new action, it will work."
+                },
+                {
+                    "feedback": "where do you store it? is it in the make_effect function?"
+                },
+                {
+                    "feedback": "I have the same question. Since apply_effect and make_slow pass calls to each other while the bee is affected, the only logical place I can think of to store the old action would be in the throw_at function of the SlowThrower class, but I'm not sure if we are allowed to add code to it. Are we allowed to?"
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on the last test case for the extra credit, which is this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk1orz2qxaodf%2FScreen_Shot_20191013_at_2.16.30_AM.png)  I know my problem is in the apply_effect method but I can't figure out what the problem is. What I do in the apply_effect method is I keep applying the scare/slow effect if the duration is greater than zero. Once the duration is zero I give bee.action it's original action back and then use bee.action for the last call. The reason why I do this is that once duration is zero, I don't really see why we would need to come back to apply_effect method, every time we call bee.action, since bee.action is bound to my inner function in apply_effect. So that's why I set bee.action back to its original action. I would greatly appreciate the help!",
+            "follow-ups": [
+                {
+                    "feedback": "not sure how you are managing the rebinding of bee.action to the original function. I followed what Richard said and made an applied_effect method that called the original function if the duration elapsed."
+                },
+                {
+                    "feedback": "That's what I kinda did as well. But once the duration elapsed I set bee.action to its original action, so every time bee.action gets called it doesn't have to come back to applied_effect. Otherwise if the duration is still occurring then I call the effect parameter respectively. So bee.action is bound to the function I have in apply_effects for as long as the duration lasts."
+                },
+                {
+                    "feedback": "I ended up with the same error when I ran my code and I think my code is similar in structure to Samah's code. This question is marked as resolved, but I don't see any solution mentioned. Was this question resolved and if so, what was the answer?"
+                },
+                {
+                    "feedback": "I have the same error. So far, I've narrowed down the problem to that it sets bee.action back to its initial (from the class Bee) when the first slow runs out, which causes the subsequent slows to call the original behavior instead of my helper function in apply_effect."
+                },
+                {
+                    "feedback": "I've done a strange workaround where I just never return bee.action to the original (I keep it as my helper function in apply_effect). When my helper function detects that the duration is == 0, it calls the original action. When duration is > 0, it calls effect(action, bee).  It feels a bit awkward, but it passes the tests soo...."
+                },
+                {
+                    "feedback": "Hahaha, I just did the exact same thing. Feels pretty awkward and I'm not sure why it works, but I won't complain. :)"
+                }
+            ]
+        },
+        {
+            "question": "How do you access the colony's time? I know you can do it with colony.time, but colony is not passed directly to any of the functions. Am I missing something?",
+            "follow-ups": [
+                {
+                    "feedback": "you can define a new function with colony as one of the parameters"
+                },
+                {
+                    "feedback": "Oh, I guess that makes sense..."
+                }
+            ]
+        },
+        {
+            "question": "If my code passes all the test cases for the extra credit problem, does it mean I can get all the 2 extra credit?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                },
+                {
+                    "feedback": "When you mean \"all test cases\" do you mean just the ones that are provided with the project or will there be additional hidden test cases as well?"
+                }
+            ]
+        },
+        {
+            "question": "In the apply_effect method, I am trying to pass in the colony but have no way of accessing the colony, how does one do so?",
+            "follow-ups": [
+                {
+                    "feedback": "im also wondering how to do this, as im trying to mkae a helper function within apply_effect that needs colony as an arg"
+                },
+                {
+                    "feedback": "you shouldn't need access to colony in the apply_effect method"
+                },
+                {
+                    "feedback": "ignore my previous comment. you can just create a new function with colony as a parameter"
+                },
+                {
+                    "feedback": "Do we need to override the action function in these two classes?"
+                },
+                {
+                    "feedback": "you should not need to override any action function - the action method of the ThrowerAnt class will call the overwritten throw_at methods."
+                }
+            ]
+        },
+        {
+            "question": "Can we change make_slow and make_scare to take in a duration ? Or is this not allowed?",
+            "follow-ups": [
+                {
+                    "feedback": "This is not allowed"
+                }
+            ]
+        },
+        {
+            "question": ">>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> # Testing Scare  >>> scary = ScaryThrower()  >>> bee = Bee(3)  >>> colony.places[\"tunnel_0_0\"].add_insect(scary)  >>> colony.places[\"tunnel_0_4\"].add_insect(bee)  >>> scary.action(colony)  >>> bee.action(colony)  >>> bee.place.name # ScaryThrower should scare for two turns  'tunnel_0_3'  # Error: expected  # 'tunnel_0_5'  # but got  # 'tunnel_0_3'  Run only this test case with \"python3 ok -q EC --suite 1 --case 3\"  \\---------------------------------------------------------------------  Test summary  2 test cases passed before encountering first failed test case  Not sure why this error is popping up",
+            "follow-ups": [
+                {
+                    "feedback": "nvm"
+                },
+                {
+                    "feedback": "Can I ask what your problem was? I have the same issue."
+                },
+                {
+                    "feedback": "Same here"
+                },
+                {
+                    "feedback": "same..."
+                },
+                {
+                    "feedback": "got it!, try changing the direction in the helper function in the apply_effect func for the else case before you call the old action"
+                },
+                {
+                    "feedback": "how do i change the direction?"
+                },
+                {
+                    "feedback": "this is new behavior for a bee that you may have to add a new instance variable to keep track of (and change appropriately wherever the Bee moves)."
+                }
+            ]
+        },
+        {
+            "question": "![](https://i.gyazo.com/c20eb8d2afe078beb345125a9ea6b948.png)  I'm not entirely sure whats wrong with my code, can anyone point me in the right direction? Is the slow wearing off too early or is scare not lasting long enough to move the bee backwards?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, I was calling the Bee classes action from certain method calls, rather than call the nested actions i was generating with the effects. woo"
+                }
+            ]
+        },
+        {
+            "question": "I'm currently defining a helper function to keep track of duration. However, once the helper function rebinds bee.action to the effect function the duration is no longer decremented because the bee action is now the new effect function. I'm lost on how to keep track of duration once the action is reassigned to the effect function any help would be greatly appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "try using nonlocal. This will allow you to keep your duration from not decrementing after every rebinding of bees.action to the effect function."
+                }
+            ]
+        },
+        {
+            "question": "Do we get partial credit for attempting the extra credit problems? (Like if we have code that actually shows effort but may not pass all the test cases for the SlowThrower and ScaryThrower ants)",
+            "follow-ups": [
+                {
+                    "feedback": "No; extra credit is graded on correctness"
+                }
+            ]
+        },
+        {
+            "question": "I am a bit confused about how to apply duration in apply_effect. I used a while loop that calls a new action method and once the duration reaches 0, it would reassign the bee.action to the original method, but it seems that I am still failing some test cases.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1rfh4u4p497%2FScreen_Shot_20191014_at_10.49.34_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "try using a nonlocal so that it saves the duration"
+                },
+                {
+                    "feedback": "Ok so I tried doing this but still receive the same error, when I use the interaction the bee moves after another action instance, I am messing with my counters but I do not seem to be able to fix it."
+                },
+                {
+                    "feedback": "I am also having the same problem, have you found any way to fix it?"
+                },
+                {
+                    "feedback": "Make sure that duration is decremented every time the action is called. What should the starting value of duration be? And when do you stop decrementing duration and stop calling the effect?"
+                }
+            ]
+        },
+        {
+            "question": "How do we check for time ticks?",
+            "follow-ups": [
+                {
+                    "feedback": "`colony.time`"
+                }
+            ]
+        },
+        {
+            "question": "I'm a little confused on how to keep track of the duration for the extra credit. Reading all the posts above, I created a function in apply_effect in that uses nonlocal duration. I also made a variable to keep track of the original bee.action. What I'm confused on is how this method is going to be referenced each time bee.action is called so that the duration would be decremented. Is there a way to do this without another function?",
+            "follow-ups": [
+                {
+                    "feedback": "consider the fact that bee.action is essentially a variable name that is originally bound to the Bee class's action method, but can be assigned to literally anything else."
+                }
+            ]
+        },
+        {
+            "question": "I'm having this error where the nonlocal variable is not being changed after a conditional statement is met, any ideas why this might be happening?",
+            "follow-ups": [
+                {
+                    "feedback": "It’s hard to say without seeing your code. Make sure you’re following the correct format for the `nonlocal` statement, and make a private post if you need more help."
+                }
+            ]
+        },
+        {
+            "question": "Problem EC > Suite 1 > Case 2  >>> from ants import *   >>> beehive, layout = Hive(AssaultPlan()), dry_layout   >>> dimensions = (1, 9)   >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)   >>> # Testing Slow   >>> slow = SlowThrower()   >>> bee = Bee(3)   >>> colony.places[\"tunnel_0_0\"].add_insect(slow)   >>> colony.places[\"tunnel_0_4\"].add_insect(bee)   >>> slow.action(colony)   Traceback (most recent call last):   File \"D:\\cs61a\\projects\\ants\\ants.py\", line 260, in action   self.throw_at(self.nearest_bee(colony.beehive))   File \"D:\\cs61a\\projects\\ants\\ants.py\", line 604, in throw_at   apply_effect(make_slow, target, 3)   File \"D:\\cs61a\\projects\\ants\\ants.py\", line 580, in apply_effect   new = effect(bee.action)   TypeError: make_slow() missing 1 required positional argument: 'bee'  Can someone explain this please?",
+            "follow-ups": [
+                {
+                    "feedback": "Fixed - syntax error"
+                },
+                {
+                    "feedback": "I'm getting this error too but can't figure our where the syntax error is. Could you give me a hint for where you found it?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjmhz6r9hduNU%2Fk1tkjupizafj%2FScreen_Shot_20191016_at_10.47.54_AM.png)  I'm not sure why, but the bee goes backwards and doesn't stop.....my apply_effect method saves the bee's old action and rebinds it when duration gets to 0, but that isn't showing up here.....any advice? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Hey! We had the same problem, but we found that our way of checking if the bee had been scared and then assigning direction was not actually changing the direction of movement for the bee. We then tried directly assigning a direction change rather than checking if the bee was scared and then depending on another function to correctly interpret that result to change the direction, and it passed."
+                }
+            ]
+        },
+        {
+            "question": "Is there any reason why my scare would only work for one turn? I am sure it is not the implementation of throw_at."
+        },
+        {
+            "question": "Hi guys,  Was wondering if anyone could give me pointers on how to stack multiple effects (mainly the slows). I'm currently really lost on the implementation and would greatly appreciate some guidance!!",
+            "follow-ups": [
+                {
+                    "feedback": "Currently I have my code jumping back and forth between a helper and effect function in order to keep track of duration, however the outer duration currently removes itself one too early which is rather confusing"
+                },
+                {
+                    "feedback": "My problem is that when the bee moves from the inner counter, it jumps out one level to the helper for the inner function and not the outer one."
+                },
+                {
+                    "feedback": "Someone posted a pretty good hint earlier about this but I'll just relay it: You _aren 't_ required to clean up/undo the rewiring after effects expire. I also banged my head head against my desk for a while trying to figure out what I think you're working through. Ultimately, however, it isn't necessary. Giving up on clean up simplifies your implementation and resolves the issue where the first applied effect expires and ends up destroying the effect chain."
+                }
+            ]
+        },
+        {
+            "question": "Right now I have defined a function in apply_effect that would take care of setting bee.action to the appropriate new action and decrementing. However, I'm not sure exactly how to call this function. I tried setting bee.action to this new function, but that resulted in an error. Any advice?",
+            "follow-ups": [
+                {
+                    "feedback": "What's the error?"
+                },
+                {
+                    "feedback": "a NoneType error"
+                }
+            ]
+        },
+        {
+            "question": "what are we supposed to add in the Bee class action method? stuck on implementing make_scare properly",
+            "follow-ups": [
+                {
+                    "feedback": "You should alter Bee.action to allow bees to move in a direction specified by a direction property of the instance. The scare effect should change the direction property."
+                }
+            ]
+        },
+        {
+            "question": "This is super basic but how do I check whether to decrement duration? I know I need to do it each time the turn changes and bee.action is called but I'm not sure how to tell Python to check that",
+            "follow-ups": [
+                {
+                    "feedback": "The nonlocal is a super useful tool here, search for the keyword nonlocal in this page will lead you to the previous post which contains the hint of this"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzccsf191qn5wt%2Fk1u7o9mdmeud%2FScreen_Shot_20191016_at_9.33.10_PM.png)  In case 4, why the harvester.armor should be 0? It is only the second turn for the scared bee which should be scared for two turns(First turn is fly backward one block).",
+            "follow-ups": [
+                {
+                    "feedback": "I think it's because harvester and bee are in the same place, and the bee will check if there's an ant in its place before it thinks about moving. I guess it depends on how you defined blocked() though.  def action(self, colony):   \"\"\"A Bee's action stings the Ant that blocks its exit if it is blocked,   or moves to the exit of its current place otherwise.      colony -- The AntColony, used to access game state information.   \"\"\"   destination = self.place.exit   # Extra credit: Special handling for bee direction   # BEGIN EC   # END EC   if self.blocked():   self.sting(self.place.ant)   elif self.armor > 0 and destination is not None:   self.move_to(destination)"
+                },
+                {
+                    "feedback": "It works, thank you!!!"
+                },
+                {
+                    "feedback": "Im getting the same error but not sure what is going on, i added an if statement for if going forward is False and if armor is more than 0 and if the self.place.entrance is not in the Hive, for the current self to be moved to the entrance.  and then i added another if statement saying if self.forward is True for it to do all of the other functions of self.blocked() and etc."
+                },
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "I passed all the tests, but there is a bug in my program when i played the game. When I try to use my scary ant, it just makes my game goes away. I don't know why is that...",
+            "follow-ups": [
+                {
+                    "feedback": "this is likely a bug with the GUI - if you can, please post a private post describing the error in more detail, and we can attempt to fix the bug for future semesters."
+                }
+            ]
+        },
+        {
+            "question": "For the EC question: We think our make_slow and make_scare are working, but whenever the apply_effect function runs bee.action(colony) it returns <function make_slow.<locals>.slow>? Why is this happening? What can we do to fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Most likely you are returning a function but not calling it, I had a similar issue. Make sure that whatever you are assigning bee.action to is being applied to the colony."
+                },
+                {
+                    "feedback": "Thank you! We fixed the problem by making sure we applied the colony!"
+                }
+            ]
+        },
+        {
+            "question": "At the end of the EC question, it is stated that the tests are not exhaustive and that  \"Your code should be able to apply multiple effects on a target; each new effect applies to the current (possibly affected) action method of the bee\"  However, do at least some of the tests check this multiple effects scenario? If we are able to pass all 8 test cases, does that mean our code should be able to take multiple effects? Or is the multiple effects case not tested at all by the ok autograder, in which case we would have to write our own tests to test it?  Just wondering how much the tests given can allow us to know if our code is working the way it should.",
+            "follow-ups": [
+                {
+                    "feedback": "If you would like to see all of the tests for the extra credit problem, type \"python3 ok -v -q EC\" in terminal."
+                },
+                {
+                    "feedback": "ok thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having some trouble figuring out where to start with this problem, are there any suggestions? Also, do we need to create colony.time or is it already created and we just need to access it within make_slow?",
+            "follow-ups": [
+                {
+                    "feedback": "The latter. See the followups above for more details on how to do that, but essentially, make_slow and make_scare should be returning action functions, and action functions in this program take in the AntColony which you can use to access colony.time."
+                }
+            ]
+        },
+        {
+            "question": "Getting this error, I'm not sure why. Any hints please? Thank you ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp9jc7an29b%2Fk1v05mhrkvi0%2Ferorrrr.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Scare effect never activated so the bee was not afflicted, make sure that the targetted bee marked as scared and goes backwards."
+                }
+            ]
+        },
+        {
+            "question": "So I made duration into a nonlocal variable inside of a helper function for apply_effect, but when I try to decrement it inside the bee's new action function, it apparently is being referenced before assignment. I have set it up so that the new action function should be looking at its parents, and I think the helper function should be a parent. Any ideas why it might not be able to access the nonlocal duration?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm having this same problem, I think it's because our apply_effect and make_scared/slow functions share a frame, but the helper function of apply_effect isn't necessarily in the parent frame of our effect functions, which is where we want to a nonlocal version of duration. At least I think that's why that's error is showing up? I'm trying to think of how to get around this, any pointers or clues would be appreciated!"
+                },
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "I was able to pass all 8 of the tests for the EC problem. However, I see a lot of flaw in my code. For example, my code only allows one effect to be applied onto an ant at a time. If a bee is slowed and ScaryThrower hits the ant, the bee loses it slow debuff and is instead replaced by the scared debuff. I'm a little confused as to how the instructors want us to navigate this and implement. How is the EC graded? Do I get it as long as I past the tests?",
+            "follow-ups": [
+                {
+                    "feedback": "In lecture, Professor DeNero said that the graders don't have hidden tests, so you will get the point. He suggested that we try to implement correct solutions nonetheless."
+                },
+                {
+                    "feedback": "Thank you, sounds good. I'm going to try to improve my code."
+                }
+            ]
+        },
+        {
+            "question": "In implementing make_slow, I store the bee’s previous action in a variable old_action, and for even values of colony.time attempt to call bee.old_action(colony), but am returning  a nonetypr error. I’m really unsure as to what could r wrong with my code, if anyone could help it would be super appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't need to store the action in a variable because make_slow shouldn't reassign the function. I recommend calling the action which is passed in as an argument of make_slow directly."
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to add code to the throw_at function of the SlowThrower class?",
+            "follow-ups": [
+                {
+                    "feedback": "You can, but it is not necessary."
+                }
+            ]
+        },
+        {
+            "question": "How do I make sure a bee doesn't get scared twice?",
+            "follow-ups": [
+                {
+                    "feedback": "Am I allowed to make another instance variable in the Bee class?"
+                },
+                {
+                    "feedback": "nvm"
+                },
+                {
+                    "feedback": "You can have an attribute assigned to a bee which contains information about whether or not the bee has been scared before, and you could update this attribute after a bee has been scared to reflect the fact that the bee has already been scared before."
+                }
+            ]
+        },
+        {
+            "question": "For anyone stuck on test case 5 (inner/outer slows), make sure that you are using action(...) and not bee.action(...) in the make_slow helper function. This lets you account for different functions passed into the 'action' argument and thus lets you account for nested slows",
+            "follow-ups": [
+                {
+                    "feedback": "this is solid advice, thank you!!"
+                }
+            ]
+        },
+        {
+            "question": "Problem EC > Suite 1 > Case 2  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> # Testing Slow  >>> slow = SlowThrower()  >>> bee = Bee(3)  >>> colony.places[\"tunnel_0_0\"].add_insect(slow)  >>> colony.places[\"tunnel_0_4\"].add_insect(bee)  >>> slow.action(colony)  >>> colony.time = 1  >>> bee.action(colony)  Traceback (most recent call last):  File \"/Users/druborup/Desktop/cs61a/projects/ants/ants.py\", line 553, in slow  if colony.time%2 == 0:  NameError: name 'colony' is not defined  # Error: expected  # but got  # Traceback (most recent call last):  # ...  # NameError: name 'colony' is not defined  Run only this test case with \"python3 ok -q EC --suite 1 --case 2\"  \\---------------------------------------------------------------------  Test summary  1 test cases passed before encountering first failed test case  How are we suppose to access colony.time?",
+            "follow-ups": [
+                {
+                    "feedback": "The idea behind the make_slow function is that you need to create a new function within the make_slow function (which takes in a parameter for the colony). This is how you can access colony.time."
+                }
+            ]
+        },
+        {
+            "question": "Where am I going wrong?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhm5o2cg41h%2Fk1vekouvzap%2FScreen_Shot_20191017_at_5.35.54_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Did you ever resolve this? I am having exact same issue."
+                },
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "Problem EC > Suite 1 > Case 2 >>> from ants import * >>> beehive, layout = Hive(AssaultPlan()), dry_layout >>> dimensions = (1, 9) >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions) >>> # Testing Slow >>> slow = SlowThrower() >>> bee = Bee(3) >>> colony.places[\"tunnel_0_0\"].add_insect(slow) >>> colony.places[\"tunnel_0_4\"].add_insect(bee) >>> slow.action(colony) >>> colony.time = 1 >>> bee.action(colony) >>> bee.place.name # SlowThrower should cause slowness on odd turns 'tunnel_0_4' >>> colony.time += 1 >>> bee.action(colony) Traceback (most recent call last): ... File \"ok\\client\\utils\\timer.py\", line 33, in timed raise submission.error File \"ok\\client\\utils\\timer.py\", line 49, in run self.result = self.fn(*self.args, **self.kargs) File \"\", line 1, in File \"C:\\Users\\chris\\Documents\\Berkeley\\cs61a\\project\\ants\\ants.py\", line 603, in new_action bee.action(colony) File \"C:\\Users\\chris\\Documents\\Berkeley\\cs61a\\project\\ants\\ants.py\", line 603, in new_action bee.action(colony) File \"C:\\Users\\chris\\Documents\\Berkeley\\cs61a\\project\\ants\\ants.py\", line 603, in new_action bee.action(colony) [Previous line repeated 990 more times] File \"C:\\Users\\chris\\Documents\\Berkeley\\cs61a\\project\\ants\\ants.py\", line 600, in new_action if colony.time % 2 == 1: RecursionError: maximum recursion depth exceeded in comparison # Error: expected # but got # Traceback (most recent call last): # ... # RecursionError: maximum recursion depth exceeded in comparison Run only this test case with \"python3 ok -q EC --suite 1 --case 2\" not sure why I'm getting this error as no recursion is involved?",
+            "follow-ups": [
+                {
+                    "feedback": "I am guessing that when you call bee.action in your code, bee.action is referring to the itself (i.e the same function). As a result, it would call the same function forever."
+                },
+                {
+                    "feedback": "I also ran into this problem. For me, it was because the function I defined within apply_effect had the same name as a name I was using to store the action given by the effect, so it was basically just referencing itself and recursing forever."
+                },
+                {
+                    "feedback": "Got it, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy256ipz5n8%2Fk1vgmiz8mux5%2FScreen_Shot_20191017_at_6.33.34_PM.png)  I am not passing all the cases where the bee is slowed multiple times. I cant really understand how to fix this. I am decrementing duration inside inner function of make_slow func. I would appreciate any help!",
+            "follow-ups": [
+                {
+                    "feedback": "I had trouble with that too! I worked through my issue by adjusting what my condition checks if my effect functions return the afflicted action, or the original one"
+                }
+            ]
+        },
+        {
+            "question": "Problem EC > Suite 1 > Case 2 >>> from ants import * >>> beehive, layout = Hive(AssaultPlan()), dry_layout >>> dimensions = (1, 9) >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions) >>> # Testing Slow >>> slow = SlowThrower() >>> bee = Bee(3) >>> colony.places[\"tunnel_0_0\"].add_insect(slow) >>> colony.places[\"tunnel_0_4\"].add_insect(bee) >>> slow.action(colony) >>> colony.time = 1 >>> bee.action(colony) >>> bee.place.name # SlowThrower should cause slowness on odd turns 'tunnel_0_4' >>> colony.time += 1 >>> bee.action(colony) Traceback (most recent call last): File \"C:\\Users\\chris\\Documents\\Berkeley\\cs61a\\project\\ants\\ants.py\", line 602, in new_action Bee.action(bee, colony) File \"C:\\Users\\chris\\Documents\\Berkeley\\cs61a\\project\\ants\\ants.py\", line 184, in action if self.armor > 0 and destination is not None: AttributeError: 'Bee' object has no attribute 'armor' # Error: expected # but got # Traceback (most recent call last): # ... # AttributeError: 'Bee' object has no attribute 'armor' Run only this test case with \"python3 ok -q EC --suite 1 --case 2\" When bee.action(colony) is called after increasing colony.time, it returns this error, but since bee is a subclass of insect, shouldn't it inherit the __init__ method defined in insect that creates an armor attribute? When an armor value was passed into Bee for questions 1-13, this error did not occur. When I try to define a new __init__ in Bee class that basically imports the aspects of the Insect __init__ method (armor, etc), I get that Insect ha no attribute armor. Why is this happening?",
+            "follow-ups": [
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "For some reason I cannot alter the action method of the bee at all. In my apply_effect method, I set bee.action = something. Is this the wrong way to do it?",
+            "follow-ups": [
+                {
+                    "feedback": "I am doing this inside an inner function, just to clarify"
+                },
+                {
+                    "feedback": "No matter what I do, the bee keeps performing its original action."
+                },
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "Traceback (most recent call last):         File \"/Users/mohamedelgharbawy/Documents/Fall2019/cs61a/projects/ants/ants.py\", line 686, in action           apply_effect(make_slow, target, 3)         File \"/Users/mohamedelgharbawy/Documents/Fall2019/cs61a/projects/ants/ants.py\", line 657, in apply_effect           original_action = bee.action       AttributeError: 'AntColony' object has no attribute 'action'                   Any idea how to fix the above error?",
+            "follow-ups": [
+                {
+                    "feedback": "somehow your variable name bee is coming to be equal to the instance of the colony - check your variables that are being passed in, and make sure you know what to expect."
+                }
+            ]
+        },
+        {
+            "question": "Hello! is colony.time needed for the implementation of make_scare? Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": "Do the Scary Thrower Ants see through bees that have already been scared? Like will the ST Ant target the already scared bee, realize it's already been scared, and then target the next bee, or will it stop there? Basically, are already scared bees effectively shields from the Scary Throwers for the other bees to the right of them? Edit: Since it's not specified otherwise, the logical assumption based on precedence is that they would in fact act as shields, so I implemented them as such. And since it would have been more work to make them not act that way anyway, it also makes sense in that regard. And I was able to pass all the doctests, so I'm leaving my comment in case anyone also had this extraneous thought like I did."
+        },
+        {
+            "question": "Do we still get the extra credit bonus if we submit thru problem 13 today but the extra credit tomorrow?",
+            "follow-ups": [
+                {
+                    "feedback": "You would get the 2 extra credit points for the problem, but not the 1 extra credit point for submitting early."
+                }
+            ]
+        },
+        {
+            "question": "Is the order that Laser Ant hits the insects of a given place random? Or does it hit ants first and then bees or vice versa? Like if you made it hit bees first, it would be better than if it was random or hit ants first. Also, I might as well ask. Does it hit container ants before normal ants or vice versa or is it random? I'm gonna implement it to be as powerful as possible (by hitting bees first) for now.",
+            "follow-ups": [
+                {
+                    "feedback": "all insects, bee or ant, will end up taking damage anyways, so I'm not understanding what you mean by it being more powerful if it hits bees first."
+                }
+            ]
+        },
+        {
+            "question": "Just wondering, for the EC did you guys ever give the ants back their original action method? My apply_effect has a helper method that I give to the ants, but once they get effected they're stuck with it forever. I store the original action outside the helper in a variable and the helper just calls to it when duration is 0, and calls the effect method when the duration is greater than 0.      All my tests pass, but it feels strange to never give them back the default bee action.",
+            "follow-ups": [
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        },
+        {
+            "question": ">>> from ants import * >>> beehive, layout = Hive(AssaultPlan()), dry_layout >>> dimensions = (1, 9) >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions) >>> # Testing Slow >>> slow = SlowThrower() >>> bee = Bee(3) >>> colony.places[\"tunnel_0_0\"].add_insect(slow) >>> colony.places[\"tunnel_0_4\"].add_insect(bee) >>> slow.action(colony) >>> colony.time = 1 >>> bee.action(colony) >>> bee.place.name # SlowThrower should cause slowness on odd turns 'tunnel_0_4' >>> colony.time += 1 >>> bee.action(colony) >>> bee.place.name # SlowThrower should cause slowness on odd turns 'tunnel_0_3' >>> for _ in range(3): ... colony.time += 1 ... bee.action(colony) >>> bee.place.name 'tunnel_0_0' # Error: expected # 'tunnel_0_1' # but got # 'tunnel_0_0' Run only this test case with \"python3 ok -q EC --suite 1 --case 2\" Why is the bee supposed to end up at tunnel 0_1? If make_slow is implemented correctly, shouldn't the bee only move forward once as the for loop runs and end up at tunnel 0_2 since colony.time would only be even once in the for loop?",
+            "follow-ups": [
+                {
+                    "feedback": "resolving this follow up now that the project is past due. please post a new follow up if you have any remaining questions about the project!"
+                }
+            ]
+        }
+    ]
+}

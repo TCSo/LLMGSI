@@ -1,0 +1,151 @@
+{
+    "subject": "[Hog] Problem 4",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-4-2-pt\">Problem 4</a>\n\n<p> Please post all questions you have below concerning Problem 4 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "\"Hint. Finding the leftmost digit is possible with a bunch of `if` statements but is simpler using a `while` loop.\"    Any hints on how to approach the while loop?",
+            "follow-ups": [
+                {
+                    "feedback": "You are basically looking for a singular digit (the leftmost digit)... You want to keep _trimming down your number_ **until you hit that one digit**. What I have italicized should be the body of the while loop, and the bolded part should be the condition of the loop. It is up to you to translate English to Python! Hope this helped :)"
+                },
+                {
+                    "feedback": "While I understand the body of the loop, how will you have a while loop that iterates for the length of the number without using any 'len' command?"
+                },
+                {
+                    "feedback": "In your body, you want to trim the number down (perhaps using division). In the condition of the while loop, you want to check the length of the number by checking, perhaps, if it is a one-digit number (i.e. <10)."
+                }
+            ]
+        },
+        {
+            "question": "Can we use break statements once a certain condition in the loop has been satisfied? Essentially, are we allowed to use code techniques that have not been introduced yet in the course on this project? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "From an instructor on the master thread: \"Please do not use things we haven’t learned yet—some functions will become extremely trivial with containers for example\""
+                }
+            ]
+        },
+        {
+            "question": "I finished this problem earlier and passed all the tests. While doing problem 5a, my tests were failing and I realized it was due to a bug in problem 4. I figured I'd just post this to say that the tests for problem 4 aren't comprehensive.  The exact bug occurs because to determine the first digit I was using player_score > 10, when it should have been player_score >= 10. I can elaborate this problem further if any instructors are interested.",
+            "follow-ups": [
+                {
+                    "feedback": "a test case has been added for this case and is available in the new download, if you are interested in testing against our tests (but it sounds like you were able to debug on your own - even better!)"
+                }
+            ]
+        },
+        {
+            "question": "For my unlock case, I had 13 test cases (no failed) but my partner had 14. Is this ok? Just wanted to clarify.",
+            "follow-ups": [
+                {
+                    "feedback": "we added a new test case after the initial release, but it is not necessary to have all test cases - it is just helpful for your own debugging purposes (it covers an edge case that we missed)."
+                }
+            ]
+        },
+        {
+            "question": "So, I managed to pass all test cases, and I utilized several local def statements in my code and was just wondering if it is the optimal way to solve this problem.",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need local def statements, but you also are not prevented from using them. Just use the 3 principles Professor DeNero talked about when deciding whether or not you need an additional function: <http://composingprograms.com/pages/14-designing-functions.html>"
+                }
+            ]
+        },
+        {
+            "question": "I was wondering why, in Suite 1 Case 2, is_swap(56, 35) results in True?  Shouldn't it be False, since 5*6 != 3*5. It's not letting me pass this case in particular",
+            "follow-ups": [
+                {
+                    "feedback": "this should return False - can you take a snapshot of the test you are not passing?"
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "I fixed it; I guess I downloaded the early version of the hog files because I just replaced my question 04 ok.py files with a newer download and it looks like they erased that test case and also added new ones. Thanks anyway!"
+                }
+            ]
+        },
+        {
+            "question": "So i have a code that gives the leftmost digit. And i know the body for finding the rightmost digit. However, i cant seem to find a condition for this rightmost digit so that the while loop stops. Any hints?",
+            "follow-ups": [
+                {
+                    "feedback": "I personally did not have to utilize a while loop to find the rightmost digit."
+                },
+                {
+                    "feedback": "OK! I got that part. Now I'm running into an issue with numbers < 10, where if I use the x // 10 thing I get 0 for the first digit... whereas I should be getting the actual value. Any ideas pls??"
+                },
+                {
+                    "feedback": "x // 10 is floor division, any number under 10 will return 0 for that.  If you're looking for the actual value, you should use modulus, x % 10.  i.e. 7 // 10 = 0 but 7 % 10 = 7."
+                }
+            ]
+        },
+        {
+            "question": "Ughh. So I don't really see how I can stop the while loop for the leftmost digit. If its a double digit, say x = 28. If I use while loop, with x//10, it gives 2, from here how can I stop the loop from happening agaaiiin???",
+            "follow-ups": [
+                {
+                    "feedback": "You want to make the condition of your while loop stop when the number is a one-digit number (i.e. <10)."
+                },
+                {
+                    "feedback": "OK, and then I would have to create a separate thing to evaluate single digit inputs right? Cuz that while loop wouldn't work for single digits?"
+                },
+                {
+                    "feedback": "After getting the single digits (right and left most numbers), you would multiply them together. And, then you would repeat this process for the opponent and check whether the product for both are the same. Does that make sense?"
+                },
+                {
+                    "feedback": "Yeah, I got it! Thanks for the help! Really!"
+                }
+            ]
+        },
+        {
+            "question": "So I wrote a while loop that passed the first three test cases but I got a timeout error when it came to (124, 2). Any idea on why I would get a timeout even though it worked for the other cases?",
+            "follow-ups": [
+                {
+                    "feedback": "Maybe this is the first case that has a three digit number, and so you would have to account for that in your code. Using mod and // should be enough though."
+                },
+                {
+                    "feedback": "Where you able to figure it out? I got stuck with the exact same problem and I have no idea why the code I wrote wouldn't work for three digit numbers"
+                },
+                {
+                    "feedback": "make sure that the base case in your while loop is something that will actually terminate with a three digit number (try 124!)"
+                }
+            ]
+        },
+        {
+            "question": "My code is working for the test cases, however, nothing shows up for the 5th test case. To debug, I put in print statements to see what my code was producing along the way, but terminal will not print anything out.",
+            "follow-ups": [
+                {
+                    "feedback": "If you want to print something to the console with Ok, start off the string to be printed with \"DEBUG:\" like so:                print(\"DEBUG:\", \"Hello World!\")"
+                }
+            ]
+        },
+        {
+            "question": "Incorrect result after playing 2 game(s):  \\----------------------------------------------------------------  score0 score1 Turn Summary  \\----------------------------------------------------------------  Turn 0: 0 0 Player 0 rolls 7 six-sided dice:  +1  1 0  \\----------------------------------------------------------------  Turn 1: 1 0 Player 1 rolls 3 six-sided dice:  +14  1 14  \\----------------------------------------------------------------  Turn 2: 1 14 Player 0 rolls 7 six-sided dice:  +13 -12  14 2  \\----------------------------------------------------------------  Turn 3: 14 2 Player 1 rolls 4 six-sided dice:  +1  14 3  \\----------------------------------------------------------------  Turn 4: 14 3 Player 0 rolls 1 six-sided die:  +6  20 3  \\----------------------------------------------------------------  Turn 5: 20 3 Player 1 rolls 4 six-sided dice:  +1  20 4  \\----------------------------------------------------------------  Turn 6: 20 4 Player 0 rolls 2 six-sided dice:  +7  27 4  \\----------------------------------------------------------------  Turn 7: 27 4 Player 1 rolls 1 six-sided die:  +1  27 5  \\----------------------------------------------------------------  Turn 8: 27 5 Player 0 rolls 4 six-sided dice:  +20  47 5  \\----------------------------------------------------------------  Turn 9: 47 5 Player 1 rolls 6 six-sided dice:  +24  47 29  \\----------------------------------------------------------------  Turn 10: 47 29 Player 0 rolls 1 six-sided die:  +2  49 29  \\----------------------------------------------------------------  Turn 11: 49 29 Player 1 rolls 0 dice:  +6  49 35  \\----------------------------------------------------------------  Turn 12: 49 35 Player 0 rolls 4 six-sided dice:  +17  66 35  \\----------------------------------------------------------------  Turn 13: 66 35 Player 1 rolls 5 six-sided dice:  +18  66 53  \\----------------------------------------------------------------  Turn 14: 66 53 Player 0 rolls 3 six-sided dice:  +12  78 53  \\----------------------------------------------------------------  Turn 15: 78 53 Player 1 rolls 4 six-sided dice:  +13  78 66  \\----------------------------------------------------------------  Turn 16: 78 66 Player 0 rolls 10 six-sided dice:  +1  79 66  \\----------------------------------------------------------------  Turn 17: 79 66 Player 1 rolls 3 six-sided dice:  +12  79 78  \\----------------------------------------------------------------  Turn 18: 79 78 Player 0 rolls 4 six-sided dice:  +15  94 78  \\----------------------------------------------------------------  Turn 19: 94 78 Player 1 rolls 4 six-sided dice:  +12  94 90  \\----------------------------------------------------------------  Turn 20: 94 90 Player 0 rolls 2 six-sided dice:  +12  106 90  \\----------------------------------------------------------------  Final Score: 106 90  \\----------------------------------------------------------------  Incorrect implementation of game at turn 1.  Please read over the trace to find your error.  If you're having trouble, try looking up the error ID on Piazza,  or making a post with this full trace output.  (error_id: 3079010512)  What is wrong with Turn1 I cant figure it out",
+            "follow-ups": [
+                {
+                    "feedback": "not sure about turn1, but there may be an incorrect swap occurring at turn 2 - so maybe try checking that your swapping is correct!"
+                }
+            ]
+        },
+        {
+            "question": "Will we be deducted points if we only use if statements?",
+            "follow-ups": [
+                {
+                    "feedback": "I doubt it. Though it may not be the most efficient, it does say in the instructions it can be done."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting the following error when I'm trying to test the code.  UnboundLocalError: local variable 'left_p' referenced before assignment  Can anybody give me a hint to how I may solve this issue?",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm! I solved it."
+                }
+            ]
+        },
+        {
+            "question": "I've been trying to solve this for a while now. To get the rightmost digit, I performed modulo and labeled each for the opponent and the player's. As given in the directions, I used a while loop to get the left digit separately (for both the opponent and the player's). To isolate the left digit, I assigned it the name adjusted_player and adjusted_opponent respectively. However, Python is giving me an unbound local error , referring to my names \"adjusted_player\" and \"adjusted_opponent\" _before the assignment_. These names I applied inside the while loop(s). Any help is appreciated in overcoming this error, thx.",
+            "follow-ups": [
+                {
+                    "feedback": "So it seems like you almost figured out with the debugging. While loop always checks the condition before its first iteration. So if you assigned those variables inside your loop, first condition check would not work because your variables are not created yet."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,356 @@
+{
+    "subject": "[Ants] Problem 4",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-4-2-pt\">Problem 4</a>\n\n<p> Please post all questions you have below concerning Problem 4 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I'm not sure how I could make the LongThrower target the furthest bee; any advice? I've tried making a list of all the places with bees in them, then calling random_or_none on the last entry in the list if the ant's class is LongThrower, but that didn't work.",
+            "follow-ups": [
+                {
+                    "feedback": "LongThrower doesn't attack the farthest bee. It attacks the one that is closest to it AND in its range."
+                }
+            ]
+        },
+        {
+            "question": "Just wondering how am I supposed to use the hint \" _Hint:_ `float('inf')` returns an infinite positive value represented as a float that can be compared with other numbers.\" Any clus?",
+            "follow-ups": [
+                {
+                    "feedback": "A common pattern in programming when looking for the minimum value is something like                curr_min = float(\"inf\")     for curr_elem in <...>:     \tif curr_elem < curr_min:     \t\tcurr_min = curr_elem     return curr_min  Sometimes this is necessary when using the min function won't work, since min only works on relatively simple inputs"
+                },
+                {
+                    "feedback": "I didn't use this hint in my code, is it ok if I still passed all the cases of this question?"
+                },
+                {
+                    "feedback": "You can pass all cases without using the hint. You can use a large number, which is basically the same as float('inf'), for this question."
+                },
+                {
+                    "feedback": "While a large number works, using float('inf') is good programming practice, since it works with arbitrarily high numbers"
+                }
+            ]
+        },
+        {
+            "question": "How am I supposed to compare the ranges? I tried to use the comparison operators such as < or > but apparently they failed.",
+            "follow-ups": [
+                {
+                    "feedback": "That is a very vague question. Either make a private post with your code (following the guidelines @1168) or come to office hours today please!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzoqqipkxx270r%2Fk1i6jlvdl8y6%2FScreen_Shot_20191008_at_11.30.33_AM.png)      I'm not sure what this case is supposed to be checking; I do have an if statement that checks to make sure the Place being checked is within the ant's range.",
+            "follow-ups": [
+                {
+                    "feedback": "In this test, they're checking to see if you've actually used an instance attribute called max_range to handle the maximum range of thrower ants.  The test here calls:                ant.max_range = 10 #Buff the ant's range  Which changes the range of the ant to 10 spaces. Because the bee is in position (0,6) and the ant is at (0,0), the bee is within ten spaces of the ant, so it should be hit by it, but your code makes it so the bee is not hit."
+                },
+                {
+                    "feedback": "Never mind, I figured it out! I wasn't using the names \"min_range\" and \"max_range\" like the directions told us to."
+                },
+                {
+                    "feedback": "Hey   I am having the same trouble even though I have used the names 'min_range' and 'max_range' and defined it as a ShortThrower and LongThrower attribute"
+                },
+                {
+                    "feedback": "Nevermind. I used min instead of max at a place and that caused the error."
+                },
+                {
+                    "feedback": "Even after using the min and max_range functions I still get the same error, can anyone help?"
+                }
+            ]
+        },
+        {
+            "question": "I have no idea why I got this error:  Problem 4 > Suite 2 > Case 4  >>> from ants import *  >>> beehive, layout = Hive(AssaultPlan()), dry_layout  >>> dimensions = (1, 9)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # Testing LongThrower targets farther one  >>> ant = LongThrower()  >>> out_of_range = Bee(2)  >>> in_range = Bee(2)  >>> colony.places[\"tunnel_0_0\"].add_insect(ant)  >>> colony.places[\"tunnel_0_4\"].add_insect(out_of_range)  >>> colony.places[\"tunnel_0_5\"].add_insect(in_range)  >>> ant.action(colony)  >>> out_of_range.armor  2  >>> in_range.armor  2  # Error: expected  # 1  # but got  # 2  I didn't use float from the hint of the question and added armor as an attribute as appear from the picture of ants' armors, unless it's necessary.",
+            "follow-ups": [
+                {
+                    "feedback": "You are getting this error because the LongThrower ant did not attack the bee that was in its range. Check to make sure that the LongThrower ant attacks bees that are 5 spaces away or greater."
+                },
+                {
+                    "feedback": "Coming back to this issue, I checked my code carefully, did my code in several different ways while making sure ants can attack bees, but can't find how to debug my code.  Is there a function I haven't fixed since bee's armor doesn't change? I'm lost of how to fix this since there's so many functions and classes."
+                },
+                {
+                    "feedback": "I'm looking at nearest_bee function as a possible issue."
+                },
+                {
+                    "feedback": "At this point in the project, Bee.reduce_armor should already be implemented (since it just inherits it from Insect), so if you're calling that then it should work. If your ThrowerAnt class is working then most likely issue is that nearest_bee is not using the min_range and max_range attributes of the class correctly.  To test this, you could temporarily change the min and max range of the LongThrower so its able to hit anywhere in front of it, then verify that it actually hits something. If this is the case, then you are correctly attacking the bees, but just not handling the ranges correctly."
+                }
+            ]
+        },
+        {
+            "question": "Do I need to modify nearest bee function?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes."
+                },
+                {
+                    "feedback": "Do I add in new parameters min and max?"
+                },
+                {
+                    "feedback": "You should add new attributes `min_range` and `max_range` in the `ThrowerAnt` class. The default values of those should be overridden inside of `ShortThrower` and `LongThrower`"
+                },
+                {
+                    "feedback": "okay, thank you for your quick response :)"
+                },
+                {
+                    "feedback": "So the two variable (I mean the min_range and the max_range should be an intenger instead of a place??  I mean actually I wrote Q3 by using a while iteration move a local place pointer(?)forward to make sure I could found the \"nearest\" one until the hive (the ending condition is !=hive indeed)  So should I change the logic or I can keep it(implement the two variables into a place object)."
+                },
+                {
+                    "feedback": "You can keep the logic. You just need to add conditionals into your while statement that control when the bees are in range and when they are not in range. You are not required to modify the Place class to do this. Modifying nearest_bee is sufficient."
+                }
+            ]
+        },
+        {
+            "question": "Problem 4 > Suite 4 > Case 1 >>> from ants import * >>> beehive, layout = Hive(AssaultPlan()), dry_layout >>> dimensions = (1, 9) >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions) >>> # >>> # Testing LongThrower Inheritance from ThrowerAnt >>> def new_action(self, colony): ... raise NotImplementedError() >>> def new_throw_at(self, target): ... raise NotImplementedError() >>> old_thrower_action = ThrowerAnt.action >>> old_throw_at = ThrowerAnt.throw_at >>> ThrowerAnt.action = new_action >>> test_long = LongThrower() >>> passed = 0 >>> try: ... test_long.action(colony) ... except NotImplementedError: ... passed += 1 Traceback (most recent call last): File \"C:\\Users\\bethk\\Desktop\\cs61a\\projects\\ants\\ants.py\", line 294, in action self.throw_at(self.nearest_bee(colony.beehive)) File \"C:\\Users\\bethk\\Desktop\\cs61a\\projects\\ants\\ants.py\", line 227, in nearest_bee curr_place = curr_place.entrance AttributeError: 'NoneType' object has no attribute 'entrance' # Error: expected # but got # Traceback (most recent call last): # ... # AttributeError: 'NoneType' object has no attribute 'entrance' >>> ThrowerAnt.action = old_thrower_action >>> ThrowerAnt.throw_at = old_throw_at Can someone help me understand the above error?",
+            "follow-ups": [
+                {
+                    "feedback": "In nearest_bee, you are trying to get the entrance attribute of some name that is set to None. Make sure that whatever you are calling entrance on is never None."
+                },
+                {
+                    "feedback": "For the same test case, I'm getting the below error:                Problem 4 > Suite 4 > Case 1          >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> #     >>> # Testing LongThrower Inheritance from ThrowerAnt     >>> def new_action(self, colony):     ...     raise NotImplementedError()     >>> def new_throw_at(self, target):     ...     raise NotImplementedError()     >>> old_thrower_action = ThrowerAnt.action     >>> old_throw_at = ThrowerAnt.throw_at     >>> ThrowerAnt.action = new_action     >>> test_long = LongThrower()     >>> passed = 0     >>> try:     ...     test_long.action(colony)     ... except NotImplementedError:     ...     passed += 1     >>> ThrowerAnt.action = old_thrower_action     >>> ThrowerAnt.throw_at = new_throw_at     >>> test_long = LongThrower()     >>> try:     ...     test_long.throw_at(Bee(1))     ... except NotImplementedError:     ...     passed += 1     >>> ThrowerAnt.throw_at = old_throw_at     >>> passed     1          # Error: expected     #     2     # but got     #     1     >>> ThrowerAnt.action = old_thrower_action     >>> ThrowerAnt.throw_at = old_throw_at  I have a hard time understanding the test case so I can't find out what part is going wrong in my code. I would appreciate if someone can explain this test case to me."
+                },
+                {
+                    "feedback": "Just answered this in another followup below, but make sure not to override throw_at or action in LongThrower."
+                }
+            ]
+        },
+        {
+            "question": "Any hint?",
+            "follow-ups": [
+                {
+                    "feedback": "How to use float('inf')? Could anyone give me more hint?"
+                },
+                {
+                    "feedback": "If you don't want a maximum distance limit for throwing leaves, it is equivalent to setting the maximum distance limit to the highest number possible, which can be obtained by evaluating the expression `float('inf')`."
+                }
+            ]
+        },
+        {
+            "question": "i set max_range to float('inf') according to hint but it doesn't seem to work  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjskxn4z5s3%2Fk1k1f6npcup4%2Ferror2.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "I used to have the same issue as you. A possible reason why you have this error, as a hint, was that \"self\" may not have been used correctly, possibly for \"place\", from \"nearest_bee\" function. That's might be why you are getting this error, so I recommend checking that function by debugging."
+                },
+                {
+                    "feedback": "I still don't understand how to fix this error, which I am also having"
+                }
+            ]
+        },
+        {
+            "question": "How do I access a list of elements that contain all the places available in a row so I can iterate through them? Or is there a better way to do it",
+            "follow-ups": [
+                {
+                    "feedback": "To be specific this is for changing nearest_bee by using max_range and min_range"
+                },
+                {
+                    "feedback": "You can just count the number of iterations to keep track of how far you are throwing"
+                },
+                {
+                    "feedback": "My problem is that I don't know how it would work for the long thrower, because my iteration starts at self.place and ends at max_range"
+                },
+                {
+                    "feedback": "Since I can't use self.place outside of the nearest_bee function"
+                },
+                {
+                    "feedback": "Wait nvm I think I know what you're saying, I had to reformat my while loop to incorporate both min and max_range"
+                },
+                {
+                    "feedback": "how do we access the counted iteration variable in the ShortThrower or LongThrower classes?"
+                }
+            ]
+        },
+        {
+            "question": "My logic went something like this:  I inherited the nearest_bee function, I then created a temp variable that would work as a distance measurement. I would then check if there was a bee the throwerant's range ( for LongThrower I set the loop to continue as long as the position was not the beehive and the distance variable was equal or above a 5, did the same with ShortThrower albeit with the looping continuing as long as the distance variable was under 4). My question is what am I doing wrong I can seem to pass the test cases. I know am doing it wrong since I do not seem to see the usage of float('inf')                # Error: expected       #    1       # but got       #    2",
+            "follow-ups": [
+                {
+                    "feedback": "The question wants you to make class attributes for the min_range and max_range of the ants. If you use these, you won't need to write the nearest_bee function in either LongThrower or ShortThrower. You'd only need to modify the nearest_bee in ThrowerAnt. When writing nearest_bee, assume that you only have these attributes to work with, rather than hardcoded values like 5 or 4. That would be my suggestion."
+                }
+            ]
+        },
+        {
+            "question": "I passed all test cases for problem 4 but failed for problem 3. I used max_range and min_range in my loop of nearest_bee method. I have no idea where to start debugging. Any hint?",
+            "follow-ups": [
+                {
+                    "feedback": "I guess it’s because I overlooked the case when the time of iteration equals to 4, but when I add that condition to my loop, problem 4 doesn’t pass."
+                },
+                {
+                    "feedback": "Nvm. Figured it out!"
+                },
+                {
+                    "feedback": "Could you explain how you figured it out? I have the same porblem"
+                }
+            ]
+        },
+        {
+            "question": "I added min_range and max_range as class attributes but I didn’t use them in my nearest_bee loop, instead I checked if the times of iteration satisfies what both long and short thrower requires and if the times is within the max_range, if so I would return the inherited nearest_bee. Is it okay to not use range in the nearest_bee function?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm a little unclear on your explanation. How would returning the inherited `nearest_bee` give a bee in range if you're not checking the range in the inherited function?"
+                },
+                {
+                    "feedback": "If your code passes the doctests it is fine"
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on this testcase:                >>> from ants import *     >>> beehive, layout = Hive(AssaultPlan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> #     >>> # Testing if max_range is looked up in the instance     >>> ant = ShortThrower()     >>> ant.max_range = 10   # Buff the ant's range     >>> colony.places[\"tunnel_0_0\"].add_insect(ant)     >>> bee = Bee(2)     >>> colony.places[\"tunnel_0_6\"].add_insect(bee)     >>> ant.action(colony)     >>> bee.armor     2          # Error: expected     #     1     # but got     #     2  If im not wrong, it has something to do with the way I'm naming and creating min_range and max_range in ShortThrower and LongThrower classes. I've tried many different variations and either fail other test cases (in which the errors will be like, 'nearest_bee missing 2 required positional arguments')  I've tried following the example in the textbook/lecture where you instantiate the min_range and max_range as a class attribute in the Short/LongThrower classes instead of defining the variables in the nearest_bee functions in Short/LongThrower, but I get the 'nearest_bee missing 2 required positional arguments' error for the earlier test cases if I do that.",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, I got it. Had to use 'self' in the Short/LongThrower classes"
+                },
+                {
+                    "feedback": "Im stuck on the same case :( would you be able to explain what you mean by using 'self' in the short/long thrower classes? thx!"
+                },
+                {
+                    "feedback": "Nevermind!"
+                }
+            ]
+        },
+        {
+            "question": "if we have to make new class attributes for min and max, how are we suppose to reference 'self.place'?? or does the binding of min and max happen in the nearest_bee function? thx",
+            "follow-ups": [
+                {
+                    "feedback": "The binding of min_range and max_range should happen at the same time as the other class attributes, and not in the nearest_bee function. Making these class attributes doesn't make it so you can't access self.place anymore."
+                },
+                {
+                    "feedback": "Thanks for the clarification, how are we suppose to reference the ants position without using self.place?"
+                },
+                {
+                    "feedback": "You can still use self.place as I just said, so there's no reason not to do that if you want to get the position of the ant. I don't think there is a way to do that without using self.place."
+                },
+                {
+                    "feedback": "Using self.place outside the nearest_bee function gives an error? self is not defined?"
+                },
+                {
+                    "feedback": "Are you setting the class attributes to self.place or other places? min_range and max_range should be integers, not places. If not, then I'm not sure where you are trying to use self.place."
+                },
+                {
+                    "feedback": "i have min_range = self.place for the thrower_ant attribute"
+                },
+                {
+                    "feedback": "Yeah, the min_range and max_range are numbers, but self.place is a Place object."
+                }
+            ]
+        },
+        {
+            "question": "# but got   # Traceback (most recent call last):   # ...   # AttributeError: 'NoneType' object has no attribute 'remove_insect'   >>> ThrowerAnt.action = old_thrower_action   >>> ThrowerAnt.throw_at = old_throw_at  I am having this error. I make sure that I return None as soon as I find that self.place is None each loop. I don't know why I am getting this error. Please help. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "I've had the same issue because I was redefining a method that should have been inherited from the parent class. Basically, you don't need to define a method if it's exactly the same as the one in the parent."
+                }
+            ]
+        },
+        {
+            "question": "For Q3, how are we supposed to use the new min and max range attributes? Particularly integrating the range into the random_or_none function?",
+            "follow-ups": [
+                {
+                    "feedback": "No, you don't integrate the range into that function. You integrate it elsewhere in your Q3 implementation."
+                }
+            ]
+        },
+        {
+            "question": "I tried implementing min_range and max_range in my own term and i didnt use the float('inf'). but i am getting an error that says reduce armor is not being executed. i donno what is wrong and how to make the reduce armor to work.",
+            "follow-ups": [
+                {
+                    "feedback": "hard to diagnose from how you describe the error - do you mean that your code is not reducing the armor of the bees? please provide more information on the error you are getting, and what you have attempted to discover the bug."
+                }
+            ]
+        },
+        {
+            "question": "Okay I figured out a way to pass 8 test cases. But my code is not reducing the armor of the bee by one if it is in the range although it doesn't reduce the armor of the bee if it is outside of the range.  Do i have to add a code that tells the nearest bee to reduce the armor of the bee?",
+            "follow-ups": [
+                {
+                    "feedback": "No. ThrowerAnt.action() already handles the reduce_armor call. nearest_bee just needs to find the nearest_bee in front of the ThrowerAnt."
+                },
+                {
+                    "feedback": "okay, then i guess my code is not returning the bee that is in front of the throwerant. Do you know how could i fix this problem?"
+                },
+                {
+                    "feedback": "I would try using some print statements to verify why it is that you are not shooting any bees in range. Keep track of what places your loop is visiting in nearest_bee and also consider putting some debug statements at the very start of ThrowerAnt.action() to see which bees it is getting sent. I am guessing you the problem might be that you are not checking every place correctly, or are returning None prematurely, but I can't tell without seeing a specific test case or some debugging."
+                }
+            ]
+        },
+        {
+            "question": "What exactly do we do when the nearest and only bee is a distance of 4 away from the ant? Do we have to make a special case??? I tried making a special case but then my program turned out to pass all the cases for #4 but only passes 8 cases for #3...essentially, how do I stop reducearmor when the distance is 4?",
+            "follow-ups": [
+                {
+                    "feedback": "If you implement min_range and max_range into nearest_bee properly, you won't need to account for any edge cases like this with the ShortThrower or LongThrower."
+                },
+                {
+                    "feedback": "Could u give me some clues as to how Im supposed to properly implement min and max range?  Right now I have:  min_range = 0   max_range = float(\"inf\")  outside of the nearest_bee function in the ThrowerAnt class but unless I redeclare it within the function, I get an error saying 'min_range is not defined'."
+                },
+                {
+                    "feedback": "Try using self.min_range and self.max_range. They're class attributes, so you need the dot notation on the class or an instance of the class to access them within nearest_bee."
+                },
+                {
+                    "feedback": "I tried that, but now I have a different error because I use a counter in my while loop to keep track of the number of entrance transitions..."
+                },
+                {
+                    "feedback": "this approach is a good way to do it - using a counter to figure out if the current distance away from the ant is within the range of the thrower. cannot really address your error, since I'm not sure what error you are experiencing - please provide more info on it, or what you have attempted in order to fix the bug!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqgv8fwilsk5lr%2Fk1qt3gb5jtb9%2FCS_Question_4.JPG)  Hey, so I've been stuck on this test case for a while and I'm not sure where the issue was arising. It seems to me that the test case is testing the range of the long_thrower ant, and my ant is correctly not throwing at the one 4 spaces away but is also not throwing at the one five spaces away. I wasn't sure if this was an issue with the ranges or the shooting mechanism, but if I change the min_range to 4, my ant shoots at the bees just fine. This makes me think that the issue is with the ranges themselves, but aren't those fixed? Can give me some insight into what I'm doing wrong or how the ranges are meant to be implemented?",
+            "follow-ups": [
+                {
+                    "feedback": "You might have a >= where you need a > or something that makes it so putting 4 instead of 5 gets you right thing"
+                }
+            ]
+        },
+        {
+            "question": "Problem 4 > Suite 4 > Case 1  >>> from ants import *   >>> beehive, layout = Hive(AssaultPlan()), dry_layout   >>> dimensions = (1, 9)   >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)   >>> #   >>> # Testing LongThrower Inheritance from ThrowerAnt   >>> def new_action(self, colony):   ... raise NotImplementedError()   >>> def new_throw_at(self, target):   ... raise NotImplementedError()   >>> old_thrower_action = ThrowerAnt.action   >>> old_throw_at = ThrowerAnt.throw_at   >>> ThrowerAnt.action = new_action   >>> test_long = LongThrower()   >>> passed = 0   >>> try:   ... test_long.action(colony)   ... except NotImplementedError:   ... passed += 1   >>> ThrowerAnt.action = old_thrower_action   >>> ThrowerAnt.throw_at = new_throw_at   >>> test_long = LongThrower()   >>> try:   ... test_long.throw_at(Bee(1))   ... except NotImplementedError:   ... passed += 1   >>> ThrowerAnt.throw_at = old_throw_at   >>> passed   1  # Error: expected   # 2   # but got   # 1   >>> ThrowerAnt.action = old_thrower_action   >>> ThrowerAnt.throw_at = old_throw_at  What is this test case testing? What does this failure mean and how could I address it?",
+            "follow-ups": [
+                {
+                    "feedback": "I have the same question."
+                },
+                {
+                    "feedback": "I believe it is testing to see if you overrided throw_at and action in the LongThrower class. You should not need to override any functions from ThrowerAnt in LongThrower or ShortThrower for this question."
+                },
+                {
+                    "feedback": "I have the same question! I didn't override any functions in my LongThrower class so I don't know why it isn't working"
+                },
+                {
+                    "feedback": "if you have not overridden any functions in LongThrower, this test should not be failing - if you are sure your LongThrower class is empty, then please post a private post."
+                }
+            ]
+        },
+        {
+            "question": ">>> from ants import *       >>> beehive, layout = Hive(AssaultPlan()), dry_layout       >>> dimensions = (1, 9)       >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)       >>> #       >>> # Test LongThrower Hit       >>> ant = LongThrower()       >>> in_range = Bee(2)       >>> colony.places['tunnel_0_0'].add_insect(ant)       >>> colony.places[\"tunnel_0_5\"].add_insect(in_range)       >>> ant.action(colony)       # Error: evaluation exceeded 10 seconds - check for infinite loops              # Error: expected              # but got       #     Traceback (most recent call last):       #       ...       #     Timeout:              Run only this test case with \"python3 ok -q 04 --suite 2 --case 2\"  passed Q3 and got this error for Q4, I don't find my code for nearest_bee lead to a infinite loop, could the problem be anywhere else?",
+            "follow-ups": [
+                {
+                    "feedback": "add a print statement to your loops to see if it prints forever,  something like:                print(\"DEBUG:\", \"infinite loop?\")  will allow you to print and still pass doc tests"
+                },
+                {
+                    "feedback": "Thank you so much! I found I did wrote an infinite loop, fixed it by checking the range and bee at the same time"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy256ipz5n8%2Fk1ryqqskdr0l%2FScreen_Shot_20191015_at_7.49.00_AM.png)  I am not passing this case. In the nearest_bee method, I am checking the range if the counter is > min_range (which is 0 for shortThrower) and counter <= max_range (which is 3 for shortThrower) my counter starts at 1. I cant see to figure out what is wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind, figured it out."
+                },
+                {
+                    "feedback": "How did you fix the error? I'm coming across the same issue and can't figure it out..."
+                },
+                {
+                    "feedback": "same here! How did you manage to fix it?"
+                },
+                {
+                    "feedback": "i also came across that issue, and my while loop was the problem. check your loops and the conditionals and make sure the loop iterates through all the places in the colony and that it keeps track of how many places far the bee is from the ant!"
+                }
+            ]
+        },
+        {
+            "question": "Just clarify the sentence.  If there are two `Bees`, one too close to the `LongThrower` and the other within its range, the `LongThrower` should throw past the closer `Bee`, instead targeting the farther one, which is within its range.  So, does this mean that LongThrower will throw to the closer Bee?",
+            "follow-ups": [
+                {
+                    "feedback": "The LongThrower can only target bees >= 5 entrance transitions away. Thus, the LongThrower should throw to the farther bee."
+                }
+            ]
+        },
+        {
+            "question": ""
+        }
+    ]
+}

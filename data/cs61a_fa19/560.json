@@ -1,0 +1,89 @@
+{
+    "subject": "[Lab 02] Q4: Count van Count",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q4\">Q4: Count van Count</a>\n\n<p> Please post all questions you have below concerning Q4: Count van Count in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I used a similar approach to that of question 3 but this is what returns:  <function count_cond.<locals>.<lambda> at 0x102c90400>  I assume that this means that I need to add parentheses, but when I do that I get this error:  TypeError: <lambda>() missing 1 required positional argument:  However, I cannot add an argument as I used lambda functions. What do I do?",
+            "follow-ups": [
+                {
+                    "feedback": "I didn't use lambda functions, I nested a function inside count_cond, maybe you aren't supposed to use lambda"
+                },
+                {
+                    "feedback": "Using a lambda function may be difficult to implement. Try using locally defined functions instead, like the examples."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure how to differentiate between using count_factors and count_primes based on the condition inputted into count_cond, can anyone offer some pointers?",
+            "follow-ups": [
+                {
+                    "feedback": "You don't need to hard-code/differentiate that - you just have to utilize the predicate that's passed into count_cond."
+                }
+            ]
+        },
+        {
+            "question": "'Condition' evaluates to a truthey/falsey value right? I'm implementing an if statement and the suite is always running, even when condition evaluates to false. I'm doing  if condition:  <suite>  and it's always running, even though something like 4%3 == 0 evaluates to false",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're saving your file correctly"
+                },
+                {
+                    "feedback": "I was, and I figured out the problem, but I still have a question. So basically when I call  if condition:  <suite>  it still passes the first test, but it fails the rest. As soon as I call  if condition(n,i):  <suite>  all test cases pass. Why do I need to explicitly pass in n and i to the condition function if their values are constantly being updated in my while loop?"
+                },
+                {
+                    "feedback": "Because you need to evaluate `condition` with those arguments, not just evaluate to the function itself. The conditional `if condition` will always evaluate to `True` as long as condition is bound to a function, because a function is a truthy value. You need to see what `condition` returns (`True` or `False`), and make a decision."
+                },
+                {
+                    "feedback": "Gotcha. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "i passed condition as an argument to my nested function, but i received this error while running:                NameError: name 'n' is not defined  this is my nested function                def function (condition):              <suite>           return function(condition)  not sure why n is not defined when i am already passing condition which includes n and i? am i passing it incorrectly?",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't need to pass in `condition` because `condition` is available in the parent frame (as a parameter of `count_cond`)."
+                },
+                {
+                    "feedback": "nevermind, fixed it!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error, does any one know what’s wrong?![](https://piazza.com/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fdbcmrfnmcwej%2FIMG_6432.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "You seem to be returning a function instead of a number"
+                },
+                {
+                    "feedback": "Yes, I figured it out earlier! Thank you! It turned out that I defined condition instead of using it directly."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqgv8fwilsk5lr%2Fk0hthp2kwau3%2FCS_Question_2.JPG)  Can anyone help me make sense of this error? I'm certain that 8 is the result I'm supposed to get, so I don't know why  I'm getting this error.",
+            "follow-ups": [
+                {
+                    "feedback": "You probably accidentally deleted a line from one of the doctests; the whole comment block should look like this (feel free to copy and paste):                    \"\"\"Returns a function with one parameter N that counts all the numbers from         1 to N that satisfy the two-argument predicate function Condition, where         the first argument for Condition is N and the second argument is the         number from 1 to N.              >>> count_factors = count_cond(lambda n, i: n % i == 0)         >>> count_factors(2)   # 1, 2         2         >>> count_factors(4)   # 1, 2, 4         3         >>> count_factors(12)  # 1, 2, 3, 4, 6, 12         6              >>> is_prime = lambda n, i: count_factors(i) == 2         >>> count_primes = count_cond(is_prime)         >>> count_primes(2)    # 2         1         >>> count_primes(3)    # 2, 3         2         >>> count_primes(4)    # 2, 3         2         >>> count_primes(5)    # 2, 3, 5         3         >>> count_primes(20)   # 2, 3, 5, 7, 11, 13, 17, 19         8         \"\"\""
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I don't understand why n is not defined here.  Any tips?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxltwsvxyh4kv%2Fk0idml6w2g19%2FScreen_Shot_20190913_at_10.09.07_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Try running your code through Python Tutor and making sure `n` is available in whichever frame you are referencing it in (either in the frame itself or a parent frame)"
+                },
+                {
+                    "feedback": "I have the same problem. I understand that n is not yet defined when I am trying to reference it. Is the only way to get rid of this error to only reference n once it's been defined in a function like condition(n, i)? If not, how/where could I define it before calling condition(n, i)? Thanks!"
+                },
+                {
+                    "feedback": "Nevermind! I realized that we want to be returning a function, not a function call."
+                }
+            ]
+        }
+    ]
+}

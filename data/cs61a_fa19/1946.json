@@ -1,0 +1,142 @@
+{
+    "subject": "[Scheme] Problem 13",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-13-2-pt\">Problem 13</a>\n\n<p> Please post all questions you have below concerning Problem 13 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I do not know why I am failing this test case, it seems that the condition is being evaluated twice but I am not sure where that happens.  Problem 13 > Suite 2 > Case 4                scm> (define x 0)     x     scm> (cond ((define x (+ x 1)) 'a)     ....       ((define x (+ x 100)) 'b))     a     scm> x     2          # Error: expected     #     1     # but got     #     2",
+            "follow-ups": [
+                {
+                    "feedback": "Check your if and else cases, if I were a betting man, that's where the issue probably is."
+                },
+                {
+                    "feedback": "I'm having this same error, and I'm pretty sure I'm not double-calling anything in the if or else clauses. basically, I iterate through each predicate-consequent clause. And for each clause I do the following: first, I make a placeholder variable called \"test-expression\" which is scheme_eval called on the predicate part of the clause. Then I check if test-expression evaluates to true, and if it does, then I return eval_all called on the consequent clause. (Or True, if there is no consequent clause). And, if test- expression evaluates to false, then I go to the next predicate-consequent clause.  I've tried doing this without creating a placeholder variable and just interacting directly with the predicate clause, but I get the same error. Doing it this way feels like it should avoid double-calling anything, though."
+                },
+                {
+                    "feedback": "The template code has already called `scheme_eval` on the predicate for you in a variable called `test`, so you don’t need to do it again. You doing it yourself is probably why it is getting called twice."
+                },
+                {
+                    "feedback": "OH, I didn't even notice the template code! I was trying to implement the whole thing from scratch. My code works now.  What really amazes me is how I was passing any test cases at all!"
+                },
+                {
+                    "feedback": "Ha. Well, they’re definitely not exhaustive."
+                }
+            ]
+        },
+        {
+            "question": "How do we account for values in quote form that we do not want to evaluate?",
+            "follow-ups": [
+                {
+                    "feedback": "You don’t need to worry about what the values of each of your subexpressions evaluate to; you need only worry about returning the correct expression if the test evaluates to true, without inspecting it further. That is the beauty of separation of concerns."
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure why previous test cases were able to evaluate 'hi and return it properly, but in this test case it throws an error. I made sure to check that if the rest of the clause was nil, return the evaluated form of the predicate, but it's not doing that in this case.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2s8mn8e3cmz%2FScreen_Shot_20191109_at_4.05.35_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you trying to evaluate the value of `test`? Keep in mind that `test` has already been evaluated, so you know it’s value, which, in this case, is `hi`. Trying to evaluate it again means that you’re trying to find the value bound to the symbol `hi`, which is undefined, causing the error."
+                }
+            ]
+        },
+        {
+            "question": "Why in this case, the output is 12?  scm> (cond (12))   #t  # Error: expected   # 12   # but got   # #t",
+            "follow-ups": [
+                {
+                    "feedback": "Every expression after the `cond` procedure is a list that contains a predicate as its first element and an optional value as its second element. In this case, `cond` only has one such list: `(12)`. Since `12` is the first element of this list, it is the predicate.      `12` is a true value, and the rule for `cond` is that it will return its corresponding value or the predicate itself if the predicate is true. Thus, it returns the predicate, which is `12.`      If, for example, we had something like this:   ```   (cond (#f 2)   (7)   ((= 1 1) 2))   ```   The `cond` would return the value 7, since 7 is the first true predicate, and it has no value associated with it, so it just returns the `7`."
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 2 > Case 5  scm> (define (print-and-false val)  .... (print val)  .... #f)  print-and-false  scm> (cond ((print-and-false 'cond1))  .... ((print-and-false 'cond2))  .... ((print-and-false 'cond3))  .... ((print-and-false 'cond4)))  cond1  cond2  cond3  cond4  scm> (define (print-and-true val)  .... (print val)  .... #t)  print-and-true  scm> (cond ((print-and-false 'cond1))  .... ((print-and-false 'cond2))  .... ((print-and-true 'cond3))  .... ((print-and-false 'cond4)))  cond1  cond2  cond3  cond3  #t  # Error: expected  # cond1  # cond2  # cond3  # #t  # but got  # cond1  # cond2  # cond3  # cond3  # #t  Don't know why cond3 is being printed twice?",
+            "follow-ups": [
+                {
+                    "feedback": "I suspect you’re evaluating the predicate once to determine whether it’s true, which makes sense. Since it’s true and since there is no optional value after the predicate, you evaluate it again to return its value. Try evaluating and storing the value of the evaluated predicate."
+                },
+                {
+                    "feedback": "Oh! Yeah, just got it, thanks so much. I was evaluating 'test' again."
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Problem 13 > Suite 2 > Case 5  scm> (define (print-and-false val)   .... (print val)   .... #f)   print-and-false   scm> (cond ((print-and-false 'cond1))   .... ((print-and-false 'cond2))   .... ((print-and-false 'cond3))   .... ((print-and-false 'cond4)))   cond1  # Error: expected   # cond1   # cond2   # cond3   # cond4   # but got   # cond1  \\----------------------------------------  Hi,  I keep getting the following error. Any ideas on what might be wrong?  Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "How are you handling the case when the first predicate is false? You should be evaluating the first predicate and, if it’s false, moving on to the next predicate and evaluating them all the way down. All those `print-and-false` calls print something and then return `#f`, so you should be hitting all of them at some point."
+                },
+                {
+                    "feedback": "I used some DEBUG print statements and the code does seem to be looping through all of the predicates. However, for some reason, only the first one is actually printing the value. For the other cases, the 'test' value is printing as False but the value of the predicate itself is not printing."
+                },
+                {
+                    "feedback": "This is how it looks with the print statement inside of the else clause:  print-and-false   scm> (cond ((print-and-false 'cond1))   .... ((print-and-false 'cond2))   .... ((print-and-false 'cond3))   .... ((print-and-false 'cond4)))   cond1   DEBUG: False   DEBUG: False   DEBUG: False   DEBUG: False  # Error: expected   # cond1   # cond2   # cond3   # cond4   # but got   # cond1"
+                },
+                {
+                    "feedback": "Can you walk me through the flow and structure of your code? Like, “I first check for something by evaluating this, and if this is false, then I do this, and if it’s true, I make a recursive call” and so on and so forth."
+                },
+                {
+                    "feedback": "Inside of the last if statement to check if the predicate is True, I am calling eval_all on the rest of the clause. If the rest is nil, I am returning the value of test. However, I don't have any explicit handling for when the predicate is false, since I assumed that the code automatically loops back if it doesn't enter the if clause."
+                },
+                {
+                    "feedback": "I think you may have the order of those two switched up. You should check if the rest is `nil` and return `test` if it is, before calling `eval_all`."
+                },
+                {
+                    "feedback": "Oh sorry, I didn't type that right. I meant that the checking for nil is happening first."
+                },
+                {
+                    "feedback": "What do you mean the code “automatically loops back”? Do you mean you don’t have either a loop or a recursive call to check the remaining statements? That might be your issue."
+                },
+                {
+                    "feedback": "Hmm, that may the problem. I do not have any recursive calls, but does the 'while' loop provided not do the same function?"
+                },
+                {
+                    "feedback": "Oh, you’re right about that."
+                },
+                {
+                    "feedback": "I have no idea what your issue could be. I would recommend making a private post to the instructors or going into OH so they can help debug. Sorry about that!"
+                },
+                {
+                    "feedback": "I can confirm my solution is pretty much what you have Anon, so it might be an issue with another function? But yeah take advantage of OH or a private post"
+                },
+                {
+                    "feedback": "Yeah, I think that might be the case. Thanks for taking a look though guys!"
+                },
+                {
+                    "feedback": "Not a problem."
+                },
+                {
+                    "feedback": "^"
+                },
+                {
+                    "feedback": "So there was a problem in my eval_all function. If anyone's having the same problem just be sure that you aren't trying to rebind the expression itself in eval_all"
+                },
+                {
+                    "feedback": "I'm having the same problem, were you returning right away?"
+                },
+                {
+                    "feedback": "Figured it out, for those who have a similar thing: I called scheme eval twice on a value in my eval_all function"
+                }
+            ]
+        },
+        {
+            "question": "Do we need to implement this in our code, or is this just for us to know?  \"The value of a `cond` is undefined if there are no true predicates and no `else`. In such a case, `do_cond_form` should return `None\"`  I passed all the cases without it but just want to make sure for point purposes.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that if a Python method doesn't return a value explicitly, then it returns None implicitly, so you're fine."
+                },
+                {
+                    "feedback": "Oh yes, thank you! just need reassurance."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdisrjcdr4q9%2Fk2zbrnqyfvll%2FScreen_Shot_20191114_at_3.08.24_PM.png)Does anyone know why I'm failing this test case? I tried calling eval_all on the entire clause, but for some reason, it's not evaluating the first two expressions.",
+            "follow-ups": [
+                {
+                    "feedback": "Your approach sounds correct. I’m not sure what the problem would be. Could you try debugging your `eval_all` function manually (maybe with a `begin` statement and passing in the body after the `#t`) in the interactive Scheme interpreter and seeing if it works as expected? That will help you isolate where the issue is."
+                }
+            ]
+        }
+    ]
+}

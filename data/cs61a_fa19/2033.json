@@ -1,0 +1,84 @@
+{
+    "subject": "[Lab 11] Q6: Dragon",
+    "content": "<a href=\"https://cs61a.org/lab/lab11//#q6\">Q6: Dragon</a>\n\n<p> Please post all questions you have below concerning Q6: Dragon in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "_Question moved._",
+            "follow-ups": [
+                {
+                    "feedback": "Wait, I totally put this on the wrong thread. My bad."
+                }
+            ]
+        },
+        {
+            "question": "\"\"\"  To do this, we start with the list `(f x)` and apply the following rewrite rules repeatedly    * `x -> (x r y f r)`   * `y -> (l f x l y)`  \"\"\"  Does this mean we start with a list with the symbols f and x, and then we apply those re-write rules on the symbols? So any x symbol gets mapped to a list with the symbols x, r, y, f, and r?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. You will be implementing a `flatmap` function, which maps each element to a list and then concatenates those lists, resulting in `(f x)` transforming to `(f x r y f r)` rather than `(f (x r y f r))`, as would be the result with a normal map function. This is applied recursively to get a longer and longer shallow list."
+                },
+                {
+                    "feedback": "I do not understand how this relates to maping. From what I understand, maping is when you apply a function on every item in a list, what function is flatmap applying to the items in the list?"
+                },
+                {
+                    "feedback": "`flatmap` takes in a function that maps elements to lists, and a list, and returns the result of concatenating all the lists generated from all the elements."
+                },
+                {
+                    "feedback": "could you expand on \"all those lists\" Also, is the function it takes <f> and is the list <x>"
+                },
+                {
+                    "feedback": "For example, ``` scm> (define (x-and-1 x) (list x 1)) x-and-1 scm> (x-and-1 5) (5 1) scm> (map x-and-1 '(5 6 7)) ((5 1) (6 1) (7 1)) scm> (flatmap x-and-1 '(5 6 7)) (5 1 6 1 7 1) ```"
+                },
+                {
+                    "feedback": "Essentially, `flat-map` maps every element in a list to its own individual list, but instead of returning a list of lists, it instead concatenates all those lists together into one longer, shallower list."
+                },
+                {
+                    "feedback": "ahhh thanks"
+                }
+            ]
+        },
+        {
+            "question": "Anyone know how to install/import the turtle module? My scheme interpreter on my mac outputs \"warning: could not import the turtle module.\"",
+            "follow-ups": [
+                {
+                    "feedback": "It is very odd that you cannot import turtle since it comes with Python. On the off-chance that you somehow don’t have it, try running `pip3 install turtle` and then re-running the interpreter."
+                },
+                {
+                    "feedback": "As an update I installed a new version of python (3.8) and turtle imported properly into the scheme interpreter. My dragon curve came out nicely :)"
+                },
+                {
+                    "feedback": "Glad to hear!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting an error for (expand '(f)) saying \"Error: operand 0 (f) is not a number\". What does this mean? I don't do any math with the input list of expand, so I'm not sure what the issue could be",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you’re checking equality with `eq?` rather than `=`. `=` only works for numbers."
+                }
+            ]
+        },
+        {
+            "question": "my code passed the tests but when i try drawing the dragon curve i get logged off my Mac and receive this error message:  CGSTrackingRegionSetIsEnabled returned CG error 268435459. Any ideas what this means?",
+            "follow-ups": [
+                {
+                    "feedback": "This seems to be an issue with mac OS 10.14.6, consider updating to fix it?  <https://github.com/pyinstaller/pyinstaller/issues/4334>  <https://github.com/ContinuumIO/anaconda-issues/issues/11165>"
+                },
+                {
+                    "feedback": "I also got logged off but without the error message, perhaps try downgrading your Python to 3.7? (it worked for my Hog GUI and now works for Turtle)"
+                },
+                {
+                    "feedback": "I updated to Catalina. Works now!"
+                }
+            ]
+        },
+        {
+            "question": "I can't seem to use turtle graphics in the online editor @2093\\.",
+            "follow-ups": [
+                {
+                    "feedback": "The online editor unfortunately does not support turtle graphics—you’ll have to run that on your local computer."
+                }
+            ]
+        }
+    ]
+}

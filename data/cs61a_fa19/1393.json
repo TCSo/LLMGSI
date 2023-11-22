@@ -1,0 +1,39 @@
+{
+    "subject": "[HW 05] Q7: Remove All",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q7\">Q7: Remove All</a>\n\n<p> Please post all questions you have below concerning Q7: Remove All in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "For this question, I can't seem to mutate the link object; even when typing link = Link.empty, it still returns the original link. Is there a way to get around this?",
+            "follow-ups": [
+                {
+                    "feedback": "The parameter link is just a name that refers to the original link. To actually modify the link it is pointing to, you need to change the instance attributes of the link (such as first or rest)."
+                }
+            ]
+        },
+        {
+            "question": "my base case is if link.first=value. Not sure how I can change link to link.rest and get rid of the pointer of link.rest to Link.empty. Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "From the description of the problem, you know that \"the first element is never removed\". By using `link.first == value`, you're checking the first element. How can you modify this to check the second element?"
+                },
+                {
+                    "feedback": "got it. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "With the first doctest example, I can remove the first two Link(2) instances by calling remove_all recursively on the rest of the list and reassigning the rest of link to the rest of the rest (skipping that current first object), however I'm not sure how to go about evaluating the next Link value when link.first is NOT equal to the value we want to check against. Any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind, got it - I was missing a base case if the link is empty, or the last link, and was skipping over link.first when passing link into the recursive call"
+                },
+                {
+                    "feedback": "Do you have any suggestions as to what the base case should be when the link is either the last link or empty? I keep trying to assign link.first = link in this case, but I get a none type error. Thank you"
+                },
+                {
+                    "feedback": "remember that link.first is the value of the given instance of a link - remember also that you should be able to assume that you will not need to remove the first link of whatever linked list is passed in."
+                }
+            ]
+        }
+    ]
+}

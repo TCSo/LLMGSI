@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 02] Q7: Composite Identity Function",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q7\">Q7: Composite Identity Function</a>\n\n<p> Please post all questions you have below concerning Q7: Composite Identity Function in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Could anyone tell me why? I defined a new function in which I use if statement to compare compose1(f, g) and compose1(g, f), and return correspondent value, finally, return the new function.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk0ir03xy5sz3%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190913162315.png)",
+            "follow-ups": [
+                {
+                    "feedback": "sorry for not being able to reply to this post sooner! it sounds like your approach is correct, so you would have to make sure this approach is translating correctly in your code. it's difficult to diagnose just from this result."
+                }
+            ]
+        }
+    ]
+}

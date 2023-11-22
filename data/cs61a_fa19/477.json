@@ -1,0 +1,86 @@
+{
+    "subject": "[HW 02] Q2: Accumulate",
+    "content": "<a href=\"https://cs61a.org/hw/hw02//#q2\">Q2: Accumulate</a>\n\n<p> Please post all questions you have below concerning Q2: Accumulate in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Does anyone know why would there be 19iner for accumulate? And how are we suppose to get alphabets with only integer inputs?",
+            "follow-ups": [
+                {
+                    "feedback": "What does \"19iner\" mean? Is that what accumulate outputs? If so, what were the inputs?"
+                },
+                {
+                    "feedback": "nvm it was a typo :)"
+                },
+                {
+                    "feedback": ">>> accumulate(lambda x, y: x + y + 1, 2, 3, square) 19  what is lamdha? what does that mean"
+                },
+                {
+                    "feedback": "figured it: Its in the hw instructions"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting 20 instead of 19 when I run accumulate - when accumulate is run, does it take each number, apply 'term' to it, and then apply lambda x, y: x + y + 1 where x is the term of n and y is the term of n-1?",
+            "follow-ups": [
+                {
+                    "feedback": "Accumulation starts at base, then the accumulated value is repeatedly combined using the combiner function with each term as determined by the term function, where terms are last indexed at the value n. After all this, the accumulated value is returned."
+                }
+            ]
+        },
+        {
+            "question": "I still don’t really understand what the combiner function is. Is this a function we create in the body or is it already made?",
+            "follow-ups": [
+                {
+                    "feedback": "You pass in whatever you want to be the combiner. For instance, if you want your accumulation to simply be the sum of term(1), term(2), ..., term(n) then your combiner would be a function that takes in two numbers and adds them"
+                },
+                {
+                    "feedback": "But do you make that function? So one for each case of add sub mul etc. but in this case what happens with Lambda functions?"
+                },
+                {
+                    "feedback": "You can pass in a lambda function as the combiner, or an existing function (as long as it takes two parameters)"
+                }
+            ]
+        },
+        {
+            "question": "for \"accumulate(lambda x, y: x + y + 1, 2, 3, square)\", what is y?",
+            "follow-ups": [
+                {
+                    "feedback": "The variable y could any number. The lambda function passed into accumulate is our combiner function. Meaning that if we did combiner(2,3), the x variable would be 2 and the y variable would be 3. The result of calling combiner would be 2 + 3 + 1 = 6 ( btw this is using the combiner function without using the term function)."
+                },
+                {
+                    "feedback": "im confused about how to continue the function in the loop, does y ever change from 3? or do I keep repeating until 2 becomes 0?"
+                },
+                {
+                    "feedback": "also, once you use the term wouldn't you then square 6? Still unsure how the answer is 19"
+                },
+                {
+                    "feedback": "So, in this problem, we would want to start with the base and the number one. We want to use the term function on number one but not on base, then these two variables would be passed into our combiner function. Using this function call: **accumulate(lambda x, y: x + y + 1, 2, 3, square) **our combiner function is lambda. By calling **combiner(base, term(1))** we would get base + square(1) + 1\\. But now we want to accumulate up to **n** and **n** in this example is 3. That would mean we would need to save the value of base + square(1) + 1, and then pass that value in combiner again in the next iteration along with incrementing one. This is one way of thing doing this problem and hopefully, my explanation was clear."
+                }
+            ]
+        },
+        {
+            "question": "I just cannot figure out what comes into error in the following codes, I want the function to refer to itself and finally to get the answer, but it crashed. Can anybody give me some adcvice on the code? def combine(n, term, result = 0): if 1 > n: return result else: result = add(result, term(n)) n = n - 1 return combine(n,term,result)",
+            "follow-ups": [
+                {
+                    "feedback": "You're not allowed to use recursion in your solution - try another way."
+                }
+            ]
+        },
+        {
+            "question": "When I run my product_using_accumulate(n, term), I keep getting an error that says ******' int' object is not callable**. I think something is breaking when product function gets called, but not sure what exactly.",
+            "follow-ups": [
+                {
+                    "feedback": "The product function should not be used In this case, just an arithmetic operator in the accumulate series."
+                }
+            ]
+        },
+        {
+            "question": "Is the base of a summation always 0 unless otherwise stated ?",
+            "follow-ups": [
+                {
+                    "feedback": "In normal contexts, yes, summation typically starts at 0."
+                }
+            ]
+        }
+    ]
+}

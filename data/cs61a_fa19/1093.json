@@ -1,0 +1,14 @@
+{
+    "subject": "[HW 04] Taxicab Distance",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw04/#q1\" target=\"_blank\" rel=\"noopener noreferrer\">Q1: Taxicab Distance</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q1: Taxicab Distance in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "What's a Cantor pairing function? I can't seem to find where it's used or any explanation on it.",
+            "follow-ups": [
+                {
+                    "feedback": "<https://en.wikipedia.org/wiki/Pairing_function#Cantor_pairing_function>      Basically they're using it to create a compound data type that holds the street and avenue of an intersection (You can see the functions intersection(), street(), and avenue() to see how they're implemented using the function). For the purposes of doing this question, you do not need to know how the pairing function works. You just need to know what each of the selector functions do."
+                }
+            ]
+        }
+    ]
+}

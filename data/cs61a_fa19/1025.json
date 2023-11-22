@@ -1,0 +1,321 @@
+{
+    "subject": "[Cats] Problem 1",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-1-1-pt\">Problem 1</a>\n\n Please post all questions you have below concerning Problem 1 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nIf you&#39;re stuck, here are some tips:\n- You can use a list comprehension to create a list of all the paragraphs for which select returns True.\n- Alternatively, you can iterate through all the paragraphs and decrease k every time you find one for which select returns True.",
+    "threads": [
+        {
+            "question": "why is this returning '' instead of 'tiny\"  Isn't 'tiny' the first to return a True in s?  choose(ps, s, 2)",
+            "follow-ups": [
+                {
+                    "feedback": "Not quite (Assuming we're talking about the first test case).  The select function in the first case chooses words that have a length less than or equal to 5. 'short' is 5 letters so it would be the first one to return True in s.  choose(ps, s, 2) means find the third word in ps that s returns True for (AKA the third word that is less than or equal to 5 letters). Does such a word exist in ps?"
+                },
+                {
+                    "feedback": "I have the same problem. why choose(ps, s, 2) return \"\"?"
+                },
+                {
+                    "feedback": "Nicholas has the right idea. What does the 2 represent in choose?"
+                },
+                {
+                    "feedback": "shouldn't \"tiny\" be the third word that is less than or equal to 5 letters ?"
+                },
+                {
+                    "feedback": "That confused me as well. I thought \"choose\" starts \"select\" on the k-th index. Since 'tiny' has an index of 2, shouldn't the function start with 'tiny' and output 'tiny'?"
+                },
+                {
+                    "feedback": "Ye, I have the same confusion. Not sure what the problem is asking for."
+                },
+                {
+                    "feedback": "Please see the description above the function: \"Return the Kth paragraph from PARAGRAPHS for which SELECT called on the paragraph returns true. If there are fewer than K such paragraphs, return the empty string.\"  The 0th paragraph from PARAGRAPHS for which SELECT (lambda p: len(p) <= 5) returns True is 'short'  The 1st paragraph from PARAGRAPHS for which SELECT return True is 'tiny' (since 'really long' does not have length <= 5)  What is the 2nd paragraph from PARAGRAPHS for which SELECT returns True?"
+                },
+                {
+                    "feedback": "It should be 'tiny' since the 2nd paragraph from PARAGRAPHS for which SELECT return True is 'tiny' (it has a length <= 5)"
+                },
+                {
+                    "feedback": "No. 'short' is the 0th paragraph and 'tiny' is the 1st. We're using 0 indexing (that should be clarified for future iterations--I agree that the description is a bit confusing)"
+                },
+                {
+                    "feedback": "I also have same question. I feel like it takes more time to understand what the question is asking than to write codes...."
+                },
+                {
+                    "feedback": "so does 'really long' just ignored right away?"
+                },
+                {
+                    "feedback": "Can anyone explain what this problem means?  I really do not understand what this is about, so I could not start at all."
+                },
+                {
+                    "feedback": "Given a list of paragraphs, a selector function, and an index `k`, return the `k`th paragraph for which the selector function returns true. `k` is zero- indexed, meaning the first paragraph for which the selector function returns true will be at index `k` = 0."
+                },
+                {
+                    "feedback": "The problem asks: “Return the Kth paragraph from PARAGRAPHS for which SELECT called on the paragraph returns true.” Since our SELECT function called on ‘really long’ returns False, it is not returned. It returns false because SELECT is lambda p: len(p) <= 5, and the length of ‘really long’ is not <= 5. That’s why we ignore ‘really long’"
+                },
+                {
+                    "feedback": "My interpretation is that you need to (1) have at least 'k' number of valid paragraphs, and then (2) once you reach 'k' number of valid paragraphs, return the most recent valid paragraph. Indexing is really weird though."
+                },
+                {
+                    "feedback": "You don't have to iterate like that - consider using a list comprehension"
+                },
+                {
+                    "feedback": "I condensed my iteration into a list comprehension but found that I still needed a conditional to compare 'k' with something -- am I on the right track?"
+                },
+                {
+                    "feedback": "You can include conditionals in list comprehensions. See lab04"
+                },
+                {
+                    "feedback": "I understand why it returns an empty list but i dont understand why it returned an empty string instead for this when in the spec it says it should return an empty list"
+                },
+                {
+                    "feedback": "From the spec: \"If no such paragraph exists (because `k` is too large), then `choose` returns the empty **string**.\""
+                },
+                {
+                    "feedback": "I know that it has been established that this problem is a bit confusing but why is the index based off of length instead of the order in which it is listed if we are going by the rule of zero indexing?   ['short', 'really long', 'tiny']   0 , 1 , 2"
+                }
+            ]
+        },
+        {
+            "question": "I was trying to unlock the tests for problem #1. However, when I passed the first and second case and move on to choose(ps, s, 2), I typed the correct answer (I believe) but then the program just starts to repeat itself and never ends. It seems like a run time error, could anyone help me check with that?",
+            "follow-ups": [
+                {
+                    "feedback": "If it's not letting you progress it means you didn't input the correct answer."
+                },
+                {
+                    "feedback": "Ok problem solved, I think I didn't wait long enough before it reaches the end."
+                }
+            ]
+        },
+        {
+            "question": "I'm confused because choose(ps, s, 2) outputs ''. My code outputs 'tiny' and thought it was right, but can the word be selected once only? How do I make this function output '' instead of 'tiny'?",
+            "follow-ups": [
+                {
+                    "feedback": "See the first followup. We're indexing starting from 0"
+                }
+            ]
+        },
+        {
+            "question": "do we need define like helper function i to increase values up to k?",
+            "follow-ups": [
+                {
+                    "feedback": "No"
+                }
+            ]
+        },
+        {
+            "question": "My program always stops when it reaches the first false value so it does not iterate through the rest of the list. Anyway to get past this?",
+            "follow-ups": [
+                {
+                    "feedback": "How are you iterating through the list? Maybe it would be useful to create another list."
+                },
+                {
+                    "feedback": "Used a list comprehension that iterates through the list if the function condition is met"
+                },
+                {
+                    "feedback": "Are you keeping track of the paragraphs that match the conditions? Also try to break up the list comprehension; sometimes its confusing when everything is bunched."
+                },
+                {
+                    "feedback": "Partially solved my problem; However, my code fails when it reaches the 2nd suite of tests.  Problem 1 > Suite 2 > Case 1  `>>> from typing import choose`  `>>> ps = ['d', 'Njtv', 'Kxg', 'ym6bMNxUy', 'Lz']`  `>>> s = lambda p: p == 'Kxg' or p == 'Lz' or p == 'd'`  `>>> choose(ps, s, 0)`  `'d'`  `>>> choose(ps, s, 1)`  `'Kxg'`  `>>> choose(ps, s, 2)`  `'Kxg'`  `# Error: expected`  `# 'Lz'`  `# but got`  `# 'Kxg'`"
+                },
+                {
+                    "feedback": "Make sure you are using the index properly"
+                }
+            ]
+        },
+        {
+            "question": "Hi, so anything I try I get the list index is out of range. How can I prevent that? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk12wh5ktvzmv%2FScreen_Shot_20190927_at_6.51.49_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You could add some kind of check to make sure k is within the range of the list. If it's not, then that implies the word you are looking for doesn't exist, so you can give back the empty string."
+                },
+                {
+                    "feedback": "Omg perfect! Got it to work, appreciate it!!"
+                }
+            ]
+        },
+        {
+            "question": "return empty string means return []?",
+            "follow-ups": [
+                {
+                    "feedback": "No. An empty string is one that doesn’t have any characters, such as “” or ‘’"
+                }
+            ]
+        },
+        {
+            "question": "i'm using a for-loop to iterate through the paragraphs list (using the variable k), but the variable k is not updating? i am trying to store k in a list so that it will not return the same string as before, but no luck? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhl9cy4r411%2Fk137c7dvrnuy%2FScreen_Shot_20190927_at_11.56.02_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You’re probably over-complicating it - try using a list comprehension and list indexing"
+                },
+                {
+                    "feedback": "why choose(ps, s, 1) is 'tiny'? I think it should be empty since the index 1 is 'really long' but it is longer than 5, so return empty"
+                },
+                {
+                    "feedback": "Please see the first followup in this thread"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting a list object cannot be interpreted as an integer error. I used a list comprehension to make a new list of the paragraphs that satisfy the select function conditions and then returned the new list's kth index paragraph. Anybody see what went wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Check all your indices to make sure they are integers and not lists"
+                },
+                {
+                    "feedback": "ok so I accidentally used range on a list when I meant to use it for the length of the paragraphs list, but how would I check if k is in the range?"
+                },
+                {
+                    "feedback": "because now its saying that i have a list index out of range error."
+                },
+                {
+                    "feedback": "You can compare `k` to the length of the list. Think about it: if I have a list `x` with `n` elements, what is the highest index `k` such that `x[k]` won't return an error?"
+                },
+                {
+                    "feedback": "I said for k in range(0, len(paragraphs) and then put the list comprehension within the for loop. But it's still not working :("
+                },
+                {
+                    "feedback": "You don't need to run a list comprehension several times for this problem - you should only be running it once (i.e. outside of any loops)"
+                },
+                {
+                    "feedback": "Hi, I'm having a similar issue, my list index is out of range. Can you please explain how you solved this problem?  Also, why can't the list comprehension be inside a loop that compares k and len(paragraphs)? That's what I currently have."
+                },
+                {
+                    "feedback": "hey, i decided to use a for loop instead that iterates through paragraphs and has an if statement for if select is true and if my index is equal to k."
+                },
+                {
+                    "feedback": "Hi, if I do this: if (select(paragraphs[k]) == True and i == k): (and then inside I add i to a new ist and return the k ith element of that new list)  it doesn't work. It skips straight to my return statement for an empty string :/ Any ideas?"
+                },
+                {
+                    "feedback": "Consider using a list comprehension"
+                },
+                {
+                    "feedback": "I believe I am using list comprehension, these if statements are inside my for loop"
+                },
+                {
+                    "feedback": "You have a list comprehension and a for loop? You could do this with either one list comprehension or one for loop. Having both sounds quite inefficient."
+                },
+                {
+                    "feedback": "Sorry, I had the wrong understanding before. I've now switched my code around and used list comprehension. However, I'm still getting the same error, that list index is out of range. I'm returning newList[k], and it says that's the problem, but I'm not sure why."
+                },
+                {
+                    "feedback": "This implies your newList has a length that is less than or equal to k.      Suppose you had the first test case which gave the words 'short', 'really long', and 'tiny' and had the selector that only chose words that were less than or equal to 5 characters. I'm guessing your list comprehension does something similar to filtering out 'really long', so you should have the new list ['short', 'tiny']. You'll notice that the second index of this list doesn't exist, so accessing the second index of it gives an error (AKA if you do ['short', 'tiny'][2], you will get an error)."
+                },
+                {
+                    "feedback": "Thanks for all of your help guys^"
+                }
+            ]
+        },
+        {
+            "question": "Are we suppose to use the list provided in the unlocking phase in our code?",
+            "follow-ups": [
+                {
+                    "feedback": "No; the list is a parameter"
+                },
+                {
+                    "feedback": "so what is the recommended approach for this code?"
+                },
+                {
+                    "feedback": "From the tips: \"You can use a list comprehension to create a list of all the paragraphs for which select returns True.\"  There are plenty of hints to be found if you read through all the questions and answers above"
+                },
+                {
+                    "feedback": "Im understanding the list comprehension approach but do I have to tell the recreate the parameters for the paragraphs in my code or is that already imported"
+                },
+                {
+                    "feedback": "The given parameters are a list of `paragraphs` (strings), a `select` function that returns `True` for paragraphs that can be selected, and a non-negative index `k`, if that's what you're asking"
+                },
+                {
+                    "feedback": "ok, so the code is specifically suppose to identify if the paragraph is too small or too large?"
+                },
+                {
+                    "feedback": "I'm also not understanding how to get the test to return one of the options given in the list."
+                },
+                {
+                    "feedback": "The code needs to make sure that the index isn't greater than / equal to the number of selected elements. If it is, then the code needs to return an empty string, i.e. \"\" or ''.  If you have a list `x`, the way to get the element of `x` at index `k` is the expression `x[k]` \\- this is why I recommend a list comprehension for this question."
+                },
+                {
+                    "feedback": "ps =['short', 'really long', 'tiny']   s = lambda p: len(p) <= 5  should this go above my code?"
+                },
+                {
+                    "feedback": "That should not be in your code, no."
+                }
+            ]
+        },
+        {
+            "question": "for a list comprehension, how do I make it so the return isn't written with [ ] around it?  So, as I understand it, a list comprehension goes:  return [ ___ for ____ in____] but when I do that, instead of getting 'short' I get ['short']. If I just remove the [ ] in the code it doesn't work, because then its just errors in syntax.",
+            "follow-ups": [
+                {
+                    "feedback": "List comprehensions always return lists. That's their whole purpose. If you expect to be getting one element from the list comprehension, you can access it (let's say your list is named `x`) via the expression `x[0]`. But for this question, that's not what should be happening."
+                },
+                {
+                    "feedback": "Wait so we shouldn't use list comprehensions for this? for this questions it should be returning just one element."
+                },
+                {
+                    "feedback": "We do use a list comprehension that may return a list containing an arbitrary number of elements. Then based on the parameter `k`, we choose the correct element from that generated list. `select(k)` can hypothetically be true for multiple values of `k`."
+                },
+                {
+                    "feedback": "OK. So basically the list comprehension only works to create a new list of elements that pass the conditions of the select function. And then from that new list is where we return the element?"
+                },
+                {
+                    "feedback": "OK! that helped a lot. Now, how can I make it so that I return an empty string when the index is out of range?"
+                },
+                {
+                    "feedback": "You can get the length of a list by calling the len method on it, e.g. len(x). Compare this length to the index `k` using a conditional, and based on that, choose what to return."
+                }
+            ]
+        },
+        {
+            "question": "Might be a simple question, but how would I go about removing a string form a list once it's been used? The normal add/subtract won't works since these are string. Can someone point me to the lecture part that covers this? I know how to combine lists and add elements like in lab04, my issue is with the strings.",
+            "follow-ups": [
+                {
+                    "feedback": "Instead of removing a string, consider iterating through the list of paragraphs and check if select returns true; in short, try to use list comprehension. That might be a better approach."
+                }
+            ]
+        },
+        {
+            "question": "def choose(paragraphs, select, k):           \"\"\"Return the Kth paragraph from PARAGRAPHS for which SELECT called on the           paragraph returns true. If there are fewer than K such paragraphs, return           the empty string.           \"\"\"           # BEGIN PROBLEM 1           \"*** YOUR CODE HERE ***\"           if select:               return [k for k in paragraphs if select(k)]           else:               return '' \"  I am able to identify the paragraphs from PARAGRAPHS, but they both come out together on the same list. how could I solve this",
+            "follow-ups": [
+                {
+                    "feedback": "Try breaking up your list comprehension into bits and see how that works; might be easier to understand. Also you're supposed to be returning the kth paragraph (a string, not a list) from a list that select is satisfied.  Also you shouldn't post code on piazza unless the post is private for instructors."
+                },
+                {
+                    "feedback": "How do you post private for instructors?"
+                },
+                {
+                    "feedback": "Make a new post and select audience as just instructors."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk174pfgtz8xr%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190930175258.png)Well, I have already said \"if select:\" statement,why I still got this result?",
+            "follow-ups": [
+                {
+                    "feedback": "You're not returning the kth element of the list where select returns true."
+                },
+                {
+                    "feedback": "But I stated that \"if select:return paragraphs[k]\", is the statement\"return paragraphs[k]\" wrong?"
+                },
+                {
+                    "feedback": "The line `if select:` is erroneous. This statement will always evaluate to True if `select` is not `None`. You need to evaluate select, i.e. `select(`*some string here*`)`"
+                },
+                {
+                    "feedback": "Also, make sure you are returning value at the `k`th index of your comprehended list, not the original list."
+                },
+                {
+                    "feedback": "Thank you guys!! I was done!"
+                }
+            ]
+        },
+        {
+            "question": ">>> from typing import choose     >>> ps = ['pVasJy', 'ZD', 'toNG']     >>> s = lambda p: p == 'ZD' or p == 'pVasJy' or p == 'toNG'     >>> choose(ps, s, 0)     'pVasJy'     >>> choose(ps, s, 1)     'toNG'          # Error: expected     #     'ZD'     # but got     #     'toNG'  Not understanding this error, 'pVasJy' at the 0th index and returns correctly. Once it's been selected, the item in the 1st index is supposed to be 'toNG' instead of 'ZD' correct? I'm passing the other test cases",
+            "follow-ups": [
+                {
+                    "feedback": "It is supposed to be ‘ZD‘ since it is index 1 of ps. (Every word in ps returns True for the select function, so we return the second word in ps.)"
+                },
+                {
+                    "feedback": "I see, but for test case 1, we are supposed to skip over the already-selected items, so shouldn't it be that 'toNG' is now the selectable item in index = 1?"
+                },
+                {
+                    "feedback": "No. You don’t need to skip anything that has been selected.      choose is a pure function, so it shouldn’t keep a log of what items have been selected if that’s what you mean."
+                },
+                {
+                    "feedback": "Thank you for the help, that really simplified things!  +1 for the sentiments that the problems are harder to understand than to actually execute through code"
+                }
+            ]
+        }
+    ]
+}

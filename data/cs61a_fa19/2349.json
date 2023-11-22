@@ -1,0 +1,247 @@
+{
+    "subject": "[Lab 14] Q1: Prune Min",
+    "content": "<a href=\"https://cs61a.org/lab/lab14//#q1\">Q1: Prune Min</a>\n\n<p> Please post all questions you have below concerning Q1: Prune Min in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "How do you compare the number of the leaves?",
+            "follow-ups": [
+                {
+                    "feedback": "You can access their labels."
+                }
+            ]
+        },
+        {
+            "question": "When it says bottom up, does it mean we start at the root node?",
+            "follow-ups": [
+                {
+                    "feedback": "Mutation should start at the nodes with the most depth. The root node should be the last to be mutated."
+                },
+                {
+                    "feedback": "But haven't we only learned how to do [for b in t.branches...] which starts at the top and keeps going down into the branches? How do we reverse that?"
+                },
+                {
+                    "feedback": "If you have it so that the pruning process of a tree occurs _after_ all its branches have been pruned, you will ensure a bottom-up order. It's just a matter of where in your solution you iterate over all the branches / make your recursive call!"
+                },
+                {
+                    "feedback": "We've seen this paradigm before, in [Q5 of Lab 7](https://cs61a.org/lab/lab07/#q5)."
+                }
+            ]
+        },
+        {
+            "question": "I've got the basic concept and structure down I believe- but I'm having trouble because I'm creating a new tree with the smallest label and assigning it as the branch rather than taking the original tree with the smallest label and assigning it to the branch. Any tips on how to go about fixing this?",
+            "follow-ups": [
+                {
+                    "feedback": "You can assign the branches of the current tree to be a one element list containing the branch you want to keep."
+                },
+                {
+                    "feedback": "You can also remove a branch from the list of branches"
+                },
+                {
+                    "feedback": "Yeah either way works fine, the overall goal is to preserve the state of the branch you want to keep."
+                }
+            ]
+        },
+        {
+            "question": "How do I mutate the Tree argument in this question?",
+            "follow-ups": [
+                {
+                    "feedback": "You can re-assign/modify `t.branches` as you wish. You shouldn't need anything of the form                t = ...  This would just re-bind the name `t` to something else, rather than modifying the actual `Tree` referred to by `t`, anyway."
+                }
+            ]
+        },
+        {
+            "question": "I got this error but I can't see where might be wrong. I'm not returning anything for the base case if t is_leaf though.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk3rmy2k88nf1%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191204_%E4%B8%8A%E5%8D%8810.38.15.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Would you happen to be accidentally printing anything? Also, your solution should never be returning a value - it should either mutate the tree passed into it, or do nothing."
+                },
+                {
+                    "feedback": "How would I \"do nothing\"? I tried just doing t = t lol, but then my base case just returns None."
+                },
+                {
+                    "feedback": "And if I return t for the base case, then It doesn't pass because it the entire function returns a tree in the first place"
+                },
+                {
+                    "feedback": "you shouldn't have a return statement in your solution. you should only modify the tree passed in by accessing its attributes"
+                },
+                {
+                    "feedback": "Remember that you can mutate `t` by changing its attributes. `Tree`s have a `label` attribute and a `branches` attribute, so try reassigning `branches` using `t.branches = [something]` in order to mutate the tree."
+                },
+                {
+                    "feedback": "Re-assigning `t` does not modify the `Tree` object itself, but rather just changes what `t` refers to."
+                }
+            ]
+        },
+        {
+            "question": "I think this is because of the placement of my recursive call to prune_min? Can someone give me a hint? Thank you  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp7au2wy27n%2Fk3rsn52qhv5d%2FScreen_Shot_20191204_at_1.17.50_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How are you recursively calling `prune_min`?"
+                },
+                {
+                    "feedback": "I used a for loop to go through the branches and call prune_min for each branch"
+                },
+                {
+                    "feedback": "This works, but only if you have this loop before the line where you mutate the tree. Make sure that's how it is in your solution."
+                },
+                {
+                    "feedback": "I got the same problem and I'm still stuck. I'm pretty sure I have the recursive call and the mutation in the correct order."
+                },
+                {
+                    "feedback": "(I'm the OP anon) my order is correct as well, soI think it's a problem with my mutation and I'm still trying to figure it out"
+                },
+                {
+                    "feedback": "Are you creating a new tree with the smaller branch's label? If so, you need to instead select the smaller of the two branches by comparing their labels."
+                },
+                {
+                    "feedback": "I reassigned t.branches to a list with a new Tree with only the smallest value as the label (which I found with min() ), I still don't know why it isn't working"
+                },
+                {
+                    "feedback": "You shouldn’t need to create new trees, only mutate existing `Tree`s. For example, if you found the smallest tree `smallest_tree`, then you could just reassign `t.branches` to a new list containing that single smallest tree with `t.branches = [smallest_tree]`, no new `Tree` creation necessary."
+                },
+                {
+                    "feedback": "Does that mean what's inside [] should be a min function selecting the smallest label?"
+                },
+                {
+                    "feedback": "We should select the smaller of the two branches, so if you would like to use the `min` function, call it on `t.branches`, and specify a key function relating branches/trees to their labels."
+                },
+                {
+                    "feedback": "Got it! Thanks Cyrus and Nicholas :)"
+                },
+                {
+                    "feedback": "No problem!"
+                },
+                {
+                    "feedback": "How would a key function help?"
+                },
+                {
+                    "feedback": "You are trying to find the branch with the minimum label, so the key would be the label of the branch. Try defining a key function that returns the value of the label given the branch."
+                },
+                {
+                    "feedback": "I wrote a lambda function in the key and got this error:  TypeError: '<' not supported between instances of 'function' and 'list'"
+                },
+                {
+                    "feedback": "Your key function shouldn't be executing any comparisons; it should just be mapping a branch to its label. i.e. it should be a one-argument function that takes in a branch and returns its label."
+                },
+                {
+                    "feedback": "All i did was `lambda t: t.label`  I didnt do any comparison"
+                },
+                {
+                    "feedback": "How are you passing in your key function? A proper call should look like `min(t.branches, key=*key function here*)` \\- this expression obtains the smaller branch"
+                },
+                {
+                    "feedback": "ooh i forgot the key = Thanks!"
+                },
+                {
+                    "feedback": "I am using a for loop to go through each of the branches and call prune_min on each branch. Would the line where I mutate the tree be inside the for loop?"
+                },
+                {
+                    "feedback": "and why/why not ^"
+                },
+                {
+                    "feedback": "No, it should be outside the for loop, since mutation of the sub- trees/branches naturally occurs via the recursive call you mentioned in the for loop. You should mutate `t` itself."
+                },
+                {
+                    "feedback": "Sorry, could you please explain why it would be outside the for loop again?"
+                },
+                {
+                    "feedback": "Sorry, Piazza glitched out. I will update my response above."
+                },
+                {
+                    "feedback": "I was able to pass the test case for this problem, but I am having trouble conceptually understanding my code. How does the recursive call inside the for loop work"
+                },
+                {
+                    "feedback": "Our pruning method should be doing two things:    * prune each sub-tree (this is what the recursive call does)   * remove the greater branch from the current tree's branches list (this is what the mutative line does)  We need to prune each sub-tree because we want the whole tree to be pruned throughout. This is why the question says \"The result should be a linear tree.\""
+                },
+                {
+                    "feedback": "When you say pruning each of the 2 sub-tree (branches) does that mean it just removes the branch with a larger label"
+                },
+                {
+                    "feedback": "No, that's done in the mutative line. We make a recursive call so that the trees represented by each of the branches themselves get pruned as well."
+                }
+            ]
+        },
+        {
+            "question": "Any Ideas why this is happening? I am reassigning t.branches to the branchwith the smaller number?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k52hj8236b%2Fk3ru8cm5fowh%2FScreen_Shot_20191204_at_2.01.47_PM.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm got it!"
+                },
+                {
+                    "feedback": "For anyone else wondering, this happens if you assign `t.branches` to be a single branch instead of assigning `t.branches` to be a list containing a single branch."
+                },
+                {
+                    "feedback": "I still couldn't solve that problem. How can I assign a list to a tree?"
+                },
+                {
+                    "feedback": "You should assign `t.branches` to a list that contains a tree."
+                },
+                {
+                    "feedback": "You aren’t assigning a list to a `Tree`. You are assigning a list to `t.branches`, and `t.branches` is a *list* that contains the branches of the tree."
+                },
+                {
+                    "feedback": "But I made the base case by checking if the tree is leaf, do I have to change this?"
+                },
+                {
+                    "feedback": "If the tree is a leaf, you shouldn't be doing anything. Your method should only do _anything_ if the tree has exactly two branches."
+                },
+                {
+                    "feedback": "Of note, all nodes of the input tree will only **ever** have 0 or 2 nodes. It’s a full/proper binary tree, at least until you prune it."
+                }
+            ]
+        },
+        {
+            "question": "I got an assertion error where I create a new branch in which prune_min is called recursively on each branch, then I'm mutating the t.branches into a tree with min of labels as root and that new branch as branches.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk3ruyvcg2l9k%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191204_%E4%B8%8B%E5%8D%882.21.55.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Your solution appears somewhat convoluted. I would suggest implementing your solution as follows:    * if the tree has two branches...      * recursively prune both branches     * prune the current tree by either removing the larger branch from `t.branches`, or re-assigning `t.branches` to be a list containing one element: the smaller of the two branches        * if you would like to find the smaller of the two branches, you can call `min` on `t.branches` and specify a key function that takes in a branch/tree and returns its label   * otherwise do nothing"
+                }
+            ]
+        },
+        {
+            "question": "why bottom-up? top-down would be more efficient. Let's say there is a tree  6  / \\  3\\. 5  /. \\\\. /\\  1\\. 2 3 4  I don't need to prune the bigger number branch from bottom-up at all. top- down: 3 < 5, so prune 5 branch.  1 < 2, prune 2. so just 2 times pruning.",
+            "follow-ups": [
+                {
+                    "feedback": "+1"
+                },
+                {
+                    "feedback": "+1"
+                },
+                {
+                    "feedback": "I did it top-down and passed all test cases. In fact I even had a syntax error in part of my code and still passed all the test cases. I think there's only 2 or 3 test cases for this problem."
+                },
+                {
+                    "feedback": "As far as I know, the question is not interested in efficiency. The point of top-down / bottom up constraint is to show you that depending on how you order your code, you can change the ordering of how things are executed."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjsgq6xmmtt51os%2Fk3ufi8itcpa2%2FScreen_Shot_20191206_at_9.31.03_AM.png)  I'm so confused why this output fails the doctest for t2. Is this not the linear tree we want? Why does the doctest expect no tree? t2 clearly has 2 branches and should therefore be pruned to output a mutated tree according to the question. Any suggestions would be helpful as how to fix this.",
+            "follow-ups": [
+                {
+                    "feedback": "Remmeber that `prune_min` *mutates* the tree, but it doesn’t actually return anything. It is similar to the `append` function for lists—it mutates the list but doesn’t actually have a return value. So you shouldn’t have a return statement in your implementation."
+                },
+                {
+                    "feedback": "Ah, gotcha. That makes more sense now--I removed my return statement (among other things) and just passed the test cases too. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I feel like I'm very close but I'm not sure what I'm doing wrong. I reassigned t.branches to a list of single branch (using min and a key that returns the labels of the branches.)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fitnimqddtl11n0%2Fk3um8anhszui%2FScreen_Shot_20191206_at_12.37.59_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How did you make your recursive call?"
+                },
+                {
+                    "feedback": "I used a for loop and called prune_min on each branch in t.branches"
+                },
+                {
+                    "feedback": "That's exactly what I did; not sure what's going on especially since printing a Tree shouldn't result in any newlines."
+                },
+                {
+                    "feedback": "I have no idea why this could be the case. Could you try constructing the tree in question (the expected output) in an interactive interpreter and seeing what the returned object is?"
+                }
+            ]
+        }
+    ]
+}

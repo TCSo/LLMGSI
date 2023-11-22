@@ -1,0 +1,355 @@
+{
+    "subject": "[Lab1] Master Thread",
+    "content": "<p>Lab 1 is due Friday 9/6 at 11:59PM! Please put any questions below.</p>\n<p></p>\n<p></p>",
+    "threads": [
+        {
+            "question": "Well, I downloaded the lab 1 and I find out that the problems in lab 1 are not the same as the problems in the lab1 website. The website says there are supposed to be five basic questions but I just found two totally different one. But the extra part is the same. Can anyone tell me what is wrong with it?",
+            "follow-ups": [
+                {
+                    "feedback": "Some of the questions are tests that are unlocked using ok in the console, and don't require code to be written. You can follow along with the [Lab 1 instructions](https://cs61a.org/lab/lab01/) and you will be fine."
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "Are you typing that into the terminal? Make sure you are not running that line inside the Python interpreter. To get out of the interpreter, and return to the terminal, you can type                exit()  and press enter."
+                },
+                {
+                    "feedback": "ok, thank!!"
+                }
+            ]
+        },
+        {
+            "question": "How do you import your own user defined functions into an interactive python session? I tried \"from lab01.py import double_eights\", but I received the following error: ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjz1zsn3o5836lt%2Fk02tcajscqi3%2FScreen_Shot_20190902_at_12.44.30_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "import statements don't use .py extensions; try:                from lab01 import double_eights"
+                }
+            ]
+        },
+        {
+            "question": "\\---redacted---  Can someone explain why the loop is executed even though the tested condition doesn't return a boolean value?",
+            "follow-ups": [
+                {
+                    "feedback": "The loop executes because numbers have boolean values associated with them. For all non-zero numbers, that value is True, and for zero, it's False."
+                },
+                {
+                    "feedback": "I didn't realize that numbers have booleans associated with them. Thank you"
+                },
+                {
+                    "feedback": "Technically, boolean values [are actually a type of integer](https://docs.python.org/3/library/functions.html#bool), where True is represented by 0 and False is represented by 1. However, empty lists, blank strings, and the value None [also are False values](https://cs61a.org/lab/lab01/#boolean-operators)."
+                },
+                {
+                    "feedback": "Please refrain from posting answers publicly!"
+                },
+                {
+                    "feedback": "To extend this further, all values actually take on truthy and falsey values in boolean contexts!  Falsey values (or values that behave like False in boolean contexts):  \\- False, 0, None, '' (empty string), [] (empty list), {} (empty set), etc.  Truthy values (or values that behave like True in boolean contexts): literally anything that isn't falsey  \\- 1, 2, 3, -1, -2, -3, etc.  \\- 'hi', 'yeet', 'meme', etc.  \\- ['array', 'with', 'stuff', 'inside']  \\- Functions"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error loading assignment: error importing file lab01.py message when I try to load the first two problems into terminal. It just says the 3rd problem has an invalid syntax.",
+            "follow-ups": [
+                {
+                    "feedback": "I am having the same problem here."
+                },
+                {
+                    "feedback": "Can you screenshot and upload the entire error?"
+                }
+            ]
+        },
+        {
+            "question": "When I type in \"python3 ok --score\" it shows a 0/0 for both Control and Veritasiness, is that fine as long as we have completed the problems?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, the 0/0 are for unlocking the tests. Those questions are not for grading."
+                }
+            ]
+        },
+        {
+            "question": ">>> positive = 28  >>> while positive:  ...print(\"positive?\")  ... positive -= 3  What exactly does it mean by \"while positive?\"",
+            "follow-ups": [
+                {
+                    "feedback": "my understanding is that >>>while positive: means that while positive is assigned to a number that has a truthy value. Now all numbers aside from zero are assigned a truthy value. Maybe that will help with understanding the result?"
+                },
+                {
+                    "feedback": "See the \"Control\" section under Topics"
+                }
+            ]
+        },
+        {
+            "question": "I have finished the required questions of lab1 earlier and passed all the test and ran ok successfully, but when I tried to submit it, my terminal says “unexpected EOF error” every time a question runs. What exactly is the problem?",
+            "follow-ups": [
+                {
+                    "feedback": "A file may have corrupted - check all files that you edited the code of, and if everything looks good, you can try copying the text of your code elsewhere, re-extracting the lab01 files from the zip file, and copying your code back in."
+                },
+                {
+                    "feedback": "Ok! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "When I try to check the optional questions with ok, the test cases do not pass, but I tested the code using the python interpreter and it worked. What is the problem?",
+            "follow-ups": [
+                {
+                    "feedback": "What is the console output where the test cases fail?"
+                },
+                {
+                    "feedback": "Running tests  \\---------------------------------------------------------------------  Doctests for falling  >>> from lab01_extra import *  >>> falling(6, 3) # 6 * 5 * 4  # Error: expected  # 120  # but got  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case"
+                },
+                {
+                    "feedback": "Are you returning anything in your code?"
+                },
+                {
+                    "feedback": "Check to make sure you are returning a value and not just printing it"
+                },
+                {
+                    "feedback": "I am returning a value, and it works if i insert the code into the python interpreter, but the okpy still does not show a passed test case. I could send the code but I am not sure how to hide it."
+                },
+                {
+                    "feedback": "That's kinda weird, maybe make a private post with TA because I'm not really sure what's wrong, sorry about that."
+                },
+                {
+                    "feedback": "you have to run python ok --submit again to submit the optional question .py file."
+                }
+            ]
+        },
+        {
+            "question": "When I open lab01.py in Atom, the first couple questions don't show up, am I missing something?",
+            "follow-ups": [
+                {
+                    "feedback": "The first couple questions are asked in the console, not by writing code. Make sure you read through the [Lab 1 instruction page](https://cs61a.org/lab/lab01/)."
+                }
+            ]
+        },
+        {
+            "question": "This is not a lab question, but  def branch(x):   if x > 5:   print('one')   elif x > 0:   print('two')   if x > 10:   print('three')   else:   print('four')   return x + 5   a=branch(6)  Why is four also printed?",
+            "follow-ups": [
+                {
+                    "feedback": "Is it because its right after the second if statement which isnt true so it goes to else?"
+                },
+                {
+                    "feedback": "This [Link](https://stackoverflow.com/questions/20259351/difference-between- if-and-else-if/20259384) might help too."
+                },
+                {
+                    "feedback": "Yes. It goes to `else`. Also notice that you do not `return` from the function at any point before that, so you enter the second `if-else` statement (the first is `if-elif` statement - which is bad style for your future reference!)"
+                }
+            ]
+        },
+        {
+            "question": "Question about Q4  when I tested my sum_digits code, got this error ' RecursionError: maximum recursion depth exceeded'",
+            "follow-ups": [
+                {
+                    "feedback": "It probably means you have an infinite recursion tree in there somehow. Did you remember to create an end condition?"
+                },
+                {
+                    "feedback": "i wonder if 'return n' will end the function when n is 0"
+                },
+                {
+                    "feedback": "whenever it reached return, the function ends at that point"
+                }
+            ]
+        },
+        {
+            "question": "When I run 'python3 ok --all -v', the program reports:                There are still locked tests! Use the -u option to unlock them       ---------------------------------------------------------------------       Test summary           Locked: 4           Passed: 14           Failed: 0       [oooooook...] 77.8% passed  How do you find out which 4 cases are still locked?",
+            "follow-ups": [
+                {
+                    "feedback": "You can type `python3 ok -u` which takes you to the nearest unlocking test that you have not unlocked yet"
+                }
+            ]
+        },
+        {
+            "question": "I don't quite why  True and 13 returns 13  True and 3 and 0 returns 0  1 and 3 returns 3  1 or 3 returns 1  False or 3 returns 3  Could anyone give me a hint?",
+            "follow-ups": [
+                {
+                    "feedback": "already got it!"
+                },
+                {
+                    "feedback": "Wait I don't get it lol. Why does True and 13 return 13, what????"
+                },
+                {
+                    "feedback": "I thought it's because:  first evaluate True, which is true, and then the expression evaluates to the value of 13, so it returns 13.  Not sure if that's correct, welcome different answers!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk05iz43kl4fj%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190904_10.16.31.png)"
+                },
+                {
+                    "feedback": "The and operator continues reading through the conditions until it finds the first false value. However, when all values are True, it will read the expression to the end, and print the last expression.  The or operator does the opposite. It will search for the first True value, and return *that* one. This is because if one value in an or statement is True, python has no reason to read the rest, as you only need one section of an or to be True for the or statement to be true."
+                },
+                {
+                    "feedback": "okay!! but then in: True and 3 and 0, why would it return 0? I thought zero was a false value...? wouldn't it read true then 3 and then stop at 0?"
+                },
+                {
+                    "feedback": "Or does it return the last expression meaning the one it stopped on (False one)?"
+                },
+                {
+                    "feedback": "In the case of True and 3 and 0, it evaluates True first, evaluates 3 (truth-y value), and finally evaluates 0. As you can see in the textbook, if the first subexpressions are true, then expression evaluates to the value of the subexpression <right> regardless of whether <right> is a truth-y value or a false-y value.                >>> True and 3 and 0       0       >>> True and 3 and 4       4  So, yeah it returns the value of the last expression it evaluates."
+                }
+            ]
+        },
+        {
+            "question": "I have tried returning every possible modulo or floor_div statement in the sum of digits problem but never add up to the right number? Is it possible I need a while loop for the sum_of_digits problem? I can't seem to get anywhere.",
+            "follow-ups": [
+                {
+                    "feedback": "I used a while loop."
+                },
+                {
+                    "feedback": "So I passed the test case with a while loop, but I took a look back at my code, and I don't understand why it passed the test case. I added the remainder before using the floor division in the loop. Can anyone explain why it works?"
+                },
+                {
+                    "feedback": "The first remainder will give you the first (from the right) digit, the first floor division will lead to the next remainder being the second digit, etc."
+                }
+            ]
+        },
+        {
+            "question": "When I try to run the submit command, only questions 3 and 4 show up in my submissions. Questions 1 and 2 aren’t in any backups or submissions. We’re we supposed to submit after each question?",
+            "follow-ups": [
+                {
+                    "feedback": "That's fine. Ok automatically backups during unlocking tests"
+                }
+            ]
+        },
+        {
+            "question": "When i do question 4, it states no doctests are found and tells me it failed everytime.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you didn't delete anything on accident from hog.py, and worst comes to worst, just re-extract the zip file and copy all the code over that you wrote already"
+                }
+            ]
+        },
+        {
+            "question": "Best way to approach Question 4 on the lab? Keep getting blank for number expected",
+            "follow-ups": [
+                {
+                    "feedback": "Whats your approach to this problem? Try converting it into a string and running a while loop."
+                },
+                {
+                    "feedback": "Please do not convert to a string. That would be missing the point of the problem"
+                }
+            ]
+        },
+        {
+            "question": "I am stuck on question 3 of the lab. I fixed the part of the code that does not work but every time I run the test I get an error. Anyone know why I keep getting this problem?  **\\-- redacted --**",
+            "follow-ups": [
+                {
+                    "feedback": "Please refrain from posting your code publicly! Next time, please post privately to the instructors. That said, I took a look at your function before redacting, and I couldn't replicate your issue. See if you can save your file again, try running interactive Python and check, and if you continue to have this issue, can you make a private post?"
+                }
+            ]
+        },
+        {
+            "question": "Hi  I am not able to fix this issue. I already check the indentation several times. Can anyone help me?  **\\-- redacted --**",
+            "follow-ups": [
+                {
+                    "feedback": "**\\-- redacted --**"
+                },
+                {
+                    "feedback": "Thank you！！！！"
+                },
+                {
+                    "feedback": "I think this issue has been resolved, but please refrain from posting your code publicly! If you require help, please post privately to instructors."
+                }
+            ]
+        },
+        {
+            "question": "Two Questions:  1\\. I can't seem to find the first 2 questions of the lab. I just find 3 and 4. Where are they?  2\\. For question 3: 'fix the bug', am I allowed to only use one line, or can I completely erase the wrong code and do my own if statements?",
+            "follow-ups": [
+                {
+                    "feedback": "1\\. They consist of [questions asked in the console](https://cs61a.org/lab/lab01/#what-would-python-display-part-1).  2\\. You can erase the line and make your own if statements. However, attempting a solution on one line would help you practice writing concise code, which is part of [composition](https://cs61a.org/articles/composition.html)."
+                },
+                {
+                    "feedback": "You can only use one line for q3"
+                }
+            ]
+        },
+        {
+            "question": "For question 4, when I try to run either floordiv() or the '//' notation, it says \"TabError: inconsistent use of tabs and spaces in indentation\". What's wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "It means you have sometimes used tabs to indent and sometimes you used spaces. All your indents need to be one or the other"
+                }
+            ]
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "Is this error a king of login error? What can I do with it?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fk07gqbblrmvu%2FTIM%E5%9B%BE%E7%89%8720190905185029.png)"
+                },
+                {
+                    "feedback": "Try entering your bCourses email and confirming on okpy.org. After doing this, try rerunning the test."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble with this section of the lab:  >>> def cake():   ... print('beets')   ... def pie():   ... print('sweets')   ... return 'cake'   ... return pie   >>> chocolate = cake()   *******   >>> chocolate  I tried many different things to find an answer that made sense. After no success, I put this into my python interpreter and I was given this code:  >>> chocolate   <function cake.<locals>.pie at 0x0000027087829D90>  Any help would be appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "The return value of cake is pie (the line that says `return pie`). pie is a function that is defined inside of the cake function. Therefore, the result of cake() is a function called pie, so chocolate is a function"
+                },
+                {
+                    "feedback": "Thank you for your help. I already understand all of that. I suppose my issue is less with logic and more with python syntax. How do I express that chocolate is a function for this lab? I feel like we've been over this but I'm drawing a blank right now."
+                },
+                {
+                    "feedback": "I believe that it should say in the unlock tests to type `Function` if what is returned is a function."
+                }
+            ]
+        },
+        {
+            "question": "Hi there,  Trying to figure out why I received an Error in Python at the end of this problem:  It has to do with the final mandatory (non-optional) problem in Lab01. Because I don't think I can actually post my solution on here, I will say I assigned the name \"modulo remainder\" to n % 10 . Apparently, Python is not content with my syntax. Please let me know if somebody requires clarification. Thanks, much appreciated.  Assignment: Lab 1  OK, version v1.14.15  =====================================================================  Traceback (most recent call last):  File \"/Users/lorenzolucchesi/Desktop/cs61a/lab/lab01/lab01.py\", line 27  n % 10 = modulo remainder  ^  SyntaxError: invalid syntax  Error loading assignment: Error importing file lab01.py  Checking for software updates...  OK is up to date  airbears2-10-142-57-151:lab01 lorenzolucchesi$",
+            "follow-ups": [
+                {
+                    "feedback": "The variable has to be on the left side of the value.  In this case, I believe you are trying to write:                modulo_remainder = n%10   Note that a variable must be a contigious set of characters (not white spaces between words)"
+                },
+                {
+                    "feedback": "Yes, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I could not find Q1&2 in the Lab1 zip at all. I tried searching in the 'tests' file in lab01 but could not find the questions there either. I looked through the lab1 instruction page carefully and am lost now.",
+            "follow-ups": [
+                {
+                    "feedback": "You have to run `python3 ok -q control -u `to start Q1 and` python3 ok -q short_circuiting -u` to start Q2 on your terminal."
+                }
+            ]
+        },
+        {
+            "question": "When i try to ok test, it says error importing file, but it worked the first time i tried it",
+            "follow-ups": [
+                {
+                    "feedback": "hard to tell without more information but most likely you are in the wrong directory"
+                }
+            ]
+        },
+        {
+            "question": "I'm confused with the semantics of this assignment. When it refers to questions, are those just the test files in the tests folder? If so, how do you tell which file corresponds to question 1, 2, and so on, because the test files are names, not question numbers. If not, where can I find the questions?",
+            "follow-ups": [
+                {
+                    "feedback": "Q1 and Q2 are in the tests folder. Q3 and Q4 are in lab01.py"
+                }
+            ]
+        },
+        {
+            "question": "For the coding practice questions (3 & 4), do we copy them into our terminal and change the last line on our own? or is there a way to like \"import it\" like we did for questions 1 & 2 by typing python3....?",
+            "follow-ups": [
+                {
+                    "feedback": "You should edit the functions located in lab01.py"
+                },
+                {
+                    "feedback": "Thank you so much, Derek!"
+                }
+            ]
+        },
+        {
+            "question": "About Q4. It's my code but it keeps showing a error with sum_digit(10).But I can run it on Jupyter Notebooks.  \\------redacted------  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk093gjmtez9y%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190907131352.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It seems as if you defined the function with the name \"digit_sum\" but the test case calls \"sum_digits.\" This is why it works in the jupyter notebook where you use the correct call expression but fails on the test case."
+                },
+                {
+                    "feedback": "Oh gosh! Thank you very much! I haven't noticed it. T-T"
+                },
+                {
+                    "feedback": "Please do not post your code publicly @367"
+                }
+            ]
+        }
+    ]
+}

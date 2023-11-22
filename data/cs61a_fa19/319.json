@@ -1,0 +1,79 @@
+{
+    "subject": "[Hog] Problem 3",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-3-2-pt\">Problem 3</a>\n\n<p> Please post all questions you have below concerning Problem 3 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "For question 3, I passed many test cases, but then I have an incorrect code because I didn't call roll_dice. It gave me a very large expected value, where I have an incorrect value, but I don't understand why it is not based on the number of scores the user has received from the expected value.  Do I need to call functions based on the question or how is this very large value has something to do with the question from a function that should return a small value?",
+            "follow-ups": [
+                {
+                    "feedback": "To clarify, the take_turn function has two parameters, where the first parameter is not a zero, as given when I tested my code. I don't know what this function means when it holds the first as a number other than zero."
+                },
+                {
+                    "feedback": "Whenever num_rolls is zero on a turn, your take_turn function should make a call to Free Bacon, the function you wrote earlier.  If num_rolls is not zero, than your take turn function should make a call to roll_dice, and pass along the number of dice being rolled, and what type of die is being used.  (Not 100% sure this answers your question, let me know if not)"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk071t1cx7pjb%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190905_11.52.28.png)  I'm trying to call free bacon when num_rolls is 0, and call roll_dice when the num_rolls is not zero, but keep getting the wrong result...what's probably wrong with that?"
+                },
+                {
+                    "feedback": "The parameters are def take_turn(num_rolls, opponent_score, dice=six_sided).  num_rolls, the first input, should 0. Try that."
+                },
+                {
+                    "feedback": "the first input should be 0? what does that mean?"
+                },
+                {
+                    "feedback": "Free bacon is called when num_rolls = 0. So, if you want free bacon to be invoked, make sure you call take_turn with the argument 0 for the parameter num_rolls. The problem in your screenshot is that you pass the arguments (3, 2, and 1) as num_rolls. You never pass 0 in, so it never calls free bacon. Does that answer your question?"
+                },
+                {
+                    "feedback": "thank you! when I call free bacon it works well. but my problem is when num_rolls !=0, how to pass the dice type of take_turn into the roll_dice"
+                },
+                {
+                    "feedback": "Not fully sure if I understand your question, but you can simply pass dice into roll_dice."
+                },
+                {
+                    "feedback": "ok, thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "When I call roll_dice on num_rolls inside the take_turn function, it doesn't seem to use the given dice because I get the error: expected 9 but got (random number, changes every time I run the test again.)  I tried calling roll_dice on a test set outside of the question and it worked fine, so I'm not sure why it doesn't use the given dice when it's inside the take_turn function.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out"
+                },
+                {
+                    "feedback": "Can you please explain this, Im having similar issues."
+                },
+                {
+                    "feedback": "^^ I think it's using the fair six sided dice instead of the fixed one. The parameter is set to dice=six_sided, is that the problem?"
+                },
+                {
+                    "feedback": "I've ran into the same problem so I'll elaborate.  The test case is using **make_test_dice(4, 6, 1)**. You need to allow the test case to pass **make_test_dice()** into **roll_dice()** via **take_turn()**.  Hopefully this helps."
+                }
+            ]
+        },
+        {
+            "question": "how can i unlock the ok in pro3. the first question confused me a lot and i tried 0 to 100 but it still said im not right  i think it shuld be 4+5=9  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuizz1qeb5c2%2Fk096ijsd7pvd%2Fq3.png)",
+            "follow-ups": [
+                {
+                    "feedback": "try restarting your terminal, and make sure you are not including any spaces or new lines! please post a follow up if you are still having problems unlocking this test."
+                }
+            ]
+        },
+        {
+            "question": "when calling the roll_dice function, how do we get extract the numbers from the list to add them up to get the score? Do we use an index?",
+            "follow-ups": [
+                {
+                    "feedback": "there is no list to extract from - we get the scores from individual dice rolls by repeatedly calling the function of the dice."
+                }
+            ]
+        },
+        {
+            "question": "when i run the test for problem3 it says \"opponent_score\" is not defined. What should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "difficult to debug this without seeing the specific error. if you look closely at the lines in the error message, they also tell you which line and which function caused the error, so I would start there!"
+                }
+            ]
+        }
+    ]
+}

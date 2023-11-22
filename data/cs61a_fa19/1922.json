@@ -1,0 +1,11 @@
+{
+    "subject": "Question about revision",
+    "content": "<p>Is it necessary to modify each part of the code that the revision comment refers to?</p>\n<p>I think certain part of my code is right while the revision comment make me confused</p>",
+    "threads": [
+        {
+            "subject": "",
+            "content": "<p>You should definitely try to modify and revise all the comments. If you are unsure, please come see us in OHs and we should be able to help you out! </p>",
+            "threads": []
+        }
+    ]
+}

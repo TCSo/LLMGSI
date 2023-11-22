@@ -1,0 +1,26 @@
+{
+    "subject": "[Lab 04] Q7: Ten-pairs",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q7\">Q7: Ten-pairs</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q7: Ten-pairs in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "What should we do after counting the appearing times of each digits in n?  Should we search all the digits in n to find the digit which is a ten pair with this digit?",
+            "follow-ups": [
+                {
+                    "feedback": "It may be helpful to count the number of times the \"pair digit\" of each digit appears in n"
+                },
+                {
+                    "feedback": "i defined two different functions, just wondering if someone did it with just 1?"
+                },
+                {
+                    "feedback": "I used a single helper function within the body of `ten_pairs`, however I just realized I used assignment statements which isn't allowed whoops  EDIT: Using built-in functions, or a function written earlier as part of the lab, it is possible to write `ten_pairs` without an assignment statement and only one helper function, but the line of code for that would be way over 80 characters"
+                },
+                {
+                    "feedback": "@Cyrus: I agree with everything you said above, with one addition. There is a way to write `ten_pairs` with only one helper function in the body, and only one line in the helper function itself. I did not need to call any other built-in functions or functions written earlier in the lab. It is possible to do this keeping all lines under 80 characters. The caveat is that readability is horrible, as you would expect :)"
+                },
+                {
+                    "feedback": "Well done, respect!"
+                }
+            ]
+        }
+    ]
+}

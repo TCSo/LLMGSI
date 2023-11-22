@@ -1,0 +1,472 @@
+{
+    "subject": "[HW 10] Q3: Sentences",
+    "content": "<a href=\"https://cs61a.org/hw/hw10//#q3\">Q3: Sentences</a>\n\n<p> Please post all questions you have below concerning Q3: Sentences in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "# Error: expected # barack and clinton are standard siblings # abraham and grover are toy siblings # but got # barack and clinton are standard siblings # abraham and grover are toy siblings WHY I can't pass the test?",
+            "follow-ups": [
+                {
+                    "feedback": "I didn't use the optional siblings function"
+                },
+                {
+                    "feedback": "Someone else had an issue where they accidentally put spaces where they weren’t supposed to, like at the end of the sentence or something. Could it be that?"
+                },
+                {
+                    "feedback": "Yes it is the problem. Thanks."
+                },
+                {
+                    "feedback": "I am getting the same error and can't figure out how to fix it"
+                },
+                {
+                    "feedback": "# Error: expected  # barack and clinton are standard siblings  # abraham and grover are toy siblings  # but got  # barackandclintonarestandardsiblings  # abrahamandgroveraretoysiblings  I don't get what i am doing wrong"
+                },
+                {
+                    "feedback": "If you're doing something like                ... || \"and\" || ... || \"are\" || ........  Add spaces inside of the quotes before and after each word, i.e.                ... || \" and \" || ... || \" are \" || ........  The exception is the word \"siblings\" \\- make sure you do not add an additional space, but rather just the space before, i.e. turn it into \" siblings\"."
+                },
+                {
+                    "feedback": "Thanks! Got it."
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "thanks"
+                }
+            ]
+        },
+        {
+            "question": "Can anyone explain to me how the comparison operator works on strings? I'm trying to figure out how to make my rows in alpahabetical order so it is barack then clinton instead of clinton then barack.",
+            "follow-ups": [
+                {
+                    "feedback": "The basic procedure (iterating through the characters in each string) is:    * if the current character in string1 is greater than the current character in string2, string1 is greater   * else if the current character in string2 is greater than the current character in string1, string2 is greater   * else we move onto the next character in each string. If neither string has characters left, they are equal. Otherwise if string1 has no characters left, string2 is greater. Otherwise if string2 has no characters left, then string1 is greater.  So in practice, for instance, “abcd” will be greater than “abcabc” but less than “and”. Characters utilize alphabetical order for comparison."
+                },
+                {
+                    "feedback": "As for this question specifically, consider utilizing a comparison operator between the names as part of a WHERE statement wherever you are constructing the pairs of siblings"
+                },
+                {
+                    "feedback": "Great advice, thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "I am confused about the pairs with same size. WHY are the results only that two pairs rather than below?  # abraham and grover are toy siblings   # barack and clinton are standard siblings   # barack and delano are standard siblings   # clinton and delano are standard siblings   # eisenhower and fillmore are mini siblings   # eisenhower and herbert are mini siblings   # fillmore and herbert are mini siblings",
+            "follow-ups": [
+                {
+                    "feedback": "There are two criteria that have to be met: (1) the dogs share the same size (2) the dogs share the same parent"
+                },
+                {
+                    "feedback": "Thanks. Got it."
+                },
+                {
+                    "feedback": "No problem"
+                },
+                {
+                    "feedback": "Should I include this criteria: the dogs share the same size in the siblings table or sentences table?"
+                },
+                {
+                    "feedback": "Ended up putting it in the siblings table and it worked."
+                },
+                {
+                    "feedback": "Great!"
+                }
+            ]
+        },
+        {
+            "question": "To complete this homework, do we need to watch Monday's lec first?",
+            "follow-ups": [
+                {
+                    "feedback": "The 11/25 (this coming Monday) lecture does not pertain to this homework; the 11/18 (last Monday) lecture does."
+                }
+            ]
+        },
+        {
+            "question": "How should we make the created siblings not repeat themselves? For example, Barack and Clinton, Clinton and Barack are the same but the table has two rows.",
+            "follow-ups": [
+                {
+                    "feedback": "The instructions say \"Each sibling pair should appear only once in the output, and **siblings should be listed in alphabetical order** \". By enforcing alphabetical order (use WHERE for this), you automatically eliminate duplicates since one of the two permutations will have to be out of alphabetical order."
+                },
+                {
+                    "feedback": "what do you mean by \"be out of alphabetical order\"?"
+                },
+                {
+                    "feedback": "Let's say we have two siblings - \"Chris\" and \"Sally\". The two permutations of these are as follows:  \"Chris\", \"Sally\"  \"Sally\", \"Chris\"  The first one is in alphabetical order, since C comes before S in the alphabet. ( _HINT: In code-speak, this means that \"Chris\" < \"Sally\"_). The second one is not in alphabetical order, since S comes before C."
+                },
+                {
+                    "feedback": "got it! thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "Once we have the siblings, how do we also pair them with their sizes? I can't seem too figure out how to get that data. Should we also access the size_of_dogs table?",
+            "follow-ups": [
+                {
+                    "feedback": "I used the sizes table; I'm not sure if using size_of_dogs would work - let me test it and get back to you on that."
+                },
+                {
+                    "feedback": "Okay, thank you!"
+                },
+                {
+                    "feedback": "size_of_dogs works, and in fact led to a more concise solution than using sizes - thanks for pointing out this possibility! If you need any further assistance, don't hesitate to ask."
+                },
+                {
+                    "feedback": "No problem. I'm guessing that we need to have a condition where the size_of_dogs.name should be equal to sibling1.name or sibling2.name, so we can get the size of one of the siblings, but that leaves and issue with the other sibling possibly having a different size. I know I'm close, what am I missing?"
+                },
+                {
+                    "feedback": "Instead of accessing siblings twice, consider accessing size_of_dogs twice - you can then get the size of each sibling, since the siblings table has a column for each sibling already, and then check if they are equal."
+                },
+                {
+                    "feedback": "Perfect, thank you. I got it."
+                },
+                {
+                    "feedback": "No problem."
+                }
+            ]
+        },
+        {
+            "question": "How to get distinct pairs??",
+            "follow-ups": [
+                {
+                    "feedback": "See above: the instructions say \"Each sibling pair should appear only once in the output, and **siblings should be listed in alphabetical order** \". By enforcing alphabetical order (use WHERE for this), you automatically eliminate duplicates since one of the two permutations will have to be out of alphabetical order."
+                }
+            ]
+        },
+        {
+            "question": "I have a question on  CREATE TABLE siblings. It is a helper table, i use SELECT m1.child, m2.child to name the two columns.  But in CREATE TABLE sentences AS question, how could i get the name of two colmns（m1.child, m2.child), they shared the same name.  If I call SELECT child FROM siblings.  i only get  abraham  abraham  barack  delano  **but i need**  abraham|delano  abraham|grover  barack|clinton  delano|grover  Thanks a lot!",
+            "follow-ups": [
+                {
+                    "feedback": "Use aliasing to name each column when constructing the siblings table. Then reference those names when selecting from siblings"
+                },
+                {
+                    "feedback": "Could you give me a example how to name each column during the aliasing. Thanks a lot."
+                },
+                {
+                    "feedback": "You would use the AS keyword, i.e. SELECT m1.child AS ..., m2.child AS ..."
+                },
+                {
+                    "feedback": "Thanks a lot!!! it works."
+                },
+                {
+                    "feedback": "No problem."
+                },
+                {
+                    "feedback": "I don't understand how to make the helper table for the siblings. Any hints?"
+                },
+                {
+                    "feedback": "You should use the parents table to gather all pairs of children, then use a WHERE clause to only keep the pairs where (a) the two children have the same parent (b) the two children are in alphabetical order, i.e. the first child's name is less than the second child's name."
+                },
+                {
+                    "feedback": "How do I write the WHERE part for the two children with the same parent?"
+                },
+                {
+                    "feedback": "Each row in the parents table corresponds to a parent-child pair. You can then access the parent of two parent-child pairs and see if they are equal. You can get all pairs of two parent-child pairs by joining parents with itself."
+                },
+                {
+                    "feedback": "I don't really understand why we need to join parents with itself"
+                },
+                {
+                    "feedback": "Remember that you can do something like `SELECT [columns] FROM parents AS p1, parents as p2` in order to join a table with itself using aliasing. For example, I could have one table to get the parent of the first child and another table to get the parent of the second child and see when the parents are the same. In this case, that would be the clause `WHERE p1.parent = p2.parent`, for example."
+                },
+                {
+                    "feedback": "So the reason we are joining parents with itself is to be able to check if parents in one table equals parents in the other table?"
+                },
+                {
+                    "feedback": "I feel like I implemented this correctly, but my output for the test case yields:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp1w761923k%2Fk3qpdjbdzq20%2Fhw10_siblings_error.PNG)  Any ideas on what I could be doing wrong here?"
+                },
+                {
+                    "feedback": "@Anon Yes. If you join the `parents` table with itself and filter by where all the `parent` is equal, then you have all the parent-child pairs where the parents are the same—in other words, the siblings. Keep going in order to also filter the dogs who are the same size using the `dogs` table."
+                },
+                {
+                    "feedback": "@Andy Are you checking the size of your dogs correctly? Abraham is a toy dog, while Delano is a standard dog, for example."
+                },
+                {
+                    "feedback": "I am currently only checking for a.child=name. I feel like this is probably the issue but I am unsure of how to fix it."
+                },
+                {
+                    "feedback": "I would recommend filling out the `siblings` table to return all possible combinations of siblings using table joins and *then* trying to tackle the second part of the question, as trying to manage all the tables at once can get cumbersome."
+                },
+                {
+                    "feedback": "I don't see how the information I can use changes with this approach. Wouldn't I need a way to check if both the first and second columns of siblings correspond to the same size in size_of_dogs? I'm not sure how to do this, since the different names corresponding to the same size in that table are on separate rows."
+                },
+                {
+                    "feedback": "When constructing your sentences, you can join together siblings with two copies of size_of_dogs, since each sibling pair already contains both dogs to be checked. You can then filter the size_of_dogs copies to make sure they correspond to the two siblings, then check the sizes to make sure they are equal."
+                },
+                {
+                    "feedback": "Never thought of doing this, thanks!"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "Now, i have siblings table and size_of_dogs table.  I wanna join the two tables and then use some condition to get the results, but i have no idea how to set the condition,  Joining table looks like:  abraham | delano | abraham | toy  abraham | delano | Clinton | toy  I wanna check like if **abraham 's size = delano's size**  but in joining table, there is only one size appearing each time. Could you give me some suggestions, Thank.",
+            "follow-ups": [
+                {
+                    "feedback": "If you need to access two copies of a table, you can select from it twice, aliasing each one. i.e. `SELECT ... FROM my_table as t1, my_table as t2`"
+                },
+                {
+                    "feedback": "sorry, i don't really understand, now i use  CREATE TABLE sentences AS **FROM siblings, size_of_dogs**  you mean i need to aliase itself?"
+                },
+                {
+                    "feedback": "No, I meant that since you need to access size_of_dogs twice (to get the size of each dog), your FROM clause should refer to size_of_dogs twice, but each size_of_dogs should be aliased. (i.e. size_of_dogs AS s1, size_of_dogs AS s2)"
+                },
+                {
+                    "feedback": "THANKS sir!! it helps a lot."
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting the right output, but for some reason it's not letting me pass the test: # Error: expected # barack and clinton are standard siblings # abraham and grover are toy siblings # but got # barack and clinton are standard siblings # abraham and grover are toy siblings",
+            "follow-ups": [
+                {
+                    "feedback": "Oh nvm I missed the first post above."
+                }
+            ]
+        },
+        {
+            "question": "I'm confused about how to make the kind of table this wants in general. Like I've created a siblings table but should I be using python text formatting to make the sentence? Or just stringing together child1 'and' child2 'are' size 'siblings'",
+            "follow-ups": [
+                {
+                    "feedback": "Use the || operator to join together strings. For instance, `\"Hello\" || \" \" || \"world\"` results in `\"Hello world\"`"
+                },
+                {
+                    "feedback": "Error: expected  # barack and clinton are standard siblings  # abraham and grover are toy siblings  # but got  # near \"||\": syntax error  # no such table: sentences  I don't really understand how to approach the question"
+                },
+                {
+                    "feedback": "The siblings table should consist of all pairs of siblings (i.e. pairs of dogs that have the same parent) wherein the two dogs are in alphabetical order. Its first column should consist of all the first dogs in each pair, and its second column should consist of all the second dogs in each pair. You then use this table to construct a table of sentences where each sentence corresponds to a sibling pair wherein both dogs have the same size. You seem to have a syntax error where you are trying to construct the sentence - how are you attempting to do so?"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # barack and clinton are standard siblings  # abraham and grover are toy siblings  # but got  # near \"CREATE\": syntax error  # no such table: sentences  Even with deleting all the \"\" and || parts, it still errors.  Am not using the helper function.  What is the problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your code resembles the format                -- Filling out this helper table is optional     CREATE TABLE siblings AS       SELECT ... FROM ... WHERE ...;          -- Sentences about siblings that are the same size     CREATE TABLE sentences AS       SELECT ... FROM ... WHERE ...;          -- Ways to stack 4 dogs to a height of at least 170, ordered by total height  And has no syntax errors. Check every line carefully for things like missing commas or semicolons."
+                },
+                {
+                    "feedback": "The most likely issue is that you are missing a semicolon or otherwise have a syntax error in the statement **before** the statement you are currently trying to write."
+                }
+            ]
+        },
+        {
+            "question": "Any hints on how to create the siblings table? I'm pretty sure I'll need to use aliases to get the names of dog 1 and dog 2 in each sibling pair, but I'm not sure what to put in the \"WHERE\" clause to check if the dogs are siblings are not.",
+            "follow-ups": [
+                {
+                    "feedback": "You will also have to use the `parents` table at least once, since a sibling is defined as two children who have the same parent."
+                },
+                {
+                    "feedback": "You can check to see if they have the same parent.  Jinx."
+                }
+            ]
+        },
+        {
+            "question": "What should the siblings table look like? barack and clinton abraham and delano and grover ?",
+            "follow-ups": [
+                {
+                    "feedback": "You should get the following output: ``` sqlite> select * from sentences; abraham and grover are toy siblings barack and clinton are standard siblings ```"
+                },
+                {
+                    "feedback": "Whoops, I just realized you asked about the `siblings` table. You should probably make it store two columns, with each entry as a pair of siblings. You can then later filter it out in your next query to contain only siblings of the same size."
+                }
+            ]
+        },
+        {
+            "question": "How can I make sure that a name isn't repeated in the siblings table? Like if a dog has already been paired, it can't be paired again with another dog of the same size?",
+            "follow-ups": [
+                {
+                    "feedback": "It's actually okay if names repeat themselves in the siblings table (i.e. if we had one parent dog that has 3 kids, A, B, and C, then we should have three pairs of siblings - A&B, B&C, and A&C). However, you should only keep pairs in alphabetical order (since that's what the problem statement specifies), in order to prevent B&A, C&A, and C&B from showing up as pairs. You should therefore have a WHERE clause that forces the first dog's name to be lesser than the second dog's name."
+                }
+            ]
+        },
+        {
+            "question": "why is it necessary to use \"as\" in the helper table when selecting p1.child and p2.child? Why can't we just refer to the siblings as p1.child and p2.child in future references? I tried doing this and got the following error:  sqlite> .read hw10.sql  sqlite> SELECT * FROM sentences;  no such column: p1.child  no such table: sentences  # Error: expected  # barack and clinton are standard siblings  # abraham and grover are toy siblings  # but got  # no such column: p1.child  # no such table: sentences",
+            "follow-ups": [
+                {
+                    "feedback": "I’m not entirely sure what your question is asking. `p1` and `p2` are aliases for the `parents` table since we had to join it with itself, and we have to alias to avoid ambiguity. It looks like you might have an error in the construction of your `sentences` table, which is causing the `CREATE TABLE` statement to fail and not create the table."
+                },
+                {
+                    "feedback": "I think what Anon was asking about is if you construct siblings using something of the form `SELECT p1.child, p2.child FROM ...` why you couldn't just select p1.child and p2.child from siblings, and why an alias would be necessary when constructing siblings as a result."
+                },
+                {
+                    "feedback": "Yes @Cyrus Bugwadia. Sorry for the confusion"
+                },
+                {
+                    "feedback": "I get why we need aliases for the parents but why do we need aliases for siblings?"
+                },
+                {
+                    "feedback": "I tested it independently using [sql.cs61a.org](https://sql.cs61a.org); basically what happens is if you construct siblings using something of the form `SELECT p1.child, p2.child FROM ...`, SQL actually names both columns of the resulting siblings table as `child` \\- the `p1` and `p2` prefixes are dropped. This causes ambiguity if you wish to select each column individually, as even if you ran the query `SELECT child FROM siblings`, you will end up only selecting the first column. To avoid this, we alias `p1.child` and `p2.child` when constructing the siblings table."
+                },
+                {
+                    "feedback": "Alternatively, you could do something like `SELECT p1.child AS first, p2.child AS second [...]` in order to avoid this issue, and I would argue that this is cleaner because the new table thus has self-descriptive column names rather than the residual names of the aliasing."
+                },
+                {
+                    "feedback": "Yeah that's what I meant."
+                }
+            ]
+        },
+        {
+            "question": "I don't understand the concept of aliasing. Can someone please explain this and give examples of when it is necessary to use?",
+            "follow-ups": [
+                {
+                    "feedback": "Oftentimes, we want to join a table with itself. Say we have the `dogs` table and the `parents` table, but I really want to join `parents` with itself so that I can find all siblings—that is, `child`ren whose `parent`s are the same. I need to give them two different names in the `SELECT` statement so there is no ambiguity, so I will call the first `parents` table `p1`, and I will call the second parents table `p2`. The statement looks like this: ``` SELECT p1.child, p2.child FROM parents AS p1, parents AS p2 WHERE p1.parent = p2.parent; ```"
+                },
+                {
+                    "feedback": "If I create a table such as you have referenced, how would I reference those two columns now created in the new table? are the columns named p1.child and p2.child?"
+                },
+                {
+                    "feedback": "You will want to give a new name to the columns, as well, using the `AS` keyword: ``` SELECT p1.child AS first, p2.child AS second FROM [...] ```"
+                },
+                {
+                    "feedback": "got it, thanks"
+                }
+            ]
+        },
+        {
+            "question": "In siblings table, apart from accessing size_of_dogs twice to get the name of the siblings, do we need to also access parents table to check if they have the same parent? If so, do we do that through aliasing parents table in order to see both dogs' parents? I'm so confused.",
+            "follow-ups": [
+                {
+                    "feedback": "To generate all pairs of siblings, you should only be accessing parents twice. See the followup directly above for a great explanation by Nicholas."
+                }
+            ]
+        },
+        {
+            "question": "Can somebody give some hint on how to use || and where to put it?",
+            "follow-ups": [
+                {
+                    "feedback": "We need the sentences table to consist of a single column that has the following strings joined:  (1) the first dog’s name  (2) \" and \"  (3) the second dog’s name  (4) \" are \"  (5) their mutual size  (6) \" siblings\"      To accomplish this, you can place the || operator between all the strings you wish to join. For instance, \"Hello \" || \"world\" || \"!\" results in the string \"Hello world!\""
+                }
+            ]
+        },
+        {
+            "question": "1. # Error: expected   # barack and clinton are standard siblings   # abraham and grover are toy siblings   # but got   # abraham and grover are toy siblings   # barack and clinton are standard siblings  How do I switch these around?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, figured it out; order of the statements matters"
+                }
+            ]
+        },
+        {
+            "question": "I got errors like this. Can someone give some hint in how to solve it?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk3rplr5x513w%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191204_%E4%B8%8A%E5%8D%8811.52.47.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Is your siblings table being generated correctly? fillmore and abraham are not siblings. Describe your methodology."
+                },
+                {
+                    "feedback": "I selected p1.child and p2.child from accessing parents table twice and see if p1.parent = p2.parent and p1.child<p2.child."
+                },
+                {
+                    "feedback": "That sounds correct; this is likely then an issue with sentences table then. Remember that when constructing your sentences, you can join together siblings with two copies of size_of_dogs, since each siblings row already contains both dogs to be checked. You should then filter the size_of_dogs copies to make sure they correspond to the two siblings, then check the sizes to make sure they are equal."
+                },
+                {
+                    "feedback": "Thank you! I did it then I got \"no such column p1.child\" error. Just to make sure, we only access siblings once right?"
+                },
+                {
+                    "feedback": "Yes, siblings once. To avoid this error, due to the way SQL works, you will need to alias both columns when constructing your siblings table, then you can refer to those columns from the siblings table by their aliases."
+                },
+                {
+                    "feedback": "I'm using the exact same aliases to access both dogs' names from siblings once in the sentences table but still got the same error. How could that be though?"
+                },
+                {
+                    "feedback": "What do you mean by \"exact same aliases\"? If you construct your siblings table using something of the form `SELECT p1.child, p2.child FROM ...` you will need to further alias the columns to make it work when selecting from siblings, i.e. construct siblings using `SELECT p1.child AS c1, p2.child AS c2 FROM ...` . Then you can select the c1 and c2 columns from siblings as needed."
+                },
+                {
+                    "feedback": "Could you explain why we need to \"further alias the columns to make it work when selecting from siblings, i.e. construct siblings using `SELECT p1.child AS c1, p2.child AS c2 FROM ...` .\""
+                },
+                {
+                    "feedback": "Thank you! Figured it out!"
+                },
+                {
+                    "feedback": "different anon here...I'm still stuck on why we need to alias when selecting from siblings"
+                },
+                {
+                    "feedback": "We don’t actually need to alias when selecting from `siblings` since you will only need one of that table, but you will need to alias another table since you will need it twice in your `CREATE TABLE sentences` statement. You will also need to alias when *creating* your `siblings` table."
+                },
+                {
+                    "feedback": "sorry, I meant to ask why we must use aliases when created the siblings table"
+                },
+                {
+                    "feedback": "*creating"
+                },
+                {
+                    "feedback": "You will need to refer to the column names of `siblings` later, and if you just do something like `CREATE TABLE siblings AS SELECT p1.child, p2.child [...]` , the `siblings` table will have two columns named `child`, which causes problems later. You should do something like `SELECT p1.child AS first, p2.child AS second` in order to later be able to refer to the `sibling` table’s columns as `first` and `second`."
+                },
+                {
+                    "feedback": "Thank you!  In general, are there any tricks/patterns to look out for to determine whether a problem will require aliasing?"
+                },
+                {
+                    "feedback": "In general, if your statement results in/utilizes names that are ambiguous (in this case, `child` is ambiguous), aliasing should come into play at some point."
+                }
+            ]
+        },
+        {
+            "question": "How can I access the name of dogs from siblings table while using them in sentences table?",
+            "follow-ups": [
+                {
+                    "feedback": "If you alias the columns when constructing the siblings table, you can reference those columns by their aliases when selecting from it."
+                }
+            ]
+        },
+        {
+            "question": "How can I access the name of the column in siblings table?",
+            "follow-ups": [
+                {
+                    "feedback": "You should do something like `SELECT p1.child AS first, p2.child AS second` in order to later be able to refer to the sibling table’s columns as `first` and `second`."
+                },
+                {
+                    "feedback": "Got it! Thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjdaa6lv5hg%2Fk3siy668jj38%2F1205.png)  I got really confused about this!! Can anyone tell me what might be the error of this?",
+            "follow-ups": [
+                {
+                    "feedback": "Check if you’ve accidentally put an invisible space after your sentence."
+                },
+                {
+                    "feedback": "Thanks!!! I fixed it!! Sorry I didn't see the first post before!!"
+                }
+            ]
+        },
+        {
+            "question": "If I already got the pairs of siblings in siblings function like  # clinton|barack   # delano|abraham   # grover|abraham   # grover|delano  how can I somehow get each of their height in dogs table?",
+            "follow-ups": [
+                {
+                    "feedback": "You should use the size_of_dogs table that we previously generated."
+                },
+                {
+                    "feedback": "Oh Sure! And then should I combine the size_of_dogs table to this siblings table?"
+                },
+                {
+                    "feedback": "Yep, consider using the size_of_dogs table twice and aliasing it in order to get the size of both dogs in each sibling pair."
+                },
+                {
+                    "feedback": "Okay! Now I got:  # clinton|barack|standard|standard   # delano|abraham|standard|toy   # grover|abraham|toy|toy   # grover|delano|toy|standard  But I use 4 aliases at this help table, is that make sense?"
+                },
+                {
+                    "feedback": "You're close, but now you need to filter to only keep sibling pairs that share the same size, and make sure you only keep the name columns"
+                },
+                {
+                    "feedback": "Okay! I have it done in sentences table now! Thanks for your help!!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        }
+    ]
+}

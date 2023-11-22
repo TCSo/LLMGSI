@@ -1,0 +1,132 @@
+{
+    "subject": "[Lab 09] Q3: Filter Lst",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q3\">Q3: Filter Lst</a>\n\n<p> Please post all questions you have below concerning Q3: Filter Lst in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Is this question meant to be solved through some form of recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "Assuming we aren't supposed to use the `filter` procedure, yes."
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use the filter function for this question?",
+            "follow-ups": [
+                {
+                    "feedback": "Presumably not - it wouldn't be very rewarding from a learning perspective if we were intended to use it"
+                }
+            ]
+        },
+        {
+            "question": "I'm using recursion for this problem and defined a helper function to carry on the task but I'm encountering the below error:                Error: argument 0 of cdr has wrong type (nil)  Based on my understanding, this error shows that currently I only have one element in my list and the next element that I'm trying to get is nil, but I don't know why it's showing an error because I can run the sample case below without any error in the scheme interpreter:                scm> (define lst '(1))     lst     scm> (define lst (cdr lst))     lst     scm> lst     ()  Can someone explain this to me, please?",
+            "follow-ups": [
+                {
+                    "feedback": "This error is actually telling you that you have 0 elements in your list (AKA your list is equivalent to nil) and you are trying to get the next element of it (by passing nil into cdr), which naturally doesn't exist.                scm> (define lst ())     lst     scm> (cdr lst)     Traceback (most recent call last):       0     (cdr lst)     Error: argument 0 of cdr has wrong type (nil)"
+                },
+                {
+                    "feedback": "I see your point, but the problem is that I check for (null? lst) as my base case before I execute the rest of the function, so, (length lst) > 0."
+                },
+                {
+                    "feedback": "Check every (cdr) call to make sure its parameter can never be null"
+                }
+            ]
+        },
+        {
+            "question": "What does the error too many operands in form mean?",
+            "follow-ups": [
+                {
+                    "feedback": "If you are using a special form somewhere in your code, make sure you give it the correct amount of operands. More specifically, the error is telling you that you are giving some special form too many operands.  As an example, see the code below. I pass in too many arguments into the if- statement (which is a special form) and I get the error.                scm> (if 'Condition 'Value_If_True 'Value_If_False 'ExtraParameterHereGivesError)       Traceback (most recent call last):         0     (if (quote condition) (quote value_if_true) (quote value_if_false) (quote extraparameterheregiveserror))       Error: too many operands in form"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting unexpected end of file but I check my parentheses and don't see where's wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "It could be your other functions that are wrong, or you uncommented a comment out."
+                }
+            ]
+        },
+        {
+            "question": "I got (2 3 4) instead of (2 4) but I am passing f into filter-lst. Can somebody help me?",
+            "follow-ups": [
+                {
+                    "feedback": "Hard to tell, but my guess is that you are not recursing properly, because it seems like it did filter 1 out, but not 3. Check that you are recursing on the `cdr` of the list!"
+                },
+                {
+                    "feedback": "I am doing so, which is why I’m so confused. I called filter-lst f on cdr of lst in my recursive call."
+                },
+                {
+                    "feedback": "Hi. Since it's hard to tell, could you make a private post with your issue?"
+                }
+            ]
+        },
+        {
+            "question": "# Error: operand 0 ((2 3 4)) is not a number  Can anyone explain this error?",
+            "follow-ups": [
+                {
+                    "feedback": "You are passing `((2 3 4))` into a procedure that takes in a number"
+                }
+            ]
+        },
+        {
+            "question": "I'm having difficulty approaching this problem. I want to create a new list with the elements that pass true into the function AND continue to do recursion on the next element in the list. In scheme it seems like you can only do one thing per if/else statement unlike python. How would I approach this problem differently?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps think back on how you've solved problems before where you had to build a new linked list from an existing one. How did we use recursion in those kinds of situations and why did it work?"
+                },
+                {
+                    "feedback": "Great way to think about it, thanks Jacqueline!"
+                },
+                {
+                    "feedback": "You're welcome!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error: 'SchemeError: pair is not callable: (1 2 3 4)'. What does this mean? I tried calling car on this list in the body of my function.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure that if you use a list in this form that you're quoting it. Otherwise, it will be interpreted as a call expression with 1 as the operator and 2,3,4 as operands."
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error that says:  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Running tests  \\---------------------------------------------------------------------  filter-lst > Suite 1 > Case 1  scm> (load-all \".\")  # Error: unexpected end of file  Run only this test case with \"python3 ok -q filter_lst --suite 1 --case 1\"  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case  I used a cond statement, and split it up into three cases.  In the first case, I checked if the list is nil. If it is, I return nil.  In the second case, I check if f returns true for the list's car. If it is, I return the list's car concatenated with the filter-list function recursed on the list's cdr.  In the third case, where f is not true for the list's car, I just return the filter-list function recursed on the list's cdr.  I used a lot of white space, I don't know if that's significant.",
+            "follow-ups": [
+                {
+                    "feedback": "You’re probably missing a parenthesis - try using the reformat function of the provided editor"
+                },
+                {
+                    "feedback": "That fixed it, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this:                scm> (filter-lst even? '(1 2 3 4))     ((2 ((4 ()))))          # Error: expected     #     (2 4)     # but got     #     ((2 ((4 ()))))  I'm guessing the last () is from reaching the end of the list, but I'm not sure how to stop it from listing an empty list, and I'm not sure why there are the other parentheses.",
+            "follow-ups": [
+                {
+                    "feedback": "I think you're nesting your list a bit too much - the 2 should be at the lowest level, not nested"
+                },
+                {
+                    "feedback": "hello I am having the same problem. I feel like it's the placement of my parentheses but nothing is working yet"
+                }
+            ]
+        },
+        {
+            "question": "what would be the base case for this? right now i have if (f car list) is true, then (cons car list). so if the first item of the list is returns true from f, then add it to a new list.",
+            "follow-ups": [
+                {
+                    "feedback": "Consider a case where executing the expression (car s) will cause an error. What base case would prevent (car s) from being executed?"
+                },
+                {
+                    "feedback": "if the list is empty...?"
+                },
+                {
+                    "feedback": "Yep!"
+                }
+            ]
+        }
+    ]
+}

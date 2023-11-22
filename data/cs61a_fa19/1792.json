@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 09] Q10: Sub All",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q10\">Q10: Sub All</a>\n\n<p> Please post all questions you have below concerning Q10: Sub All in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am failing following test case:                sub_all > Suite 1 > Case 2          scm> (load-all \".\")          scm> (sub-all '((4 calling birds) (3 french hens) (2 turtle doves))     ....     '(1 2 3 4)     ....     '(one two three four))     ((4 calling birds) (3 french hens) (2 turtle doves))          # Error: expected     #     ((four calling birds) (three french hens) (two turtle doves))     # but got     #     ((4 calling birds) (3 french hens) (2 turtle doves))          Run only this test case with \"python3 ok -q sub_all --suite 1 --case 2\"     ---------------------------------------------------------------------     Test summary         1 test cases passed before encountering first failed test case  I can see that it is due to the fact that I am not nesting my recursive calls if that makes sense. I need to somehow check each value of second argument against all values of the first argument. Can you give me hint on how to do that?  Does the solution require nested function in which _substitute_ is called until end of _olds_ list is reached?  Note: So far I have not used _substitute_ function in _sub-all_ because I don't know how to \"advance\" through second and third argument in my calls (substitute requires integer second and third argument so I can't pass cdr olds & cdr news to substitute).",
+            "follow-ups": [
+                {
+                    "feedback": "This problem can be solved with a recursive call to `sub-all` that is connected with a call to `substitute` in some manner"
+                }
+            ]
+        }
+    ]
+}

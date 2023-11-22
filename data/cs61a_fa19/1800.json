@@ -1,0 +1,69 @@
+{
+    "subject": "[Lab 09] Q2: Over or Under",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q2\">Q2: Over or Under</a>\n\n<p> Please post all questions you have below concerning Q2: Over or Under in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "What do I do  Running tests  \\---------------------------------------------------------------------   over-or-under > Suite 1 > Case 1  scm> (load-all \".\")   # Error: unexpected end of file  Run only this test case with \"python3 ok -q over_or_under --suite 1 --case 1\"   \\---------------------------------------------------------------------   Test summary   0 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "nvm it was a parenthesis"
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure where I am supposed to go to create my code answers. Is there a way to open the lab in visual studio code? or is it all done on git bash?",
+            "follow-ups": [
+                {
+                    "feedback": "In a separate command prompt / terminal in the lab09 folder, run the command                python3 editor  This will open up a web-based Scheme editor that you can use to edit and test your code. Note that Ok autograder commands must be used in a separate command prompt / terminal in order to back up and submit work"
+                },
+                {
+                    "feedback": "Got it now, thanks Cyrus!"
+                }
+            ]
+        },
+        {
+            "question": "When I was trying to open the web editor, this error happened, I don't know what to do. Is there some IDE like PyCharm for us to use? Or can we find the source code files for this lab so that I can directly edit with .txt format?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fk2cxkb90oydr%2FTIM%E5%9B%BE%E7%89%8720191029235737.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You can directly edit lab09.scm (located in the lab09 folder) using a text editor of your choice, instead of using the provided editor. Many use Sublime Text or Atom."
+                },
+                {
+                    "feedback": "@1827 contains instructions on getting Atom / Sublime working with Scheme"
+                }
+            ]
+        },
+        {
+            "question": "For some reason when I try to unlock the tests or test the code I have for problem 2 I get this error. It was working fine last night but for some reason I am having this issue now. I have tried deleting and reinstalling the file but to no avail.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkimyiniet62h2%2Fk2gsnazkigl0%2Fweird_python_error.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Please help, I have the same issue and I cannot do the lab or homework."
+                },
+                {
+                    "feedback": "I have the same issue."
+                },
+                {
+                    "feedback": "Check this thread out [https://piazza.com/class/jziyku5gomy7aq?cid=1864](/class/jziyku5gomy7aq?cid=1864)"
+                },
+                {
+                    "feedback": "I believe this has been resolved, please see @1888"
+                }
+            ]
+        },
+        {
+            "question": "There's something wrong with my editor. I ran \"python3 editor\" and wrote all the codes correctly (it can work on this website <https://repl.it/languages/scheme>). But when I try to run it on local host:31415, all the cases fail and the dubug window displays this:                (load-all \".\")  Same problem with homework 6. Can anyone help? Would really appreciate it.",
+            "follow-ups": [
+                {
+                    "feedback": "Please make a private post with your code"
+                }
+            ]
+        },
+        {
+            "question": "Anyone else getting a blank file when running python3 editor?",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, I never got that. Could you try opening up the actual `lab09.scm` file and see if there is any content in there? If not, try redownloading the project ZIP file and trying again."
+                }
+            ]
+        }
+    ]
+}

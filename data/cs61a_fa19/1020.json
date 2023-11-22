@@ -1,0 +1,558 @@
+{
+    "subject": "[Cats] Problem 6",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-6-2-pts\">Problem 6</a>\n\n Please post all questions you have below concerning Problem 6 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nHere are some tips if you&#39;re stuck:\n- There are (at least) two ways to approach the problem: (1) call <code>swap_diff</code> on shorter and shorter strings, or (2) define a recursive inner function that takes a position as an argument and have it call itself on larger and larger (or smaller and smaller) positions.\n- If you have a recursive call <code>1 &#43; swap_diff(...)</code>, then the new value for <code>limit</code> that you pass as the last argument should be smaller than the current <code>limit</code> in order to track the fact that the total difference is approaching the limit.\n- Since the <code>limit</code> is decreasing, there should be a base case when the <code>limit</code> reaches zero.\n- You might try solving the problem without the <code>limit</code> first. Here&#39;s a template that you can paste in a file and test with <code>python3 -m doctest</code>:\n\n<pre>def swap_diff(start, goal):\n    &#34;&#34;&#34;A diff function for autocorrect that determines how many letters\n    in START need to be substituted to create GOAL, then adds the difference in\n    their lengths.\n\n    &gt;&gt;&gt; swap_diff(&#34;car&#34;, &#34;cad&#34;)\n    1\n    &gt;&gt;&gt; swap_diff(&#34;this&#34;, &#34;that&#34;)\n    2\n    &gt;&gt;&gt; swap_diff(&#34;one&#34;, &#34;two&#34;)\n    3\n    &gt;&gt;&gt; swap_diff(&#34;from&#34;, &#34;form&#34;)\n    2\n    &gt;&gt;&gt; swap_diff(&#34;awe&#34;, &#34;awesome&#34;)\n    4\n    &gt;&gt;&gt; swap_diff(&#34;someawe&#34;, &#34;awesome&#34;)\n    6\n    &gt;&gt;&gt; swap_diff(&#34;awful&#34;, &#34;awesome&#34;)\n    5\n    &#34;&#34;&#34;\n</pre>",
+    "threads": [
+        {
+            "question": "I stopped the recursion when limit is reached. But Why this the test case still reports this.  >>> from typing import swap_diff, autocorrect   >>> import tests.construct_check as test   >>> # ***Check that the recursion stops when the limit is reached***   >>> import trace, io   >>> from contextlib import redirect_stdout   >>> with io.StringIO() as buf, redirect_stdout(buf):   ... trace.Trace(trace=True).runfunc(swap_diff, \"someaweqwertyuio\", \"awesomeasdfghjkl\", 3)   ... output = buf.getvalue()   >>> len([line for line in output.split('\\n') if 'funcname' in line]) < 10   False  # Error: expected   # True   # but got   # False  This is the only test case I cannot pass....",
+            "follow-ups": [
+                {
+                    "feedback": "Your implementation is likely not stopping _immediately_ as soon as the limit is reached. You will need to make your implementation more efficient. Simply checking for the value of limit isn't enough - you must make sure you check for its value in an efficient location"
+                },
+                {
+                    "feedback": "My first if statement states that if the number of wrong letters equals to the limit, it should return 0. Is that not an enough condition to stop the implementation since I am still getting the above error? Thanks!"
+                },
+                {
+                    "feedback": "Yeah it needs to be more optimized than that - think, assuming you are calculating the number of wrong letters recursively, you will end up calculating the number of wrong letters in every substring"
+                },
+                {
+                    "feedback": "Yes, figured that part. Thanks!"
+                },
+                {
+                    "feedback": "You can use the `@trace` decorator to see what your code does. Add the decorator, start `python3 -i typing.py`, and then call your `swap_diff` function."
+                },
+                {
+                    "feedback": "I'm having issues with this as well. Once the recursive calls begin, won't you have return statements going back up the chain once the limit is reached, no matter what?"
+                },
+                {
+                    "feedback": "Plugging my code into Python Tutor shows that I have only 4 calls to swap_diff, but I'm still failing Suite 1 Case 4."
+                },
+                {
+                    "feedback": "For those who know that they only have 4 calls to swap_diff but are still failing the test, consider whether you're calling other functions in swap_diff as well. This might mess with your total amount of function calls."
+                }
+            ]
+        },
+        {
+            "question": "Can we use string functions like [1:]?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, slicing is allowed"
+                }
+            ]
+        },
+        {
+            "question": "Can we use higher order functions and recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "You can but I don't think neither is necessary here."
+                },
+                {
+                    "feedback": "False, recursion is required according to the problem statement, and while/for loops aren't allowed."
+                },
+                {
+                    "feedback": "I know that recursion is needed for this problem. But I was wondering if I could use high order functions as well."
+                },
+                {
+                    "feedback": "They can be used but are definitely not required"
+                },
+                {
+                    "feedback": "Apologies, thought this was another problem."
+                }
+            ]
+        },
+        {
+            "question": "nvm"
+        },
+        {
+            "question": "can we use assignment statements? Or are they not necessary?",
+            "follow-ups": [
+                {
+                    "feedback": "They are allowed"
+                }
+            ]
+        },
+        {
+            "question": "How do we split a word into a string containing the letters of the word?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that strings are sequences of characters"
+                }
+            ]
+        },
+        {
+            "question": "I am wondering what does \"should return any number larger than `limit` and should minimize the amount of computation needed to do so\" this sentence mean? What am I supposed to do reduce computation?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you write an efficient solution, i.e. as soon as limit is reached, stop creating additional calls to `swap_diff`"
+                }
+            ]
+        },
+        {
+            "question": "I passed all of the cases but I wanted to try another case :  swap_diff(\"hello\",\"helloedd\",1) is supposed to return 2 right? But my code returns 3. This is because \"hello\" length is less than \"helloedd\" so in my code, that just simply adds the difference of the lengths which is 3, but 3 is more than 1 which is the limit. None of the test cases for this question caught this error in my code.  On the website it states \"If the strings are not of equal length, the difference in lengths is added to the total.\" Can the difference exceed the limit in this case? I may be overlooking some detail, please let me know. Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "\"If the number of characters that must change is greater than `limit`, then `swap_diff` should return any number larger than `limit` and should minimize the amount of computation needed to do so.\" 3 is greater than `limit`, which is 1, so your solution is fine."
+                }
+            ]
+        },
+        {
+            "question": "I can't seem to pass case 13. It keeps returning 0 when it needs to return 5. However, when I remove if limit == 0 from my function, it fails case 3. Any advice?",
+            "follow-ups": [
+                {
+                    "feedback": "Solved it"
+                },
+                {
+                    "feedback": "I've been running into the same issue. I'm unable to figure out why it doesn't work.  Can anyone point me in the right direction?"
+                },
+                {
+                    "feedback": "I'm stuck as well. Mine keeps returning 4 instead of 5??"
+                },
+                {
+                    "feedback": "Same here. Any advice?"
+                },
+                {
+                    "feedback": "same here. how did you solve it?"
+                },
+                {
+                    "feedback": "having the same issue :( any advice on how to solve?"
+                },
+                {
+                    "feedback": "Perhaps consider changing your base case. Keeping track of how many changes you have done and comparing it to the limit may help."
+                }
+            ]
+        },
+        {
+            "question": "I think I really need some help as to how to stop my recursion as soon as I reach the limit. Currently, my way of doing it is recursively checking each character and add them up. However, I am wondering where should I put the comparison into my code? What is the idea?",
+            "follow-ups": [
+                {
+                    "feedback": "Maybe add a check before any recursive calls so that recursive calls aren't made unnecessarily (this may alter how you use certain parameters)"
+                },
+                {
+                    "feedback": "I think I still don't understand how to \"should return any number larger than `limit\" does that mean I can assign any number to it? In that if statement where I check whether limit is reached, it just doesn't work if I just return a number to it, I am confused. `"
+                },
+                {
+                    "feedback": "The number returned if the limit is exceeded can be any number as long as it's greater than limit. Think simply: what's the easiest way to return a number that you know is greater than limit?"
+                },
+                {
+                    "feedback": "Try filling in this sentence: \"if the limit is zero, and you've verified that the swap difference is at least ____, then return ____ because it's larger than the limit.\""
+                },
+                {
+                    "feedback": "God, finally figured it out! Thank you guys!!"
+                }
+            ]
+        },
+        {
+            "question": "I used a helper function for recursion in swap_diff. That's fine right?",
+            "follow-ups": [
+                {
+                    "feedback": "It's fine, but not part of the intended solution"
+                },
+                {
+                    "feedback": "That's a fine way to go."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk11cw12fe58d%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190926165548.png)  Could anyone tell me what is going wrong? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "NVM, handle it."
+                },
+                {
+                    "feedback": "I get the same result as well and wonder what's going wrong."
+                },
+                {
+                    "feedback": "make sure that you are handling the specification with the limit correctly - likely your code is not handling the case when limit = 0, as it is in this doctest."
+                },
+                {
+                    "feedback": "I am having the same problem. I'm currently returning 1 when limit reaches 0 to return a number greater than the original limit. Is this still a problem with handling when limit = 0?"
+                },
+                {
+                    "feedback": "I am also having the same problem and tried returning either 1 (to give a number larger than limit) or 0 (for this specific doctest), and none work. Any help please?"
+                }
+            ]
+        },
+        {
+            "question": "Are we supposed to delete the line \"assert False, 'Remove this line'\"? It gives me an AssertionError when I leave it in, but when I comment it out, my code passes all the cases.",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, this line is meant to be deleted."
+                },
+                {
+                    "feedback": "In general, if a line tells you to remove it, then remove it."
+                },
+                {
+                    "feedback": "Just curious, but why was it there in the first place if we're supposed to remove it?"
+                },
+                {
+                    "feedback": "Just a guess from me, but it's probably because every Python function needs a body. Having a lone def statement gives an error, so this assert statement makes it so the file runs without the function being implemented, but if you try to call the function, then it will error on you because you haven't written any code in it."
+                }
+            ]
+        },
+        {
+            "question": "Is it okay to do this problem using a recursive base case? That is the only way that I could figure out how to get it right. Does the intended solution have a recursive base case. I am asking because I feel like the recursion problems on the midterm will not have recursive base cases so I need to try harder to figure out a different solution without recursive base case. Please let me know if I am right or wrong!",
+            "follow-ups": [
+                {
+                    "feedback": "There are base cases if that's what you're asking, but I'm not sure what you mean by \"recursive base case\"? There is recursion involved, and there are base cases, if that's what you're asking"
+                },
+                {
+                    "feedback": "Like instead of returning just 1 as the base case for when the letter of start does not equal the letter of goal, returning 1 + a recursive call. Then if the letters are equal, returning just the recursive call. That's what I did in my code and it worked, but from my understanding, base cases should not have any recursive calls in them and should just be a number like 0 or 1. Is that right?"
+                },
+                {
+                    "feedback": "Nah, that's fine I did the same thing but in that case it wouldn't really be considered a \"base case\" since it's not an ending result"
+                },
+                {
+                    "feedback": "I agree — that's fine. You're using the term \"base case\" differently than I do, though. A base case is just an input that doesn't require a recursive call."
+                }
+            ]
+        },
+        {
+            "question": "Do we have to actually change start to the goal instead of just return a number of character change we have to make?  Also, I am lost on what the base case will be. When I approached this problem using for loop I stopped when index exceed one of the length of strings.",
+            "follow-ups": [
+                {
+                    "feedback": "This function is meant to return an integer indicating how many swaps to make. You don't actually need to make the swaps though if that is what you are asking.      As for the base cases, they actually do give some in the problem description. Suppose I made the call `swap_diff(\"\", \"Hello\", 10000)` (I'm using a big limit so we don't have to worry about it). Start has no more letters to substitute, so what should I return in this case? You could also ask the same thing if we replace goal with an empty string.      Another hint for the base cases would be to consider the call `swap_diff(\"awful\", \"awesome\", 3) > 3` which is taken from the test cases. Clearly we'll need to make more than three substitutions on 'awful' to reach 'awesome' which exceeds our limit. In this case, what should we give back from the function?"
+                },
+                {
+                    "feedback": "Hi, thanks for replying. But the thing is how do I split string and eventually get to empty string? We learned that we can make digits go to 0 by // 10 untill it reaches 0 but what about string?"
+                },
+                {
+                    "feedback": "Well, an analog for strings would be taking off letters one by one until you don't have anymore letters left. For example you could shrink a word like this:      \"cool\" -> \"ool\" -> \"ol\" -> \"l\" -> \"\"  One way to achieve this effect is with a list slice. A string is a sequence of characters, so we can use sequence operations on them. See the following code for an example of how that works.                >>> s = \"cool\"       >>> s       \"cool\"       >>> s[1:]       \"ool\"       >>> s = s[1:]       >>> s[1:]       \"ol\""
+                },
+                {
+                    "feedback": "Thank you."
+                }
+            ]
+        },
+        {
+            "question": "sum([swap_diff('habit', 'obole', k) > k for k in range(5)])  i'm trying to debug my code because it's messing up on this statement, but I can't really even tell what values i'm supposed to be getting for each call to the swap_diff function",
+            "follow-ups": [
+                {
+                    "feedback": "Well, if we ignore the limit for one second, you can see that these strings are the same length and share no characters in any corresponding positions, so the swap difference between them should be 5 since we need to swap every character in 'habit' to get 'obole'.  Now if we look at the list comprehension, you can see that the range goes from [0, 4] inclusive, meaning the limit we pass in will always be less than the swap difference. According to the instructions, we are to return a number greater than the limit if this occurs. So really, it doesn't matter what number you return, so long as it is greater than the limit passed in and your code does this in a computationally efficient way. If you need hints on how to do that, check the previous follow ups.  As I said before, the number we get from swap_diff in this list comprehension will always be greater than the limit we pass in (k), so what does that say about the boolean expression in the list comprehension?"
+                },
+                {
+                    "feedback": "ohh okay youre essentially meant to get true each time, and when you sum it up, it equals 5! that makes a lot more sense now thanks :)"
+                }
+            ]
+        },
+        {
+            "question": "What do I need to do at this point? I don't understand why it is failing.. please help![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxs69utbv9a1yp%2Fk12w0moojum8%2F1.JPG)",
+            "follow-ups": [
+                {
+                    "feedback": "One of your conditions that should result in a word from the valid words being returned isn’t working probably"
+                }
+            ]
+        },
+        {
+            "question": "When the limit is 0, do we still return a number larger than limit?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes!"
+                },
+                {
+                    "feedback": "In that case, why does this test case expects the sum to be 0?  sum([swap_diff('watap', 'watap', k) > k for k in range(5)])  Here's what my code does:  limit = 0: swap_diff returns 1, 1 > 0 returns 1  limit = 1: swap_diff returns 0, 0 > 1 returns 0  limit = 2: swap_diff returns 0, 0 > 2 returns 0  limit = 3: swap_diff returns 0, 0 > 3 returns 0  limit = 4: swap_diff returns 0, 0 > 4 returns 0  So, the sum is 1+0+0+0+0 = 1"
+                },
+                {
+                    "feedback": "The two strings are equal, so the swap difference is 0. Hence, we have not exceeded the limit in any of the test cases, so we return 0 for all of them."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxs69utbv9a1yp%2Fk12x7b4v37vs%2F3.JPG)  Shouldn't we suppose to get abstraction instead of abstract? The user input was \"abstrction\" which is 11 words and the minimum difference word should be abstraction(10 words) instead of abstract(8)words.",
+            "follow-ups": [
+                {
+                    "feedback": "abstrction (10)  abstraction(11)  abstract(8)"
+                },
+                {
+                    "feedback": "If you're using swap_diff to determine the difference between the words, then 'abstraction' has a higher difference than abstract.  To get to 'abstraction' from 'abstrction', you need to swap out every letter past the r in 'abstrction', so that already is a difference of 5. We now have a string that is one less character than the word 'abstraction' (namely 'abstractio') so we need to add 1 to this. Therefore the swap difference between \"abstrction\" and \"abstraction\" is 6.      On the other hand, to go from 'abstrction' to 'abstract', you need to first replace the first three letters after the r in 'abstrction', so it becomes 'abstracton'. Then we add the difference in their lengths which is 2, so the swap difference is 5.  This means that abstract has the lower swap difference and should be the word returned from autocorrect in this case."
+                },
+                {
+                    "feedback": "Do I suppose to iterate each character of each string in the list given? Can you give me a hint. I am stuck. What I did was if type of goal is list I set goal equal to goal[1:]. It works for the spelling case but it doesn't work for abstract.."
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use functions such as index() and append()?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, you are allowed to."
+                }
+            ]
+        },
+        {
+            "question": "\"If the number of characters that must change is greater than `limit`, then `swap_diff` should return any number larger than `limit` and should minimize the amount of computation needed to do so.\"  For this aspect of the question, rather than stopping immediately when the limit is reached, my function tests one more character before stopping (my condition is 'limit < 0' rather than 'limit == 0'). This is to prevent errors for inputs like swap_diff(\"p\", \"p\", 0).  Is this okay?",
+            "follow-ups": [
+                {
+                    "feedback": "Yup, that should be fine; in fact, this is necessary to correctly implement the solution. Technically, a minimum difference value that is equal to limit should return the difference value. It is only when the number of differences are **greater** than limit that we return any number larger than limit."
+                },
+                {
+                    "feedback": "Side note, in my solution I didn't have to check if limit was negative, only if it was zero (that along with another condition), but the optimization there is trivial."
+                }
+            ]
+        },
+        {
+            "question": "Can anyone tell me what's causing this problem? Thank you![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjxs69utbv9a1yp%2Fk149m9st2bkf%2F6.JPG)",
+            "follow-ups": [
+                {
+                    "feedback": "Your implementation is not efficient enough"
+                },
+                {
+                    "feedback": "is that mean the code is working properly. just not as efficient?"
+                },
+                {
+                    "feedback": "Yes, assuming that's the only failed test case."
+                },
+                {
+                    "feedback": "I'm having the same issue. What does it mean to have your code work properly just not as efficient?"
+                },
+                {
+                    "feedback": "For example, say I want to compute the nth power of 2.  The efficient way to do this is to do something like                def f(n):     \treturn pow(2, n)  An equally correct but extremely inefficient way is to do                def g(n):     \tx = 1     \twhile x != pow(2, n):     \t\tx += 1     \treturn x"
+                },
+                {
+                    "feedback": "does this mean we need to cut down on lines of code? or is efficiency the time it takes to run the code? I guess I'm asking how we should try to make my code more efficient"
+                },
+                {
+                    "feedback": "Is this means that the implementation should be less than 10 lines?"
+                },
+                {
+                    "feedback": "Efficiency refers to the number of recursive calls you're making. My solution was over ten lines but it was still efficient enough for the grader."
+                }
+            ]
+        },
+        {
+            "question": "Hi, does anyone know what this test case is asking                Problem 6 > Suite 1 > Case 8          >>> from typing import swap_diff, autocorrect     >>> import tests.construct_check as test     >>> sum([swap_diff('watap', 'watap', k) > k for k in range(5)])     1          # Error: expected     #     0     # but got     #     1       I'm so lost as to what its testing",
+            "follow-ups": [
+                {
+                    "feedback": "You could see the followup above where someone Anonymous asks what to return when the limit is 0, but basically this test is checking to see if you're returning something greater than the limit whenever it is exceeded, and returning the swap difference when it is not.  In this case, the swap difference is 0 because both strings are the same. Because the limit is always a non-negative number, this means the limit will never be exceeded, so you should always be returning the swap_difference of 0 in this check. The sum of 5 0's is just 0.      It seems like your function is returning a 1 for one of the limits which is not correct."
+                }
+            ]
+        },
+        {
+            "question": "My code passed all the test without \"assert False, 'Remove this line' \"....  But with \"assert False, 'Remove this line' , it showed AssertionError.  In this case, what did I wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "I moved \"assert False, 'Remove this line'\" to the end of my code and it worked.  What is different when the assert is at top of the code and end of the code?"
+                },
+                {
+                    "feedback": "if you move it to the end of the code, your code executes first so the assert statement is never executed (assuming you returned something). You should delete the assert statement because it serves as a placeholder for your code"
+                }
+            ]
+        },
+        {
+            "question": "So I looked up how to split a word into a list of characters and came up with the list function, i.e. print(list('Berkeley')) outputs ['B', 'e', 'r', 'k', 'e', 'l', 'e', 'y']. I don't recall whether or not this was taught in class, would this be okay for me to use? I have another idea in mind I could implement for this instead, but I just wanted to check first.",
+            "follow-ups": [
+                {
+                    "feedback": "A string is just a sequence of characters, so you can iterate over one by just writing something like:                test = \"Hello\"       for c in test:           print(c)       '''       Output:       H       e       l       l       o       '''"
+                },
+                {
+                    "feedback": "Good point, I was over complicating it, this is just about as simple as using the list function. Thanks."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble understanding what sort of return we need for our base cases. I know there's one for when the limit reaches 0, but what is it supposed to return? The tests seem that it should return True, if thats correct?  And if I'm trying to use progressively shorter strings, once I reach an empty string, what should I be returning?",
+            "follow-ups": [
+                {
+                    "feedback": "For your second question, read the problem description: \"If the strings are not of equal length, the difference in lengths is added to the total.\" Think about the case where one string is empty and the other one isn't. What should get added to the total?"
+                }
+            ]
+        },
+        {
+            "question": "Can we use a helper function to implement recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "Of course! Helper functions are great for recursion."
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to move through the strings by having start[:len(start)-1] and goal[:len(goal)-1] be the new start and goal strings in my recursion, but it's only removing the last letter of the strings as it goes on. If the last letter of both strings is the same but the middle ones aren't (like with 'form' and 'from') then this idea doesn't work. Any advice on how to look at their individual index?",
+            "follow-ups": [
+                {
+                    "feedback": "If you’re working recursively, removing / comparing the last character should be fine"
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Im trying to remove characters one by one using start[1:], but I keep getting a string index out of range error. Not sure how I can control for hitting an index < 0\\. How should I go about solving this?",
+            "follow-ups": [
+                {
+                    "feedback": "You can check len(start)"
+                }
+            ]
+        },
+        {
+            "question": "I have no idea what this is saying. Is this giving me false because the time it took to run this function was too long?",
+            "follow-ups": [
+                {
+                    "feedback": "The amount of recursive calls is too many. Also, please don't post your code publicly"
+                },
+                {
+                    "feedback": "oh my bad ill delete it"
+                },
+                {
+                    "feedback": "is there any hint in reducing the recursive calls?"
+                },
+                {
+                    "feedback": "Implement as many base cases as you can. Also, make sure you're decreasing your limit in each recursive calls, until it hits a certain threshold, after which you can return any constant value that guarantees that your returned total will be above the limit"
+                },
+                {
+                    "feedback": "I don't understand why we have to reduce limit."
+                },
+                {
+                    "feedback": "and can it still work without reducing the limit?"
+                },
+                {
+                    "feedback": "If you don't reduce the limit in each recursive call, there's no way of _efficiently_ keeping track of whether or not you made too many moves"
+                },
+                {
+                    "feedback": "its really not working out for me. is there anything else you could add?"
+                },
+                {
+                    "feedback": "Instead of reducing the limit, try to implement slicing into your recursive step(s); that is what I did. Also, having a helper function, if you don't already have one, is useful as well. :) Feel free to ask for more clarifications!"
+                },
+                {
+                    "feedback": "You don’t need a helper function if you reduce your limit AND implement slicing in recursive calls"
+                }
+            ]
+        },
+        {
+            "question": "is this meant to be done tree recursively? I used tree recursion and  my code is failing on the 15th test case and I don't understand why.",
+            "follow-ups": [
+                {
+                    "feedback": "I meant its failing on the 16th test case.  sum([swap_diff('succi', 'skcvi', k) > k for k in range(5)]) is returning 3 when it should be returning 2. I have isolated the issue to being when k is four it is wrongly entering the base case for when limit < 0 and returning a big number."
+                },
+                {
+                    "feedback": "This is meant to be solved recursively, although there are not intended to be multiple recursive calls per frame, so I don't think it classifies as tree recursion"
+                }
+            ]
+        },
+        {
+            "question": "I'm currently failing on this case because I have a base case that accounts for differences in length, which is what this case is returning (5 letters vs 7 letters). It seems like its adding the difference before running through each letter rather than after. Any thoughts on how to resolve this?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjl4fp2t7ly83vq%2Fk18agmskerja%2FScreen_Shot_20191001_at_1.22.30_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "hard to say without taking a look at your code, but think about how the case of unequal string lengths would look like in a base case, i.e., what is the most basic case of unequal string lengths?"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble making the case that goal has more characters than start. How should I go about it?",
+            "follow-ups": [
+                {
+                    "feedback": "Assuming you've implemented the leap-of-faith portion of the problem correctly, you will eventually reach a base case where one or more strings contains zero characters."
+                },
+                {
+                    "feedback": "how can I implement a conditional statement for if the index of start is out of range?"
+                },
+                {
+                    "feedback": "So actually I found how to check for that. Im having trouble knowing what to return for that base case...."
+                },
+                {
+                    "feedback": "If both strings are 0 characters, there's really only one thing you can return. Returning the length of either seems useless so whats the only thing that would be returned?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpdqyhzi2co%2Fk18hpt52l29z%2FScreen_Shot_20191001_at_4.45.16_PM.png)  Why does this case evaluate to 3 and not 5? The sum function calculates how many limits work for the number of character swaps needed right?",
+            "follow-ups": [
+                {
+                    "feedback": "There are 3 swaps necessary to turn 'hyper' into 'hypebey':  hyper -> hypeb  hypeb -> hypebe  hypebe -> hypebey  Therefore, when k = 0, 1, or 2, the limit is exceeded."
+                }
+            ]
+        },
+        {
+            "question": "How should I implement the limit rule if the limit continuously decreases?",
+            "follow-ups": [
+                {
+                    "feedback": "If your limit reaches a certain threshold (constant value), then you'll know that that many moves have been made. What is that threshold?"
+                },
+                {
+                    "feedback": "I'm just having trouble keeping a tracker of how many moves have been made. If swap_diff keeps calling itself, I can't implement a counter because it will be overridden each time swap_diff is called since the limit is decreasing. Is there another way of keep track of the original limit?"
+                },
+                {
+                    "feedback": "your counter will come from moving from the first letter onwards to the end of start and goal. Consider [1:]."
+                }
+            ]
+        },
+        {
+            "question": "Professor Denero posted above that we should have a base case for when limit == 0. However I'm not sure what it should return when limit == 0. Any tips? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Think about how an outer call will be 1 + the sum of all its inner calls. So what should be returned on the innermost call to guarantee that the total sum is > limit?  Also, if limit == 0, but there are no moves to be made, you don't wanna return that value, since you just wanna return the overall limit"
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use the \"nonlocal\" statement?",
+            "follow-ups": [
+                {
+                    "feedback": "you are, but you do not need to for this project. you should attempt to use recursion in your solution."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain the statement \"len([line for line in output.split('\\n') if 'funcname' in line])\"?  I have no idea what error is this![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpbsojdg2av%2Fk19370l8k0pm%2F%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_20191002_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_2.46.24.png)",
+            "follow-ups": [
+                {
+                    "feedback": "There is a discussion on this above, but simply put, your code is not efficient enough. Our goal is to find the swap_diff with as little computation as possible, so you'll need to find some way to reduce the amount of recursive calls you are making."
+                },
+                {
+                    "feedback": "Thx! :)"
+                }
+            ]
+        },
+        {
+            "question": "How do I split the string, and save it, so that I can compute the difference in length? How do I compare the number of characters needed to change to the limit? Also, I am overall very confused on how to structure this problem. Any other tips?",
+            "follow-ups": [
+                {
+                    "feedback": "Well, theres the split function in utils but that doesn't help much. And you can save a value by assigning it to a variable; you can do the same for the split string. But do realize that strings are composed of characters so I don't know why you would want to split it one by one; perhaps think about slicing an index of the string.  Consider using an if statement for comparing.  The problem is asking you to compute the steps needed to turn a string you have currently to the goal string while keeping the limit in mind. The tips listed at the top should give you a good starting point."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlbgfnv8JCx9%2Fk19z1s56cgjq%2FScreen_Shot_20191002_at_5.37.36_PM.png)  Me and my partner have been stuck on this case for awhile now. Does this have to do with the limit portion of the function?",
+            "follow-ups": [
+                {
+                    "feedback": "It takes 3 changes to get hyper to hypebey.  Hyper -> Hypeb  Hypeb -> Hypebe  Hypebe -> Hypebey  So 3 changes are needed to get hyper to hypebey. This is answered a few questions above as well."
+                },
+                {
+                    "feedback": "so my swap_diff with those inputs give me 3 on python tutor with 10 as my limit. Is there something else I need to understand about the problem in order to solve it?"
+                },
+                {
+                    "feedback": "Not really. But see if your base cases make sense if anything."
+                },
+                {
+                    "feedback": "what does k stand for in this problem if it is not defined?"
+                },
+                {
+                    "feedback": "NVM we figured it out. Thank you so much"
+                }
+            ]
+        },
+        {
+            "question": "sum([swap_diff('succi', 'skcvi', k) > k for k in range(5)])  For this test case shouldn't the answer be 3. the statement is true for 0,1 and 2 so the sum should be 3? Why does it say 2?",
+            "follow-ups": [
+                {
+                    "feedback": "The statement is not true for 2. `swap_diff('succi', 'skcvi', 2)` must return 2, which is not greater than 2."
+                }
+            ]
+        },
+        {
+            "question": "Hi,  I've passed 5 test cases so far but am stuck on Case 6, specifically the sum() call:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxv964ba5ic%2Fk1aidf064snw%2Fcatsproblem6.png)  I'm not sure what exactly is wrong with my code. Can someone please help? Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "This is answered 2 questions above and again a few questions above it."
+                }
+            ]
+        },
+        {
+            "question": "How to get the substring?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider that strings are just sequences of individual characters"
+                }
+            ]
+        }
+    ]
+}

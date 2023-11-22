@@ -1,0 +1,133 @@
+{
+    "subject": "[HW 08] Q2: Quine",
+    "content": "<a href=\"https://cs61a.org/hw/hw08//#q2\">Q2: Quine</a>\n\n<p> Please post all questions you have below concerning Q2: Quine in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I keep getting a newline character at the end of my output, which is the only difference from the code. Any way I could get around that?",
+            "follow-ups": [
+                {
+                    "feedback": "The easiest workaround would be to just add a newline character to the end of your code with the `'\\n'` escape character, but I agree that the test could be updated to ignore trailing newlines."
+                },
+                {
+                    "feedback": "I’m marking this unresolved so an instructor can comment on whether this should be fixed."
+                },
+                {
+                    "feedback": "I have a similar problem, but with a newline ''missing\" from the front of my string. If I place my code on the same line as `quine = \"\"\"` I pass the doctests, but not otherwise."
+                },
+                {
+                    "feedback": "From the front of the printed string? That shouldn’t be an issue—the only reason why there are newlines at the end of the string is because that’s the standard behavior of the print function, but you probably want to make sure you don’t add a return right before the triple quotes.      If your solution is one line, you may also want to consider just using single double quotes so that it is less confusing."
+                },
+                {
+                    "feedback": "To block the \\n from appearing, use the optional \"end\" argument in the print function. Read up!"
+                },
+                {
+                    "feedback": "Good catch. Thanks for pointing that out!"
+                },
+                {
+                    "feedback": "I am pretty confused about this issue. Is this a problem with my code or **quine_test()**?  I've tried replacing default print function **ends** argument with **' '** but that did not work. I've also tried adding **\\n** after the function and it did not work either."
+                },
+                {
+                    "feedback": "What I would recommend you do is to open an interactive Python terminal and paste your code directly into the dialog. Then, try to copy its output and past that back into the terminal again. Repeat a few times, and if your code remains exactly the same, then you’ve got a quine! You can just stick an extra newline at the end, like `\"insert_quine_here()\\n\"` to get the test case to pass, and you should be set."
+                }
+            ]
+        },
+        {
+            "question": "Is this problem mandatory for achieving full score for hw08?",
+            "follow-ups": [
+                {
+                    "feedback": "No."
+                },
+                {
+                    "feedback": "So this is an optional question?"
+                },
+                {
+                    "feedback": "Yes. But do try it anyway, even if it’s just for fun!"
+                }
+            ]
+        },
+        {
+            "question": "I am putting this here in case anyone wants an additional challenge: You can make quines that cycle between two different languages, such as, for example, Python and Bash. Try it if you need sonething to do over the long weekend!"
+        },
+        {
+            "question": "",
+            "follow-ups": [
+                {
+                    "feedback": "Is there supposed to be a question here?"
+                }
+            ]
+        },
+        {
+            "question": "****Can you give some hints or example? I am stuck on it and really do not know what I should. Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "So the initial intuition is that you’re going to need a copy of the code stored in the code in order to print a copy of the code. But a copy of the code is going to contain within it a copy of the code itself, so you have copies within copies within copies, which obviously isn’t going to work super well.  Instead, what you should try to do is store a copy of the code which doesn’t yet contain a copy within itself and then build the inner copy based on the code from the outer copy. I know my wording sounds really convoluted (since quines tend to be that way), but I hope you’re able to figure it out!"
+                },
+                {
+                    "feedback": "Still cannot understand..."
+                }
+            ]
+        },
+        {
+            "question": "Does all the code we write have to be within the triple quotes they give us? Then how would you ever call repl or eval or anything, they'd all just evaluate to strings (since we're within the triple quotes) and there's no way we can break out of the string. Is some of the code supposed to be outside of the triple strings then?",
+            "follow-ups": [
+                {
+                    "feedback": "The code you give inside the triple quotes will be evaluated and the result will be compared to the original string you write. Take a look at the rest of the code in the file"
+                },
+                {
+                    "feedback": "To think of it another way, if you paste the contents of the string into an interactive Python terminal, Python would print exactly what you pasted in."
+                }
+            ]
+        },
+        {
+            "question": "Could I use the Lambda? I think my code is right but I cannot pass the test.",
+            "follow-ups": [
+                {
+                    "feedback": "What's the difference in your output vs the code you wrote? The test should output this to console, and it'll help you debug"
+                },
+                {
+                    "feedback": "I have submit a private post. Could you please give me some suggestion ?"
+                },
+                {
+                    "feedback": "I am not an instructor / course staff member, so I cannot look at private posts"
+                },
+                {
+                    "feedback": "Thanks. I think they are same. But test failed. I just think whether lambda I use is invalid."
+                },
+                {
+                    "feedback": "There's nothing inherently wrong with using a lambda for this problem"
+                },
+                {
+                    "feedback": "I will tell you that there is a solution that only uses assignment statements and standard operators such as concatenation. And the `print` statement, of course."
+                }
+            ]
+        },
+        {
+            "question": "I can't understand what the question is asking. Can someone please phrase the question better and maybe give a test case/example?",
+            "follow-ups": [
+                {
+                    "feedback": "Your goal is to write a function that, when evaluated in Python, will return itself. For example, we couldn’t just do `print('string')`, since that would print `string`, and there would be no more `print` statement. And we couldn’t just write `print(\"print('string')\")`, since we would then print `print('string')`, and we would still be one `print` statement short. And so on and so forth Think about how you could implement this. It takes a while to think about, but give it a shot!"
+                },
+                {
+                    "feedback": "Oh, now I understand what the question wants!"
+                },
+                {
+                    "feedback": "Good to hear! Good luck!"
+                }
+            ]
+        },
+        {
+            "question": "Can anyone give me a hint on how to start this question? I was thinking along these lines (similar to what Nicholas said):  I need to store whatever code I write for quine somewhere inside the code and that only gets evaluated when quine is evaluated.",
+            "follow-ups": [
+                {
+                    "feedback": "I’ll consider this fair game since Professor DeNero shared this hint in the extra topics lecture. Consider the following code: ``` >>> s='print(s)';eval(s) print(s) ``` There is your hint. Hopefully, it can get you started in a certain direction. Good luck!"
+                },
+                {
+                    "feedback": "I got the right answer along these lines but I don't know why my code works.  What does this code do?                >>>> s='print(s)';eval(s)     print(s)"
+                },
+                {
+                    "feedback": "That assigns the variable `s` to `'print(s)'`. We then instruct Python to evaluate that string, and calling `print(s)` prints the contents of `s`, which is `'print(s)'`, so `print(s)` is printed."
+                }
+            ]
+        }
+    ]
+}

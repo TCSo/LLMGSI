@@ -1,0 +1,11 @@
+{
+    "subject": "list vs. con",
+    "content": "<p><img src=\"https://lh4.googleusercontent.com/kK0aXojr1R2DuAIdjILGgbYKTCPrtFwLbfv8pLXip6q3SO18r-yea2pxb-b8VyVQ7SFHDKhXmhXNCMC_tNDpyuqrpK3Ew8nGLyxvmFxS3JmaM80VEex2C2Bnl_6WZi3dJtQjDDWA\" width=\"425\" height=\"168\" /></p>\n<p>why is there an issue with calling car on a list?</p>",
+    "threads": [
+        {
+            "subject": "",
+            "content": "<p>I think you might have defined a variable with the name list? It works for me.</p>",
+            "threads": []
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "subject": "[Lab 02] Q5: Make Adder",
+    "content": "<a href=\"https://cs61a.org/lab/lab02//#q5\">Q5: Make Adder</a>\n\n<p> Please post all questions you have below concerning Q5: Make Adder in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Why is k equal to 9 after add_ten(n) was executed?",
+            "follow-ups": [
+                {
+                    "feedback": "Trace the environment diagram step-by-step (which is what the question asks for) and it should be revealed how `k` gets bound to a value"
+                }
+            ]
+        },
+        {
+            "question": "Why is n not assigned in f2? Is it because the value lookup rules that if we can find the required value in its parent frame then no more assignment is needed?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, also there's no assignment statement within f2."
+                }
+            ]
+        },
+        {
+            "question": "Why 9 is bound to k? Because add_ten is in global frame, so we should look for n in global frame first?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk0ioqmkayh0j%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190913152009.png)",
+            "follow-ups": [
+                {
+                    "feedback": "the value of n is 9 in the global frame, so it is working as you described."
+                }
+            ]
+        }
+    ]
+}

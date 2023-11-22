@@ -1,0 +1,745 @@
+{
+    "subject": "[Scheme] Problem 20",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-20-1-pt\">Problem 20</a>\n\n<p> Please post all questions you have below concerning Problem 20 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am having an issue where the operands in the for statement aren't found in the parent frame. For example, the i in the (for i '(1 2 3).... test throws an unknown identifier error because it can't be found in the parent frame. Any thoughts on how to fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Have you modified `scheme_eval` to handle macros properly? Macros are special in that they don’t immediately evaluate the operands but rather pass in the unevaluated operands into the `MacroProcedure.apply_macro` function."
+                },
+                {
+                    "feedback": "Yeah I believe I implemented that correctly. When making a new MacroProcedure, do you need to have an embedded LambdaProcedure?"
+                },
+                {
+                    "feedback": "Oh, is the error that it can’t find the `for` procedure in the first place? Have you made sure that `do_define_macro` defines the macro in the current `Frame`?"
+                },
+                {
+                    "feedback": "No it's that it can't find i at all. It is able to make a MacroProcedure, but when evaluating a for statement, the i in the operands throws an unknown identifier error."
+                },
+                {
+                    "feedback": "How are you getting the `formals` to be passed into the constructor for `MacroProcedure` (which is a subclass of `LambdaProcedure`)?"
+                },
+                {
+                    "feedback": "I tried saying expressions.first.rest to get the formals in."
+                },
+                {
+                    "feedback": "The only issue I can think of is that, in the `scheme_eval` function, you are accidentally trying to evaluate `i`, which is an operand of the `for` macro, rather than passing all the operands to the `MacroProcedure#apply_macro` function directly. If you still can’t figure out the issue, I would recommend making a private post or going to OH so that an instructor can review your code."
+                },
+                {
+                    "feedback": "Oh, I think the reason may be how I am checking if an expression is a MacroProcedure in scheme_eval. Any tips on how I can properly implement this?"
+                },
+                {
+                    "feedback": "What function would you normally use to see if an object is an instance of some class? You want different behavior if the operator is an instance of the `MacroProcedure` class?      (Don’t actually answer this question on Piazza, since it’s an answer other students should try to arrive at on their own. I’m just trying to help your thought process along.)"
+                },
+                {
+                    "feedback": "I seem to be getting the same error  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk30yhwn9vun3%2FScreen_Shot_20191115_at_6.31.57_PM.png)  I'm just checking if the expression is an instance of MacroProcedure and then calling apply_macro. I basically utilised the same code for do_define_form in my do_macro_form, except I'm using a MacroProcedure instead of LambdaProcedure.  Not sure how I change that around to behave differently"
+                },
+                {
+                    "feedback": "Have you modified your `scheme_eval` function to handle `MacroProcedure`s yet?"
+                },
+                {
+                    "feedback": "Yes, I just added an if clause right before checking for special forms to check if expr is an instance of MacroProcedure.  If it is, I'm calling apply_macro on operands and env"
+                },
+                {
+                    "feedback": "I see that the error is in checking for MacroProcedure. But I'm not sure what object I should be using to check for an instance of MacroProcedure. Expr doesn't work."
+                },
+                {
+                    "feedback": "Think of what you passed into `scheme_apply` as the procedure. That is the procedure we are working with, so that is what you should check to see is a `MacroProcedure`. If it is, then return the result of evaluating the application of that procedure (use `scheme_eval` and the `apply_macro` method)"
+                },
+                {
+                    "feedback": "I'm sorry, I'm unable to understand this.  1\\. Doesn't scheme-eval take in just an expression and an env? How can I get the procedure from that? Isn't the define-macro case handled by the special cases? What change do I need to make then?  2\\. Also, I'm a bit confused by the apply_macro implementation - mine is essentially the same as the do_define_form, except I'm calling a MacroProcedure"
+                },
+                {
+                    "feedback": "You already have the procedure - it is the first thing you passed into the `scheme_apply` call you made in your solution for Q4. This procedure is what you are working with - it's what you need to check for being an instance of MacroProcedure. Remember the evaluation steps for macros:  1\\. Apply the macro to the unevaluated arguments  2\\. Evaluate the result of this application  3\\. Return the result of evaluation  Are you asking about `do_define_macro`? `apply_macro` was already implemented for us"
+                },
+                {
+                    "feedback": "Do I make the change to scheme_apply then? I am asking about do_define_macro, sorry for the confusion. I'm just confused about where to implement each of the steps you mentioned"
+                },
+                {
+                    "feedback": "Maybe my problem 4 implementation is off? I basically created a lambda expression that takes in x and returns scheme_eval(x, env) and passed eval_helper(first) into scheme_apply."
+                },
+                {
+                    "feedback": "You do not need to change `scheme_apply`. The 3-step processed I mentioned can be handled in two lines within `scheme_eval`. (If the procedure is an instance of MacroProcedure, follow those 3 steps). Also, that additional lambda is of no use - you could just say `procedure = scheme_eval(first, env)` and re-use the result. This procedure would be what you check for being a MacroProcedure and follow the steps on. The steps I described should occur before your `return scheme_apply` statement."
+                },
+                {
+                    "feedback": "How do I pass in the unevaluated arguments?"
+                },
+                {
+                    "feedback": "You simply pass them in without calling `scheme_eval` on them"
+                },
+                {
+                    "feedback": "The reason I used a lambda was because the map() function takes in only a one argument function in P4. I added a clause within my body for problem 4 that basically calls scheme_apply on scheme_eval(first), MacroProcedure.apply_macro of the operands (rest.first) and everything else(rest.rest) in env. But now I appear to be running into an error on 4:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifgdkmc4hw%2Fk31p3vqwwr78%2FScreen_Shot_20191116_at_6.39.13_AM.png)  And I get a 'str is not callable ' for'\" error on q20.  Any suggestions? I am extremely confused by this!"
+                },
+                {
+                    "feedback": "Okay, I think let’s separate problem 4 and problem 20. To separate the two, you basically just want one suite (basically the body of an `if` statement) to handle if the operator is a `MacroProcedure` and another suite to handle if the operator is not a `MacroProcedure`. For the standard procedures which aren’t macros, you are correct in using the `map` function with a lambda that calls `scheme_eval` with the `env` filled in. You then just want to apply the operator to the evaluated operands, and you should be set For the macro handling, you **don’t** want to evaluate the operators, and you instead pass the raw, unevaluated operands into the `.apply_macro` function of the operator. You then take the output of that function and evaluate and return that."
+                }
+            ]
+        },
+        {
+            "question": "Somehow I got this error, can someone tell me what;s the problem here?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdje8twst5in%2Fk2wbnlpf16cc%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111115239.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Did you utilize the hint in the problem statement? \" _Hint_ : Use the `apply_macro` method in the `MacroProcedure` class to apply a macro to the operands in its call expression. This procedure is written to interact well with tail call optimization.\""
+                },
+                {
+                    "feedback": "It looks like you’re returning the result of applying the macro without evaluating it. Remember that macros are applied **before** evaluation, but you still have to evaluate whatever it returns. You are almost there, though!"
+                },
+                {
+                    "feedback": "Thank you guys!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzoqqipkxx270r%2Fk2wumixfst0r%2FScreen_Shot_20191112_at_9.33.10_PM.png)  I don't entirely understand what's happening here, could someone help me understand what's going wrong? Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "What frame are you trying to call `scheme_eval` in after you apply the macro? It looks like the lookup is failing because you‘re trying to call `lookup` on `None`."
+                },
+                {
+                    "feedback": "In both scheme_eval and do_define_macro, I just pass in the env variable as is; I don't make any changes to it."
+                },
+                {
+                    "feedback": "What is your `return self.parent.parent.lookup(symbol)` call in the `lookup` function? It looks like you may have implemented Problem 2 wrong."
+                },
+                {
+                    "feedback": "You're right! My implementation for problem 2 was absolutely terrible.  Thanks for your help!"
+                }
+            ]
+        },
+        {
+            "question": "Do you need to have finished Question 19 to properly implement Macros?",
+            "follow-ups": [
+                {
+                    "feedback": "Nope."
+                }
+            ]
+        },
+        {
+            "question": "I am getting a strange error which I think is caused by scheme_eval not recognizing a nested macroprocedure properly for some reason? Can anyone clarify what's going on and/or how I would approach fixing it?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp66dymq26q%2Fk2z0jst3sefo%2FScreen_Shot_20191114_at_9.53.20_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Double check to make sure `first` is a symbol and not a `Pair`—it looks like it’s trying to see if `first` is a key in `env.bindings` and failing because `Pair`s can’t be keys to dictionaries."
+                },
+                {
+                    "feedback": "Yes I have added that check to my code now, but because of this it throws me an unknown identifier error which I'm assuming is because it never enters the \"macro\" if clause? Is my approach to checking for macros fundamentally wrong, or are there just cases I'm missing? [![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp66dymq26q%2Fk2z0sf0o3zq4%2FScreen_Shot_20191114_at_10.01.06_AM.png)](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp66dymq26q%2Fk2z0sf0o3zq4%2FScreen_Shot_20191114_at_10.01.06_AM.png)"
+                },
+                {
+                    "feedback": "Have you also defined the macro in the `env` it looks like the macro isn’t even being defined."
+                },
+                {
+                    "feedback": "I believe I do so in do_define_macro, and since the first test case passed I figured that part was working fine?"
+                },
+                {
+                    "feedback": "Walk me through your logic for checking and handling macros in `scheme_eval`."
+                },
+                {
+                    "feedback": "I essentially added another clause that checks whether:  a) The first part of the expression isn't a Pair (to avoid the unhashable Pair error)  b) The first part of the expression is bound within env  c) The first part is bound to a **M** **acroProcedure**  ****  Upon entering the clause, it should get the MacroProcedure instance from env's bindings, and use that instance's apply to handle the operands, and finally evaluate the result.  I think the issue is, right now for some reason I never enter the clause in the first place :("
+                },
+                {
+                    "feedback": "Hmmm, you definitely don’t need to be manually doing all those checks for `Pair`s and looking up symbols in `env`. Your operator is simply the first value of the expression evaluated, so you would use a recursive leap of faith to evaluate your operator—this may be something you need to fix for problem 4, as well. After you have evaluated your operator, you do the standard procedure of applying the operator to the operands *unless* the operator is a `MacroProcedure`."
+                },
+                {
+                    "feedback": "Symbols and atomic expressions are already handled for you in the pre-written code, so you don’t even have to worry about base cases."
+                },
+                {
+                    "feedback": "Ah I see, I got it now! I was definitely overcomplicating it haha. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I am a bit confused as to how and where we implement the apply_macro method.",
+            "follow-ups": [
+                {
+                    "feedback": "`apply_macro` is already defined for you in the `MacroProcedure` class, as an instance method. You just need to call it at the appropriate point in `scheme_eval`."
+                }
+            ]
+        },
+        {
+            "question": "Because I'm getting this error, should I have a case in my do_define_macro to handle expressions that don't have a body? The only thing currently in my do_define_macro is the same thing I had in my do_define_form where I define the expression's first.first in the given env to a MacroProcedure. But since I use expressions.first.first to get the name of what to bind the MacroProcedure, it gives me an error in this test case. Is there a better way of handling this?                AttributeError: 'str' object has no attribute 'first'  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk30muwqb83hd%2FScreen_Shot_20191115_at_12.52.58_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You should also be using `check_form` to make sure that the expressions passed into `do_define_macro` are appropriate. You can see how it was implemented for you in `do_define_form` above the portion you wrote and use that as your basis."
+                },
+                {
+                    "feedback": "So I used check_form to make sure that the expressions is at least length 2 (one for the definition of the macro with name/formals and one for the body)...but then it fails in cases like the one below (which technically has an expression with length 2. So do I need to make sure that they are Pairs?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyga1q8dp76637%2Fk358xnb7ul6p%2Fissue.PNG)"
+                },
+                {
+                    "feedback": "Sorry I meant in cases like this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyga1q8dp76637%2Fk3590z0hph2h%2Fissue.PNG)"
+                },
+                {
+                    "feedback": "Yeah, you need to make sure the first expression is itself a list. `check_form` will also throw an error if the input isn’t a list, so you can use that, as well."
+                },
+                {
+                    "feedback": "Could you clarify how to utilize the thrown error from check_form? We are trying to use a try loop which would catch the exception but it isn't having any effect."
+                },
+                {
+                    "feedback": "You just let it throw an error. You don’t have to try and then catch. Just call the method normally. There are test cases that check for you if the errors get thrown where they should be, in order to check that you’re calling the check methods properly."
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (map f lst)     ....         (if (null? lst)     ....             nil     ....             (cons (f (car lst)) (map f (cdr lst)))))     scm> (define-macro (for formal iterable body)     ....               (list 'map (list 'lambda (list formal) body) iterable))     for     scm> (for i '(1 2 3)     ....      (if (= i 1)     ....          0     ....          i))     # Error: unknown identifier: i          # Error: expected     #     (0 2 3)     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: unknown identifier: i  I keep getting this SchemeError and I'm not sure why. It's coming from my lookup function, so that means that I don't even get a chance to check if the operator is a MacroProcedure in scheme_eval. My do_define_macro is basically the same as my do_define_form, is that wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Your `do_define_macro` should be much simpler than your `do_define_form` implementation - all you really need to do in `do_define_macro` is check the forms, check the formals, construct a `MacroProcedure`, bind it to its name, and return its name."
+                },
+                {
+                    "feedback": "After simplifying do_define_macro I am still getting the same SchemeError. Maybe I am checking the formals wrong? I am currently doing expressions.first.rest to access the formals."
+                },
+                {
+                    "feedback": "Have you modified `scheme_eval` to handle macros properly? Macros are special in that they don’t immediately evaluate the operands but rather pass in the unevaluated operands into the `MacroProcedure.apply_macro` function."
+                },
+                {
+                    "feedback": "I modified scheme_eval to check if the operator is an instance of MacroProcedure, then return the result of passing in rest and env into apply_macro. This was all done before the scheme_apply call."
+                },
+                {
+                    "feedback": "Hmmm. To confirm, you evaluated your operator and *then* checked whether it was a `MacroProcedure`, right? Sorry if it seems like an obvious question; I’m just trying to think of possible ways it could go wrong."
+                },
+                {
+                    "feedback": "No worries. I did evaluate my operator before checking whether it was a MacroProcedure."
+                },
+                {
+                    "feedback": "Can you add a debug statement to double check that the check is successfully identifying the `MacroProcedure`? It’ll help you debug and help you isolate the issue, which is always a good thing. If it does, I’m not really sure what the problem would be, unfortunately."
+                },
+                {
+                    "feedback": "The problem is, none of that code is being run because the SchemeError comes from the very first if statement of scheme_eval. (i.e. if I print something in the else clause containing the check for the MacroProcedure, nothing is printed)"
+                },
+                {
+                    "feedback": "I’m afraid I don’t quite understand what you mean. Does that mean you’re not entering the special handling for macros? Or you are, but something else is erroring?"
+                },
+                {
+                    "feedback": "I am not entering the special handling for macros."
+                },
+                {
+                    "feedback": "That would probably be your issue. How are you checking if something is a `MacroProcedure`?"
+                },
+                {
+                    "feedback": "I am checking isinstance(operator, MacroProcedure)"
+                },
+                {
+                    "feedback": "Could you try debugging by adding a `print('DEBUG:', type(operator))` statement?"
+                },
+                {
+                    "feedback": "I am not getting anything. Meaning I am never running anything inside of the else clause."
+                },
+                {
+                    "feedback": "Is the `else` clause the clause that is run if the operator is not a macro? I would just put it at the beginning of your `scheme_eval` function and also print the unevaluated operator just so you can check what is going on. Otherwise, again, I’m not too sure what the problem would be."
+                },
+                {
+                    "feedback": "I will be back in about 15 minutes, just so you know, so don’t expect a super speedy response in the near future."
+                },
+                {
+                    "feedback": "The else clause is following one of the pre-written if statements                if scheme_symbolp(first) and first in SPECIAL_FORMS:  Putting the debug statement at the beginning of scheme_eval, it shows that the unevaluated operator is a string"
+                },
+                {
+                    "feedback": "Ohhh, you mean that `else` statement. I thought you were referring to another one which you wrote yourself (which you should have done). I’m not sure what your problem is, unfortunately. Sorry about that. You might want to go to OH or make a private post to the instructors. _(Although, I’ve actually been allowed to hold some unofficial “office hours” to help people debug in-person in the near future for the Scheme project around Unit 1, but I haven’t confirmed anything yet. You might also be able to get some answers that way in the near future. Spoilers.)_"
+                },
+                {
+                    "feedback": "It's all good. But where else should I be writing an else in scheme_eval?"
+                },
+                {
+                    "feedback": "You should have an `if` statement for checking if the operator is a macro and handling it accordingly."
+                },
+                {
+                    "feedback": "Oh, I have that. I’ll just go to OH sometime to figure out the problem. Thanks for the help though!"
+                },
+                {
+                    "feedback": "If you still haven’t been able to figure it out, I’ll be in the Unit 1 Central building outside the APR for most of today and probably for the next couple days, as well. See @2114."
+                },
+                {
+                    "feedback": "scm> (define (map f lst)     ....         (if (null? lst)     ....             nil     ....             (cons (f (car lst)) (map f (cdr lst)))))     scm> (define-macro (for formal iterable body)     ....               (list 'map (list 'lambda (list formal) body) iterable))     for     scm> (for i '(1 2 3)     ....      (if (= i 1)     ....          0     ....          i))     DEBUG: rest is -> (i (quote (1 2 3)) (if (= i 1) 0 i))     DEBUG: result of calling apply_macro on operator w/ (unevaluated) rest -> (quote (1 2 3))     (1 2 3)          # Error: expected     #     (0 2 3)     # but got     #     (1 2 3)  I managed to get past the SchemeError, but now I am not evaluating the expression correctly even though I am returning the result of scheme_eval on the result of apply_macro. Any suggestions?"
+                },
+                {
+                    "feedback": "It looks like the macro isn’t being evaluated properly, since the return value of the macro should be `(map (lambda (i) (if (= i 1) 0 i)) (quote (1 2 3)))`, but it’s only returning `(quote (1 2 3))`."
+                },
+                {
+                    "feedback": "Why would that be? Is it because of my operator? It currently shows                DEBUG: operator is -> (lambda (formal iterable body) (list (quote lambda) (list formal) body) iterable)"
+                },
+                {
+                    "feedback": "Sorry, I meant to say that the macro isn’t applying properly, since the returned expression is the same as the expression that was passed in. Your operator is fine, and you seem to be identifying the macro correctly. I’m not sure what the problem is."
+                },
+                {
+                    "feedback": "Ok, how long will you be holding 'office hours' until? And where is it?"
+                },
+                {
+                    "feedback": "I am also running into this problem (i.e. apply_macro is giving me (quote (1 2 3))). Checked all of my code and not sure why the macro isn't evaluating correctly. Unsure what to do, any suggestions would be appreciated."
+                },
+                {
+                    "feedback": "^same"
+                },
+                {
+                    "feedback": "Hi, did you ever figure out the solution to this?"
+                },
+                {
+                    "feedback": "Start by debugging what the returned value of applying the macro is, first. You can do this by assigning the result to a variable, printing the variable, and _then_ evaluating the result so that you can take a peak in the middle of the process."
+                }
+            ]
+        },
+        {
+            "question": "Take the first case for an example  Are MacroProcedure.apply_macro expected the input like    * **self =** (lambda (for formal iterable body) (list (quote map) (list (quote lambda) (list formal) body) iterable))   *  **operands =** (i (quote (1 2 3)) (if (= i 1) 0 i))    * **env =** en  ?",
+            "follow-ups": [
+                {
+                    "feedback": "`self` just refers to the instance of the `MacroProcedure`, and it is implied when you call it with something like `the_macro.apply_macro`. So you only need to pass in `operands` and `env`. `operands` are the raw, **unevaluated** operands that were passed into the macro."
+                },
+                {
+                    "feedback": "Yeah, so I    1. evaluate the operator and unevaluated operands like (i (quote (1 2 3)) (if (= i 1) 0 i)).    2. And call operator.apply_macro with unevaluated operands.   3. After that, I call scheme_eval for the whole things  And I got Error of nothing (Although I skip the step 3)"
+                },
+                {
+                    "feedback": "Step 3 is essential and must not be skipped. Also remember that you return the applied expression, so you need to return the result of step 3"
+                },
+                {
+                    "feedback": "I see, I input the applied expression to scheme_eval and return it, but I still get  # Error:  # Error: expected   # (0 2 3)   # but got   # Traceback (most recent call last):   # ...   # SchemeError:  ,which occurs at the apply_macro parts.  I am really confused about how apply_macro expects its input operands. Is (i (quote (1 2 3)) (if (= i 1) 0 i)) the correct form of unevaluated raw operands?"
+                },
+                {
+                    "feedback": "I don’t understand what you mean by the “correct form” of the operands. You don’t know specifically what the operands are going to be—you just have to pass them in unevaluated to `apply_macro`. It should just be a Scheme list (built from `Pair`s), and you can retrieve them from the `expr` that is passed into `scheme_eval`."
+                },
+                {
+                    "feedback": "Yes, I understand your points.  What I mean by the correct form it that my apply_macro directly accepts (i (quote (1 2 3)) (if (= i 1) 0 i)) instead of Pair(i Pair(....)) and they cannot recognize it."
+                },
+                {
+                    "feedback": "Right now, I'm checking for first as being an instance of MacroProcedure, which isn't working. I'm really confused about what the operands are in the expression. It strips away the 'define-macro' while checking for SPECIAL FORMS, right? so shouldn't the operator just be first?"
+                },
+                {
+                    "feedback": "Are you talking about evaluating the macro or defining the macro? Those are two different things: `apply_macro` is used in `scheme_eval` when the operator is an instance of `MacroProcedure`, and `do_define_macro` is used to define the macro in the first place. The `expressions` that are passed into `do_define_macro` is the whole thing but with the `define-macro` symbol stripped away."
+                },
+                {
+                    "feedback": "So here's my approach:  after checking for special forms, in the 'else' clause, I have an if statement that checks if expression is an instance of MacroProcedure. If it is, I'm calling scheme_eval on MacroProcedure.apply_macro of first and rest. But this approach seems to be wrong. I think I'm messing up on the operators?"
+                },
+                {
+                    "feedback": "I am working on evaluating the macro. The expression can get into the suite of \"the operator is an instance of `MacroProcedure\", but it cannot by applied normally.`"
+                },
+                {
+                    "feedback": "I don't seem to be able to get into the is instance part of MacroProcedure. Any tips for how to check this correctly?"
+                },
+                {
+                    "feedback": "`isinstance` is the right way to check it. Try debugging and outputting what the `type` of the operator is."
+                },
+                {
+                    "feedback": "Once you have a procedure, if you want to check if it’s a MacroProcedure, use the Python built-in isinstance method. Remember the isinstance method takes in (1) an object and (2) a class and returns true if the object is an instance of that class."
+                },
+                {
+                    "feedback": "How many things do I need to pass into apply_macro? SHouldn't it just be the operands(rest of expr) and env? I keep getting an error that says I'm missing one argument. Not sure why"
+                },
+                {
+                    "feedback": "Are you doing `MacroProcedure.apply_macro` or `operator.apply_macro`? Remember that you have to call it on the **instance**, not the class."
+                },
+                {
+                    "feedback": "Yes! That was my mistake! Thanks so much for the help!"
+                },
+                {
+                    "feedback": "Awesome! Congrats on finishing!"
+                },
+                {
+                    "feedback": "Why is it operator.apply_macro? Why not expr.apply_macro?"
+                },
+                {
+                    "feedback": "Inside the body of the if statement, we know that `operator` is a `MacroProcedure`. The `apply_macro` method is an _instance_ method of the `MacroProcedure` class."
+                },
+                {
+                    "feedback": "Why does it matter? I thought MacroProcedure.apply_macro and operator.apply_macro were equivalent as you still pass in operator as the self argument."
+                },
+                {
+                    "feedback": "I mean, you could do that, but there's really no point to it. To the best of my knowledge, `instance.method(param1, param2, ...)` is convention over `Class.method(instance, param1, param2, ...)`. In the case of the Anon above getting an error saying they were missing one argument, that was likely caused because they forgot to pass in the instance, which is not a concern when using instance dot notation."
+                }
+            ]
+        },
+        {
+            "question": "Can you help me with that? T.T  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk05igwxkhykld%2Fk31zj4bxt88u%2FSnipaste_20191116_114857.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Where is that empty error being raised from? All the errors raised in the template code should have descriptive error messages. Is that one you wrote yourself?"
+                },
+                {
+                    "feedback": "It turns out that Error is raised at make_child_frame  the formals and the vals have different length, how could that happen?"
+                },
+                {
+                    "feedback": "Did you accidentally include the name of the macro in the list of formals when constructing the `MacroProcedure`?"
+                },
+                {
+                    "feedback": "I add some debug print and find that when constructing the MacroProcedure. In this case    * **my formals** : (for formal iterable body)    * **and body :** ((list (quote lambda) (list formal) body) iterable))  Are they look correct?"
+                },
+                {
+                    "feedback": "Oh ! I think I should get rid of \"for\", the function name! It passes 2 more cases"
+                },
+                {
+                    "feedback": "Yep."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk72oow5657%2Fk3265karmi2b%2Fa.png)  How to check formals here? Mine is                check_formals(expressions.first.rest)  It should be right, but it is wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "You’re checking your formals correctly. The issue is that it should be erroring since the macro has no body, but it isn’t."
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk72oow5657%2Fk327avs7uajc%2Fa.png)   but then I got something wrong here. Why?"
+                },
+                {
+                    "feedback": "**Please don’t post excerpts of code publicly on Piazza. Please edit your last response to remove the code.** Keep in mind it is possible for the macro to have no arguments."
+                },
+                {
+                    "feedback": "I have the same error but Im using two check_form one to check the expression itself and one for checking the first part of the expression, how should I be dealing with this issue?"
+                },
+                {
+                    "feedback": "resolving follow ups related to the Scheme project since it is now past due - please post a new follow up if you still have questions about the assignment!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqqtm5zhzdb5wg%2Fk32nvbpxqmxa%2Fderp.PNG)  I'm really confused why this errors, any help would be appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "I caught it with an attributeerror but I'm not sure if this is the right way to go about this."
+                },
+                {
+                    "feedback": "If this is indeed the right way to do this, I am very confused about the next case where 5 should error :/"
+                },
+                {
+                    "feedback": "Maybe using check_formals more than once could help"
+                },
+                {
+                    "feedback": "(To check the actual formal parameters, and before that)"
+                },
+                {
+                    "feedback": "You should first use `check_form` to check the forms of the expressions that were passed in, first. See what the template code provided for `do_define_form` for an example."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk33n3pmzb83w%2FScreen_Shot_20191117_at_3.36.52_PM.png)  Any idea why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Edit: I changed the way I check my formals, but now I don't get any output at all?"
+                },
+                {
+                    "feedback": "Are you remembering to return the name of the macro? Or do you mean you aren’t getting any output after calling the macro?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpzunpwa2um%2Fk33ryyfh2bvv%2FScheme_Project_Question_20_Error.png)  We are returning the name of the macro in do_define_form, but nothing seems to return when we run the test cases. We are fairly confident that do_define_macro is never actually being called at all. Does anyone have any ideas as to why this may be happening?``",
+            "follow-ups": [
+                {
+                    "feedback": "`do_define_form` and `do_define_macro` are two different functions. Both of them need to return the name, but `do_define_form` handles `define`, while `do_define_macro` handles `define-macro`. They should really both essentially mirror each other."
+                },
+                {
+                    "feedback": "Apologies, typo on my part when asking the question. Meant to say, we are returning the name of the macro in do_define_form. Thanks though."
+                },
+                {
+                    "feedback": "***do_define_macro, not do_define_form. I wish piazza had an edit option lol"
+                },
+                {
+                    "feedback": "_It does if you don’t post anonymously._ Anyway, have you added debug statements to see if `do_define_macro` is ever being entered at all? Try that first, and if it isn’t being entered, then there is definitely a larger problem, since special forms are handled for you in the template code."
+                },
+                {
+                    "feedback": "Yup, just realized we must have broken something in scheme_eval because all the previous ok tests are failing also. We restored a backup and are working on it again. Thanks Nicholas."
+                },
+                {
+                    "feedback": "Did not know editing posts/comments was only possible if non-anonymous - thanks for pointing that out!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk33vfuy66pwm%2FScreen_Shot_20191117_at_7.30.11_PM.png)  Does this mean I am not defining and binding names correctly in do_define_macro?",
+            "follow-ups": [
+                {
+                    "feedback": "OP. If so, can someone explain how to approach the binding?"
+                },
+                {
+                    "feedback": "You basically have the do the same thing as you did in `do_define_form`. Review your code for that and essentially do the same thing."
+                },
+                {
+                    "feedback": "Ahh thank you!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk33wz7lw48tg%2FScreen_Shot_20191117_at_8.13.26_PM.png)  What could be causing this error? It seemed like I was defining the names correctly because I was checking using several debug statements. Is it my evaluation. Because for that I am checking the 'first' is an instance of macroprocedure then I apply the macro with instance operator and such and evaluate from there. Any suggestions?"
+        },
+        {
+            "question": "For some reason, I've implemented exactly what the previous answers have pointed to: In the (else) case of the special forms, I checked if the operator was an instance of a macro, then I applied macro to the expressions, and then I evaluated them. I'm still getting this message, and I'm not sure what I'm doing wrong. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk34rdqvk5mch%2FScreen_Shot_20191118_at_10.24.16_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I believe this is an issue with your `do_define_macro` implementation. How are you going about that?"
+                },
+                {
+                    "feedback": "I check if expressions is a length of 2, then I set formals, then I use env.define to bind a MacroProcedure to the name, then I return the name of the expression."
+                },
+                {
+                    "feedback": "It still looks like the final evaluation step just isn’t happening, since that `map` procedure that is being returned is syntactically invalid, but it isn’t throwing an error when trying to be evaluated. Cyrus is also right in that it seems like the wrong values are being bound to the wrong part of `MacroProcedure`—remember that your implementation should essentially mirror `do_define_form` almost exactly."
+                },
+                {
+                    "feedback": "I did call scheme_eval on the operands when I created that, so that should be taken care of, and do_define_macro calls do_lambda_form, which is not what I'm supposed to do, right?"
+                },
+                {
+                    "feedback": "For some reason, when I set up the operand(without evaluating) the expression looks like this![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk34s840w8a9i%2FScreen_Shot_20191118_at_10.47.42_AM.png)  What is going on? I made sure my scheme_eval passed rest into the apply function."
+                },
+                {
+                    "feedback": "The strangest part is that before operands was passed into scheme_eval, this was the operand, which I assume is correct.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk34sj4la6u7o%2FScreen_Shot_20191118_at_10.56.09_AM.png)"
+                },
+                {
+                    "feedback": "`do_define_macro` is not supposed to use `do_lambda_form` at all, since macros aren’t even considered lambda functions. I think you might be a little confused on what you’re supposed to do when you encounter a macro as the operator in `scheme_eval`: 1\\. Pass the **unevaluated** operands into the macro using `apply_macro`. 2\\. Evaluate the **result** of `apply_macro` and return the evaluated result. This is a recursive call. If you do any of those steps out of order, you’ll run into issues."
+                }
+            ]
+        },
+        {
+            "question": "My code is raising a `SchemeError `at my `make_child_frame` function. I have checked the values I pass into `MacroProcedure`:    * Formals: (formal iterable body)   * Body: ((list (quote map) (list (quote lambda) (list formal) body) iterable))  Why might this be the case?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuylep9lz600%2Fk352l71tj9j3%2FScreen_Shot_20191118_at_3.37.30_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "That `Too many values` error did not come from the template you were given, so it must have been a check you wrote yourself. Can you find where you raise that error and double check that it is an appropriate check?"
+                },
+                {
+                    "feedback": "This error is raised in my `make_child_frame` function when there are too many `vals` passed in to the function."
+                },
+                {
+                    "feedback": "Can you catch the error as it’s raised, debug print the erroneous `formals` and `vals`, and then `raise` that same error again? Similar to this: ``` try: x = 3 y = x / 0 except ZeroDivisionError as e: print('x =', x) raise e ``` This is a useful trick for debugging in general, by the way!"
+                },
+                {
+                    "feedback": "I debugged and I have the formals `(iterable body)` leftover and nothing in `vals. `This means that there aren't enough `vals `being passed into my `make_child_frame `to get bound to the `formals.`"
+                },
+                {
+                    "feedback": "resolving follow ups related to the Scheme project since it is now past due - please post a new follow up if you still have questions about the assignment!"
+                }
+            ]
+        },
+        {
+            "question": "Would anyone know why completing 20, would cause my scheme_eval to error? The only thing I added in scheme_eval was to see if the operator of the macro was of type MacroProcedure. If it was then I set expr to the result of calling apply_macro, and that's it. I've been trying to find what's wrong but couldn't find anything yet as of now. Here's the error:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyemanjdpexkb%2Fk35576rtntvy%2FScreen_Shot_20191118_at_4.47.38_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Did you check the formals of the `MacroProcedure` with `check_formals`? I think that might cause an issue if you didn’t."
+                },
+                {
+                    "feedback": "I did check the formals, I checked formals by using expressions.first. If I didn't check for the formals, is it still possible to pass the test cases for 20?"
+                },
+                {
+                    "feedback": "The line `if isinstance(env.lookup(first), MacroProcedure)` looks a little strange to me. I didn't utilize `env.lookup` in that part of `scheme_eval` \\- pretty sure you can check the type of `first` directly"
+                },
+                {
+                    "feedback": "Ohhh, Cyrus is right. Make sure you look up whether the evaluated operator is a `MacroProcedure`, not its corresponding expression. Trying to look up an entire expression in a `Frame` could cause an issue since an expression can’t be its own symbol."
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "Thank you!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "For those who is struggling with `Unknown Identifier: i `error:  If you have done question 19, please remember WE HAVE CHANGED SCHEME_EVAL TO OPTIMIZE_TAIL_CALLS.  Please make changes there or comment the transformation code.",
+            "follow-ups": [
+                {
+                    "feedback": "# Unless you reused original_scheme_eval() in optimize_tail_calls()."
+                },
+                {
+                    "feedback": "Well, `optimize_eval` is supposed to be completely transparent to the rest of the interpreter, so if you’ve implemented problem 19 correctly, there shouldn’t be any issues caused by `optimized_eval`."
+                }
+            ]
+        },
+        {
+            "question": "Can someone help me with this error? I am passing the other test cases. I modified scheme_eval, and in do_define_macro, I have checked the form and formals. Not sure what I am missing... Thank you!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp7au2wy27n%2Fk35d69jvbg8h%2FScreen_Shot_20191118_at_8.32.49_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I don’t think you have implemented all the checks you need for `define-macro`. You also need to make sure the first expression is itself a list of at least length 1 since it’s essentially a procedure definition. Right now, no error is being raised, which is the issue."
+                },
+                {
+                    "feedback": "Got it, it finally passed! Thank you Nicholas :)"
+                }
+            ]
+        },
+        {
+            "question": "I got my solution working but ended up using two check_forms (one for the expressions and one for the first part) as well as the check_formals on the first part. I was under the impression check formals would determine if the part after define-macro is a list but apparently not since it kept erroring. Any ideas why this is the case?",
+            "follow-ups": [
+                {
+                    "feedback": "`check_form` relies upon `scheme_listp`, which just keeps checking the _rest_ of the list to see if that's either a list or nil. `scheme_listp` does not force the `first` of the list to also be a list. Otherwise something like `(2 3 4)` wouldn't be considered a valid scheme list since 2 isn't a list."
+                },
+                {
+                    "feedback": "But in the case of check_formals it has a loop that runs while each part of the input is a Pair instance so shouldn’t that ensure the input (in our case expressions.first) is a list?"
+                },
+                {
+                    "feedback": "Let's look at `check_formals`:                def check_formals(formals):         symbols = set()         def check_and_add(symbol, is_last):             if not scheme_symbolp(symbol):                 raise SchemeError('non-symbol: {0}'.format(symbol))             if symbol in symbols:                 raise SchemeError('duplicate symbol: {0}'.format(symbol))             symbols.add(symbol)         while isinstance(formals, Pair):             check_and_add(formals.first, formals.rest is nil)             formals = formals.rest  `check_formals` does not actually check that its input is a list. It only checks to make sure each of the input list's `first`s are valid Scheme symbols and not repeats. When `formals.rest` is no longer a `Pair`, or if it wasn't given a list to begin with, it just stops checking, rather than throwing an error."
+                },
+                {
+                    "feedback": "Ah okay, so both methods lack a mechanism for checking if the first is a list, hence the extra check. Also, what's the purpose of is_last above? It doesn't seem to be used in the body."
+                },
+                {
+                    "feedback": "You're right, it's unused, so I'm not sure. I suppose we can just disregard it."
+                }
+            ]
+        },
+        {
+            "question": "Hello, I was able to get my question 20 to work fine and pass all test cases but now my question 04 is not working and giving the following error:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2FjlhcpvdbpCqy%2Fk35ezwqtnknr%2Fscheme_error_3.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Did you change the calls to scheme_apply in scheme_eval for q20?"
+                },
+                {
+                    "feedback": "Make sure you aren't evaluating the operator twice! Store it as a variable, and use that variable for your isinstance check."
+                },
+                {
+                    "feedback": "Do you have any tips on how to avoid that? Don't we need to call scheme_eval on expr.first to determine the type of the expression?"
+                },
+                {
+                    "feedback": "You do have to evaluate `expr.first` at some point (you did as part of Q4), but you can store the result as a variable to prevent needing to evaluate `expr.first` multiple times."
+                },
+                {
+                    "feedback": "Do you store that result within the else statement of scheme_eval somehow? When we try to store it as a variable within the main body of the function we still get the error."
+                },
+                {
+                    "feedback": "I was able to get it. I just had to shift around where my variables were defined in my code. Thank you Cyrus!"
+                },
+                {
+                    "feedback": "No problem, glad you got it!"
+                }
+            ]
+        },
+        {
+            "question": "Hello guys!  My partner and I are getting the correct unevaluated expressions from the test case, but when we try to evaluate it, a malformed list containing Thunk objects pops up. We were wondering if its a problem with not handling thunk objects correctly or evaluating it right before returning it. Please send help :^)                Problem 20 (EC) > Suite 1 > Case 1          scm> (define (map f lst)     ....         (if (null? lst)     ....             nil     ....             (cons (f (car lst)) (map f (cdr lst)))))     scm> (define-macro (for formal iterable body)     ....               (list 'map (list 'lambda (list formal) body) iterable))     for     scm> (for i '(1 2 3)     ....      (if (= i 1)     ....          0     ....          i))     # Error: malformed list: <scheme.Thunk object at 0x000001DF92065908>          # Error: expected     #     (0 2 3)     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: malformed list: <scheme.Thunk object at 0x000001DF92065908>          Run only this test case with \"python3 ok -q 20 --suite 1 --case 1\"",
+            "follow-ups": [
+                {
+                    "feedback": "Hi, did you ever figure out this error? I am currently stuck on this."
+                },
+                {
+                    "feedback": "This happens if you try to pass a `Thunk` into `scheme_eval`, which means that either your `optimized_eval` isn’t completely evaluating `result` to a value before returning it, or you are setting `tail = True` where you aren’t supposed to."
+                },
+                {
+                    "feedback": "Our test cases for problem 19 all passed, so I don't think that we are setting tail incorrectly. Could I be wrong about this? Perhaps the test cases don't cover for this specific case in problem 20."
+                },
+                {
+                    "feedback": "The test cases are certainly not exhaustive. Take a second look and pay special attention to the cases where **only the last expression** is a tail context."
+                }
+            ]
+        },
+        {
+            "question": "Hello!  In checking if the operator is a MacroProcedure, I followed the advice given on previous posts \"apply scheme_eval to expr.first and save to a variable.\" I create the variable 'operator' right before I check if operator is an instance of a MacroProcedure, but then I obtain the following error. I'm afraid there may be an issue with the do_define form? Any advice for understanding/addressing this error is greatly appreciated!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjktvgbmy6oq4ys%2Fk35miv1rgt1f%2FScreen_Shot_20191119_at_12.50.04_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Have you placed the evaluation for `expr.first` in the right spot? It looks like you’re trying to evaluate the `define` form, but that is supposed to have been handled for you by the block of code before the portion you actually wrote. Make sure your code is confined between the `#BEGIN PROBLEM 4` and `#END PROBLEM 4` tags."
+                },
+                {
+                    "feedback": "I may be confused with the placement of checking for the MacroProcedure. I thought we'd have to place this check before checking the special form and returning from that conditional, but that's where this error is raised if we evaluate expr.first before the #Begin problem 4# tags. However, if we place the check for macros within the tags, and after the check special forms conditional, we never break into the MacroProcedure check."
+                },
+                {
+                    "feedback": "I think you are confusing the `do_define_macro` special form and actual `MacroProcedure`s. `do_define_macro` _creates_ a `MacroProcedure`, but it doesn’t actually evaluate it as its operator. It is only when the macro is passed in as the operator to a Scheme expression—which is handled only by the code within the problem tags—that the macro is applied. Applying a macro isn’t a special form; only defining it is."
+                },
+                {
+                    "feedback": "Ah, so to make sure I'm understanding the logic:  1) we run through scheme_eval and we should break into the special form conditional and actually create the MacroProcedure  2) once the MacroProcedure is created we would then break into the intended conditional (which is nested in the last else statement)?"
+                },
+                {
+                    "feedback": "The first case only occurs if the first element is the `define-macro` special form. That simply defines the `MacroProcedure` in the environment. The second case only occurs if the first element evaluates to a `MacroProcedure`. They are two completely separate evaluations."
+                }
+            ]
+        },
+        {
+            "question": "I passed all the test cases for this problem and all its respective cases in the tests.scm file. However, a test for a previous problem wouldn't pass.                (let ((x 2)) ((begin (define x (+ x 1)) +) 3 (begin (define x (+ x 1)) x)))  For the test on this, I get                test failed at line 568       expected 7        printed 8     115 passed; 1 failed  Could anyone explain why this is happening? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, I’m not entirely sure. It looks like one of the `(define x (+ x 1))` statements is getting evaluated more than once, though I’m not sure how this could happen. Could you double-check your `scheme_eval` and make sure your check for the macro doesn’t accidentally evaluate the operator twice?"
+                },
+                {
+                    "feedback": "My code works now. I saved the result of evaluating the first expression in a dummy variable and used that to check if it was a macro. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Why is this supposed to throw an error?                (define-macro (5) (list 1 2))",
+            "follow-ups": [
+                {
+                    "feedback": "5 isn’t a valid Scheme symbol (since it forms an integer) so it can’t be used as the name of a macro"
+                }
+            ]
+        },
+        {
+            "question": "Hey, I keep getting this error, anyone have any insight?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjl5t8yezsxr48i%2Fk36dx723m1tt%2F20191119.png)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, I used a portion of do_define_form for do_macro_form and forgot to edit some of it!"
+                },
+                {
+                    "feedback": "okay wait I'm still getting the error (sorry!)"
+                },
+                {
+                    "feedback": "Make sure you check that `expressions` is long enough that there is at least one body expression, and make sure the first element is itself a list, since it needs to have the symbol for the macro and then the list of parameters. You can achieve this with `check_form`."
+                }
+            ]
+        },
+        {
+            "question": "Hi, I'm not completely sure when to call MacroProcedure.apply_macro in scheme_eval. Is there some sort of if statement required to ensure the procedure being called is a macro? Basically, how would you differentiate between calling MacroProcedure.apply_macro and passing every parameter through scheme_eval and then calling scheme_apply?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Consider utilizing the isinstance method to check if the operator is a MacroProcedure"
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "Getting this unknown identifier error:                Problem 20 (EC) > Suite 1 > Case 1          scm> (define (map f lst)     ....         (if (null? lst)     ....             nil     ....             (cons (f (car lst)) (map f (cdr lst)))))     scm> (define-macro (for formal iterable body)     ....               (list 'map (list 'lambda (list formal) body) iterable))     for     scm> (for i '(1 2 3)     ....      (if (= i 1)     ....          0     ....          i))     # Error: unknown identifier: i          # Error: expected     #     (0 2 3)     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: unknown identifier: i          Run only this test case with \"python3 ok -q 20 --suite 1 --case 1\"  I am very sure that it is a problem with do_define_macro but I've mirrored do_define_form in terms of the if conditions, and for the \"else\" case, I just called scheme_eval on expressions.first. Could anyone tell me if I'm doing something wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "resolving follow ups related to the Scheme project since it is now past due - please post a new follow up if you still have questions about the assignment!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp1702wm22s%2Fk36qspxyw9kd%2FScreen_Shot_20191119_at_7.43.38_PM.png)  I'm getting the target with expressions.first.first, but in cases like above test case, how should I be getting the name of the target?  I have both check_form and check_formals(formals) in the do-define_macro, but it is not printing out an error"
+        },
+        {
+            "question": "Problem 20 (EC) > Suite 1 > Case 1 scm> (define (map f lst) .... (if (null? lst) .... nil .... (cons (f (car lst)) (map f (cdr lst))))) scm> (define-macro (for formal iterable body) .... (list 'map (list 'lambda (list formal) body) iterable)) for scm> (for i '(1 2 3) .... (if (= i 1) .... 0 .... i)) # Error: frame is not callable: # Error: expected # (0 2 3) # but got # Traceback (most recent call last): # ... # SchemeError: frame is not callable: Run only this test case with \"python3 ok -q 20 --suite 1 --case 1\" PLEASE HELP. I CANNOT SOLVE THIS PROBLEM. THANKS",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re somehow trying to pass a `Frame` (which is usually called `env`) in as an operator in a Scheme expression, though I have no idea how you would end up doing that in the first place. Check to make sure `env` is used as the correct positional argument in all your call expressions, and see if you can figure out which function the error is coming from."
+                },
+                {
+                    "feedback": "Thanks. I found it"
+                }
+            ]
+        },
+        {
+            "question": "Hello,  I have the error shown below, and I feel like there's an issue with what I'm defining as the body of the macro, which I believe to be:  (list 'map (list 'lambda (list formal) body) iterable) (or expressions.rest). Any guidance on how to address this problem or if this is the issue I should be considering would be very helpful!  To give background on the logic of my code: within the do_define_macro I: check the form of the expression and then check_formals on the formals, followed by forming the MacroProcedure on the formals, body, and env.  Thank you,  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjktvgbmy6oq4ys%2Fk36t6yhmlmbl%2FScreen_Shot_20191119_at_8.47.12_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Can you debug to output what the returned expression of calling `apply_macro` is? This will help you debug so that you know whether the problem comes before or after applying the macro."
+                },
+                {
+                    "feedback": "It appears that apply_macro is never being evaluated. I call it using \"operator.apply_macro(expr.rest, env)\", which I feel like is the correct way to call it and with the correct inputs?"
+                },
+                {
+                    "feedback": "If you are never applying the macro in the first place, check your if statement to make sure that it is entered at some point. Also remember you evaluate the operator before checking if it is a macro, and make sure your code still falls solely between the # BEGIN PROBLEM 4 and # END PROBLEM 4 tags."
+                },
+                {
+                    "feedback": "The if statement is successfully entered and I create the variable operator right before I check if the operator is an instance of the MacroProcedure. I also keep the new code within the tags."
+                },
+                {
+                    "feedback": "Well, are you ever actually evaluating the output of the macro? You need to explicitly evaluate it with `scheme_eval`."
+                },
+                {
+                    "feedback": "I am calling scheme_eval on the output of calling operator.apply_macro. I'm really sorry for the trouble - I'm also extremely baffled by this one."
+                },
+                {
+                    "feedback": "Hmmm, well, I can’t be sure where the issue is coming from, either. The most I can tell you is that can print debug statements (starting with “DEBUG:”) in order to try to narrow down where the issue is coming from. For example, I would want to see exactly what the macro is returning, so I would print the return value of the macro before I then evaluate it. If the macro output is what it is supposed to be, then I know the problem comes before then. If the macro output is what it looks like, then it’s something wrong with trying to evaluate the resulting expression. Sorry I can’t give you any other big pointers. Debugging is more of an art than a science. Good luck, though!"
+                }
+            ]
+        },
+        {
+            "question": "My partner and I just completed the project as well as the EC but it's showing that we still have 6 test cases locked. I manually checked if all the test cases have been passed for each question, and they have, so I'm wondering why we still have 6 to unlock?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi5ew7if4c9%2Fk36tsu08oma9%2FScreen_Shot_20191119_at_9.06.15_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You probably didn't run `python3 ok -q eval_apply -u` as indicated [here](https://cs61a.org/proj/scheme/#part-ii-the-evaluator)"
+                },
+                {
+                    "feedback": "oh yes thank you!"
+                }
+            ]
+        }
+    ]
+}

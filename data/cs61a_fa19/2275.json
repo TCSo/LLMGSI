@@ -1,0 +1,20 @@
+{
+    "subject": "[Lab 13] Q6: The Price is Right",
+    "content": "<a href=\"https://cs61a.org/lab/lab13//#q6\">Q6: The Price is Right</a>\n\n<p> Please post all questions you have below concerning Q6: The Price is Right in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can anybody give a hint on how this problem should be implemented? I know that there is the MIN() operator, but that only returns the minimum price of everything. So how else do I find the minimum price of each category?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that you can use the `GROUP BY` clause in order to group by a certain column, and all aggregator functions will aggregate by the group rather than the entire table."
+                },
+                {
+                    "feedback": "Review the 11/20 lecture if you need a refresher on how exactly to use aggregation in SQL."
+                },
+                {
+                    "feedback": "You are a god. Thank you."
+                }
+            ]
+        }
+    ]
+}

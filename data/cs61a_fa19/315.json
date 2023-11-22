@@ -1,0 +1,420 @@
+{
+    "subject": "[Hog] Problem 6",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-6-2-pt\">Problem 6</a>\n\n<p> Please post all questions you have below concerning Problem 6 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "**In this part:**  def both(f, g):   \"\"\"Return a commentary function that says what f says, then what g says.  NOTE: the following game is not possible under the rules, it's just   an example for the sake of the doctest  >>> h0 = both(say_scores, announce_lead_changes())   >>> h1 = h0(10, 0)   Player 0 now has 10 and Player 1 now has 0   Player 0 takes the lead by 10   >>> h2 = h1(10, 6)   Player 0 now has 10 and Player 1 now has 6   >>> h3 = h2(6, 17)   Player 0 now has 6 and Player 1 now has 17   Player 1 takes the lead by 11   \"\"\"   def say(score0, score1):   return both(f(score0, score1), g(score0, score1))   return say  **Why the output of \"h2 = h1(10, 6)\" is only say_scores? I think it should also print that \"Player 0 takes the lead by 4.\"**  **Thank you!**",
+            "follow-ups": [
+                {
+                    "feedback": "announce_lead_changes should only make an announcement if the leader has changed - in the case you mentioned, player 0 is still leading."
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "For question 6, suite 2, case 1, how can anything be outputted when there isn't any function call other than assigning values to s0 and s1?",
+            "follow-ups": [
+                {
+                    "feedback": "That's where the commentary function comes in - if you use the -v flag like so:                python3 ok -q 06 --suite 2 --case 1 -v  You can see that the parameter say is being set to a function called echo:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydlyk1lid57di%2Fk05uq2y36lbv%2FCapture.PNG)  This commentary function will output to the console as long as you follow the prompt of question 6 correctly."
+                }
+            ]
+        },
+        {
+            "question": "def total(s0, s1):     ...     print(s0 + s1)     ...     return echo     >>> def echo(s0, s1):     ...     print(s0, s1)     ...     return total     >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2, 3), goal=10, say=echo)  * 2  * 4 <\\- Shouldn't line 2 return this?",
+            "follow-ups": [
+                {
+                    "feedback": ">>> from hog import play, always_roll, both, announce_lead_changes, say_scores     >>> from dice import make_test_dice     >>> #     >>> def echo_0(s0, s1):     ...     print('*', s0)     ...     return echo_0     >>> def echo_1(s0, s1):     ...     print('**', s1)     ...     return echo_1     >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2), goal=3, say=both(echo_0, echo_1))  posted wrong code, sorry"
+                },
+                {
+                    "feedback": "The first line prints out * 2. The second line prints out ** <score1 after player 0 takes their turn>. This is because each time a turn is taken you call both echo_0 and echo_1 on the score0 and score1 arguments. In other words, after each turn, echo_0 prints out an asterisk and score0, and echo_1 prints out 2 asterisks and score1."
+                },
+                {
+                    "feedback": "So would that be  * 2  ** 4"
+                },
+                {
+                    "feedback": "score1 is still 0. It hasn't changed because so far only player 0 has taken a turn. The echo_0 and echo_1 functions are called EACH time a player takes a turn.  So, player 0 takes a turn and score0 is updated. Then, before player 1 takes his first turn and before score1 changes, echo_0 and echo_1 are called."
+                },
+                {
+                    "feedback": "I get it now, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "For question 6 suite 2 case 4 I can't seem to figure out line 2, when i test it in an interactive session, it just points to the function, what is the test looking for? Thank you",
+            "follow-ups": [
+                {
+                    "feedback": "Figured it out by guessing but what comes for line 3? Or, at least, how do I understand it better?"
+                },
+                {
+                    "feedback": "Nevermind I figured it out, I guess that makes sense but I still dont understand why this works"
+                },
+                {
+                    "feedback": "in this case, the commentary function is alternating between echo and total, since both functions return the other function after running. thus, on successive turns, the commentary function that will be used for the next turn is changing, and therefore the type of output is alternating."
+                },
+                {
+                    "feedback": "Brandon, this comment really helped. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": ">>> from hog import play, always_roll   >>> from dice import make_test_dice   >>> #   >>> def count(n):   ... def say(s0, s1):   ... print(n)   ... return count(n + 1)   ... return say   >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(3), goal=10, say=count(1))  I got the answer but im still unsure how this works exactly.",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdj0iz14p4v9%2Fk07o4e1v8tos%2FCapture.PNG)"
+                },
+                {
+                    "feedback": "say = count(1) should assign say to the say function, right? Where does say get called exactly?"
+                },
+                {
+                    "feedback": "Say gets called within the \"play\" function, at the end of each turn. What the count function essentially does is create a say function that is compatible with the arguments that play is expecting to pass to the say function, but instead of acting on those arguments, say essentially prints out the latest count (print(n)) and then prepares another function to return the next count (return count(n+1)) so that, when that version of the say function gets called within play again, it prints out that very next count  edit: changed some terms to make more sense"
+                },
+                {
+                    "feedback": "ah gotcha thanks"
+                },
+                {
+                    "feedback": "Where do we pass n into the play function?"
+                }
+            ]
+        },
+        {
+            "question": "Hi All                ---------------------------------------------------------------------       Question 6 > Suite 2 > Case 3       (cases remaining: 4)     >>> from hog import play, always_roll       >>> from dice import make_test_dice       >>> #       >>> def echo(s0, s1):       ... print(s0, s1)       ... return echo       >>> strat0 = lambda score, opponent: 1 - opponent // 10       >>> strat1 = always_roll(3)       >>> s0, s1 = play(strat0, strat1, dice=make_test_dice(4, 2, 6), goal=15, say=echo)       (line 1)? 4 6       -- Not quite. Try again! --     (line 1)? 4 12       -- Not quite. Try again! --     (line 1)? 4 0       (line 2)? 4 12       (line 3)? 9 12       -- Not quite. Try again! --     (line 1)? 7 12       -- Not quite. Try again! --     (line 1)? 8 12       -- Not quite. Try again! --     (line 1)? 13 12       -- Not quite. Try again! --     (line 1)? 12 18       -- Not quite. Try again! --     (line 1)? 13 18       -- Not quite. Try again! --     (line 1)? 12 12       -- Not quite. Try again! --     (line 1)?   I can't figure out this particular case. Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "The commentary is played after every turn (ie when the players change). Both players start at 0 points...  Also check your free_bacon math. You were almost there with that string of 3 lines."
+                },
+                {
+                    "feedback": "It appears you were on the right track, but then tried guesses for line 3 without first re-entering lines 1 and 2"
+                },
+                {
+                    "feedback": "Oh wait I see, it expects me to start from the beginning if I mess up. It says line 1 at the beginning! Meaning I must start at 4 0 all over again!"
+                },
+                {
+                    "feedback": "To clarify, the commentary on the side (line x) went from (line 3) to (line 1) if you mess up. In other words, it doesn't save your last position after you've committed your first mistake, and sends you all the way to the start (like a retro game)."
+                },
+                {
+                    "feedback": "I understand how to get the first two lines but how do you get 9 for the first player in the third line? Doesn't the player roll 0 dice and so they get 9 points for the round and since they already had 4 points before that would mean they now have 13?"
+                },
+                {
+                    "feedback": "oh wait nevermind hahaha"
+                }
+            ]
+        },
+        {
+            "question": "def total(s0, s1):  ... print(s0 + s1)  ... return echo  >>> def echo(s0, s1):  ... print(s0, s1)  ... return total  >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2, 3), goal=10, say=echo)  I'm having a little trouble understanding how this works. Essentially, echo is called on s0, s1 and prints  2 0  After that, doesn't it progress to the total function, printing 2? What exactly happens when the function returns another function?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the say function is called once per each turn. So, on player 0's first turn they get 2 points and echo is called because it is bound to say. Then, echo returns total, so say is rebound to total. However, that doesn't mean that total is called immediately. It is only called after the next turn: player 1 takes their turn. So, on each turn, the say function alternates between being bound to echo or total."
+                },
+                {
+                    "feedback": "So the first line would print \"2 0\", but wouldn't the second line just print \"4\"? What am I doing wrong here?"
+                },
+                {
+                    "feedback": "^ Oh wait nvm, I just remembered how the make_test_dice function doesn't reset back to the first argument after you call it"
+                },
+                {
+                    "feedback": "Remember that the say function is called once per each turn. So, on player 0's first turn they get 2 points and echo is called because it is bound to say. Then, echo returns total, so say is rebound to total. However, that doesn't mean that total is called immediately. It is only called after the next turn: player 1 takes their turn. So, on each turn, the say function alternates between being bound to echo or total.  When echo returns total, isnt total immediately evaluated and returned? Why not?"
+                }
+            ]
+        },
+        {
+            "question": "Question 6 > Suite 2 > Case 4  (cases remaining: 3)  >>> from hog import play, always_roll  >>> from dice import make_test_dice  >>> #  >>> # Ensure that say is properly updated within the body of play.  >>> def total(s0, s1):  ... print(s0 + s1)  ... return echo  >>> def echo(s0, s1):  ... print(s0, s1)  ... return total  >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2, 3), goal=10, say=echo)  (line 1)? 2 0  (line 2)? 5  (line 3)? 2 3  \\-- Not quite. Try again! --  I don't know why it the total is '5' and what about line 3?",
+            "follow-ups": [
+                {
+                    "feedback": "in this example, the commentary function being called is changing on each turn - make sure that your answers reflect that!"
+                },
+                {
+                    "feedback": "I understand that the commentary function being called is changing on each turn but why? Why doesn't the total appear right after the scores are said? like  2 0  2  2 3  5"
+                },
+                {
+                    "feedback": "The 'say' function is only called once per turn. Essentially, P0 takes their term, say is bound to echo (and as a byproduct of that prints out 2 0). Then, echo demands that say is rebound to total. However, P1 has to take their turn before say can be called again. So P1 takes their turn, but that isn't printed, because say is still bound to total. Instead, say returns the total of the unprinted scores 2 3, which is five. Then, say is rebound to echo.  It really helps to write out everything that happens, like:  say = echo  2 0  say = total >>> (2 3) <<< (this part isn't printed, but P1 still takes their turn)  5  say = echo  4, 3  and so on."
+                },
+                {
+                    "feedback": "(line 1)? 2 0   (line 2)? 5   (line 3)? 4 3   (line 4)? 10   (line 5)? 6 6   (line 6)? 15   (line 7)? 8 9   (line 8)? 20"
+                },
+                {
+                    "feedback": "Thanks! This really helped!"
+                }
+            ]
+        },
+        {
+            "question": "Help! When I try to call my say function I kept failing in the tests where the echo and count(1) func isn't alternating or updating, I can't figure out what might be the problem. Any hints?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk097bu3v7js2%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190907_00.02.54.png)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk1t71n5604%2Fk097a3ey36j6%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20190907_00.01.17.png)",
+            "follow-ups": [
+                {
+                    "feedback": "HI. I got the same problem as you. Have you figured out how to solve it?"
+                },
+                {
+                    "feedback": "Yes, it's because when we call func echo for the first time, it should return the new value, which is func total, to the func say, if there is nothing to accept the return value, it will be discarded, so next time we call the func say, it is not updated. hope you can resolve the problem too!"
+                },
+                {
+                    "feedback": "Do we need to define individual functions echo, total, and count within play in order for it to update the print value?"
+                },
+                {
+                    "feedback": "I don't think we need to define eco and total, I believe they are only for running tests. my problem was i forgot to bound the return value, which is also a function, to the func say. Not sure if we got the same problem."
+                },
+                {
+                    "feedback": "I don't really know where to put say function. Did you put in the while loop in play function? I don't know why there is a space for problem 6 before returning the score0, score1."
+                },
+                {
+                    "feedback": "yes, i put it in the while loop,  # note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)"
+                },
+                {
+                    "feedback": "I see. I think it's important to apply this rule below, but I don't know how.  For example, `say(score0, score1)` should be called at the end of the first turn. Its return value (another commentary function) should be called at the end of the second turn. Each consecutive turn, call the function that was returned by the call to the previous turn's commentary function."
+                },
+                {
+                    "feedback": "Could someone please explain def count(n): def say(s0, s1): print(n) .... in great detail? I am having some trouble understanding it step by step what happens. Thanks"
+                },
+                {
+                    "feedback": "I am also getting this error and am still unsure of how to fix it."
+                },
+                {
+                    "feedback": "the error that shows our function continuous print 1 when it is supposed to print 1 2 3 4 5 6 7"
+                },
+                {
+                    "feedback": "say = count(1) according to the argument. But should it stay say = count(1) throughout the while loop? If not, how can you make say change to something more relevant?"
+                },
+                {
+                    "feedback": "My program still shows all 1's as the output. How should I fix it? Am i supposed to write a return statement?"
+                },
+                {
+                    "feedback": "I'm also having the same problem.. I don't understand how to update the count function so that it accurately outputs the value it should. I called say(score0, score1) in the while loop, and I assumed that every time count was called it would update, but that doesn't seem to be the case."
+                },
+                {
+                    "feedback": "Has anyone solved this?.......Still, get 1111111..."
+                },
+                {
+                    "feedback": "resolving old Hog follow ups - please post a new public / private post if you have lingering questions about parts of the project!"
+                }
+            ]
+        },
+        {
+            "question": "Hey guys, so basically I'm having trouble implementing this so called commentary function. If I call the function 'say' with score0 and score1, it passes like 4/6 test cases. The ones it doesn't pass are the ones where 'say' is bound to a function that takes in only 1 argument, like 'count'. Is there a way to generalize how many arguments you pass into a function?",
+            "follow-ups": [
+                {
+                    "feedback": "In the context of number 6, say should always be bound to a function that takes two parameters, namely, score0 and score1. Perhaps one of your commentary functions isn't returning a two-parameter function?"
+                },
+                {
+                    "feedback": "For 6 im confused because they do commentary functions later!! Am I supposed to just return the scores within question 5 before return(score0,score1)?  can I use say_scores?"
+                },
+                {
+                    "feedback": "there is an argument provided to the play function for a commentary function that should be used."
+                }
+            ]
+        },
+        {
+            "question": "I've got the code for this working, but it only works when it include it in the section of the body that is under #BEGIN PROBLEM 5. When I put it after #BEGIN PROBLEM 6, it doesn't work (even with what I assume to be correct indentation). Is it okay if I just leave the code for problem 6 in the problem 5 area?",
+            "follow-ups": [
+                {
+                    "feedback": "the areas marked with the comments may be misleading, and are not restrictive in where you can place code corresponding to the problem."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkx7hif85g75c1%2Fk0ajjxggpn52%2FScreen_Shot_20190907_at_10.32.52_PM.png)not sure why my code skips over the \"3 3\"",
+            "follow-ups": [
+                {
+                    "feedback": "Seems like the function is only being called after player 0 takes a turn"
+                }
+            ]
+        },
+        {
+            "question": "can anyone help?",
+            "follow-ups": [
+                {
+                    "feedback": "nothing was posted!"
+                }
+            ]
+        },
+        {
+            "question": "def commentary(score0, score1):   things_to_say = both(say_scores(score0, score1), announce_lead_changes(previous_leader)   print(things_to_say)   return commentary  I'm getting a syntax error on the print, anyone know why?",
+            "follow-ups": [
+                {
+                    "feedback": "it seems like you are attempt to assign the values of two expressions to a single name in the first assignment statement."
+                }
+            ]
+        },
+        {
+            "question": "When trying to pass Question 6 < Suite 2< Case 2, i am getting a row of 1's and 2's. I get the reason why it is like this; it is because I am not assigning the second variable after player 1 ends their turn to the new variable after player 0 ends their turn. Does anyone have any ideas as to how to access the variable that gives me the output of 2 as my next variable after player 0 ends their turn to make it three? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fiy0l288kfo4fi%2Fk0bjzor7awes%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "You could think about a case where instead of calling the say function directly after the first turn in each iteration of the while loop, the function from the second turn of the previous iteration of the while loop is called."
+                }
+            ]
+        },
+        {
+            "question": "I totally understood how everything worked when I ran python3 ok -q 06 -u this. However, I am not sure what the problem 6 is asking.  Can anyone explain more about what the problem 6 is asking?  Do I need to make a new function or what?",
+            "follow-ups": [
+                {
+                    "feedback": "you should update your play function to now use the provided commentary function (see the parameters of the function), with behavior according to the spec and the doctests."
+                },
+                {
+                    "feedback": "Can you clarify more? We know that there needs to be commentary after every turn, but we don't know how to start or go about that. Do we define a function that can take in any commentary function?"
+                },
+                {
+                    "feedback": "We are already given a commentary function as the say parameter. Keep in mind that the commentary function when called returns the commentary function to be called on the next turn. What's a way to call the commentary function and save it to be used on the next turn?"
+                }
+            ]
+        },
+        {
+            "question": "I am getting a series of 1s in Question 6 < Suite 2< Case 2. I can't seem to figure out why. I am calling the say function by passing the arguments score0 and score. The say is bound to silence as a default argument so I am defining a function say inside the silence. silence function is returning say and the say function defined in the silence is returning say_score(commentary func  tion).  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy256ipz5n8%2Fk0bpfkh3v10n%2FScreen_Shot_20190908_at_6.05.07_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I've got the same issue. Were you able to figure it out?"
+                },
+                {
+                    "feedback": "Nevermind, I figured it out. OP, if you're stuck as well, consider the fact that every say function _returns_ a function that needs to be stored in your code somehow so that it is updated and ran next time say is called."
+                }
+            ]
+        },
+        {
+            "question": "Might be misunderstanding this question, but are we supposed to implement the example commentary functions given to us like say_scores and announce_lead_changes, or are we supposed to do the \"echo\" and \"total\" ones that the tests run? It seems like the latter simply based on the tests, just trying to understand exactly whats going on here.",
+            "follow-ups": [
+                {
+                    "feedback": "those are all examples of commentary functions that are passed into the play function - your job is to update your play function so that the passed in commentary function (see the parameters of play) will be called while playing the game."
+                },
+                {
+                    "feedback": "the specific ones are just examples of what could be called, the actual answer is rather general."
+                }
+            ]
+        },
+        {
+            "question": "What is the problem?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzw8xfv1bya23u%2Fk0d3zadufrgv%2F15680759181.png)",
+            "follow-ups": [
+                {
+                    "feedback": "same problem! need help.."
+                },
+                {
+                    "feedback": "you probably wrote 'return' in the while loop."
+                },
+                {
+                    "feedback": "How to replace return in this situation..? I am kinda confused..."
+                },
+                {
+                    "feedback": "you dont need return cause commentary function will have return itself. You just need to keep tracking updated return value."
+                }
+            ]
+        },
+        {
+            "question": "Am I supposed to write new commentary functions or use the ones already provided",
+            "follow-ups": [
+                {
+                    "feedback": "use the one that is provided as an argument to the play function."
+                }
+            ]
+        },
+        {
+            "question": "For the test case count(1) where the output is \" 1 1 1 1 1 1 1\" instead of \"1 2 3 4 5 6 7\", I know that we have to store the return value of say function into a variable, but what kind of variable should we store it into? For example, if we do it like:                say0 = say(score0, score1)       print(say0)  Second line will literally print out the location in memory where the function is, i.e.:                <function echo at 0x107796730>  I've tried making a nested function but not sure what return value that nested function should have, or if we should call the say function in the nested function?",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm I got it. Was calling say wrongly in the nested function"
+                }
+            ]
+        },
+        {
+            "question": "My code keeps executing 90% of the expected outputs but not the last line. I have an idea as to why this may be happening but don't know how to go about fixing it.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzhn4oemje05g4%2Fk0dczhzt80go%2FScreen_Shot_20190909_at_9.48.35_PM.png)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzhn4oemje05g4%2Fk0dd0hlb76yo%2FScreen_Shot_20190909_at_9.48.47_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "never mind i made a dumb mistake figured it out:)))"
+                }
+            ]
+        },
+        {
+            "question": "Hello! I've added the 'say' function into my while loop, but I think I'm missing something pretty important, because I don't understand how to make it print out more than the first two lines of code. Any ideas on how to get started on fixing this/ways to help me think about the issue are appreciated!!",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind! I figured it out!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjqgv8fwilsk5lr%2Fk0e6zm5ct965%2FCS_Question.JPG)  Hey, I've been stuck on this unlock case for a bit and I'm not sure what I'm doing wrong. I looked to see how the both function displayed results, and  in seems to print the result of one function below the other. I've tried all variations of putting the two results side by side, (i.e * 2 ** 2), but they don't  seem to work. I also don\"t know how to start a new line without getting the python to register my incomplete answer. Can you give me some pointers  of what I should be doing?",
+            "follow-ups": [
+                {
+                    "feedback": "I was also stuck on this. I'll point you to an area of code that I looked over when I started doing this problem.  say= **both** (echo_0, echo_1)  Recall that the both function                \"\"\"Returns a commentary function that says what f says, then what g says.\"  Meaning that we are printing on different lines, but each turn we are printing **both** of the scores."
+                }
+            ]
+        },
+        {
+            "question": "I don't get it. Do we add a new block of code or modify the original code from problem 5?",
+            "follow-ups": [
+                {
+                    "feedback": "Modify the original code from problem 5. In this one you're just adding commentary to the code you had in problem 5."
+                }
+            ]
+        },
+        {
+            "question": "Question 6 > Suite 2 > Case 3     (cases remaining: 4)          >>> from hog import play, always_roll     >>> from dice import make_test_dice     >>> #     >>> def echo(s0, s1):     ...     print(s0, s1)     ...     return echo     >>> strat0 = lambda score, opponent: 1 - opponent // 10     >>> strat1 = always_roll(3)     >>> s0, s1 = play(strat0, strat1, dice=make_test_dice(4, 2, 6), goal=15, say=echo)  I'm a bit stuck on unlocking this case. My trouble is occurring at the lambda function that strat0 is set equal to. How do I evaluate this lambda function? Thanks in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, I got it! I was doing 1 - opponent before doing opponent // 10."
+                },
+                {
+                    "feedback": "Could you elaborate on how you did this one?"
+                },
+                {
+                    "feedback": "Use order of operations"
+                },
+                {
+                    "feedback": "I'm getting 4 12 for line one which is wrong. We count the initial scores as 0 right? I did strat0 = 1-0//10 = 1 score0 = 4 strat1 = 4+2+6 = 12"
+                },
+                {
+                    "feedback": "think about when the printing happens"
+                }
+            ]
+        },
+        {
+            "question": "i'm not too sure what this problem is asking, are we writing a say function or simply calling a commentary function?",
+            "follow-ups": [
+                {
+                    "feedback": "you are adding to your play function so that the commentary function is now used while playing the game."
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on: Question 6 > Suite 2 > Case 4 (cases remaining: 3) >>> from hog import play, always_roll >>> from dice import make_test_dice >>> # >>> # Ensure that say is properly updated within the body of play. >>> def total(s0, s1): ... print(s0 + s1) ... return echo >>> def echo(s0, s1): ... print(s0, s1) ... return total >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2, 3), goal=10, say=echo)",
+            "follow-ups": [
+                {
+                    "feedback": "I also need help with this one!"
+                },
+                {
+                    "feedback": "Oh I figured it out: the trick is the program is going back and forth between echo and total per turn. So it starts with outputting echo on the first turn and then alternates between the two for the rest of the game."
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to print the score displays, but in a test example:  I get:  3 0  6 0  6 3  instead of:  3 0  3 3  6 3  Something is going on with the middle set of numbers. Any ideas from experience on what is going wrong? thx.",
+            "follow-ups": [
+                {
+                    "feedback": "Help!"
+                },
+                {
+                    "feedback": "It looks like, for some reason, player 0 is taking two turns before player 1 takes any? Does your code have anything that reflects this?"
+                },
+                {
+                    "feedback": "The sections for player 1 and player 0 are both equal in length and have the same formatting. However, there is one \"while\" loop for the entire article. Not that that makes any difference ... Could you think of any common mistake that would propel player 0 to take another unnecessary turn?"
+                },
+                {
+                    "feedback": "Unless you put your say function in some really odd place, I'm not sure, sorry. Maybe try running through your code manually with the example that you're stuck on (I think it's the one where echo prints out s0, s1) and try and see where your code is misinterpreting that way?"
+                },
+                {
+                    "feedback": "I put the \"say\" function following the end of the \"if feral hogs\" statement of Player 0's sections , and then before the final switch player before the last line of the problem. Is there a more optimal place to put them?"
+                },
+                {
+                    "feedback": "I can't see an issue with that, no. Anyone else more well versed in this section please feel free to chime in, I'm honestly not sure."
+                },
+                {
+                    "feedback": "resolving old Hog follow ups - please post a new public / private post if you have lingering questions about parts of the project!"
+                }
+            ]
+        },
+        {
+            "question": "So I'm getting this very peculiar problem: ImportError: cannot import name 'say_scores' from 'hog' (C:\\Users\\esteb\\Documents\\cs61a\\Projects\\hog\\hog.py).  Anyone run into this error and if so, how to solve it? (Question 6, Suite 3, Case 1)",
+            "follow-ups": [
+                {
+                    "feedback": "Nvm, I figured it out. I accidentally indented say_score."
+                }
+            ]
+        }
+    ]
+}

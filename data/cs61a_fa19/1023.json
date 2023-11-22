@@ -1,0 +1,215 @@
+{
+    "subject": "[Cats] Problem 3",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-3-1-pt\">Problem 3</a>\n\n Please post all questions you have below concerning Problem 3 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nHere are some tips if you&#39;re stuck:\n- <code>typed_words</code> is a list, so you can call <code>len(typed_words)</code> to compute how many words have been typed.\n- It&#39;s a special case that if <code>typed_words</code> is empty, you should return <code>0.0</code>.",
+    "threads": [
+        {
+            "question": "How is \"round(accuracy(typed_string3, reference_text), 1)\" expected to be 100.0 when typed_string3 is just \"Abstraction, \"?",
+            "follow-ups": [
+                {
+                    "feedback": "The only word in typed_string3 is \"Abstraction,\", and the first word of reference_text is \"Abstraction,\". The corresponding words match, so that means that everything we've typed up to this point is correct, so typed_string3 is 100% correct, hence we return 100.0.  If we had more words from the reference_text, such as \"Abstraction, in general,\", then it would still be 100.0 because the corresponding words in the typed string still match what they are supposed to be in the reference, even if we didn't type out the whole thing yet."
+                }
+            ]
+        },
+        {
+            "question": "Just to clarify, are we allowed to use any subset of the utility functions in any of the questions?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes"
+                },
+                {
+                    "feedback": "I used while loop, is there a way of doing this without looping?"
+                },
+                {
+                    "feedback": "Well, somehow in this code you'll need to iterate through every value in typed so you can check each word, but if you don't want to use a while loop, there is likely a built-in function that will do the same thing as your while loop, but without you explicitly using one. In the end it's still iteration, though."
+                },
+                {
+                    "feedback": "Okay, thank you."
+                }
+            ]
+        },
+        {
+            "question": "Why does  round(accuracy(typed_string3, reference_text), 1)  expect a result of 100%? Shouldn't it just be that \"Abstraction\" is correctly typed, but every word after that in the reference text is incorrectly typed?",
+            "follow-ups": [
+                {
+                    "feedback": "EDIT: Sorry, sorry I didn't look at the post above. Won't happen again."
+                }
+            ]
+        },
+        {
+            "question": "How do I get the percentage to refresh after every word, instead of returning (words typed correctly / total words) at the end? I'm stuck on problem 3 case 2",
+            "follow-ups": [
+                {
+                    "feedback": "See if you can adjust the denominator by excluding words that weren't typed"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjpnbkjgwmablh%2Fk0zqhmixr9ir%2FScreen_Shot_20190925_at_1.41.19_PM.jpg)  Hi, I don't understand why this test case should fail? I thought we would want to return True if there is a 'topic' word we are looking for that's in another 'paragraph' word.",
+            "follow-ups": [
+                {
+                    "feedback": "The word counts as 'Urelated', not 'related' \\- the code needs to search for properly spelled words."
+                },
+                {
+                    "feedback": "Where would we find these words if we don't have a merriam webster-type dictionary or autocorrect?"
+                },
+                {
+                    "feedback": "You don't need a dictionary - you just need to make sure one or more of the topic words, _ignoring punctuation and upper/lower-case_ , is **100% equal** to one or more of the words inside the paragraph"
+                },
+                {
+                    "feedback": "I think I put this in the wrong thread, this should've a question for Problem 2."
+                },
+                {
+                    "feedback": "Yeah"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk0pfv2ie1j8246%2Fk107a3ugdwzs%2FScreen_Shot_20190925_at_9.29.25_PM.png)  I got this error. Is this because I am using this func wrong? I thought this split func will return a new list with every word separated. So I thought I can use list syntax to compare each word from typed_words and referenced_words. Can someone explain this? Thank you",
+            "follow-ups": [
+                {
+                    "feedback": "S seems to be a list according to the error, but you can only use it on strings. Make sure you are passing a string to split and not a list if you want to use it."
+                },
+                {
+                    "feedback": "Just as an additional note, the first couple of lines already call split on both typed and reference, so there is no need to do it again."
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain this doc test to me? I thought it would return 50%  >>> accuracy('Cute', 'Cute Dog.')   100.0",
+            "follow-ups": [
+                {
+                    "feedback": "\"It returns the percentage of words in `typed` that exactly match the corresponding words in `reference`.\" There is 1 word in `typed`, and that 1 word exactly matches the corresponding word in `reference`, so the accuracy is 100%."
+                }
+            ]
+        },
+        {
+            "question": "Hello, my partner and I finished Problem 3 and the first time we ran OkPy, we passed all cases.  However, after finishing problem 4 and running through all the problems once more, we encountered an error as shown below.  We tried rerunning the code multiple times, and even checked with ok --score, but we have not earned that point.  We were wondering if this perhaps was a bug in the system, because the code appears to be correct, and we've already passed it once.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjw7uuag5v9%2Fk1316prwj2z9%2FScreen_Shot_20190927_at_9.02.18_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Oddly, I had the same issue where I checked the cases the night before, and the next day when I reran the tests, I failed one, though not the same one as yours. I would suggest you to find the issue and fix your code!"
+                },
+                {
+                    "feedback": "+1"
+                },
+                {
+                    "feedback": "running into same problem, how did u fix?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk136le9xob7f%2FScreen_Shot_20190927_at_11.28.44_PM.png)How can we deal with the lists that are not the same length? I made a while loop with i (index) < typed_length, but when it hits the point where the reference list is shorter than the typed list, I get the index out of range and not sure what to do to it to accommodate for the less entries",
+            "follow-ups": [
+                {
+                    "feedback": "never mind figured it out! changed my comparison to the minimum of the two lengths."
+                },
+                {
+                    "feedback": "hi, I ran into the same problem. Can you explain to me how do you solve it?"
+                },
+                {
+                    "feedback": "make sure that your i (or the variable that you are using to iterate through the split lists) never exceeds the length of any of the lists! - this is what causes an index out of bounds exception."
+                }
+            ]
+        },
+        {
+            "question": "Can we use zip() for list comprehension to iterate in pairs?",
+            "follow-ups": [
+                {
+                    "feedback": "Sure"
+                }
+            ]
+        },
+        {
+            "question": "How can \"round(accuracy(typed_string3, reference_text), 1)\" be 100.0 when typed_string3 is just \"Abstraction, \", but  accuracy(\"a b c d\", \" a d \") is 25.0 and not 50.0?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm"
+                }
+            ]
+        },
+        {
+            "question": "Am I correct in thinking there are a couple different cases and depending on which one is longer or shorter or same length they needed to be treated a bit differently?",
+            "follow-ups": [
+                {
+                    "feedback": "kinda, some of the cases you can combine together in your implementation."
+                }
+            ]
+        },
+        {
+            "question": "`>>> accuracy(\"a b c d\", \" a d \")`  `50.0`  ``  `# Error: expected`  `# 25.0`  `# but got`  `# 50.0`  For this case, why is the accuracy 25.0? In the project instructions, it states that \"If a typed word has no corresponding word in the reference because `typed` is longer than `reference`, then the extra words in `typed` are all incorrect.\" Wouldn't this mean that \"c\" and \"d\" are automatically considered incorrect because they are elements that `reference` doesn't have, and then accuracy would be based on \"a\" and \"b\" leading to 50.0?",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry I misunderstood the question! We are supposed to look at the percentage of accuracy in the typed_words, so in that case it is 1 correct word (\"a\") out of 4, which is 25.0."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjwu0uqs63eu502%2Fk1427nvkkvx7%2FScreen_Shot_20190928_at_2.19.19_PM.png)Can someone help me understand why this should be 50.0% accuracy instead of 100.0?",
+            "follow-ups": [
+                {
+                    "feedback": "This should be 50% accuracy because only c and d were typed correctly (as in the correct order)."
+                },
+                {
+                    "feedback": "the expected first two \"words\" in reference are \"b\" and \"a\" whereas the first two \"words\" in typed are \"a\" and \"b\" so they do not count as correct. Only the second half would count as correct, thus 50% accuracy."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy256ipz5n8%2Fk156rxoj99og%2FScreen_Shot_20190929_at_9.15.40_AM.png)  I can't figure out why this case is failing and why my code is returning a percentage of 1.1 when the code seems correct.",
+            "follow-ups": [
+                {
+                    "feedback": "Your counter is probably not incrementing properly in the case that more words are typed than there are reference words"
+                },
+                {
+                    "feedback": "Thank you so much! the problem was with the counter"
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20190929_at_6.32.15_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjktvg3nre34to%2Fk15qpdy24vl9%2FScreen_Shot_20190929_at_6.32.15_PM.png)  I cant figure out why I get 1.1 for this",
+            "follow-ups": [
+                {
+                    "feedback": "Please see @367, especially #7. From the Terminal window the only thing we can conclude is that your count is not updating properly"
+                },
+                {
+                    "feedback": "Im just not sure how to message staff directly so I can show the actual code ):"
+                },
+                {
+                    "feedback": "Make a private post"
+                }
+            ]
+        },
+        {
+            "question": "accuracy(\" a b \\tc\" , \"a b c\")  for this case, is whitespace count as a word? I tried 0.0 but it was incorrect.",
+            "follow-ups": [
+                {
+                    "feedback": "words are any whitespace-separate groups of non-whitespace characters."
+                }
+            ]
+        },
+        {
+            "question": "How am I supposed to iterate through spaces within the strings? I can iterate through each element to see if they're equal, but how do I iterate through whitespaces?",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean? Your string is already separated into a list in the problem using split() which uses whitespaces to separate elements. \"Hi I am\" separates into a list composed of 3 elements."
+                },
+                {
+                    "feedback": "What? There is no split function given in the project description at all? what exactly are you talking about?"
+                },
+                {
+                    "feedback": "Its in utils and also applied at the beginning of the problem."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk1absnf7n21b%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191002233509.png)I don't know how \"30.0\" got"
+        },
+        {
+            "question": "I have already pointed out that![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk1adjobmmt8m%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191003002308.png)  why the list index still out of range![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzxcp3myjt6kw%2Fk1adkcm4tabq%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191003002412.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Please refrain from posting any code. Try using a for loop instead, and see how that works for you. Also you need to cover the case where lengths of the either lists may differ. List comprehensions may be very useful to you here; I think for loops are optimal here."
+                }
+            ]
+        }
+    ]
+}

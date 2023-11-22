@@ -1,0 +1,253 @@
+{
+    "subject": "[HW 05] Q5: Generate Paths",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q5\">Q5: Generate Paths</a>\n\n<p> Please post all questions you have below concerning Q5: Generate Paths in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "anyone have some hits about that?",
+            "follow-ups": [
+                {
+                    "feedback": "like what is the basic case of that."
+                },
+                {
+                    "feedback": "try using generators"
+                },
+                {
+                    "feedback": "First try asking yourself what the function does and what it returns / yields. Then maybe think of a simplest form of a tree and see what generate_path should do on that input.  One hint: generators are iterators which are iterables. That sounds very mouthful but all it means is that you can do something like                for x in <generator>:"
+                },
+                {
+                    "feedback": "but then when you call next doesn't it just return the generator ? and doesn't actually execute the for loop"
+                },
+                {
+                    "feedback": "Not quite in this case. Try pondering over this example                >>> def f():       ...\tyield from [1, 2, 3, 4]              >>> def t():       ...\tfor x in f():       ...\t\tprint(x)              >>> t()       1       2       3       4  Conceptual TLDR:  1\\. Generators are iterables  2\\. generator functions (like f) returns a generator, when you call next on that generator, you get the yielded value."
+                }
+            ]
+        },
+        {
+            "question": "I feel like this problem could be really easy if I could just turn any list into a generator. Is there any way to do this?",
+            "follow-ups": [
+                {
+                    "feedback": "Don't think of it that way - just think of it as recursively computing generators, and then for each of those generators yielding a modified version of its output. Think of this as a recursion problem - there is a base case to the generator"
+                }
+            ]
+        },
+        {
+            "question": "Is it required that we use both for loops, or can we remove one of them if necessary?",
+            "follow-ups": [
+                {
+                    "feedback": "From the description: \"We have provided a (partial) skeleton for you. **You do not need to use this skeleton** , but if your implementation diverges significantly from it, you might want to think about how you can get it to fit the skeleton.\""
+                }
+            ]
+        },
+        {
+            "question": "can we use any return statements in this Q, for recursive calls?",
+            "follow-ups": [
+                {
+                    "feedback": "The intention is to use `yield`, not `return` (remember, they have very similar behaviors - don't overcomplicate things!)"
+                }
+            ]
+        },
+        {
+            "question": "Would it help to use the __contains__ method in this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "No"
+                }
+            ]
+        },
+        {
+            "question": "I've been running through this problem multiple times over the course of the last few days and I still can't figure out what the second for statement is for. Maybe I just don't understand generators well enough to do this problem, but do y'all have any hints?",
+            "follow-ups": [
+                {
+                    "feedback": "Hint: the paths in list form from node x to node y will consist of x individually concatenated to the front of each path from node x’s children to node y. This is recursive in nature. Combine this logic with a base case; and you should be able to come up with a nested for loop that makes sense"
+                }
+            ]
+        },
+        {
+            "question": "I create a list to hold all the labels on the path and yield it with new one appended to it under my two for loops, and I did my recursive call as one of the for conditions, but it turns out that nothing get returned when I test it. Can somebody give me some hints?",
+            "follow-ups": [
+                {
+                    "feedback": "It’s hard to say without seeing your code, but make sure you’re not missing your base case. If your recursive call doesn’t return anything in the first place, you’ll end up with nothing."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error but I'm not sure where to start debugging.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk1wu1woxgboc%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191018_%E4%B8%8B%E5%8D%885.37.01.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Without knowing the details of how you implemented your code, it would be difficult for me to tell you where to start debugging, but I'd consider looking at how you've implemented recursion (specifically in what you're adding to the list each time after recursion) if it repeatedly gives you the second number. As well, do you have the entry of the 0th element of the list implemented in the same way as the other elements?"
+                },
+                {
+                    "feedback": "I think I implemented the first label directly into the list I created at the beginning."
+                },
+                {
+                    "feedback": "it is probably something in your recursive calls where you are not updating the tree passed into the recursive call correctly."
+                }
+            ]
+        },
+        {
+            "question": "should the base case be if the label of the node is x?",
+            "follow-ups": [
+                {
+                    "feedback": "Yeah, I did it like that."
+                }
+            ]
+        },
+        {
+            "question": "How can I get the list until the very end?  I keep getting this error.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzw8xfv1bya23u%2Fk1ylk5gdhk8f%2FLHU8Y52D3ISI_NRKDH.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I'm not too sure but are you using append?"
+                },
+                {
+                    "feedback": "make sure u are not putting your recursive call in a list"
+                },
+                {
+                    "feedback": "I am using append, is there a better way to do this?  I know we need to yield the list after the recursive call, but I would be keeping yielding it at every end of my recursive call.  I don't know how to fix it."
+                },
+                {
+                    "feedback": "Do you think you could replace append with the plus operator instead?"
+                },
+                {
+                    "feedback": "Thank you sooooooo much!  I have thought about using addition operation, but just didn't try it."
+                }
+            ]
+        },
+        {
+            "question": "I'm passing all the doctests except this one: >>> print(t2) 0 2 1 2 3 4 6 5 5 >>> path_to_2 = generate_paths(t2, 2) >>> sorted(list(path_to_2)) [[0, 2, 2, 1, 2, 2, 2, 2]] # Error: expected # [[0, 2], [0, 2, 1, 2]] # but got # [[0, 2, 2, 1, 2, 2, 2, 2]] My logic is that I have a base case for if the label of the node is x, and use a for loop to iterate through all the branches of t and another one to iterate through the generator. Everything else works except this test case... thoughts?",
+            "follow-ups": [
+                {
+                    "feedback": "What's the logic in your inner loop? The issue might be in there."
+                },
+                {
+                    "feedback": "In my inner loop, I go through the generator and say that if the last item in the element is equal to x and the element isn't already in the list (that is, it's not the label of the node i'm currently testing), then I add it to the list that I yield."
+                },
+                {
+                    "feedback": "Im a bit confused, you have a base case which checks if the label is equal to x, then you would yield. But why are you checking again in your inner loop?"
+                },
+                {
+                    "feedback": "I'm using the recursive call as the expression in my inner for loop."
+                },
+                {
+                    "feedback": "Tbh I'm not too sure. I understand what your loops are doing but I don't quite understand what you mean by this and why you're doing \"if the last item in the element is equal to x.\" Also, you could use python tutor to see what your code is doing. That might help better than me."
+                }
+            ]
+        },
+        {
+            "question": "Define a generator function `generate_paths` which takes in a Tree `t`, a value `x`, and **returns a generator object.** Do we need to use a return statement?",
+            "follow-ups": [
+                {
+                    "feedback": "Generator functions don't need return statements. If you have the chance to look back at the Professors lecture, I believe he mentioned that generator functions automatically return generator objects that's if there is yield in your function."
+                },
+                {
+                    "feedback": "Oh yes! I remember now! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I dont understand the need for two for loops. My 2nd for loop iterates over all the branches of t. Not sure what the first one should be..",
+            "follow-ups": [
+                {
+                    "feedback": "got it"
+                },
+                {
+                    "feedback": "I'm also not sure what the other for loop should be, can you explain what you got please?"
+                },
+                {
+                    "feedback": "Try thinking about what exactly you're returning, and if it would be possible to iterate over that."
+                },
+                {
+                    "feedback": "I highly suggest you to go over the discussion worksheet of this week."
+                }
+            ]
+        },
+        {
+            "question": "How does calling a generator recursively work exactly?",
+            "follow-ups": [
+                {
+                    "feedback": "Hint: generators are iterables!  Hint2: discussion 7 sum_paths_gen can be helpful to look at"
+                }
+            ]
+        },
+        {
+            "question": "I understand that the first for loop is used to go over each branch. I am not sure why we need the second for loop.",
+            "follow-ups": [
+                {
+                    "feedback": "Think about how you could implement a recursive call in your second for loop."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1zpmwigp9wk%2FScreen_Shot_20191020_at_5.56.59_PM.png)  Not sure what I am doing wrong I have a recursive call within two for loops that adds elements to an empty list. Afterwards, I yield the list, not sure where the extra brackets came from",
+            "follow-ups": [
+                {
+                    "feedback": "i think its because your recursive call is trying to add the [label] + [leaf] to an existing list.... you technically dont need an empty list to start with.... just a suggestion c:"
+                }
+            ]
+        },
+        {
+            "question": ">>> from hw05 import *       >>> t1 = Tree(1, [Tree(2, [Tree(3), Tree(4, [Tree(6)]), Tree(5)]), Tree(5)])       >>> print(t1)       1        2        3        4        6        5        5       >>> next(generate_paths(t1, 6))       [1, 2, 4, 6]       >>> path_to_5 = generate_paths(t1, 5)       >>> sorted(list(path_to_5))       [[1, 2, 5, 5], [1, 2, 5, 5]]     # Error: expected       # [[1, 2, 5], [1, 5]]       # but got       # [[1, 2, 5, 5], [1, 2, 5, 5]]  Can someone tell me why it's not iterating over the branches and just returning the same thing twice?",
+            "follow-ups": [
+                {
+                    "feedback": "I had the same problem. Check that you're not saving the path in a separate variable and yielding that variable. You should directly yield the path if that makes sense :)"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting this result when executing my code... I have no idea as to why it's doing this. Also, I've only used one of the for loops and can't figure out what the second one is possibly for. Can anyone help?  ![](https://i.imgur.com/j4QtAol.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Solved!"
+                }
+            ]
+        },
+        {
+            "question": "Is a helper function required for this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Adding on to that, I used the label function in my function and when I run it it says name 'label' is not defined."
+                },
+                {
+                    "feedback": "No, one is not required. Also, label is not a function, but rather an instance attribute"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp1w761923k%2Fk21inyzophpd%2Fhw05_generate_paths.PNG)Why is this line of my code raising a StopIteration error? I thought the point of using the generator in the for statement was so that this couldn't happen?"
+        },
+        {
+            "question": "is the basal running of this function supposed to error while printing t1? i've tried downloading a fresh hw05 and don't think i modified the Tree class/the doctests but get this error when it tries to run the doctests despite the doctests asking for t1 in the form it's currently being printed in? :/  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjjvubenhm485cw%2Fk21mjra0zmlq%2FScreen_Shot_20191022_at_2.03.04_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "fixed this—weird bug where it didn't represent trees properly if not all tabs were spaces"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjezmdkd5jj%2Fk221tdrllffx%2F%E6%8D%95%E8%8E%B7.JPG)  Not sure what I am doing wrong. I use the first loop to to iterate through all the branches of t and the second one to iterate through the generator. Any hints...?",
+            "follow-ups": [
+                {
+                    "feedback": "are you returning instead of yielding?"
+                }
+            ]
+        },
+        {
+            "question": "I passed the doc test, but I'm still confused how the correct implementation is able to generate the path [0, 2, 1, 2] in the second doc test? Wouldn't the generator stop yielding anything after [0, 2] was                >>> sorted(list(path_to_2))         [[0, 2], **[0, 2, 1, 2]** ]",
+            "follow-ups": [
+                {
+                    "feedback": "^... found? (sorry, my message cut off. Please ignore the \"<strong>\"s in the code, I was just trying to put the path I'm confused about in bold."
+                },
+                {
+                    "feedback": "not sure what your specific implementation is, but if it involved yielding [0, 2], note that after a yield statement, the code will continue to execute to get the next yielded value."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhkqqh0w40s%2Fk22tuh1ov8jt%2FScreen_Shot_20191022_at_22.18.12.png)  I kept getting this error...but I don't see any difference",
+            "follow-ups": [
+                {
+                    "feedback": "cannot really diagnose this issue since they appear the same - I would try redownloading the file and copying over your code to make a new submission."
+                }
+            ]
+        }
+    ]
+}

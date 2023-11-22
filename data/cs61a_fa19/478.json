@@ -1,0 +1,17 @@
+{
+    "subject": "[HW 02] Q1: Product",
+    "content": "<a href=\"https://cs61a.org/hw/hw02//#q1\">Q1: Product</a>\n\n<p> Please post all questions you have below concerning Q1: Product in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Can we use recursion to solve this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "@335"
+                },
+                {
+                    "feedback": "thanks"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,315 @@
+{
+    "subject": "[HW 06] Q5: Unique",
+    "content": "<a href=\"https://cs61a.org/hw/hw06//#q5\">Q5: Unique</a>\n\n<p> Please post all questions you have below concerning Q5: Unique in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "when (unique '(c a b c)) is called, I'm getting # Error: operand 0 (a) is not a number. Not really sure how to deal with symbolics as opposed to just numbers. What operation could I be doing that requires a number?",
+            "follow-ups": [
+                {
+                    "feedback": "It seems I can only use = for numbers. How do I get around that?"
+                },
+                {
+                    "feedback": "found the equal? operator"
+                },
+                {
+                    "feedback": "I had this problem too thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I am unsure about how to declare a new variable in scheme, specifically how to initiate an empty list.",
+            "follow-ups": [
+                {
+                    "feedback": "The empty list is represented by either `'()` or `nil`"
+                },
+                {
+                    "feedback": "See [here](https://cs61a.org/lab/lab09/#defining-procedures) for how to define variables/procedures"
+                },
+                {
+                    "feedback": "Ok thanks!"
+                }
+            ]
+        },
+        {
+            "question": "How exactly does the filter function work? Since it calls the given function on every element in the list, how do we access the value of the current element that it is on in the body of the given function that we wrote?",
+            "follow-ups": [
+                {
+                    "feedback": "the filter function will just evaluate to a list with the elements filtered out. Not sure what you mean by \"how do we access the value of the current element that it is on\".  hint: the idea is that you'd filter a smaller and smaller subset of the main list and append it to your output. You will therefore need to call unique recursively"
+                }
+            ]
+        },
+        {
+            "question": "What kind of function should we use with the filter function? I tried making a function to check if a given value is in a given list, but the function can only have 1 argument.",
+            "follow-ups": [
+                {
+                    "feedback": "This is how I tried to solve it at first as well, but if you try to think recursively and break it down to a base case and leap of faith, a more elegant solution appears"
+                }
+            ]
+        },
+        {
+            "question": "My code works for the first few tests but doesn't work when there are multiple repetitions of the same numbers such as this test case. In my code, I'm  using filter to remove items in the list that would be equal to the current value, but I think that could be wrong because I'm not calling unique anywhere else.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj5d2wt2gq%2Fk2axqnk04gmo%2FScreen_Shot_20191028_at_2.29.05_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You're on the right track - try using a recursive leap of faith to call unique somewhere"
+                },
+                {
+                    "feedback": "I'm confused on where to call unique. If I put it in as part of appending, it results in an error."
+                },
+                {
+                    "feedback": "Make sure unique returns either a pair or `nil` in all cases, and then you should be able to use it as such"
+                }
+            ]
+        },
+        {
+            "question": "How can I use filter to remove items that are a specified value?",
+            "follow-ups": [
+                {
+                    "feedback": "Try writing a lambda that checks if its input is or isn't a certain value, and use that as the first parameter in filter"
+                },
+                {
+                    "feedback": "Oh of course! Thank you! (I was trying to use builtins)"
+                }
+            ]
+        },
+        {
+            "question": "I get an error every time I try to test my code that says \"SchemeError: Formals must be a list\". Can someone explain what this means?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm figured it out-- I was using the wrong syntax for the lambda function"
+                }
+            ]
+        },
+        {
+            "question": "My code right now returns the right items in the wrong order. Since it reads the list from start to end, it's returning the last instance of each item rather than the first instance:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyawk3tdvbf331%2Fk2dlsjsycv81%2FCapture.PNG)  Is there a way to take the _first_ instance without defining a running list of unique numbers or implementing a helper function?  ##",
+            "follow-ups": [
+                {
+                    "feedback": "You can read the list from start to end and still maintain the proper order. Besides the base case, the first element of the returned list should not be based on a recursive call. The question is this: if you have a list `s`, how can you express the first element of the unique version of that list in terms of `s`? Try this out with various lists and see if a pattern emerges."
+                },
+                {
+                    "feedback": "Ohh, got it! I had an elif and and else case that tested two different things, but I realize that the filter function would address both possible non-base cases. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I have no idea about how to check if a value is in the given list. Can someone give me some hint?",
+            "follow-ups": [
+                {
+                    "feedback": "Rather than checking whether a value is in a list or not, you could, alternatively, think of how to make it so a list _doesn 't_ contain a specific value. Thinking of this should help you come up with how to do this recursively.  But to answer the question, there isn't a built in way to check if a value is in a list in our interpreter. You would need to define your own procedure to do it (although it is unnecessary for this question)."
+                },
+                {
+                    "feedback": "Got it! Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting excess parentheses; for example, if the function is called on (5 4 2) I'm returning back (5 (4 (2))). Any idea on how to fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your returned list simplifies down to the form `(cons a b)` instead of `(cons a (b))`"
+                }
+            ]
+        },
+        {
+            "question": "I'm unsure what I should put within the <pred> of the filter function. Any tips?",
+            "follow-ups": [
+                {
+                    "feedback": "Think of a way to filter through the list that would ensure the current number is going to be unique (i.e. a function)"
+                }
+            ]
+        },
+        {
+            "question": "(load-all \".\")          ; Expected: ()     ; Actual  : SchemeError: unknown identifier: unique     (unique '())          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: unknown identifier: unique     (unique '(1 2 1 3 1 4))          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: unknown identifier: unique     (unique '(1 2 3 4))          ; Expected: (1)     ; Actual  : SchemeError: unknown identifier: unique     (unique '(1 1 1 1 1))          ; Expected: (c a b)     ; Actual  : SchemeError: unknown identifier: unique     (unique '(c a b c))          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: unknown identifier: unique     (unique '(1 2 3 4 1 2 3 4 1 2 3 4))          ; Expected: (a b c e d)     ; Actual  : SchemeError: unknown identifier: unique     (unique '(a b c a a b b c e c d))  What does this mean? I've tried deleting all the code inside _unique_ but still get these error messages.",
+            "follow-ups": [
+                {
+                    "feedback": "(load-all \".\")          ; Success: ()     (unique '())          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: int is not callable: 1     (unique '(1 2 1 3 1 4))          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: int is not callable: 1     (unique '(1 2 3 4))          ; Expected: (1)     ; Actual  : SchemeError: int is not callable: 1     (unique '(1 1 1 1 1))          ; Expected: (c a b)     ; Actual  : SchemeError: str is not callable: c     (unique '(c a b c))          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: int is not callable: 1     (unique '(1 2 3 4 1 2 3 4 1 2 3 4))          ; Expected: (a b c e d)     ; Actual  : SchemeError: str is not callable: a     (unique '(a b c a a b b c e c d))       OP errors are incorrect. Not sure how they ended up in my buffer. Please see directly above."
+                },
+                {
+                    "feedback": "You probably have an extra pair of parentheses somewhere which is leading to the first value of the input list getting called as a function"
+                }
+            ]
+        },
+        {
+            "question": "I am super confused with the parenthesis . Is there a way to tell when to put parenthesis or not ?  Thank you!",
+            "follow-ups": [
+                {
+                    "feedback": "Parentheses mean you are calling something. If you are adding things, multiplying, etc. you need parentheses to show that the operator is being called. If it is just a number, so you aren't calling it, you don't need parentheses.  Parentheses = Call expression"
+                }
+            ]
+        },
+        {
+            "question": "Not sure how to start this problem. Are we supposed to create a variable to store the list that we are returning after all the recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "No, you don't need to define any values for this question"
+                },
+                {
+                    "feedback": "What's a good starting point?"
+                },
+                {
+                    "feedback": "First try to identify what the first value of the returned list should be (this should be relatively straightforward). Then, for the rest of your returned list, use recursion to obtain a processed version of the original rest. Your returned expression should be a joined version of the first and rest you wish to return."
+                }
+            ]
+        },
+        {
+            "question": "If we wanna do this can I say not(= a b) to check a b is not equal? Or there are some expression way I missed",
+            "follow-ups": [
+                {
+                    "feedback": "If we have a predicate in the form `(= a b)` then the opposite of this predicate will be `(not (= a b))` \\- keep the parentheses in mind"
+                },
+                {
+                    "feedback": "Also, you should note that = does not work on non-numeric data types in Scheme - consider using the `eq?` built-in instead"
+                }
+            ]
+        },
+        {
+            "question": "Does the returned list have to be sorted? It does not say on the problem that it must return a sorted list, and my implementation does not return sorted lists and is failing tests.",
+            "follow-ups": [
+                {
+                    "feedback": "Repeat question, answer is above. Involves using filter."
+                }
+            ]
+        },
+        {
+            "question": "unique > Suite 1 > Case 1  scm> (load-all \".\")  scm> (unique '())   ()   scm> (unique '(1 2 1 3 1 4))   # Error: pair is not callable: (1 2 1 3 1 4)  # Error: expected   # (1 2 3 4)   # but got   # Traceback (most recent call last):   # ...   # SchemeError: pair is not callable: (1 2 1 3 1 4)  Run only this test case with \"python3 ok -q unique --suite 1 --case 1\"  I keep getting this error, please help me out. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "You likely have something of the form `(s ...)` in your code which is leading to the inputted list being called as if it is a function"
+                }
+            ]
+        },
+        {
+            "question": "Traceback (most recent call last):   File \"C:\\Users\\tyrat\\AppData\\Local\\Programs\\Python\\Python37\\lib\\runpy.py\", line 193, in _run_module_as_main   \"__main__\", mod_spec)   File \"C:\\Users\\tyrat\\AppData\\Local\\Programs\\Python\\Python37\\lib\\runpy.py\", line 85, in _run_code   exec(code, run_globals)   File \"ok\\\\__main__.py\", line 14, in <module>   File \"ok\\client\\cli\\ok.py\", line 48, in <module>   File \"ok\\client\\api\\assignment.py\", line 3, in <module>   File \"ok\\client\\utils\\auth.py\", line 5, in <module>   File \"ok\\requests\\\\__init__.py\", line 43, in <module>   ModuleNotFoundError: No module named 'urllib3'  currently getting this when trying to run tests. Is okpy having troubles or did I somehow mess something up",
+            "follow-ups": [
+                {
+                    "feedback": "@1864 was able to fix it"
+                }
+            ]
+        },
+        {
+            "question": "how do i fix this?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuyyd494x694%2Fk2gs5xd1rtld%2FScreen_Shot_20191101_at_4.40.02_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Somewhere in your code running you are calling 'cdr' on a nil value. Think of cdr as calling Link.rest on something. You're erroring as an empty list has no \".rest\". Are you checking before running your program that the unique list isn't a nil value."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jseoqnxz4xn%2Fk2gsqoexuksh%2FScreen_Shot_20191101_at_4.55.04_PM.png)  I don't understand what's happening here can someone please tell me what this error is. It's failing before it even runs my code",
+            "follow-ups": [
+                {
+                    "feedback": "please see @1864."
+                }
+            ]
+        },
+        {
+            "question": "I define a function within the `unique` function, which is for use in `filter`. But I got this traceback:                Error: str is not callable: f  `f` is the name of my function.  Why this?",
+            "follow-ups": [
+                {
+                    "feedback": "You probably defined a function inside a function but didn't return it, so the result of define was returned, which is a symbol"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk2gttxfkwdbz%2FScreen_Shot_20191101_at_5.19.36_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "[@1863](/class/jziyku5gomy7aq?cid=1863) temporary fix"
+                },
+                {
+                    "feedback": "OP^...I was testing my code for unique and it was going fine and one time I tried testing it again and it brought up this error."
+                },
+                {
+                    "feedback": "It says the post cannot be found. Any suggestions?"
+                },
+                {
+                    "feedback": "@1864 try this one"
+                },
+                {
+                    "feedback": "Ah I got it thank you so much!"
+                }
+            ]
+        },
+        {
+            "question": "I defined a helper function which takes in a list and a filter_function. In the body of the helper is an if statement, which checks if the list is nil and returns nil if it is. If it's not, then it does two things: first it creates a variable called \"new\", which is the filter_function called on the cdr(list). Then it uses cons to combine car(list) with a recursive call to helper. The recursive call has two arguments: new, and a filter function that takes in x and checks if x is equal to the first element of new.  The error I'm getting says this:  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Running tests  \\---------------------------------------------------------------------  unique > Suite 1 > Case 1  scm> (load-all \".\")  scm> (unique '())  ()  scm> (unique '(1 2 1 3 1 4))  # Error: str is not callable: new  # Error: expected  # (1 2 3 4)  # but got  # Traceback (most recent call last):  # ...  # SchemeError: str is not callable: new  Run only this test case with \"python3 ok -q unique --suite 1 --case 1\"  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case  Also, If I put a print statement before instantiating the variable \"new\", it gets printed before the error. But if I put it after the instantiation, it doesn't get printed and instead there's just the error.  One more thing I noticed, trying to just run (print s) or (print (cdr s)), while in the else clause of my if statement, gives a different error:  scm> (unique '())  ()  scm> (unique '(1 2 1 3 1 4))  (2 1 3 1 4)  # Error: nonetype is not callable: undefined  # Error: expected  # (1 2 3 4)  # but got  # Traceback (most recent call last):  # ...  # SchemeError: nonetype is not callable: undefined  Run only this test case with \"python3 ok -q unique --suite 1 --case 1\"  \\---------------------------------------------------------------------",
+            "follow-ups": [
+                {
+                    "feedback": "Print returns undefined and I think you're somehow calling that value"
+                },
+                {
+                    "feedback": "Ok I figured out what my problem was, I had been trying to do two different things in the else clause of the if statement. Since that's possible in python, I assumed it would work in scheme. But if you want to do C then D in the else clause, you can't write (if (A) (B) (C D)) because scheme thinks you're trying to call C as a function. And you can't write (if (A) (B) (C) (D)) because the if special form only takes 3 arguments, not 4. I eventually solved it by condensing C and D into one statement."
+                },
+                {
+                    "feedback": "You can use [`cond`](https://cs61a.org/articles/scheme-spec.html#cond)"
+                }
+            ]
+        },
+        {
+            "question": "scm> (load-all \".\")     # Error: unexpected end of file  What is this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Probably missing a parentheses somewhere"
+                }
+            ]
+        },
+        {
+            "question": "Hey, I keeping getting this error when I try to test my code. I tried downloading a new file but it isn't working correctly. Can someone help? It started when I began working on the last problem. Thanks!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjwiukxk5vk%2Fk2gwegwbkvq1%2FScreen_Shot_20191101_at_6.33.45_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "See @1864"
+                }
+            ]
+        },
+        {
+            "question": "(load-all \".\")          ; Expected: ()     ; Actual  : SchemeError: nil is not callable: ()     (unique '())          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: nonetype is not callable: undefined     (unique '(1 2 1 3 1 4))          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: nonetype is not callable: undefined     (unique '(1 2 3 4))          ; Expected: (1)     ; Actual  : SchemeError: nonetype is not callable: undefined     (unique '(1 1 1 1 1))          ; Expected: (c a b)     ; Actual  : SchemeError: nonetype is not callable: undefined     (unique '(c a b c))          ; Expected: (1 2 3 4)     ; Actual  : SchemeError: nonetype is not callable: undefined     (unique '(1 2 3 4 1 2 3 4 1 2 3 4))          ; Expected: (a b c e d)     ; Actual  : SchemeError: nonetype is not callable: undefined     (unique '(a b c a a b b c e c d))",
+            "follow-ups": [
+                {
+                    "feedback": "Please make a private post with your code"
+                }
+            ]
+        },
+        {
+            "question": "I keep on getting an error of the form:  SchemeError: cdr can only be a pair, nil, or a promise but was 1  ...where 1 is the first element of the list passed in. Does anyone know why this error is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you doing something like `(cdr (car s))` perhaps?"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting the correct answer but in reverse order, what should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps switch the order of the `car` and `cdr` of the list/pair you return"
+                },
+                {
+                    "feedback": "Solved, Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm passing all of the test cases except this one:  scm> (unique '(1 2 3 4 1 2 3 4 1 2 3 4))  (1 2 3 4 4)  # Error: expected  # (1 2 3 4)  # but got  # (1 2 3 4 4)  I defined a helper function which takes in a list and a filter_function. Inside the helper function is an if statement.  If the list is empty, or the cdr of the list is empty, it returns the list unmodified. I've tried changing it to only check if the list itself is empty, but the error doesn't change.  In the else clause, it returns a new list. The first element of this new list is the same as the first element of the original list. The second element of the new list  is the helper function recursively called on two new arguments.  The first argument is the filter_function called on the list. The second argument (the new filter_function) if a function that takes in x, and checks if x is equal to the first  element of the list.  There is only one list and only one filter_function inside the helper function's frame each time it gets recursively called.",
+            "follow-ups": [
+                {
+                    "feedback": "You are overcomplicating it - you can solve this question without a helper function and I would highly recommend you do so"
+                },
+                {
+                    "feedback": "This method works too, it's essentially the writing out what Cyrus is hinting at as it's own explicit helper function. I think there may be some confusion on filter, if the function returns #t on an element, then it'll keep that element in the list. So if you're filtering a list and you want to get rid of some element in that list, you may not want to use equal, maybe something else. Other than that, I think the logic looks good."
+                },
+                {
+                    "feedback": "Ok, my code works now! I removed the helper function from unique. I assumed that, because the filter function needs to change with each recursive call, I would need to store it in the argument of a helper function and update it each time I call the function. But then I realized it was a lot simpler to re- define helper-func inside the body of unique, before the if statement begins."
+                },
+                {
+                    "feedback": "To clarify, I didn’t mean to imply that the use of helper functions is the overall problem here - it’s just that when you simplify your solution, errors within the solution become easier to identify, which is why I suggested to not use one. However, I should’ve given feedback moreso on your methodology itself, so my apologies for that. Glad your code works now!"
+                }
+            ]
+        },
+        {
+            "question": "I'm getting an error saying \"Formals must be a list.\" I'm not sure what exactly is causing the error.",
+            "follow-ups": [
+                {
+                    "feedback": "Something like this would give you the same error: `(lambda x y (+ x y))` It should be `(lambda (x y) (+ x y))` So the parameters (scheme calls them formals) should be a scheme list. Notice that in the first example, `x y` isn't a list, but in the second example `(x y)` does represent a scheme list."
+                }
+            ]
+        }
+    ]
+}

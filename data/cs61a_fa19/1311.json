@@ -1,0 +1,94 @@
+{
+    "subject": "[Ants] Problem 2",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-2-3-pt\">Problem 2</a>\n\n<p> Please post all questions you have below concerning Problem 2 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I am wondering how to understand this problem in the test?  Problem 2 > Suite 1 > Case 2   (cases remaining: 3)  Q: If p is a place whose entrance is q, when is p.entrance initialized?   Choose the number of the correct choice:   0) Never, it is always set to None   1) When q.exit is initialized   2) When q.entrance is initialized   3) When p is initialized  Since I looked at the class attribute of the Place class, and there self.entrance = None, so I felt like choosing 0), what is the problem here?",
+            "follow-ups": [
+                {
+                    "feedback": "self.entrance = None is a default value that needs to change when you fill in the skeleton. You’ll need to read the project spec carefully to understand what an entrance is"
+                }
+            ]
+        },
+        {
+            "question": ">>> place0.entrance is place1  True  Why is this True?",
+            "follow-ups": [
+                {
+                    "feedback": "Figured it out."
+                }
+            ]
+        },
+        {
+            "question": "My code seems fine to me, but for some reason I keep failing this:  >>> place0.entrance is place1  False  I have an if statement and an assignment statement. Any clue? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Finally figured it out after an hour, because I had misspelled entrance 😅."
+                },
+                {
+                    "feedback": "my code is doing this as well. any ideas at where it might be erroneous?"
+                },
+                {
+                    "feedback": "why do you set it to self instead of exit? What does setting the exit's entrance to self do exactly?"
+                },
+                {
+                    "feedback": "is \"self\" the name of the exit or is it the actual place of exit in the scenario where you want to change exit's entrance?"
+                },
+                {
+                    "feedback": "I’m getting the same problem. I’m stuck."
+                },
+                {
+                    "feedback": "?????"
+                },
+                {
+                    "feedback": "If you have two places [A] and [B] like this:  [A] [B]. [A] is [B]'s exit. [B] is [A]'s entrance. Let's say your code initializes [A] first, then [B]. [B] 'knows' [A] is it's exit since [A] existed when [B] was initialized.  However, [A] doesn't know that [B] is it's entrance because [B] didn't exist when [A] was initialized. To fix the issue, when [B] is initialized, it needs to go to its exit \"[A]\" and tell [A], \"Hey, I am [B] and I am your entrance\".  When a place is initialized, it needs to change the entrance of its exit to itself."
+                }
+            ]
+        },
+        {
+            "question": "also in what cases do you need to use or not use \"self\" while coding? In what cases is \"self\" implicitly passed in? Can someone please provide an example.",
+            "follow-ups": [
+                {
+                    "feedback": "This is a pretty general question that's quite hard to answer through one Piazza response. I really recommend going for lecture slides. Essentially `self` is used when you want to reference yourself again. For example, if I have a class `Person` with `self.name`, and I want to create a function `print_name`, the function `print_name` will need to call `self.name`:                class Person:        \tdef __init__(self, name):       \t\tself.name = name       \tdef print_name(self):        \t\tprint(self.name)  When we say we \"implicitly\" pass in `self`, that refers to when we call functions, for example,                class Person:        \tdef __init__(self, name):       \t\tself.name = name       \tdef print_name(self):        \t\tprint(self.name)       brian = Person(\"Brian\")        brian.print_name() # Notice there is no arguments here? But print_name takes \"self\" -- we don't need it because it is implicit  Hope this helps!"
+                }
+            ]
+        },
+        {
+            "question": "why does setting exit's entrance to exit not work? what cases do you set something equal to self?",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean by it not working?      In terms of this question, it doesn't make sense for a Place to have the entrance to the place be itself. If you did something like:                exit.entrance = exit  You are setting the exit's entrance to itself which is allowed syntactically, but offers nothing to our problem (since the exit can just reference itself using self).  As for the question about self is just a name that holds the current instance of the object. Anywhere you need to use the specific instance of the object, you would use self. Take for instance, this code:                class PrintSelf:       def __init__(self):         print(self)       def is_self(self, x):         return x is self  What do we get if we make an object of this class and call its methods?                >>> x = PrintSelf()       <__main__.PrintSelf object at 0x7fe920245b50>       >>> print(x)       <__main__.PrintSelf object at 0x7fe920245b50>       >>> print(x.is_self(x)) #Is x itself?       True  self is just a name that references the object you use the dot notation on, so it can be used anywhere x can be used, but within the class if that makes sense."
+                }
+            ]
+        },
+        {
+            "question": "If one of the tests calls for place0 to now have an entrance, after place1 has been identified, how would you approach updating this previous instance, given a new case, where place1 has an exit of place0?",
+            "follow-ups": [
+                {
+                    "feedback": "The expression `exit` either evaluates to `None` (in which case there's nothing to do), or to a `Place` instance. If you have a name for a `Place` instance, such as `p`, then you can change its entrance with `p.entrance = ...`"
+                },
+                {
+                    "feedback": "I have done this with an if statement and 2 assignment statements yet I still cant get the correct answer, is there something I am missing?"
+                },
+                {
+                    "feedback": "this problem can be solved with an if statement and 2 assignments, but order dependent, it may be incorrect. make sure the code logically fits the description, or describe your approach / the error you are getting in more detail."
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on the same tests as some of the first posts on this thread:  `place0.entrance is place1`  I keep returning False when I have to return true. I am using an if statement and that's it, but I pass the doctests before that. Anyone know why I might be failing this?",
+            "follow-ups": [
+                {
+                    "feedback": "Even without any code, the doctests before this will pass.  Your code should be an if statement, with an assignment statement inside.  This rule in the instructions pretty much tells you what to do:  \"If the `Place` has an `exit`, then the `exit`'s `entrance` is set to that `Place`.\""
+                }
+            ]
+        },
+        {
+            "question": ">>> from ants import *  >>> #  >>> # Create a test layout where the colony is a single row with 3 tiles  >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout  >>> dimensions = (1, 3)  >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)  >>> #  >>> # Simple test for Place  >>> place0 = Place('place_0')  >>> print(place0.exit)  What is this expecting?",
+            "follow-ups": [
+                {
+                    "feedback": "note that the constructor takes in two arguments - what happens when we only pass in one?"
+                }
+            ]
+        }
+    ]
+}

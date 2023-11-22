@@ -1,0 +1,47 @@
+{
+    "subject": "[Lab 08] Q5: Increasing Subsequences",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q5\">Q5: Increasing Subsequences</a>\n\n<p> Please post all questions you have below concerning Q5: Increasing Subsequences in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I think the toggle solution could be wrong since it doesn't handle negative value.  When I try inc_subseqs([-2,-1,-3]),it returns an list of an empty list, while [-2,-1] should be an valid increasing subsequence by definition.  I think the initializition of prev leads to this issue.  If we replace the return value of inc_subseqs to subseq_helper(s, 0 if not s else min(s) ), negative value could be handled.",
+            "follow-ups": [
+                {
+                    "feedback": "From the problem statement: \"Fill in the blanks to complete the implementation of the `inc_subseqs` function. **You may assume that the input list contains no negative elements.** \""
+                }
+            ]
+        },
+        {
+            "question": "I am having trouble understanding the recursive cases after the else statement in this solution. I was able to identify the pattern and solve the previous question subseqs (s), but for this question I just could not figure out what is the purpose of the code for a and b. What are we trying to do with a and b? What sort of output are we trying to get?",
+            "follow-ups": [
+                {
+                    "feedback": "The question is definitely doable without using `a` and `b` whatsoever. Try solving it simply on the third line in the `else` block, first, and then you can just use substitution with `a` and `b` to simplify that line."
+                },
+                {
+                    "feedback": "I'm also confused as to what a and b represent and how their functionalities differ"
+                },
+                {
+                    "feedback": "a and b will eventually represent function calls you will find yourself repeating if you attempt to code the question in one line on the return statement."
+                }
+            ]
+        },
+        {
+            "question": "I have some advise for the people who might be stuck on this problem:  When solving this problem, it might be a good idea to work from the simplest case you can think of and then work up to the more complicated cases.  First, consider what should happen if s is empty.  Then, consider what should happen if your inputted s is a simpler case, such as a list with a single value. Does your code account for this?  Then continue on. Good luck! Don't give up."
+        },
+        {
+            "question": "I'm having trouble understanding the solution to this problem. What is the prev argument suppose to track and what do each of the recursive calls represent? How does one arrive at the solution? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "The `prev` parameter keeps track of the previous value to compare the current first element of the list to"
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain what case b represents out here?",
+            "follow-ups": [
+                {
+                    "feedback": "it's not meant to represent anything specific, but you may find it helpful to make some function call for b to simplify the code that you may alternatively have written entirely in the return statement."
+                }
+            ]
+        }
+    ]
+}

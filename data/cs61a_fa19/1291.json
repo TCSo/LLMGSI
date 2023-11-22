@@ -1,0 +1,14 @@
+{
+    "subject": "[Lab 06] Q5: Tutors: Flummox",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab06/#q5\" target=\"_blank\" rel=\"noopener noreferrer\">Q5: Tutors: Flummox</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q5: Tutors: Flummox in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>\n<p></p>",
+    "threads": [
+        {
+            "question": "I am wondering why we pass player and other_card into the effect method. Don't we only need the opponent instance to remove the first 3 cards off of their hand and then draw 3 new cards for them?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "for reasons that we will see more clearly during the Ants project, it will be helpful if all of the effect methods across the different types of Cards have the same arguments, so we do not have to worry about what type of card we have, and thus what subset of arguments we have to pass in, before calling effect."
+                }
+            ]
+        }
+    ]
+}

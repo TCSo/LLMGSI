@@ -1,0 +1,831 @@
+{
+    "subject": "[Scheme] Problem 17",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-17-2-pt\">Problem 17</a>\n\n<p> Please post all questions you have below concerning Problem 17 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can anyone give me a hint on how to relate the problem to the cons-all procedure?",
+            "follow-ups": [
+                {
+                    "feedback": "Think of the partitions question on midterm 2"
+                }
+            ]
+        },
+        {
+            "question": "how am I supposed to break down the problem smaller?",
+            "follow-ups": [
+                {
+                    "feedback": "In a similar fashion to the partitions question on midterm 2"
+                },
+                {
+                    "feedback": "scm> (define (yield-x-y x y) x y)        yield-x-y        scm> (yield-x-y 1 2)        2  Since sheme cannot \"yield\" in this case.  Are we supposed to write an inner helper function and a list to store possible results within the list-change function?"
+                },
+                {
+                    "feedback": "The Python `yield` statement is only for generator functions. You want to return all the values at once as a list of lists, so the `append` function will come in handy here."
+                },
+                {
+                    "feedback": "scm> (append '(1 2) '(3 4))        (1 2 3 4)       scm> (append '((1 2)) '((3 4)))       ((1 2) (3 4))  Got it!! I should use append in a higher list structure! Thanks a lot!"
+                },
+                {
+                    "feedback": "Exactly! Best of luck!"
+                },
+                {
+                    "feedback": "When I use append in a higher list structure and it also appends (( )). I am a little confused on how to use append in higher list structure while eliminating nil from the useful branch?"
+                },
+                {
+                    "feedback": "nvm I got it"
+                },
+                {
+                    "feedback": "The more useful question to ask would probably be why have an empty list in the first place. Where is it coming from, and should you be doing anything to it before you append it?"
+                },
+                {
+                    "feedback": "Oh, well, okay then."
+                }
+            ]
+        },
+        {
+            "question": "Would this question require the usage of 'let' or 'begin'?",
+            "follow-ups": [
+                {
+                    "feedback": "In my implementation I used begin, but it can be done without them"
+                },
+                {
+                    "feedback": "I used neither."
+                },
+                {
+                    "feedback": "I used let"
+                },
+                {
+                    "feedback": "what are begin and let"
+                },
+                {
+                    "feedback": "<https://cs61a.org/articles/scheme-spec.html#let>  <https://cs61a.org/articles/scheme-spec.html#begin>  If you require further clarification, don't hesitate to ask"
+                }
+            ]
+        },
+        {
+            "question": "I don't know why I keep getting this:  SchemeError: argument 0 of append has wrong type (str)  Can someone help me here?",
+            "follow-ups": [
+                {
+                    "feedback": "`append` takes in two or more lists, but you're passing a str in instead."
+                }
+            ]
+        },
+        {
+            "question": "Ideas on why I might be getting this error? My code is similar to the midterm 2 partitions problem  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy0gbms85m4%2Fk2tivoneb5qt%2FSharedScreenshot.jpg)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you might accidentally be trying to call a list (not an expression) by putting it in the first position in a scheme expression. You get the same error if you try to make a call like this: `('(10 5 1) 3)`. Double check your syntax and how you’re handling your lists."
+                },
+                {
+                    "feedback": "thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I am confused that how to use cons-all function ? Because if I use it in this way, cons-all will be in the first of pair.                (cons (cons-all fisrt_num (list-change (- total fisrt_num) denoms))              (list-change total (cdr denoms))))  scm> (list-change 10 '(25 10 5 1))   ((10) ((5 5) (5 1 1 1 1 1)) (1 1 1 1 1 1 1 1 1 1))  # Error: expected   # ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))   # but got   # ((10) ((5 5) (5 1 1 1 1 1)) (1 1 1 1 1 1 1 1 1 1))",
+            "follow-ups": [
+                {
+                    "feedback": "`cons-all` essentially just prepends every list with a specified element. `append` should be what you are using to merge two lists together. Other than that, your approach looks almost correct.   *Also, since your code contains almost-correct code, please edit it so that it is removed from your comment.*"
+                },
+                {
+                    "feedback": "Thanks. It is very helpful"
+                },
+                {
+                    "feedback": "No problem, but please edit your first comment to remove the code you pasted in."
+                },
+                {
+                    "feedback": "I figured out the idea, but I am confused by the base case of _first_ in this case. Could any one help me?"
+                },
+                {
+                    "feedback": "I’m not sure what you mean by the “base case of first,” but your base cases should probably be if there are no denominations left or if total is less than 0 or if total is 0, just to get you started."
+                }
+            ]
+        },
+        {
+            "question": "Can anyone tell me why I am getting this error?  Problem 17 > Suite 1 > Case 1  scm> (load 'questions)   # Error: unexpected end of file",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind. I missed one parenthesis."
+                }
+            ]
+        },
+        {
+            "question": "When I try to pass the first test, I get an error along the lines of:  SchemeError: argument 1 of map has wrong type (NoneType)  From what I understand, map's first argument is a one argument function. I used a lambda for it, and checked its syntax a couple times to make sure that was not the error. Could this be a problem with my implementation of scheme?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that programming languages tend to be zero-indexed. That means that “argument 1” is really the **second** argument, which is evaluating to `None`. Double-check to see if you’ve accidentally made a mistake in the list you’re passing in."
+                },
+                {
+                    "feedback": "I pass in a recursive call to list-change for the second argument of map. if this returns nil, could it cause this error?"
+                },
+                {
+                    "feedback": "The fact that you’re getting the `NoneType` makes me think that you simply aren’t returning anything at some point, not even `nil`. `None` and `nil` represent two slightly different things, because returning an empty list `nil` is different from returning nothing at all, or `None`. Check to make sure you’re always returning *something*, even in your base case. Alternatively, make sure your `cons-all` function is working properly, if you’re using that."
+                },
+                {
+                    "feedback": "I have the same issue and not sure whats causing the error, i think my recursive call is fine but not my base cases. Any suggestions on how to approach the base cases."
+                },
+                {
+                    "feedback": "Think about what your base cases should be, first. What if the total is 0? What if the total is less than 0? What if denominations is empty? And so on and so forth. After that, determine what the return values would be just in those cases, and then you’re ready to start making recursive leaps of faith."
+                },
+                {
+                    "feedback": "Got it! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm a little confused about where to put my recursive calls in relation to my base cases. Currently, my code uses cons-all to add m to the beginning of every subsequent list-change list if m is less than total, where m is the car of the denoms pair. However, I don't know how to handle the case where m is greater than total.  Currently, my use of append and cons-all get me this result, which is not what the problem calls for.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyarmj7nyfe34n%2Fk2v7b6u1hus2%2FScreen_Shot_20191111_at_5.49.32_PM.png)  I'd appreciate any advice on how to structure my base cases and recursive case.",
+            "follow-ups": [
+                {
+                    "feedback": "The solution is similar to the 2019 midterm 2 partitions question"
+                },
+                {
+                    "feedback": "Every case can be split into two broad categories: Either they use the largest denomination available, or they don’t use the largest denomination available. These two cases can be appended together to get the final result. Think about how you would structure your recursive cases for tree recursion to emulate this fact."
+                },
+                {
+                    "feedback": "I understand the tree recursion. However, I am trying to adapt the base cases in the midterm 2 partitions question and keep struggling to figure out how to return nil when a branch of the tree yields no useful results."
+                },
+                {
+                    "feedback": "Well, if one of your branches returns `nil`, and you append `nil` to your other useful branch, it won’t change anytning. The `append` function will come in very handy here. Keep thinking about it, and make another comment if you need more help."
+                }
+            ]
+        },
+        {
+            "question": "I'm trying to write my code in python first and then translate it into scheme, but keep encountering an index out of bounds error. Does anyone have any ideas, or has anyone experienced a similar problem?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are properly iterating over the denominations, since I assume that's where you're using indices"
+                },
+                {
+                    "feedback": "Hmmm… `IndexError`s don’t really ever get raised by Scheme lists, since they are really linked lists built with `Pair`s, which can’t really raise `IndexError`s. How specifically are you tackling the problem? Remember that you should probably use recursion since iteration in Scheme isn’t very intuitive. (And this is definitely a tree recursion problem.)"
+                }
+            ]
+        },
+        {
+            "question": "My interpreter doesn't have a built in map function. I have searched for it and could't find it and I entered a known good map call expression into it and the interpreter Errors. I was able to implement the cons-all functions but I feel like I'm missing something? Is my interpreter messed up or was I supposed to implement map myself?",
+            "follow-ups": [
+                {
+                    "feedback": "Do you not have the following in your scheme.py?                ####################     # Extra Procedures #     ####################              def scheme_map(fn, s, env):         check_type(fn, scheme_procedurep, 0, 'map')         check_type(s, scheme_listp, 1, 'map')         return s.map(lambda x: complete_apply(fn, Pair(x, nil), env))"
+                },
+                {
+                    "feedback": "Enter this into your interpreter and see if it errors:   ```   scm> (map (lambda (i) (* i i)) '(1 2 3))   (1 4 9)   ```   By the way, if you have already successfully implemented `cons-all`, you shouldn’t need the `map` function in your implementation for `list-change`."
+                },
+                {
+                    "feedback": "Additionally, make sure your create_global_frame looks like this:                def create_global_frame():         \"\"\"Initialize and return a single-frame environment with built-in names.\"\"\"         env = Frame(None)         env.define('eval',                    BuiltinProcedure(scheme_eval, True, 'eval'))         env.define('apply',                    BuiltinProcedure(complete_apply, True, 'apply'))         env.define('load',                    BuiltinProcedure(scheme_load, True, 'load'))         env.define('load-all',                    BuiltinProcedure(scheme_load_all, True, 'load-all'))         env.define('procedure?',                    BuiltinProcedure(scheme_procedurep, False, 'procedure?'))         env.define('map',                    BuiltinProcedure(scheme_map, True, 'map'))         env.define('filter',                    BuiltinProcedure(scheme_filter, True, 'filter'))         env.define('reduce',                    BuiltinProcedure(scheme_reduce, True, 'reduce'))         env.define('undefined', None)         add_builtins(env, BUILTINS)         return env  Note the line that defines map."
+                },
+                {
+                    "feedback": "Thanks, it's fixed now. not sure what happened there, perhaps my keyboard got away from me and I deleted something. Apologies for my slow response."
+                },
+                {
+                    "feedback": "All good, glad it works."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhi4mfvg3zg%2Fk2wh80q99je%2FScreen_Shot_20191112_at_3.17.00_PM.png)slightly related question, what is a \"promise\" (as seen in the SchemeError.)",
+            "follow-ups": [
+                {
+                    "feedback": "<https://cs61a.org/articles/scheme-spec.html#promises-and-streams>  \"Promises represent the delayed evaluation of an expression in an environment. They can be constructed by passing an expression into the `delay` special form. The evaluation of a promise can be forced by passing it into the `force` built-in. The expression of a promise will only ever be evaluated once. The first call of `force` will store the result, which will be immediately returned on subsequent calls of `force` on the same promise.  A promise must contain a pair or nil since it is used as the `cdr` of a stream. If it is found to contain something else when forced, `force` will error. If `force` errors for any reason, the promise remains unforced.\""
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "I'm getting this same error, but I'm not calling `cons` anywhere in my code. How else could I trigger this error?"
+                },
+                {
+                    "feedback": "Is it possible it’s resulting from `cons-all`?"
+                },
+                {
+                    "feedback": "I tested my `cons-all` procedure separately and it works how it's supposed to. In the body of `list-change`, I pass a number and a call to `list-change` as arguments for my call to `cons-all`. Is that the intended use of `cons-all`?"
+                },
+                {
+                    "feedback": "That probably means that `list-change` is at some point returning a list of numbers rather than a list of lists of numbers: ``` scm> (cons-all 3 '(1 2 3)) Error: cdr can only be a pair, nil, or a promise but was 1 ```"
+                },
+                {
+                    "feedback": "That solved the test case, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I having difficulty formatting my recursive call (with append and cons-all) so that the result of list-change is formatted correctly.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyarmj7nyfe34n%2Fk2wjb1dywpsw%2FScreen_Shot_20191112_at_4.13.36_PM.png)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyarmj7nyfe34n%2Fk2wjc3zd4xbz%2FScreen_Shot_20191112_at_4.15.22_PM.png)  Furthermore, how do I structure the function so that recursive calls are still made even if the car of denoms is equal to total? (e.g. in the above example where 2 can be written as just (2) but could also be written as (1 1). I'm currently just returning total is the car of denoms is equal to total. Should I be approaching this base case differently?",
+            "follow-ups": [
+                {
+                    "feedback": "If the car of denoms is equal to total, the first returned list should just contain total (which you've already got), and then the rest of the lists should be the result of trying to make change of total using the rest of the denominations."
+                },
+                {
+                    "feedback": "Thanks! I was tinkering around and figured that much out. However, I'm still having trouble with the placement of parentheses as a result of my use of append and cons-all. In my recursive call (in my else clause), I append the result of the case where I use the car of denoms with the case where I make change of total with the rest of the denominations. I'm assuming I'm ordering these incorrectly..."
+                },
+                {
+                    "feedback": "The methodology you've described is fine. Perhaps try reformatting your code using the provided editor so that you can more clearly see the way you are structuring your returned expression? Could be an issue with your cons-all call, or even your cons-all implementation - maybe test it with the test case given in the problem description:                scm> (cons-all 1 '((2 3) (2 4) (3 5)))     ((1 2 3) (1 2 4) (1 3 5))"
+                },
+                {
+                    "feedback": "Thanks! I realized that I had an extra `list` procedure in my cons-all procedure (I had added it earlier when I was confused about the base cases of list-change). Removing that solved the issue."
+                },
+                {
+                    "feedback": "Awesome!"
+                },
+                {
+                    "feedback": "In our code for list-change, do we need to place ' anywhere? I just realized cons-all takes in a quoted list."
+                },
+                {
+                    "feedback": "cons-all does take in a list as a second argument, but your implementation may not need ' \\- you may have other things that return lists."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191112_at_5.26.27_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5js29ejrl4mt%2Fk2wlu3fq4pd2%2FScreen_Shot_20191112_at_5.26.27_PM.png)  we cannot get rid of this error. we went to office hours, and 2 TAs helped us and they could't figure out what was wrong with our code.  all help would be appreciated :)",
+            "follow-ups": [
+                {
+                    "feedback": "[ removed code screenshot ]"
+                },
+                {
+                    "feedback": "You're not allowed to post code publicly - please make a private post"
+                },
+                {
+                    "feedback": "how do i make a private post / how do i delete the previous post?"
+                },
+                {
+                    "feedback": "@1168  Mouse over the Screen_Shot_20191112_at_5.32.25_PM.png comment you made, hover over actions, click edit, then delete the link. Or if you're on mobile, just click the edit button and delete it."
+                }
+            ]
+        },
+        {
+            "question": "I am confused on the implementation of cons-all, if we are supposed to use the built-in function map, what type of function would that take in. Isn't the point of cons-all to be just prepending the first on every rest? where would we need the map function for this?",
+            "follow-ups": [
+                {
+                    "feedback": "`cons-all` is a procedure that prepends one element to a list of lists. What function would you normally use to prepend an element to a single list?"
+                },
+                {
+                    "feedback": "You can think of it as mapping each list within the inputted list to a new list that contains (1) the element to be added and (2) all the elements in that list"
+                },
+                {
+                    "feedback": "can we use prepend in scheme or does it only work in python?"
+                },
+                {
+                    "feedback": "I believe that's what `cons-all` is for - there's no specific prepend operator if that's what you're asking?"
+                }
+            ]
+        },
+        {
+            "question": "Like one of the commenters before, I am first writing the function in python to figure out the logic. So far I am returning the right combinations, but some of them are permutations (i.e [5, 1, 1, 1], [1, 5, 1, 1], [1, 1, 5, 1], [1, 1, 1, 5]). How can I take care of this? I am using recursion similar to the problem on MT2 (without yields) and some of the examples in the notes. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Denominations can only ever be in descending order. So once you have decided that you will no longer use the largest denomination, you can remove it from the list for all deeper recursive calls."
+                }
+            ]
+        },
+        {
+            "question": "scm> (list-change 10 '(25 10 5 1))       # Error: argument 0 of append has wrong type (str)              # Error: expected       #     ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))       # but got       #     Traceback (most recent call last):       #       ...       #     SchemeError: argument 0 of append has wrong type (str)              Run only this test case with \"python3 ok -q 17 --suite 1 --case 1\"       ---------------------------------------------------------------------       Test summary           0 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "? (let-to-lambda '(+ 1 2))       -- Not quite. Try again! --              ? let-to-lambda '(+ 1 2)       -- Not quite. Try again! --"
+                },
+                {
+                    "feedback": "I think you have posted two questions here. In response to your first question:     It looks like you are at some point passing a string (essentially a symbol) into the `append` function. You should probably be using `append` to join the branches of your tree in tree recursion, so make sure whatever is being returned from your recursive calls are also lists."
+                },
+                {
+                    "feedback": "In response to your second question:     Remember that `let-to-lambda` takes in an expression and returns a version of that expression that contains no `let` statements but has the same functionality. That means that your outputted expression won’t actually have `let-to-lambda` in it since that isn’t part of the expression that was passed in in the first place. If we call `(let-to-lambda '(+ 1 2))`, `(+ 1 2)` is the expression we pass in, and a version of `(+ 1 2)` without any `let` statements will be returned.       Note that `(+ 1 2)` doesn’t *have* any `let` statements. Don’t overthink this one."
+                }
+            ]
+        },
+        {
+            "question": "scm> (let-to-lambda '(let ((a 1)       ....                 (b 2))       ....                (+ a b)))       ? 3       -- Not quite. Try again! --",
+            "follow-ups": [
+                {
+                    "feedback": "`let-to-lambda` returns a rewritten **expression**, not the value. How would you rewrite `(let ((a 1) (b 2)) (+ a b))` to use `lambda` procedures instead of the `let` form?"
+                },
+                {
+                    "feedback": "? lambda a, b: a+b       -- Not quite. Try again! --"
+                },
+                {
+                    "feedback": "We are using Scheme syntax, not Python syntax. Also remember that you still have to bind `a` and `b` to their values of `1` and `2`. You can do that by applying the new lambda expression to the values."
+                }
+            ]
+        },
+        {
+            "question": "Do we use the filter function in this prob?",
+            "follow-ups": [
+                {
+                    "feedback": "I wouldn’t see too much of a point in using it. Think about how you could use recursion and `cons-all` to implement this function."
+                }
+            ]
+        },
+        {
+            "question": "scm> (list-change 10 '(25 10 5 1))       # Error: argument 0 of append has wrong type (str)              # Error: expected       #     ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))       # but got       #     Traceback (most recent call last):       #       ...       #     SchemeError: argument 0 of append has wrong type (str)              Run only this test case with \"python3 ok -q 17 --suite 1 --case 1\"       ---------------------------------------------------------------------       Test summary           0 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure both arguments passed into `append` are lists, although you should be able to solve this question without `append` at all—think about how you could use the `cons-all` function."
+                }
+            ]
+        },
+        {
+            "question": "Problem 17 > Suite 1 > Case 1              scm> (load 'questions)       Error: unknown identifier: rests       # Error: unexpected token: )              Run only this test case with \"python3 ok -q 17 --suite 1 --case 1\"       ---------------------------------------------------------------------       Test summary           0 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Are you using `rests` instead of `cdr`? And the unexpected token thing is just a syntax error—check your parentheses."
+                }
+            ]
+        },
+        {
+            "question": "When using begin, can we do the following:  (begin  (if ...)  (elif...)  (elif...)  (else..)  )?",
+            "follow-ups": [
+                {
+                    "feedback": "There is no `elif` form for Scheme, but that is what `cond` is for.    <https://cs61a.org/articles/scheme-spec.html#cond>"
+                },
+                {
+                    "feedback": "okay, thank you! Also, I have not yet used cons in my function, not sure where exactly I should be implementing a list, in my base case or recursive call. Any help?"
+                },
+                {
+                    "feedback": "`cons` is different from `cond`. `cons` builds a pair, while `cond` is essentially and if-elif-else form for Scheme."
+                }
+            ]
+        },
+        {
+            "question": "For the Q, I want to debug and see whats causing the error. How can I debug? I tried                python3 scheme.py   but thats not able to detect the function in this Q.",
+            "follow-ups": [
+                {
+                    "feedback": "Try running `python3 scheme.py -i questions.scm`. This should run the interactive Scheme interpreter and load the file so you can do some testing. Happy debugging!"
+                },
+                {
+                    "feedback": "python3 scheme.py -17 questions.scm  I tried the above but it doesn't work."
+                },
+                {
+                    "feedback": "It’s `python3 scheme.py -i questions.scm`, not `python3 scheme.py -17 questions.scm`."
+                },
+                {
+                    "feedback": "ohhh okay! thank you, i though the i represented the Q#.  Thanks a lot for your immediate response!!!! :)"
+                },
+                {
+                    "feedback": "You’re welcome. The `-i` flag after the filename just tells the Scheme interpreter to keep an interactive interpreter open after loading the `questions.scm` file, rather than exiting immediately."
+                },
+                {
+                    "feedback": "Got it! Also, if I make any changes to my code, do I need to reload or restart the terminal?"
+                },
+                {
+                    "feedback": "Yep. You can exit by hitting Ctrl-D or by running `(exit)` in the interpreter."
+                },
+                {
+                    "feedback": "Alternatively, you could run `(load 'questions.scm)`, and you will also keep all your command history for the session by hitting the up key that way."
+                },
+                {
+                    "feedback": "THANK YOU!"
+                }
+            ]
+        },
+        {
+            "question": "Problem 17 > Suite 1 > Case 1 scm> (load 'questions) scm> (list-change 10 '(25 10 5 1)) () # Error: expected # ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1)) # but got # () I've been stuck on this for the past hour and have no clue why it's returning the empty list. I checked to make sure all my parentheses are right, but I'm confused as to why it just keeps returning an empty list. I'm pretty sure my recursive calls are correct. Any ideas for what might be causing this?",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps your base case is accidentally being invoked?"
+                },
+                {
+                    "feedback": "Nvm, I figured it out. For anyone else running into the same problem, it's because one of the base cases should return a list containing nil as opposed to just nil."
+                },
+                {
+                    "feedback": "Also, assuming you’re using `cons-all` at some point, remember that you will eventually have to a return a list containing the empty list at some point so that the `cons-all` function works properly. Something like `'(())`."
+                },
+                {
+                    "feedback": "This fixed my problem as well, but can someone explain why a list containing nil is needed instead of just nil?"
+                },
+                {
+                    "feedback": "Same. Would love to know why we need a list containing nil instead of just nil!"
+                },
+                {
+                    "feedback": "Strange; one of my base cases returns just `nil` and I don't have any base cases that return a list containing `nil`."
+                },
+                {
+                    "feedback": "Remember that our function returns all the possible ways to make change. `(())` represents that there is one way, and that is by doing nothing, and `()` represents that there is no way."
+                },
+                {
+                    "feedback": "I think Cyrus and I took a different approach. One of your base cases involved checking if the total was equal to the largest denominations, didn’t it?"
+                },
+                {
+                    "feedback": "Yeah that's probably it. I suppose it's better to generalize with as few cases as possible"
+                },
+                {
+                    "feedback": "*shrugs* Either way works."
+                },
+                {
+                    "feedback": "TL;DR for anyone reading this (sorry for any additional confusion) if you have an explicit case for when the total is exactly equal to the largest denomination, it’s okay if one of your base cases returns nil instead of a list with nil. But if you don’t have an explicit recursive case for this, you will most likely need to have a base case that returns a list with nil."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyiwyvsuxfo2pl%2Fk31edpqg4lxd%2FScreen_Shot_20191116_at_1.56.39_AM.png) I am receiving this error although I am confident that I implemented `cons- all` and `list-change` correctly. If I use the `cons-all` implementation that doesn't involve `map`, all test cases pass. This leads me to believe that there is something wrong with the way I implemented lambda procedures in previous problems despite passing the test cases for them (or I may have accidentally deleted something). Help is appreciated.",
+            "follow-ups": [
+                {
+                    "feedback": "How exactly are you implementing `cons-all` with `map`?"
+                },
+                {
+                    "feedback": "I fixed it. Turns out I just needed parentheses around the formals of a lambda procedure. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "For cons-all, are we mapping Pair somehow to make first the first element of each list within rests?",
+            "follow-ups": [
+                {
+                    "feedback": "wait nenvermind pair is used in python"
+                },
+                {
+                    "feedback": "im confused on what the procedure should be for the map function for cons-all"
+                },
+                {
+                    "feedback": "Well, you essentially need to use `cons` to prepend the first element to the beginning of each of the lists in `rests`, but `map` takes in functions that only have arguments. How could you make the `cons` procedure work with `map`?"
+                },
+                {
+                    "feedback": "Yeah I'm trying to use cons, would i be able to make a lambda function that takes in the first element of of rests and prepends first to it?"
+                },
+                {
+                    "feedback": "Sounds like a good idea to me."
+                },
+                {
+                    "feedback": "Im trying to test out my cons-all function, and I am pretty sure I've gotten down what I mentioned above, but i don't know why im getting this error  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk324dip4ujqo%2FScreen_Shot_20191116_at_2.04.53_PM.png)"
+                },
+                {
+                    "feedback": "i just have the lambda as my procedure and rests as my list"
+                },
+                {
+                    "feedback": "Remember that the empty list is either '() or nil, not ()"
+                },
+                {
+                    "feedback": "yeah i put nil"
+                },
+                {
+                    "feedback": "ok got it, i had an extra parenthesis but now here, did I make an extra list?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk324jczluo1q%2FScreen_Shot_20191116_at_2.09.29_PM.png)"
+                },
+                {
+                    "feedback": "Actually, slightly counterintuitively, `()` can be used to represent the empty list: ``` scm> () () ``` Anyway, how are you using your `cons` function? It looks kind of like you’re using the `list` function instead, which isn’t what you want. For example: ``` scm> (list 1 '(2 3)) (1 (2 3)) scm> (cons 1 '(2 3)) (1 2 3) ```"
+                },
+                {
+                    "feedback": "yeah i got it i was cons'ing the rests list instead of just doing cons(first rest)"
+                }
+            ]
+        },
+        {
+            "question": "scm> (load 'questions) scm> (list-change 10 '(25 10 5 1)) ((10) (5 5) (5 1 1 1 1 1) (5 1 1 1 1) (5 1 1 1) (5 1 1) (5 1) (5) (1 1 1 1 1 1 1 1 1 1) (1 1 1 1 1 1 1 1 1) (1 1 1 1 1 1 1 1) (1 1 1 1 1 1 1) (1 1 1 1 1 1) (1 1 1 1 1) (1 1 1 1) (1 1 1) (1 1) (1) ()) # Error: expected # ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1)) # but got # ((10) (5 5) (5 1 1 1 1 1) (5 1 1 1 1) (5 1 1 1) (5 1 1) (5 1) (5) (1 1 1 1 1 1 1 1 1 1) (1 1 1 1 1 1 1 1 1) (1 1 1 1 1 1 1 1) (1 1 1 1 1 1 1) (1 1 1 1 1 1) (1 1 1 1 1) (1 1 1 1) (1 1 1) (1 1) (1) ()) I keep receiving this error and I'm not sure why. Currently, I have a base case for it total<= 0 or denoms is nil, a case that calls list-change on totals and the rest of denoms if (car denoms) is greater than total, and an else clause where I append (car denoms) to the rest of car with denoms, and a call to list- change where with totals and the rest of denoms. I don't understand why my code seems to be short-circuiting before total is less than or equal to zero or denoms is nil. Any help would be greatly appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "The base cases of between `total` equaling 0 and `total` being less than 0 should probably have different behaviors. Think about it a bit."
+                },
+                {
+                    "feedback": "If I make a separate base case for when total < 0 and call list-change on total and the rest of denoms, I end up including values that are greater than total, and my codes stil short circuits"
+                },
+                {
+                    "feedback": "Think about it this way: When your total is less than zero, there is no way at all to achieve that with your denominations, so you return nothing—an empty list. But if your total _is_ zero, then there is exactly one way to achieve that: by using nothing at all. So you would return a list _containing_ the empty list. Does that make sense?"
+                },
+                {
+                    "feedback": "I'm having the same issue. Are we calling cons-all too often? Or are we returning empty lists too much?"
+                },
+                {
+                    "feedback": "Did separating the base cases of total equaling 0 and total being less than 0 not help? Keep in mind there is a crucial difference between returning `()` and returning `(())`."
+                },
+                {
+                    "feedback": "I'm having the same issue, too. I separated the base case as what you said, but the error still exists."
+                },
+                {
+                    "feedback": "You probably also have some errors in your recursive calls, then, though I can’t tell you much else without more detail."
+                },
+                {
+                    "feedback": "Remember there's another base case for `(null? denoms)`. Think about where that one should go. (Hint, it should go with one of the other two base cases, but which one?)"
+                },
+                {
+                    "feedback": "I currently have a base case that returns a list containing an empty list if (null? denoms) or (= total 0)"
+                },
+                {
+                    "feedback": "Nvm figured it out! Thank you so much!"
+                },
+                {
+                    "feedback": "what did you figure out? I am having the same problem and changing the base cases isn't helping."
+                },
+                {
+                    "feedback": "never mind it was the base cases after all! (it just wasn't saving the changes)"
+                }
+            ]
+        },
+        {
+            "question": "Just for reassurance, when you do ( (< total 0) ) with nothing in the second argument, that just returns nothing right?",
+            "follow-ups": [
+                {
+                    "feedback": "The second argument of what? `((< total 0))` would error because `(< total 0)` would return a boolean, and both `(#t)` and `(#f)` would error since they’re not procedures, yet they’re at the beginning of a Scheme expression."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhx0jnu546w%2Fk3293matexs3%2F20191116.png)  Why is everything here nested?",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you aren’t making any unnecessary cons calls"
+                },
+                {
+                    "feedback": "Thanks!!!!"
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck with this error and I think it's partly because I'm not implementing the cons-all procedure properly, any tips?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk32gor8rgcut%2FScreen_Shot_20191116_at_7.49.12_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "How have you implemented `cons-all`? Remember that you can implement it very easily with a `map` procedure and a curried version of `cons`."
+                },
+                {
+                    "feedback": "I defined a procedure cons-all which uses a map procedure to place first in front of each element in rests."
+                },
+                {
+                    "feedback": "Test out your `cons-all` in your interpreter with the example we give. Also test it out with nil as the input. If that works out as expected then maybe give us some high level insight into your algorithm. Maybe possible base cases you were thinking about or how you dealt with recursive calls."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2FjlhcpvdbpCqy%2Fk32h1ag28wm4%2FScheme_Error.PNG)  Hello, I keep getting this error where my code is adding a 1 to the end of the last list, I am not sure what is causing it. Any clues as to why? Thank you.",
+            "follow-ups": [
+                {
+                    "feedback": "So I modified the code a bit and it fixed the issue but I could not pass the second test case. Then I modified the code again and the second test case worked (in the interpreter) but the first test case would not work again. I am so stuck."
+                },
+                {
+                    "feedback": "Wait, got it. We were trying to make one of the recursive calls too complicated."
+                }
+            ]
+        },
+        {
+            "question": "Hi folks, I keep getting this:  SchemeError: unknown identifier: list-change  Any theories on why? Thanks :)",
+            "follow-ups": [
+                {
+                    "feedback": "[Screen_Shot_20191116_at_11.13.01_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdifiy1ch4hy%2Fk32nzmx6e18v%2FScreen_Shot_20191116_at_11.13.01_PM.png) Here is the specific error I am facing"
+                },
+                {
+                    "feedback": "Update: My code works in the online interpreter but gives me an error when I run it with Ok"
+                }
+            ]
+        },
+        {
+            "question": "Hi,  My code runs in the online interpreter but I still fail the test any ideas on this? which part could it be?  Thanks  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy4rswsditj4ke%2Fk33khy7xkexk%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "In that case, it’s possible it’s an issue with the implementation of your interpreter, but it’s hard to say what exactly it could be or if that is truly the case. When you say it works in the online interpreter, you mean you manually tried all the test cases, and it works?"
+                },
+                {
+                    "feedback": "Fixed it , actually I was passing total as denom and denom as total!! That's why (car total was raising error)"
+                },
+                {
+                    "feedback": "Whoops. Although, if that’s the case, why did it work in the online interpreter?"
+                },
+                {
+                    "feedback": "Actually in the online interpreter I had (define (list-change denoms total) ) so wrong order of arguments ! So when I ran the tests it passed denoms in place of total , raising the error? In the online interpreter I was calling it as (list-change '(1 2 3 4) 10) but in the tests order of arguments is different !"
+                },
+                {
+                    "feedback": "Ohhh, I see. Well, I’m glad you found your error!"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error, but I don't know if it's because my code is incorrect or my interpreter. Any tips?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk33mvmk9cdru%2FScreen_Shot_20191117_at_3.30.18_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This is probably an issue with your interpreter. nil and None are two different values - make sure you return nil wherever you are supposed to, and not None"
+                },
+                {
+                    "feedback": "Okay, after making a few tweaks to my code, here's what I'm getting now.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk33n7nqxchzh%2FScreen_Shot_20191117_at_3.30.18_PM.png)"
+                },
+                {
+                    "feedback": "Actually, my bad here's what I'm getting now.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk33n97g75wam%2FScreen_Shot_20191117_at_3.40.05_PM.png)"
+                },
+                {
+                    "feedback": "I think the issue is with the apply method of the BuiltinProcedure class of my interpreter, but I still have no clue as to how I would go about fixing it."
+                },
+                {
+                    "feedback": "I also checked to see if I am returning nil wherever I am supposed to and not None and it seems like I am."
+                },
+                {
+                    "feedback": "you can debug by printing out the exception when you catch it in the apply procedure.  something like                try:          failing code       except TypeError as t:          print(t)"
+                },
+                {
+                    "feedback": "By failing code are you referring to the python equivalent of the scheme code I am writing?"
+                },
+                {
+                    "feedback": "no I was referring to your code inside the builtinprocedure apply function, which I'm guessing is running into an error (hence 'failing code')"
+                },
+                {
+                    "feedback": "What I currently have for \"failing code\" is call = self.fn(*python_args), I return call if the code doesn't error. Is this not correct?"
+                },
+                {
+                    "feedback": "seems okay. The code block I sent you above was to print the actual error caused, instead of just the uninformative \"SchemeError:\", so that we can figure out where the actual problem is coming from. That will narrow down the problem. If you want to keep your schemeerror, you can just use something like                except TypeError as t:                 raise SchemeError(str(t))"
+                },
+                {
+                    "feedback": "Yup, I just changed the messages for any uninformative 'SchemeErrors\" so I know the issue is with the apply method of the BuiltinProcedure class for a fact."
+                },
+                {
+                    "feedback": "What is the exception that prints when you execute the code block I sent in the last message?"
+                },
+                {
+                    "feedback": "This is what I get.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk33q9d97pqov%2FScreen_Shot_20191117_at_5.05.06_PM.png)"
+                },
+                {
+                    "feedback": "are you trying to return call in a situation where it has not been assigned yet?"
+                },
+                {
+                    "feedback": "I assign call in order to save the result of self.fn(*python_args) just in case it doesn't error. Otherwise returning self.fn(*python_args) may return an incorrect value."
+                },
+                {
+                    "feedback": "so you assign call in the try block and then return it after the except block, correct? if that's the case, I'm not sure where the UnboundLocalError is coming from.  Also, it is ok to simply return self.fn(*python_args) in the try block, because if an error occurs, it will be caught by the except block and the value will not be returned."
+                },
+                {
+                    "feedback": "The fact that you are getting `None` printed out seems a little suspcious. Are you ever accidentally printing a value rather than returning it from a function?"
+                },
+                {
+                    "feedback": "I printed just to see what is going on with my code."
+                },
+                {
+                    "feedback": "I'm still having the same issue with my apply method."
+                },
+                {
+                    "feedback": "still printing the unboundlocalerror? I don't know exactly what your code looks like, but removing the call variable altogether could help us find the other exception that is caused."
+                },
+                {
+                    "feedback": "No, I'm no longer getting an unboundlocalerror, I'm referring to my SchemeError (which I have determined to be coming from my apply method)."
+                },
+                {
+                    "feedback": "sorry to ask again, but what prints when you replace your except code in the apply function with this?                except Exception as t:                 raise SchemeError(str(t))"
+                },
+                {
+                    "feedback": "This is what I get.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk33s3u4puz8b%2FScreen_Shot_20191117_at_5.56.50_PM.png)"
+                },
+                {
+                    "feedback": "It looks like something you are evaluating is returning `None` rather than an actual value, which should never happen. Whatever you are trying to put as the second argument to `cons` is evaluating to `None` rather than a value. I don’t think it’s an issue with `BuiltinProcedure`—the error is only being raised there because that’s when having the `None` value causes a problem."
+                },
+                {
+                    "feedback": "+1\\. Do you pass all the tests when you run                python3 ok -q tests.scm"
+                },
+                {
+                    "feedback": "it might be your cond where you are incorrectly returning None somewhere. just speculating but when the else condition does not have a value after it, the value would evaluate to be None, but you actually want to return True instead of the value."
+                },
+                {
+                    "feedback": "Just checking, list-change returns a list of lists, right?"
+                },
+                {
+                    "feedback": "yes"
+                },
+                {
+                    "feedback": "That's interesting because I get this error telling me that argument 1 of map is of the wrong type (map is used inside my cons-all procedure). In the recursive call, isn't list-change supposed to be passed into the rests parameter of cons-all?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr10lfsb3v012w%2Fk33tj983b5s%2FScreen_Shot_20191117_at_6.37.00_PM.png)"
+                },
+                {
+                    "feedback": "are you the same person as the original commenter? if so, I'd fix the nonetype error that we were discussing earlier. Yes to your second question."
+                },
+                {
+                    "feedback": "You should never really have an instance where you run into trying to handle `None` because the only Scheme procedure that doesn’t return anything is the `print` procedure. This probably means you have an issue in your interpreter. Check what your second argument (aka argument 1 since zero-indexing) is to `map`, and then see if the code that handles that procedure is accidentally not returning anything sometimes."
+                }
+            ]
+        },
+        {
+            "question": "I just can't wrap my head around what I am doing wrong here so that my answer is nested in this way.      # Error: expected   # ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))   # but got   # (10 (5 5) (5 (1 (1 (1 (1 1))))) (1 (1 (1 (1 (1 (1 (1 (1 (1 1))))))))))",
+            "follow-ups": [
+                {
+                    "feedback": "are you using append? Using the list constructor will have different results than using append.                scm> (list 1 '(2 3 4))     (1 (2 3 4))     scm> (append '(1) '(2 3 4))     (1 2 3 4)"
+                },
+                {
+                    "feedback": "Ya I am using append. If I use cons or list in the recursive step(s), it turns out even worse.  # Error: expected   # ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))   # but got   # ((10) ((5 (5)) (5 ((1 ((1 ((1 ((1 (1))))))))))) ((1 ((1 ((1 ((1 ((1 ((1 ((1 ((1 ((1 (1))))))))))))))))))))"
+                },
+                {
+                    "feedback": "I also don't get why we are using append in the recursive step anyways, because the end result should be a list of lists, no?   Ex: ((10) (5 5) (5 1 1 1 1 1 ) ...)   In this case, why would we want to append to get all these lists? It seems a bit strange to do (append (list (list)) (list (list))."
+                },
+                {
+                    "feedback": "we are using append to combine the lists of lists. For example, (list-change 4 '(2 1)) would consist of all lists including 2 and all lists not including 2. This is formed by appending these two individual components: ((2 2) (2 1 1)) and ((1111)), leading to the final list ((2 2) (2 1 1) (1111))"
+                },
+                {
+                    "feedback": "You should essentially be using either `append` to join your two tree recursive cases together to form a longer list of lists but should be using `cons` to build each individual list (AKA use the `cons-all` helper function). Make sure you aren’t accidentally trying to use one in the other—and you probably don’t have use for the `list` procedure, if you are using it."
+                },
+                {
+                    "feedback": "cons-all *"
+                },
+                {
+                    "feedback": "I figured it out. It was a bug in my cons-all code that was somehow just nesting everything. Thanks for the help though."
+                }
+            ]
+        },
+        {
+            "question": "would we need to check if an individual denom is greater than total and return nil if that's the case?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that the denominations are in decreasing order. So if you're checking if the first denomination is greater than total, and returning nil if that's the case, that's erroneous. Think about it this way: if I have a 50 cent coin, and I want to make change of that with 80, 40, 20, and 10 cent coins, would I immediately look at the 80 cent coin and say \"welp, there's no way I can make change of the coin I have\"? No, I would just disregard the 80 cent coins and see what I can do with the 40, 20, and 10 cent coins."
+                },
+                {
+                    "feedback": "thanks, that helps so much. if that was the case, if the coin value is exactly equal to the denom, how would I prevent my function from just returning a list of just that coin value? Do you suggest starting from the end of the list?"
+                },
+                {
+                    "feedback": "You should still use tree recursion—consider breaking the cases into one where you do use the largest denomination and one where you don’t use the largest denomination, then append them together."
+                }
+            ]
+        },
+        {
+            "question": "I'm pretty confused as to how cons-all fits into this problem. Right now I have it adding total to every list resulting from a recursive call to list- change within the condition that total equals the car of denoms. Am I on the right path?",
+            "follow-ups": [
+                {
+                    "feedback": "You are going to be using tree recursion, and part of this is probably going to be adding the same denomination to the beginning of a list of lists of denominations. See if you can figure out how the tree recursive cases are to be split, first, and then it should hopefully become a little more apparent."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzufd6deraw7i%2Fk354n7rkr67d%2FScreen_Shot_20191118_at_4.35.17_PM.png)  Has anyone else gotten this error/ know how to fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you trying to perform some arithmetic involving `denoms` on one side? For example, this will produce the same error: ``` scm> (= 10 '(25 10 5 1)) Error: operand 1 ((25 10 5 1)) is not a number ```"
+                },
+                {
+                    "feedback": "yes, that was it. thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Hello, I think I'm close to the right answer but I'm coming up with an error \"SchemeError: cdr can only be a pair, nil, or a promise but was 1\" on the first suite of the first test case (list-change 10 '(25 10 5 1)) and I don't see where it comes from. From some print statements in my code I know the program error when (list-change 5 (1)) and I have a base case that deals with when the length of denoms is 1, but maybe the error is in there. If anyone has some hints that would be great.",
+            "follow-ups": [
+                {
+                    "feedback": "You are likely constructing a list using cons somewhere in which the second parameter to cons is a number instead of a list. Something like `(cons 1 2)` would throw a similar error."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjx58q0x5w5%2Fk359sleqqye5%2FScreen_Shot_20191118_at_6.58.52_PM.png)  Anyone know why I'm getting this error and how to fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you trying to put a function call that is returning `nil` at the beginning of a larger Scheme expression?"
+                },
+                {
+                    "feedback": "I have two base cases returning an empty list for when denoms is empty or when total is 0, and in my final line, I'm appending the recursive call of list- change (list-change (- total (car denoms)) denoms) to (list-change total(cdr denoms)). I'm not sure why I'm getting this error unless I'm not allowed to append nil to a list. Is that the case?"
+                },
+                {
+                    "feedback": "Are both your base cases returning the same thing? When total is 0, it means we have found an exact denom to make total so you want it to be a list of nil whereas in the other case we don’t want anything inside our list (just nil)"
+                },
+                {
+                    "feedback": "No, they're different. I'm returning nil when denom is null and the nested empty list (()) when total is 0"
+                },
+                {
+                    "feedback": "It may just be an issue with your parentheses, since putting anything that isn’t a procedure at the beginning of a scheme expression is going to cause an error. It is appropriate for some of your functions to return nil; just make sure none of them come at the beginning of a larger expression. I’m not sure how you could get the error otherwise."
+                },
+                {
+                    "feedback": "Can you give an example of what you mean by putting something other than a procedure at the beginning of a scheme expression? I don't fully understand what kind of expression would result in that error."
+                },
+                {
+                    "feedback": "For example, something like `((list-change (- total (car denoms)) denoms) (list-change total denoms))` would error since you have the `list-change` expression at the beginning of the larger expression, and since it doesn’t return a procedure, it errors since Scheme expressions always have to have an operator or special form in the first position."
+                }
+            ]
+        },
+        {
+            "question": "How is scheme_eval and parameter we need to set to True for tail recursive involved? I do have tail recursion in do_and_form, do_or_form, and eval_all, but because they qualify as tail recursion, they call themselves as the last line, not scheme_eval. I think I'm a little confused as to how scheme_eval is involved",
+            "follow-ups": [
+                {
+                    "feedback": "In certain cases within those functions, you can pass in a True parameter to scheme_eval, but in others you cannot."
+                },
+                {
+                    "feedback": "Also, @1940"
+                },
+                {
+                    "feedback": "`scheme_eval` is reassigned to the function `optimized_eval`, and `optimized_eval` takes in an argument `tail` that states whether or not the expression is being evaluated in a tail context. If it is, it can and does safely return `Thunk`s, but if it isn’t, it will continually evaluate `result` until it is no longer a `Thunk`. Your job is to find all the tail contexts and set `tail = True` in every tail context."
+                }
+            ]
+        },
+        {
+            "question": "I understand cons-all itself, but still confused when I should use it.... Could you explain this?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about how you are going to split your recursive cases. For example, one of them could be if I used the largest denomination, then I would have to subtract the largest denomination from `total` and then get all the ways I can make the remainder using a recursive leap of faith. However, I still did use that largest denomination, so I would have to `cons` the largest denomination to every resulting list of the recursive call. For example, if I were trying to make 16 with 10, 5, and 1, I could take away 10, then get all the ways I can make 6 with 10, 5, and 1, which results in `((5 1) (1 1 1 1 1 1))`, and then I still have to prepend those both with `10` to get `((10 5 1) (10 1 1 1 1 1 1))`. Of course, this isn’t the full set of solutions, so think about what the other branch in the tree recursion is."
+                },
+                {
+                    "feedback": "Thank you! This is very helpfu;!"
+                }
+            ]
+        },
+        {
+            "question": "I am getting this error:  scm> (list-change 10 '(25 10 5 1))  ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))  scm> (list-change 5 '(4 3 2 1))  ((4 3) (4 1) (3 2) (3 1 1) (2 2 1) (2 1 1 1) (1 1 1 1 1))  # Error: expected  # ((4 1) (3 2) (3 1 1) (2 2 1) (2 1 1 1) (1 1 1 1 1))  # but got  # ((4 3) (4 1) (3 2) (3 1 1) (2 2 1) (2 1 1 1) (1 1 1 1 1))  Run only this test case with \"python3 ok -q 17 --suite 1 --case 1\"  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case  For my list-change function, I use a begin statement to do three things. First, I define a function called extend-lst that constructs a list with one item repeated a certain number of times. This is just used to help out when I want to return ten 1's in a row. Next, I remove any elements of denoms that are larger than total.  The third thing is the main body of my function. If total is <= 0, then it returns (()). If there's only one element left in denoms, it returns that element repeated enough times to equal total (this is what returns ten 1's in a row for that base case). And in the else case, I create two lists that basically correspond to evaluating (n-m, m) & (n, m-1) from the partitions question on the midterm. Then I append the lists together.",
+            "follow-ups": [
+                {
+                    "feedback": "Think about the difference if `total` is 0 versus if `total` is less than 0. If `total` is 0, then there is only one way we can achieve that: by doing absolutely nothing. This one option of doing nothing is represented by `(())`, a one-element list with `nil` as the first element. However, if `total` is less than 0, there is absolutely no way we can achieve that, so since there are 0 ways, we return `()`, an empty list."
+                },
+                {
+                    "feedback": "This worked, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Do I need to use two helper function?",
+            "follow-ups": [
+                {
+                    "feedback": "17 can be done without helper functions."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this error :( I'm confused on how to fix it  Problem 17 > Suite 1 > Case 1  scm> (load 'questions)  scm> (list-change 10 '(25 10 5 1))  # Error: argument 0 of car has wrong type (nil)  # Error: expected  # ((10) (5 5) (5 1 1 1 1 1) (1 1 1 1 1 1 1 1 1 1))  # but got  # Traceback (most recent call last):  # ...  # SchemeError: argument 0 of car has wrong type (nil)  Run only this test case with \"python3 ok -q 17 --suite 1 --case 1\"  \\---------------------------------------------------------------------  Test summary  0 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Double-check your base cases to make sure you’re correctly handling nil, since trying to get the car of nil will result in an error."
+                },
+                {
+                    "feedback": "you are probably implementing your cons-all procedure incorrectly. I recommend using \"cons\" instead of \"append\". As always, take the recursive leap of faith"
+                },
+                {
+                    "feedback": "If it is the case that your `cons-all` procedure is doing something incorrectly, remember that the use of the `map` function to get the `car` of every list and then another `map` call to get the `cadr` of every list is a very elegant way of implementing it."
+                }
+            ]
+        }
+    ]
+}

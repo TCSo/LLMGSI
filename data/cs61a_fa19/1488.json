@@ -1,0 +1,79 @@
+{
+    "subject": "[Lab 7] Q1: WWPD: Linked Lists",
+    "content": "<a href=\"https://cs61a.org/lab/lab07/#q1\">Q1: WWPD: Linked Lists</a>\n\n<p> Please post all questions you have below concerning Q1: WWPD: Linked Lists in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyf20y5pyas38e%2Fk1s05x0rf5a6%2FScreen_Shot_20191015_at_8.29.33_AM.png)  Why does this display 1? Can somebody explain it for me? Thank you",
+            "follow-ups": [
+                {
+                    "feedback": "This line assigns the rest of a linked list to be itself. So, what is the rest of the result? And the rest of that? Does it change? Now, can you deduce what the first element of the resulting link will be?"
+                },
+                {
+                    "feedback": "I did not understand what the line two does, but now I understand because link.rest points back to link. Thank you for your explanation."
+                },
+                {
+                    "feedback": "Interesting but I initially thought of this as Link(1,Link(1)). In this case, it is supposed to give error. Why is this not correct? Thanks!"
+                },
+                {
+                    "feedback": "Oh I see now, it is because link.rest is not pointing to a number rather an instance."
+                },
+                {
+                    "feedback": "Yeah, the expression `link` evaluates to the object stored in `link`, not a fresh copy of `Link(1)`"
+                },
+                {
+                    "feedback": "Im still confused, can someone elaborate more on this?"
+                },
+                {
+                    "feedback": "So we could theoretically enter in link.rest.rest.rest.rest.rest....repeat rest for 1000 times and if we ended with .first, it would display 1 right? Since list.rest just points back to list?"
+                },
+                {
+                    "feedback": "Yes Rohit"
+                },
+                {
+                    "feedback": "@Anon, think about it like this - `link.rest` becomes `link`, and since `link.rest` is now `link`, then the rest of `link.rest` is the same as `link.rest` which is `link`, and the rest of that is also `link`, etc."
+                }
+            ]
+        },
+        {
+            "question": "Link > Suite 1 > Case 3  (cases remaining: 1)  What would Python display? If you get stuck, try it out in the Python  interpreter!  >>> from lab07 import *  >>> link = Link(5, Link(6, Link(7)))  >>> link # Look at the __repr__ method of Link  ? Function  \\-- Not quite. Try again! --  Explain how repr is applied to link, can't find from book",
+            "follow-ups": [
+                {
+                    "feedback": "Now I solved this above. Found it from the book but  >>> print(link) # Look at the __str__ method of Link  don't understand str."
+                },
+                {
+                    "feedback": "don't understand neither.  I tried <5, 6, 7> but not correct..."
+                },
+                {
+                    "feedback": "I won't provide the answer because part of the exercise is to get you to read through and learn how __repr__ and __str__ work. Two things you can do, and should do here:    1. Read through the bottom of lab07.py where we give you the Link class and corresponding __repr__ and __str__ functions   2. Double-check that what you think is right, by trying it out on interpreters."
+                },
+                {
+                    "feedback": "Got it, thank you!"
+                }
+            ]
+        },
+        {
+            "question": "How does assignment like link.first = 9001 work when there are no property methods (@property or @setter) in the Link class of lab07.py? Am I incorrect to think that the property methods are necessary to create this behavior? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Why would those be necessary? The instance attribute `first` is initialized in the Link constructor."
+                }
+            ]
+        },
+        {
+            "question": "I dont quite get the relationship between calling link, repr and str? How come it works like:  link = Link(5, Link(6, Link(7))) # we set link to a linked list,  and by calling  >>>link  we automatically invoke __repr__( )?  thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "See @1559: Inputting some expression `e` into the interpreter is equivalent functionally to `print(repr(e))`"
+                }
+            ]
+        },
+        {
+            "question": "Super stuck on this test case:  Link > Suite 1 > Case 2  >>> link.rest = link.rest.rest  >>> link.rest.first  Any help would be great",
+            "follow-ups": [
+                {
+                    "feedback": "try drawing out the Links in a box and pointer diagram - this may help to visualize it, especially when doing multiple .rest's. for this one specifically, link.rest is being set to a different link - what is the first of it?"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,396 @@
+{
+    "subject": "[Lab 14] Q3: Cycles",
+    "content": "<a href=\"https://cs61a.org/lab/lab14//#q3\">Q3: Cycles</a>\n\n<p> Please post all questions you have below concerning Q3: Cycles in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Can the website be updated to state that we are to complete this in `lab14.scm`, not `lab14_extra.scm`, since that's where `has-cycle` appears to be? This is also applicable vice versa regarding Q4."
+        },
+        {
+            "question": "I'm confused what the procedure contains? is suppose to do. The 2 parameters are a list and a stream, so are we suppose to check whether any element in the list is in the stream or am I interpreting this incorrectly?",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, it was correct to assume we were checking if any element in the list is equal to the stream."
+                }
+            ]
+        },
+        {
+            "question": "I don't know why this errors.  compose-all > Suite 1 > Case 2  scm> (load-all \".\")  scm> (define (halve x) (/ x 2))  halve  scm> (define (square x) (* x x))  square  scm> (define halve-then-square (compose-all (list halve square)))  halve-then-square  scm> (define square-then-halve (compose-all (list square halve)))  square-then-halve  scm> (halve-then-square 42)  # Error: too few arguments to function call  # Error: expected  # 441  # but got  # Traceback (most recent call last):  # ...  # SchemeError: too few arguments to function call  Run only this test case with \"python3 ok -q compose-all --suite 1 --case 2\"",
+            "follow-ups": [
+                {
+                    "feedback": "One or more of your procedure calls are missing one or more parameters. Check all your parentheses and make sure you are passing in the right number of parameters into each procedure you call."
+                },
+                {
+                    "feedback": "Also for future reference please make sure you put it in the correct thread. This is for Q2."
+                },
+                {
+                    "feedback": "How did you solve this error? Do you have some hint?"
+                },
+                {
+                    "feedback": "You most likely just have some mismatched parentheses causing you to pass in the wrong number of arguments to a function call. Double check those."
+                },
+                {
+                    "feedback": "Thanks a lot!!!! I got it solved!!!"
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure I understand this entirely. I am currently appending the car of the stream to seen-so-far and checking each time if seen-so-far contains car s. Could someone explain how to check if the pair has been seen before?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider utilizing `seen-so-far` as storing all of the pairs we encounter. So it should contain s, s.rest, s.rest.rest, etc, since remember that the second element of a Pair is either a Pair itself or nil."
+                },
+                {
+                    "feedback": "I'm a bit confused. Can't one implementation of this problem be done without creating new pairs? Since, eq? checks if the memory locations are the same so by creating a new pair wouldn't that make using **eq?** kinda useless in this implementation(if this implementation is possible)."
+                },
+                {
+                    "feedback": "`seen-so-far` will essentially keep track of every stream it has seen “so far.” If there is a cycle, eventually, the current element will become the same object in memory as the initial stream that is passed and will thus be contained within `seen-so-far`. That is what the `eq?` predicate is used for."
+                }
+            ]
+        },
+        {
+            "question": "If my code works for (has-cycle? s) and (has-cycle? cycle) but has a timeout error for (has-cycle? cycle-within) how do I try to debug it??",
+            "follow-ups": [
+                {
+                    "feedback": "What is your methodology?"
+                },
+                {
+                    "feedback": "I use curr as my current place in stream and seen-so-far as a list of past streams, adding the new stream to the front of the list.  I check if the stream is contained in this list using contains?  contains just goes through the seen-so-far list and sees if any element matches my curr stream."
+                },
+                {
+                    "feedback": "nvm I got my careless error in contains. Thanks for the prompt first reply though."
+                },
+                {
+                    "feedback": "No problem, glad you got it sorted out."
+                },
+                {
+                    "feedback": "Different anon here having the same issue.  My contains function currently handles three cases:    * lst is nil   * s is in lst   * the else branch/recursive call  Not quite sure what I'm doing wrong.  Could anyone provide any hints?  Thank you!"
+                },
+                {
+                    "feedback": "Which function are you referring to? You should start by just making sure that your `contains?` procedure works properly—it should simply check whether the value `s` is contained within `lst`—you don’t need to worry about streams at all in that function. After implementing that, you essentially want to keep adding the current lists you’ve seen in `seen-so-far` to the recursive argument and use `contains?` to see if the current element in the stream has been seen so far within `seen-so-far`. If you hit the end of the stream, then you know there can’t be a cycle."
+                },
+                {
+                    "feedback": "I think most of my logic is right, since my contains function does its job and I'm passing some test-cases.  The only issue is that I'm getting a time out error on the rest of the test cases.  My has-cycle? function does perform the steps you described, so I'm still kind of lost..."
+                },
+                {
+                    "feedback": "Try tracing your code line-by-line and writing out the environment diagrams to see if you ever get stuck in an infinite loop. The test cases shouldn’t be long enough that it ever just runs out of time when it is supposed to complete. If you still don’t have any luck, try going into OH or making a private post on Piazza."
+                }
+            ]
+        },
+        {
+            "question": "For (has-cycle? s), I am getting Error: bool is not callable: #f. I'm not sure why this is the case.",
+            "follow-ups": [
+                {
+                    "feedback": "You probably are putting the result of a function call as the first element of a larger Scheme expression, and it can’t call a boolean as an operator."
+                },
+                {
+                    "feedback": "I found my mistake. Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "Is the `contains` function supposed to check that a certain list appears inside the stream?",
+            "follow-ups": [
+                {
+                    "feedback": "The other way around - we are ideally checking if the stream appears in the list."
+                }
+            ]
+        },
+        {
+            "question": "I'm confused about the contains function - how do we check if any of the items in the list are equal to s? I tried to map across all the elements in the list but it doesn't seem to work. Is the solution for it supposed to be recursive?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, recursion helps a lot. Remember the easiest element to access in a list is its first, so combine this fact with a recursive call so that you can compare every element in the list to `s` using `eq?`"
+                },
+                {
+                    "feedback": "Mapping is technically a possibility with this, as well, if you map every element in the list to a boolean of whether it is equal to the stream or not, and then recursing through the list to see if any of them are true. This technically is slightly more computationally intensive, though, since equality is checked all at once instead of lazily."
+                }
+            ]
+        },
+        {
+            "question": "I keep on getting a Timeout and I believe it is because I am passing in the wrong thing for seen-so-far when I first call pair-tracker. Currently, I am calling pair-tracker with nil as seen-so-far and s as curr. I believe that the contains? function never returns #t because the streams in the list ends with nil, but the stream in a cycle never ends with nil. Is this true and if so how can I change my code to address this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "It's fine to first call `pair-tracker` with nil. In your recursive `pair- tracker` call within `pair-tracker`, you should pass in as the next `seen-so- far` the result of appending `curr` to `seen-so-far` (use `cons` for this) because we want to mark the current pair object as having been seen. As for the next `curr`, think about it this way - given a pair, how do you get the \"next\" pair object from that pair?"
+                },
+                {
+                    "feedback": "different anon here, but to get to the \"next\" pair I did cdr-stream of s but I get the following error:  scm> (define s (cons-stream 1 (cons-stream 2 nil)))  scm> (define cycle (cons-stream 1 (cons-stream 1 cycle)))  scm> (define cycle-within (cons-stream 1 (cons-stream 2 cycle)))  scm> (define long (cons-stream 1 long))  scm> (define (stream-add s n) (if (= n 0) s (cons-stream n (stream-add s (- n 1)))))  scm> (define long (stream-add long 10))  scm> (define cycle-free (stream-add nil 10))  scm> (has-cycle? s)  pair-tracker  # Error: expected  # #f  # but got  # pair-tracker  Run only this test case with \"python3 ok -q has-cycle --suite 1 --case 1\""
+                },
+                {
+                    "feedback": "You need to not only define pair-tracker, but also call it."
+                },
+                {
+                    "feedback": "I do call it, in the body of the has-cycle function. When has-cycle is called, the pair-tracker function gets executed with seen-so-far initialized to nil"
+                },
+                {
+                    "feedback": "scm> (define s (cons-stream 1 (cons-stream 2 nil)))  scm> (define cycle (cons-stream 1 (cons-stream 1 cycle)))  scm> (define cycle-within (cons-stream 1 (cons-stream 2 cycle)))  scm> (define long (cons-stream 1 long))  scm> (define (stream-add s n) (if (= n 0) s (cons-stream n (stream-add s (- n 1)))))  scm> (define long (stream-add long 10))  scm> (define cycle-free (stream-add nil 10))  scm> (has-cycle? s)  # Error: pair is not callable: (1 . #[promise (not forced)])  # Error: expected  # #f  # but got  # Traceback (most recent call last):  # ...  # SchemeError: pair is not callable: (1 . #[promise (not forced)])  Run only this test case with \"python3 ok -q has-cycle --suite 1 --case 1\"  Any ideas why I may be failing this test?"
+                },
+                {
+                    "feedback": "You’re probably putting the stream at the beginning of a larger Scheme expression, which is causing the interpreter to try to run the stream as the operator of the expression and fail. Double check your parentheses."
+                }
+            ]
+        },
+        {
+            "question": "I've been working for quite a bit now, but I seem to be stuck as to how to properly form the seen-so-far list. The problem I'm having is that we can add **values** of the stream to this seen-so-far list, but we can't actually add the stream object itself. When looping through curr, I'm adding (car curr) to the list seen-so-far, but this is just adding an integer value. Say we're looping through and curr is equal to the cycle. Then I add (car cycle) to my list seen-so-far but this doesn't help me since (car cycle) is an integer (like 1). I can't append curr itself to seen-so-far because on the first loop curr is equal to the list s, so then the function has-cycle always returns true. Not really sure where to proceed, and it's been quite a long time... any help would be much appreciated!",
+            "follow-ups": [
+                {
+                    "feedback": "You can and should add the stream object itself to `seen-so-far` \\- a stream is just a pair consisting of an actual value and another stream as its second value. The hint is telling us that we should be checking to see if we come across the same stream/pair object twice, so we use `seen-so-far` to keep track of the streams we have already seen. Use `curr` to keep track of the current stream object."
+                },
+                {
+                    "feedback": "You are really just trying to watch `curr` in order to see if it ever appears more than once when going through the `cdr-stream`s. So you will put `curr` into the `seen-so-far` list and then later check to see if the next `curr` is in the said list, which would imply a cycle."
+                },
+                {
+                    "feedback": "Thanks guys. Cyrus's comment replying above to anon really helped. I was using append instead of cons and it wasn't working (drawing a linked list diagram, i can understand why we need cons instead of append)"
+                },
+                {
+                    "feedback": "No problem. Creds to Nicholas for the idea that you can think of `(cons first rest)` as appending `first` to the front of `rest` \\- thinking about `cons` that way really helps for some problems such as this one."
+                },
+                {
+                    "feedback": "Why can't we use append?"
+                },
+                {
+                    "feedback": "You can, if you do something like `(append (list first) rest)`"
+                },
+                {
+                    "feedback": "When added to the seen-so-far stream, the placement of the curr stream object in the seen-so-far stream doesn't matter right? Like whether it is in front or in the end of the steam?  Because append would add it to the end of seen-so-far whereas cons would add it to the beginning right?"
+                },
+                {
+                    "feedback": "As long as your `contains?` function correctly returns whether the element `s` is contained *anywhere* within the list `lst`, you shouldn’t have to worry whether you prepend it with `cons` or append it with `append`."
+                },
+                {
+                    "feedback": "Thank you. Also, when using cons, why is it wrong to write it as: (cons (curr (seen-so-far)))"
+                },
+                {
+                    "feedback": "I think the problem with that notation is that scheme thinks you are calling seen-so-far as a zero-argument function (just the operator) because you're wrapping it in parentheses.  Also, I don't think you'd put curr in another set of parens because you are cons-ing it as the car of a new list, rather than making a function call with curr as the operator and the return value of the (seen-so-far) call as the operand.  I believe it should work if you write it as (cons curr seen-so-far) assuming that curr is one number and seen-so-far is a list."
+                }
+            ]
+        },
+        {
+            "question": "I don’t think I fully understand this question. Can someone please explain me ?",
+            "follow-ups": [
+                {
+                    "feedback": "Your goal is to write a function that will determine if a stream contains a cycle (if it's defined in terms of itself). To do this, we need a procedure (contains?) to determine if the stream we have seen so far appears is the same object as one of the elements in lst, which should keep track of the different streams as we iterate over the original stream"
+                },
+                {
+                    "feedback": "You have to write a procedure that, given a stream `s`, returns whether or not `s` contains itself. The hint tells us that a stream contains itself iff you see the same pair object twice, so you can do this by keeping track of all pair objects in the stream using `seen-so-far`, keeping track of the current pair object to be examined using `curr`, and using the `contains?` method to see if the current pair has already been seen."
+                },
+                {
+                    "feedback": "What is a pair in this case referring to?"
+                },
+                {
+                    "feedback": "A stream is really just a pair object that as its first value contains some value and as its second value contains a promise of another stream, which when accessed via `cdr-stream` becomes another stream. Given a stream object, the \"pair objects\" within that stream are `s` itself, then the rest (via `cdr- stream`) of `s`, then the rest of that, etc. since the `cdr-stream` of a stream yields another pair object / stream."
+                },
+                {
+                    "feedback": "The \"rest\" of the stream in the Pair object would be promises of the stream that are not actually evaluated until we explicitly call cdr-stream right?"
+                },
+                {
+                    "feedback": "I am trying to understand the similarity of \"Pair\" object and linked lists"
+                },
+                {
+                    "feedback": "Yes, but that's not a concern for us since we can just explicitly call `cdr- stream` on `s` to get the next pair."
+                },
+                {
+                    "feedback": "I am so lost...where do I start this problem"
+                },
+                {
+                    "feedback": "Start by implementing the `contains` function, which takes in a list and a stream and returns whether or not that stream is an element of the list. Regarding the pair tracker, the parameter `seen-so-far` keeps track of all the pair objects of the stream, and the parameter `curr` keeps track of the current pair object to be examined. Once you detect the same pair twice, i.e. the current pair we are examining appears inside of `seen-so-far`, we return true. If we run out of pair objects, we return false."
+                },
+                {
+                    "feedback": "I am having trouble figuring out how to break down s for the recursive call in the contains function"
+                },
+                {
+                    "feedback": "We don't break down s, but rather we break down the list into its first and rest. We use `eq?` to see if the first equals s, and we use the rest of the list in the recursive call."
+                },
+                {
+                    "feedback": "Oh that makes sense, since we are checking if s is contained in the list, not vice versa"
+                },
+                {
+                    "feedback": "Precisely!"
+                },
+                {
+                    "feedback": "For the base cases in pair trackers, would one of them be when seen-so-far is nil (when we have reached the end of the stream)"
+                },
+                {
+                    "feedback": "Not `seen-so-far`, because `seen-so-far` keeps growing (as pair objects keep getting added) and it should start off as `nil`. Instead, the value of `curr` will tell us whether or not we have reached the end of the stream."
+                },
+                {
+                    "feedback": "Of course! I cannot figure out the second base case though"
+                },
+                {
+                    "feedback": "When `seen-so-far` contains the current pair we are examining, we return true since we have found the stream within itself."
+                }
+            ]
+        },
+        {
+            "question": "How can I test that my contains functions works with no doctests?",
+            "follow-ups": [
+                {
+                    "feedback": "The `contains` function works properly if it returns true if whatever is passed in for `s` is in the list and false otherwise. So you can use the console in the provided web editor, or the provided console interpreter, and try something like                (contains? '(1 2 3) *value here*)  And see if it returns the proper output. i.e. if you pass in 2, it should return true, but if you pass in 4, it should return false."
+                },
+                {
+                    "feedback": "got it thanks!"
+                },
+                {
+                    "feedback": "No problem!"
+                },
+                {
+                    "feedback": "Wait so has-cycle? is supposed to return true if it does have a cycle and false otherwise?"
+                },
+                {
+                    "feedback": "Yep, \"it\" as in the stream"
+                },
+                {
+                    "feedback": "Wait - so it doesn't have to be a stream that's passed in? It could just be an integer?"
+                },
+                {
+                    "feedback": "For `contains?` the intended solution should not inherently force s to be a stream. `contains?` is intended to take in a list and a stream and return if that stream is inside the list, however, it turns out that you can just treat the stream as a normal object, so in theory `contains?` should be able to take in anything for `s`, which is why I suggested you tested it with integers just to make it easier to see if it actually works. `has-cycle?` will always take in a stream, so when you call `contains?` it turns out `s` is always going to be a stream (assuming you call it correctly)."
+                },
+                {
+                    "feedback": "ok thanks - right now my solution for contains? only works if s is a stream (actually it doesn't even work in this case); can you give me a hint on how to generalize it?"
+                },
+                {
+                    "feedback": "If you can use `eq?` to check if the first element of the list equals `s`, then you should be able to make a recursive call that enables you to check every element of the list for equality to `s`. As soon as we encounter an element that equals `s`, we need to return true. Make sure you set up your base case properly - what should happen if the list is empty?"
+                },
+                {
+                    "feedback": "so you're checking that s is inside list - so you need to check that the first element of s equals the first element of list. If the base case if empty, it should automatically return true. But i don't see how you can compute the first value if its an integer?"
+                },
+                {
+                    "feedback": "We're just checking if `s` _itself_ is one of the elements inside of the list. You don't need to examine elements within `s` \\- just `s` as a whole."
+                },
+                {
+                    "feedback": "ahh okay"
+                },
+                {
+                    "feedback": "got it thanks!"
+                },
+                {
+                    "feedback": "No problem"
+                }
+            ]
+        },
+        {
+            "question": "From the hint given in the problem...  scm> (define lst1 '(1 2 3)) lst1 scm> (define lst2 lst1) lst2 scm> (define lst3 '(1 2 3)) lst3 scm> (eq? lst1 lst2) #t scm> (eq? lst1 lst3) #f  Can someone please explain why lst1 and lst3 are not equal",
+            "follow-ups": [
+                {
+                    "feedback": "eq? checks if the two variables are pointing to the same object"
+                },
+                {
+                    "feedback": "They're \"equal\" in the sense that they are two lists with the same values in them, however they are two separate list objects, and eq? checks for if the two arguments point to the exact same object."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected  # #f  # but got  # (2 . #[promise (not forced)]  Returning only #f and #t in both contains? and pair-tracker..how does this return?",
+            "follow-ups": [
+                {
+                    "feedback": "Trace your code and double check your parentheses to make sure the last expression in the body of the function truly returns only either of the boolean values. It has to be the case that you are returning a stream because that’s what it says."
+                }
+            ]
+        },
+        {
+            "question": "scm> (define s (cons-stream 1 (cons-stream 2 nil)))  scm> (define cycle (cons-stream 1 (cons-stream 1 cycle)))  scm> (define cycle-within (cons-stream 1 (cons-stream 2 cycle)))  scm> (define long (cons-stream 1 long))  scm> (define (stream-add s n) (if (= n 0) s (cons-stream n (stream-add s (- n 1)))))  scm> (define long (stream-add long 10))  scm> (define cycle-free (stream-add nil 10))  scm> (has-cycle? s)  #f  scm> (has-cycle? cycle)  #f  # Error: expected  # #t  # but got  # #f  Why would it give this error, and how can I correct it?",
+            "follow-ups": [
+                {
+                    "feedback": "You aren't correctly identifying a cycle; this could be for a myriad of reasons. Describe your methodology/approach."
+                }
+            ]
+        },
+        {
+            "question": "Does anyone know why this would be happening? I looked at the thread above re: cons/append and made sure I was cons-ing curr to seen-so-far in my recursive call to pair tracker, but I'm still stuck...                scm> (has-cycle? ())       #f ;fine       scm> (has-cycle? (cons-stream 1 nil))       #f ;fine       scm> (has-cycle? (cons-stream 1 (cons-stream 2 nil)))       #t ;???",
+            "follow-ups": [
+                {
+                    "feedback": "When do you return true in has-cycle?"
+                },
+                {
+                    "feedback": "I return true when curr is contained in seen-so-far (i.e. contains? returns true)."
+                },
+                {
+                    "feedback": "Have you tested your `contains?` procedure separately? Also, how are you obtaining the next `curr` in your recursive call?"
+                },
+                {
+                    "feedback": "AH I got it now! I just realized I was calling cdr-stream on s instead of curr. It works now, thank you so much for your help!"
+                },
+                {
+                    "feedback": "Glad it works, no problem!"
+                },
+                {
+                    "feedback": "Why is it wrong to call cdr-stream on s instead of curr??"
+                },
+                {
+                    "feedback": "Isn't curr being initialized to s when we make our call to pair-tracker? So if curr and s the same in the beginning, why does it make a difference if we call cdr-stream on curr or s?"
+                },
+                {
+                    "feedback": "`(cdr-stream s)` will _always_ return the first pair object within `s`, but we want the next `curr` to become the rest of the current pair we are examining. We start off with examining `s` itself, then `(cdr-stream s)`, then `(cdr- stream (cdr-stream s))`, and so on and so forth. If you just have `(cdr-stream s)` in your recursive call you will not be able to move onto `(cdr-stream (cdr-stream s))` and beyond."
+                }
+            ]
+        },
+        {
+            "question": "I get that my first condition may be when s is null, second is when curr is in seen-so-far and else is the recursive call of pair-tracker for has-cycle. But I've been stuck for a while on the last line now. Can anyone give me some hints?",
+            "follow-ups": [
+                {
+                    "feedback": "Well, `seen-so-far` contains all the streams you have “seen so far,” so now that you have seen the `curr` stream and determined it isn’t in there, you can not add `curr` into `seen-so-far` and then pass that into the next recursive call, along with the rest element of the stream."
+                }
+            ]
+        },
+        {
+            "question": "(define cycle (cons-stream 1 (cons-stream 1 cycle)))  scm> (eq? cycle (cdr-stream cycle))  #f  Why is this returning false when i enter it into the scheme interpreter? I was under the impression that (1 1 1 1 ...) would be the same as (1 1 1 ...).  My logic depends upon this being true.",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, this should be a cycle. Why your code isn’t working could be due to many different reasons. Could you describe in detail how you are trying to solve this problem?"
+                },
+                {
+                    "feedback": "`eq?` checks for if both of the parameters passed into it refer to the same object in memory. The rest of `cycle` is not defined as `cycle` itself, but rather it is defined as the result of prepending 1 to `cycle`, creating a separate pair object. Therefore, `(cdr-stream cycle)` does not refer to the same object that `cycle` itself does. However, `(cdr-stream (cdr-stream cycle))` _does_ equal `cycle` by the `eq?` definition of equality, since you're then referring to the _rest_ of `(cons-stream 1 cycle)`, which is just `cycle`. So, as Nicholas says, your solution should identify this as a cycle since the pair object referred to by `cycle` is contained within itself."
+                },
+                {
+                    "feedback": "Sorry for late reply. Thank you for your quick responses! It turned out that I needed to flip the order of my cons statement in pair-tracker and that I didn't need to put curr in its own list when cons-ing it to seen-so-far."
+                },
+                {
+                    "feedback": "No problem, you have nothing to apologize for."
+                }
+            ]
+        },
+        {
+            "question": "Why am I getting this error?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr8bnmb0swf56s%2Fk3uwrt6q7k1c%2FCapture.PNG)  I don't get this error when I cons seen-so-far and (list curr), but then the eq function doesn't work properly.",
+            "follow-ups": [
+                {
+                    "feedback": "You should cons together curr and seen-so-far, because we want to add curr to seen-so-far (it doesn’t matter where; we just want it to be in the list), and (cons first rest) essentially prepends first to rest."
+                },
+                {
+                    "feedback": "Got it... for anyone else getting this problem, if you're cons-ing curr and seen-so-far, make sure to put curr before seen-so-far."
+                }
+            ]
+        },
+        {
+            "question": "I'm totally lost, I have my first condition as if (cdr curr) is null but then I dont know what the second condition and else has to be, can someone give a hint?",
+            "follow-ups": [
+                {
+                    "feedback": "You can find hints littered throughout the other followups to this post, let us know if you have any questions on those."
+                },
+                {
+                    "feedback": "I'm confused of when to recursively calling pair-tracker and what to append on seen-so-far.  With this on, (define s (cons-stream 1 (cons-stream 2 nil))), shouldn't `(1 2) be added to the seen-so-far list? How should I be forming such list?"
+                },
+                {
+                    "feedback": "`pair-tracker` should return true as soon as the current pair we are examining (i.e. `curr`) has already been seen (i.e. is contained in `seen-so-far`, which is where `contains?` comes in) and it should return false if we've run out of pairs to examine (think what the value of the current pair would be in this case). Otherwise, we should make a recursive call, where the next `seen-so- far` is the current seen-so-far but with the current pair added to it, and the next `curr` is the next pair to be examined (given a stream, how can you obtain the \"next\" pair within that stream?)"
+                }
+            ]
+        },
+        {
+            "question": "I just spent an inordinate amount of time trying to debug my code only to find out i was passing (cdr-stream s) in my recursive call, rather than using curr. Wouldn't end this class any other way",
+            "follow-ups": [
+                {
+                    "feedback": "It happens to the best of us. I’m completely serious about that, so don’t stress about it too much."
+                },
+                {
+                    "feedback": "+1 no worries"
+                }
+            ]
+        },
+        {
+            "question": "While appending to seen-so-far, why can't we use '(...)/(quote (...)) instead of (list ...)/(cons ... nil); I have not specified ... to ensure I don't give the code away.",
+            "follow-ups": [
+                {
+                    "feedback": "`(quote (...))` or `'(...)` simply returns the expression `(...)` without evaluation.                scm> (define x 5)       scm> (quote (+ x 5))       (+ x 5)       scm> '(+ x 5)       (+ x 5)  This is why using quoting to append an element to a list doesn't really make sense."
+                }
+            ]
+        }
+    ]
+}

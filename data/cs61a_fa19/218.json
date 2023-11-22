@@ -1,0 +1,75 @@
+{
+    "subject": "[HW1] Q4",
+    "content": "<p><a href=\"https://cs61a.org/hw/hw01/#q4\" target=\"_blank\">Question 4: If Function vs Statement</a></p>\n<p> </p>\n<p>Please post all questions you have below concerning Q4 in the follow-ups.<br />If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Any suggestions on where to start?",
+            "follow-ups": [
+                {
+                    "feedback": "Try to find the behavioral difference between `with_if_function` and `with_if_statement`!"
+                },
+                {
+                    "feedback": "If you read the assigned text thoroughly, you'll get it!"
+                },
+                {
+                    "feedback": "Start with the Controls lecture      Then when you do, read the skeleton code, and try to determine the behavior of Python and also the order of presidence of Python (similar to PEMDAS), which is covered in Controls"
+                }
+            ]
+        },
+        {
+            "question": "Think about what differentiates if function from if statement(the orthdox \"if\", if you will). It boils down to evaluating the operator and the operands.",
+            "follow-ups": [
+                {
+                    "feedback": "it seems that both **if_function** and **with_if_statement** do the same thing using if/else statements.. can you give a hint regarding how **if_function** and if statements are different?"
+                },
+                {
+                    "feedback": "Consider what is/isn't evaluated in if_function, and what is/isn't evaluated in a normal if statement."
+                },
+                {
+                    "feedback": "I noticed that **if_function** takes parameters: 'condition', 'true_result', and 'false_result' are evaluated to values before being sent to **if_function** , right? At the same time, **with_if_statement** calls the functions real time, could this have something to do with the answer?"
+                },
+                {
+                    "feedback": "Yes! These different rules of evaluation can lead to different things happening."
+                }
+            ]
+        },
+        {
+            "question": "I was wondering how can I print the 1 and 2 on separate lines in with_if_function()? I tried the backslash but got an error message \"SyntaxError: invalid syntax\". Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "if the computer encounters separate print statements, what is printed in the second print statement will be on a line below the first print statement, i.e.  print(1)  print(2)  will output:  1  2"
+                }
+            ]
+        },
+        {
+            "question": "Could I possibly have done Q4 wrong but still passed the tests? I feel like the answer was too simple ..",
+            "follow-ups": [
+                {
+                    "feedback": "If you passed the tests, and obviously not modify the doctests, then you're good  The answer is pretty simple after you think about the behavior of Python (or at least complexity in the HW placed by its creators)"
+                },
+                {
+                    "feedback": "The answer is indeed very simple, but you should think about why you were able to pass the tests. Specifically, think about the order in which function calls (and their operands) are evaluated vs statements in if-else suites"
+                }
+            ]
+        },
+        {
+            "question": ">>> result = with_if_function()   Traceback (most recent call last):   File \"/Users/harhe/Desktop/ucb/cs61A/hw01/hw01.py\", line 87, in with_if_function   return if_function(c(), t(), f())   File \"/Users/harhe/Desktop/ucb/cs61A/hw01/hw01.py\", line 93, in t   2/0   ZeroDivisionError: division by zero  # Error: expected   # 1   # 2   # but got   # Traceback (most recent call last):   # ...   # ZeroDivisionError: division by zero",
+            "follow-ups": [
+                {
+                    "feedback": "it looks like you are dividing by zero in your code, which you should look for and address!  also, for future posts, you need to provide more detail rather than just copy and pasting the error from the failed test, or instructors will be less likely to respond to your posts - see @367."
+                }
+            ]
+        },
+        {
+            "question": "I'm receiving an error in my doctests for Q4. I'm fairly confident in my solution, but I'm wondering if there's possibly a way I am performing the doctests wrong?  After entering python3 ok -q with_if_statement in the terminal in the correct directory location, I'm receiving:  Doctests for with_if_statement  >>> from hw01 import *   >>> result = with_if_statement()  # Error: expected   # 2   # but got",
+            "follow-ups": [
+                {
+                    "feedback": "I’m assuming the “but got” part is outputting the undesired outcome      There are two possibilities:  1\\. Make sure you know if you are doing the desired outcome in your function as a result of the code being run inside Python (spoiler alert: print vs. return)      2\\. Is the outcome from the function correct? If not, there may be something you need to fix.      3\\. Understand the anatomy of an “if” Statement. Discussion 1 will cover “if” statements and its anatomy in detail."
+                }
+            ]
+        },
+        {
+            "question": "For Question 4 def c(),  I wrote this line of code, but it says I have invalid syntax. Why is that?  \\------redacted-----"
+        }
+    ]
+}

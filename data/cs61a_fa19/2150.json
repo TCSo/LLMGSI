@@ -1,0 +1,78 @@
+{
+    "subject": "[Lab 12] Q5: Matchmaker, Matchmaker",
+    "content": "<a href=\"https://cs61a.org/lab/lab12//#q5\">Q5: Matchmaker, Matchmaker</a>\n\n<p> Please post all questions you have below concerning Q5: Matchmaker, Matchmaker in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I keep getting:                     no such table: matchmaker     Why is this?",
+            "follow-ups": [
+                {
+                    "feedback": "If you are running this with `sqlite3` or `python3 sqlite_shell.py`, make sure you are using `\\--init lab12.sql` to load the SQL file into the interpreter. If this is happening in the autograder, make sure you have a `CREATE TABLE matchmaker` statement in your `lab12.sql` file to begin with."
+                },
+                {
+                    "feedback": "Turns out I was missing a semicolon."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk36yzcid6xe5%2FScreen_Shot_20191119_at_11.32.51_PM.png)  I get this but I'm not sure why. I check if the first person and second's pets match AND if their songs match, but I really doubt two people put a lot of those first entries. What could be happening here?",
+            "follow-ups": [
+                {
+                    "feedback": "How do I check that two people aren't the same, and that they haven't been matched twice?"
+                },
+                {
+                    "feedback": "to check that they aren't the same you can add a where condition that says a.time != b.time with a and b being the aliases for both the tables."
+                },
+                {
+                    "feedback": "Yep, just got that :)"
+                },
+                {
+                    "feedback": "nice!"
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected     #     dog|Everytime We Touch|blue|green     #     dog|Everytime We Touch|blue|blue     #     dog|Everytime We Touch|blue|blue     #     dog|The Middle|black.|red     #     dog|The Middle|black.|purple     #     dog|The Middle|black.|dark blue     #     dog|The Middle|black.|blue     #     dog|The Middle|black.|light blue     #     dog|The Middle|black.|green     #     dog|The Middle|black.|green     # but got     #     dog|The Middle|red|black.     #     cat|Everytime We Touch|green|purple     #     dog|All I want for Christmas|blue|light blue     #     cat|Everytime We Touch|purple|purple     #     cat|Everytime We Touch|purple|green     #     horse|The Middle|blue|blue     #     dog|The Middle|purple|black.     #     dog|The Middle|purple|red     #     panda|All I want for Christmas|blue|blue     #     dog|Clair De Lune|yellow|blue  I am checking following things:  `a.time > b.time`   `a.song = b.song`   `a.pet = b.pet `   `a.time != b.time`  Can anyone spot what might be wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "Be careful with your time comparison. The problem states: \"make sure that the **first** person responded first (i.e. they have an **earlier** `time`).\" This means if `a` represents the first person table and `b` represents the second person table, you need to check that `a.time < b.time`. This is because an earlier time has a lesser value string-wise. Note that checking `a.time != b.time` is useless since this is always true if `a.time < b.time`."
+                },
+                {
+                    "feedback": "Also, make sure your return order is (1) pet (2) song (3) first person color (4) second person color - I think you switched the last two elements"
+                },
+                {
+                    "feedback": "Thank you, `time` comparison was the issue in my case."
+                }
+            ]
+        },
+        {
+            "question": "Im checking the conditions that the pets are equal, the song is equal, and the time of the first person is less than the time of the second person. But I'm getting a different answer. Is there a specific order by that we're supposed to use? how can I fix my code?\\  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1gnzqvd2zr%2Fk39lsnd6r3tx%2FScreen_Shot_20191121_at_7.45.43_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "never mind, I had a typo that I just caught! everything works now!"
+                }
+            ]
+        },
+        {
+            "question": "sqlite> .read lab12.sql       sqlite> SELECT * FROM matchmaker LIMIT 10;       ambiguous column name: pet       no such table: matchmaker",
+            "follow-ups": [
+                {
+                    "feedback": "# but got       #     bunny|The Middle|red|blue       #     cat|Everytime We Touch|green|purple       #     cat|Everytime We Touch|purple|purple       #     cat|Everytime We Touch|purple|green       #     cat|thank u, next|rose pink|blue       #     cat|All I want for Christmas|green|navy       #     cat|All I want for Christmas|blue|navy       #     cat|All I want for Christmas|blue|green       #     cat|thank u, next|blue|blue       #     cat|thank u, next|blue|rose pink"
+                },
+                {
+                    "feedback": "Describe your attempt to solve the problem."
+                }
+            ]
+        },
+        {
+            "question": "who else put \"everytime we touch\" and \"dog\"?? i'm looking for my soulmate",
+            "follow-ups": [
+                {
+                    "feedback": "me"
+                }
+            ]
+        },
+        {
+            "question": "I thought this question was going to be legit with names, genders, and orientations. Why did you rooster block me like this Denero?"
+        }
+    ]
+}

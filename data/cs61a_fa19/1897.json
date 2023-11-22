@@ -1,0 +1,128 @@
+{
+    "subject": "Cats Composition Scores Released &amp; Open for Revision!",
+    "content": "<p>Cats Composition scores have been released! Composition was graded out of 2. You should see a new tag for &#34;composition&#34; for your Cats submission on <a href=\"http://okpy.org/\" target=\"_blank\" rel=\"noopener noreferrer\">okpy.org</a>, and some comments on your code. If you didn&#39;t get full score, you can make changes to your code addressing the comments you received, and submit the revision for a regrade!</p>\n<p></p>\n<p><strong>The deadline to submit your revisions is Tuesday, November 12th at 11:59pm. </strong></p>\n<p> </p>\n<p><strong>To submit a revision, use:</strong></p>\n<pre>python3 ok --revise</pre>\n<h2><strong>*** please note that it&#39;s <code>--revise</code>, not <code>--submit</code> !!! this is a common mistake &amp; leads to your revision not being processed ***</strong></h2>\n<p><strong>FAQ:</strong></p>\n<p><strong>Q)  Okpy won&#39;t let me submit.</strong></p>\n<p>A)  Are you submitting using &#96;python3 ok --revise&#96;?  (Using &#96;--submit&#96; will not work)</p>\n<p> </p>\n<p><strong>Q)  I don&#39;t have a composition score/the wrong submission was graded.</strong></p>\n<p>A) Submit a regrade request here: <a href=\"http://links.cs61a.org/okpy-regrades\" target=\"_blank\" rel=\"noopener noreferrer\">links.cs61a.org/okpy-regrades</a></p>\n<p> </p>\n<p><strong>Q)  I made the revisions, but am nervous I won&#39;t get back credit.</strong></p>\n<p>A)  Don&#39;t worry:  composition is only to help you write clearer, more readable code, and you&#39;ll get full points back if we see you make an attempt to fix any &#34;revise&#34; comments we left you.</p>\n<p> </p>\n<p><strong>Q)  I have a question about my composition feedback/</strong><strong>I revised my code according to the feedback, but not sure if it&#39;s right. Does it look correct?</strong></p>\n<p>A)  Email your TA, or come to OH</p>\n<p> </p>\n<p><strong>Q)  What do I have to revise?</strong></p>\n<p>A)  You only have to revise any code specifically commented on! </p>\n<p> </p>\n<p><strong>Q)  When will revision scores come out?</strong></p>\n<p>A)  They will be released a week or so after the due date for revisions are due (November 12th).  </p>\n<p> </p>\n<p><strong>Q)  Can I submit multiple revisions?</strong></p>\n<p>A)  Yep!  We&#39;ll only look at your last one.</p>\n<p></p>\n<p></p>",
+    "threads": [
+        {
+            "question": "I switched computers between submitting the CATS project and now, and while I have all the files, the paths are the same as the ones on my old computer. I'm currently failing all the tests because things are not being imported correctly. How can I fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "Hmmm, this is pretty weird. TBH, off the top of my head, I don't know what could be causing the issue. Can you come to OH to get it sorted out? This sounds like the kind of problem where the TAs/tutors need to get their hands dirty ^_^"
+                }
+            ]
+        },
+        {
+            "question": "I've revised my code and submitted using 'python3 ok --revise'. However, on okpy.org it doesn't show as another submission, but rather as a backup. Is this ok?",
+            "follow-ups": [
+                {
+                    "feedback": "As long as Ok says the revision was successfully uploaded, you should be set. I don’t think there’s actually a place to view your submitted revision on okpy.org."
+                },
+                {
+                    "feedback": "You should be able to see a \"View Composition Revision\" link on the Cats assignment page on okpy, similar to as you could for Hog:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjydlyk1lid57di%2Fk1cwgs4mfiuf%2FUntitled.png)"
+                }
+            ]
+        },
+        {
+            "question": "How do I see the comments of what I should revise? I am unable to find them.",
+            "follow-ups": [
+                {
+                    "feedback": "Try searching (via Ctrl-F or Command-F) for the word “commented” on the page"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhyblfe147k%2Fk2o7jbov2yt4%2Ferror.PNG)  I'm having an issue with submitting the revision using                python ok --revise  I just submitted my lab and hw, but this one seems to not be working. Any ideas? (Note: I tried running it with the no-update flag, but only after attempting to submit once, so if it's a similar issue as last week's autograder bug, I might have already messed up my ok file.)",
+            "follow-ups": [
+                {
+                    "feedback": "I think some people had some issues with python versions >3.8. Not sure if that was resolved however."
+                },
+                {
+                    "feedback": "I would recommend bringing an issue like this to office hours - you seem to be running Python 3.7, which should work fine"
+                }
+            ]
+        },
+        {
+            "question": "Wondering if both partners needs to submit revision separately.",
+            "follow-ups": [
+                {
+                    "feedback": "From the Hog Project composition revision FAQ at @1184:  > **FAQ:** > > **Q) My phase 1 code is different than my partners -- do I also need to run > `python3 ok --revise`?** > > A) Only the partner whose code was commented on needs to run `\\--revise`! > Ideally you would work together to address the comments though :^)  I think it’s safe to assume the same policy applies for Cats. Only the partner that submitted needs to submit the revisions."
+                }
+            ]
+        },
+        {
+            "question": "I fixed what they told me to in problem 3 by doing exactly what they said but now I am not passing test cases for problem 3. What should I do?",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean by \"exactly what they said\"? Did the instructor give you exact code to write? If not, then the way you implemented their suggestion is incorrect."
+                },
+                {
+                    "feedback": "Which problem’s cases are you now failing? And what was the nature of the comment, and how did you fix it?"
+                }
+            ]
+        },
+        {
+            "question": "I changed my code to address a comment left on okpy, but that adds a line overall to the program. Will we still earn back the composition points as long as we address the comments even if the code is longer?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, as long as you addressed the comment properly, it doesn't matter."
+                },
+                {
+                    "feedback": "Thanks!"
+                },
+                {
+                    "feedback": "Just as a general PSA, long code does not necessarily mean bad code! You can write a problem on one line (like a certain lambda-calculus-based Hog project) that’s is functional but is completely awful when it comes to its structure and readability. It’s only when code gets long _and_ sloppy that it becomes a problem, but adding more lines can sometimes actually improve readability. Do not fear the enter key!"
+                }
+            ]
+        },
+        {
+            "question": "I have revision comments on okpy but when i try to submit my revisions using python3 ok --revise it says \"Could not revise: Revisions are not enabled\". Why am I getting this message?",
+            "follow-ups": [
+                {
+                    "feedback": "I wonder if maybe the deadline was set too early? An instructor should definitely take a look at this."
+                },
+                {
+                    "feedback": "Did you end up being able to submit? My friend was able to submit his revision around 10:30 PM with no problems"
+                },
+                {
+                    "feedback": "^ sorry I didn't see this until now! just following up again on if you were able to submit? revisions should have still been accepted 3 days ago O:"
+                },
+                {
+                    "feedback": "@Yichen Any idea if @2064 would actually be a helpful thing at all in the future?"
+                },
+                {
+                    "feedback": "Hello! It’s definitely an ingenious idea, though I think usually staff members try to filter for unresolved posts on piazza and we certainly try our best to get through all of them. In general if a post is urgent and hasn’t gotten a response I’d advise students to email their TA directly. Nevertheless I went ahead and pinned that post so it doesn’t get lost & I bumped it in our Slack so other instructors know to keep an eye on it! Thanks for sharing your idea :”)"
+                },
+                {
+                    "feedback": "@Anon So did things end up working out?"
+                },
+                {
+                    "feedback": "I wasn't able to submit my revision last week either because I got the same message. Could a TA verify if my revision went through or not?"
+                },
+                {
+                    "feedback": "@Anon above -- unfortunately didn't see the official 'revision' submission, but I was able to see the backups you submitted with the revised code, so I went ahead and just changed your original composition score to adjust!"
+                }
+            ]
+        },
+        {
+            "question": "Hi, I just wanted to confirm that for the composition revisions, all we have to do is edit our code and hit                python3 ok --revise  Correct?",
+            "follow-ups": [
+                {
+                    "feedback": "Yep!"
+                },
+                {
+                    "feedback": "thank you!"
+                }
+            ]
+        },
+        {
+            "question": "I revised the cat project according to the requirements but why I only got the composition 1.0? Composition was graded out of 2, right?",
+            "follow-ups": [
+                {
+                    "feedback": "Revisions have not been graded yet; 1.0 was probably your original composition score."
+                },
+                {
+                    "feedback": "When you submit a revision and it is graded, you will actually receive a second score that will essentially act as a replacement to your original score. It will show up like this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjn6gqa2tVwNe%2Fk30af1mfnwkd%2Frevision.png)"
+                }
+            ]
+        }
+    ]
+}

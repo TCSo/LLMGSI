@@ -1,0 +1,22 @@
+{
+    "subject": "[Lab 08] Q3: Boom",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q3\">Q3: Boom</a>\n\n<p> Please post all questions you have below concerning Q3: Boom in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Not completely sure, but it seems this question isn't in the lab?",
+            "follow-ups": [
+                {
+                    "feedback": "This question was in the lab, then they removed it."
+                }
+            ]
+        },
+        {
+            "question": "why this doesn't work?  return [[item].extend(l) for l in nested_list]",
+            "follow-ups": [
+                {
+                    "feedback": "Unless your intention is to return a list with None's inside of it, this doesn't work because extend() returns None. So every time the list comprehension runs, the expression will evaluate to None and fill the list with None."
+                }
+            ]
+        }
+    ]
+}

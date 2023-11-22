@@ -1,0 +1,17 @@
+{
+    "subject": "[Lab 10] Q5: Handling Exceptions",
+    "content": "<a href=\"https://cs61a.org/lab/lab10//#q5\">Q5: Handling Exceptions</a>\n\n<p> Please post all questions you have below concerning Q5: Handling Exceptions in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I understand that we should add possible errors and how to handle them directly in this following try/except statement:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuxurgr765i4%2Fk2r13mevrdir%2FScreen_Shot_20191108_at_7.47.04_PM.png)  What I am very curious about how to implement is the MaximumRecursionDepth Error exceeded, and how to shut down your program if it takes too long. For example, if I use the PyCombinator and enter for example pow(99999999999,999999999999) it takes absolutely forever. Is there any way I can throw an error if the code takes way too long to run? How could I do that?  At the same time, we've obviously seen many times in class the Python Interpreter throws the Maximum Recursion Depth exceeded. Since I solved Question 4 it is possible to create lambda expressions. I'm sure if we create some method of defining new names in environments we could start using recursion. When we do this, how can we get PyCombinator to throw MaximumRecursionDepthExceeded errors?  My guess (which I'm decently confident is wrong) is that for the maximum recursion depth exceeded we could trace the function for example, and count each time its called (very similar to how Professor DeNero counted the number of times fib got called in Lecture #21: Efficiency) and if that number passes 999 for example, just shut it down.  My guess for how to implement an error that kills your program if it takes too long is to somehow install a timer for each function call and if that exceeds like 20 seconds, for example, throw an error. But if this is the way to do it, how can you time how long a function takes to run?  Any guesses/help/comments/feedback/answers would be much appreciated.  God Bless,  Saad.",
+            "follow-ups": [
+                {
+                    "feedback": "Hello.  During the tail recursion lecture, professor DeNero showed that if we implement the tail recursion optimization in a Scheme interpreter, then Python will not raise a MaximumRecursionDepth Error even if the function's execution time or if the amount of function's calls reaches a big amount. I believe that what Python really checks when it throws the MaximumRecursionDepth Error is the amount of frames that a function opens during its execution."
+                },
+                {
+                    "feedback": "What you are asking about is called a “watchdog timer,” and a quick Google search for Python watchdog timers will yield some pretty interesting results, like the Python signal library or how to achieve it with Python’s threading library, for example. Happy Googling!"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "subject": "[Cats] Problem 4",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-4-1-pt\">Problem 4</a>\n\n Please post all questions you have below concerning Problem 4 in the follow-ups.\n\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nIf you&#39;re stuck, here are some tips:\n- elapsed measures seconds, but wpm is words per minute.\n- <code>len(typed)</code> is how you compute how many characters are in the <code>typed</code> string.",
+    "threads": [
+        {
+            "question": "For wpm(\"12345\", 3), why isn't it 20?      12345 is 5 characters -> 1 word      1 word every 3 seconds is 20 words a minute, right?",
+            "follow-ups": [
+                {
+                    "feedback": "Update: It wants a float, not an int!"
+                },
+                {
+                    "feedback": "For the love of God. I spent a good 30 minutes trying to figure this out."
+                },
+                {
+                    "feedback": "literally same"
+                }
+            ]
+        },
+        {
+            "question": "Every time I try to run python3 gui.py (like after passing all the tests for q4, q5, ) , I get this error message:  Traceback (most recent call last):  File \"gui.py\", line 218, in <module>  @main  File \"/Users/drrajeevbhandula/Desktop/cs61a/projects/cats/ucb.py\", line 26, in main  fn(*args) # Call the main function  File \"gui.py\", line 226, in start  httpd = HTTPServer((\"localhost\", PORT), Handler)  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socketserver.py\", line 453, in __init__  self.server_bind()  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/http/server.py\", line 136, in server_bind  socketserver.TCPServer.server_bind(self)  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socketserver.py\", line 467, in server_bind  self.socket.bind(self.server_address)  socket.gaierror: [Errno 8] nodename nor servname provided, or not known  Any ideas for what I can do to fix this?",
+            "follow-ups": [
+                {
+                    "feedback": "See [this](https://stackoverflow.com/questions/39970606/gaierror- errno-8-nodename-nor-servname-provided-or-not-known-with-macos-sie)"
+                },
+                {
+                    "feedback": "Try replacing `localhost` with `127.0.0.1` everywhere in gui.py? There should be two places.  Not sure if this will work, but it's worth a shot."
+                },
+                {
+                    "feedback": "Wow thank you so much @Rahul Arya! It worked!"
+                },
+                {
+                    "feedback": "Awesome, I'll update the project template so this fix will be distributed to everyone. Thanks for testing it out so quickly!"
+                }
+            ]
+        },
+        {
+            "question": "For test case wpm(\" \", 10), why isn't the answer 1.2? The space is one character-->1/5 words, and (1/5) / (10/60) is 1.2?",
+            "follow-ups": [
+                {
+                    "feedback": "It is 1.2; what value does it appear as for you?"
+                },
+                {
+                    "feedback": "It doesn’t accept 1.2 as correct and tells me to try again"
+                },
+                {
+                    "feedback": "I'm looking at the test cases, and it actually seems like rather than the call being wpm(\" \", 10) (AKA the input is just a single whitespace), it's wpm(\"\", 10) (The input is just the empty string). Try using 0 as a check since that would be the wpm if we have no words."
+                },
+                {
+                    "feedback": "I’m getting that 0.0 is incorrect as well"
+                },
+                {
+                    "feedback": "never mind, tried it again and it worked!"
+                },
+                {
+                    "feedback": "same problem here, what should I do?"
+                }
+            ]
+        },
+        {
+            "question": "When I was trying to run the GUI, this error occurred:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzuo79b0ulj1fi%2Fk145qbkdoey6%2FTIM%E6%88%AA%E5%9B%BE20190928155854.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Please put your entire project folder into a zip and send it to me at kavi@berkeley.edu"
+                }
+            ]
+        },
+        {
+            "question": "How can i make a python also count space within a list?",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean?"
+                },
+                {
+                    "feedback": "# len(\"I am glad!\") will return to 10"
+                }
+            ]
+        },
+        {
+            "question": ">>> wpm(\"a b c\", 20)  Wouldn't this equal 1.8 because (3/5) / (20/60) equals 1.8?",
+            "follow-ups": [
+                {
+                    "feedback": "Spaces count as characters"
+                },
+                {
+                    "feedback": "You also have to keep in mind that the spaces in between the letters count as characters."
+                }
+            ]
+        }
+    ]
+}

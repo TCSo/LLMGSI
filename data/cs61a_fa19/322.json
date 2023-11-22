@@ -1,0 +1,25 @@
+{
+    "subject": "[Hog] Problem 0",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-0-0-pt\">Problem 0</a>\n\n<p> Please post all questions you have below concerning Problem 0 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I'm not exactly sure what the make_test_dice function is doing. So, it's taking some varaible, *outcomes, and returning *outcomes again individually. So when dice() is called, it returns the first outcome. Can someone please clarify?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjla6oytnw93g%2Fk04o2bkvvi65%2FScreen_Shot_20190903_at_7.49.38_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It takes a list of numbers, and it returns them one by one starting from the left as dice() is called."
+                },
+                {
+                    "feedback": "It takes a list of numbers which it cycles through one-by-one every time you call dice(). In other words, the function \"remembers\" where you left off, so the next time you call dice(), it returns the next number in the sequence."
+                }
+            ]
+        },
+        {
+            "question": "I see that the doctest goes through 5 cycles for 3 arguments, but the Ok test goes through 4 cycles for 3 arguments as well. I tried to read through the definition and see if I could figure out what determines how many times it cycles but I still don't see it... is there a particular line to focus on, or would anyone have advice to help me see what concept I'm missing?",
+            "follow-ups": [
+                {
+                    "feedback": "it will run one \"cycle\" (as I think you are using the word) every time the function for the dice is called. so in a sense, as long as we keep calling the function for the dice, we can cycle as many times as we want, and we will actually control this later in the take_turn function."
+                }
+            ]
+        }
+    ]
+}

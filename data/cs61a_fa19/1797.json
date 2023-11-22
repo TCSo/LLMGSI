@@ -1,0 +1,81 @@
+{
+    "subject": "[Lab 09] Q5: Make a List",
+    "content": "<a href=\"https://cs61a.org/lab/lab09//#q5\">Q5: Make a List</a>\n\n<p> Please post all questions you have below concerning Q5: Make a List in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "[help.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjx7srtsf4ak7mz%2Fk2bhh86szw3p%2Fhelp.png)  Could someone give me a hint as to what the output for this would be? The variable lst doesn't seem to be defined anywhere.",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, reread the instructions."
+                },
+                {
+                    "feedback": "How did you get this?"
+                },
+                {
+                    "feedback": "The list is described in picture form within the question - write out the printed form of that list"
+                }
+            ]
+        },
+        {
+            "question": "The extra practice scm file is telling me 404 page not found? I'm not sure if there's another file.",
+            "follow-ups": [
+                {
+                    "feedback": "There isn’t another file"
+                },
+                {
+                    "feedback": "how should I access the extra practice file?"
+                },
+                {
+                    "feedback": "All the extra questions are contained within the main file"
+                },
+                {
+                    "feedback": "Yes. Site has been updated! Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Please explain scm> (load-all \".\") scm> lst ; type out exactly how Scheme would print the list",
+            "follow-ups": [
+                {
+                    "feedback": "See above"
+                },
+                {
+                    "feedback": "thanks. I got it before your help. Thank you so much. there are some funny questions"
+                }
+            ]
+        },
+        {
+            "question": "For unlocking the test cases, why shouldn't cdr of c be (2 1)?",
+            "follow-ups": [
+                {
+                    "feedback": "There's a difference between lists of the form `(a b c)` and lists of the form `(a (b c))`"
+                }
+            ]
+        },
+        {
+            "question": "Are we just creating the list in the body of lst? I have some code that creates the list shown in the diagram but when I try to run the test I get this output ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuz6ybxuo6e0%2Fk2gwr612nct5%2FScreen_Shot_20191101_at_6.47.10_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "just kidding - seems like an issue with OK"
+                },
+                {
+                    "feedback": "i got this error too, is this happening with everyone?"
+                },
+                {
+                    "feedback": "Yes, see @1880"
+                },
+                {
+                    "feedback": "thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Why is it saying this?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk2jjnvpfv802%2FScreen_Shot_20191103_at_2.05.10_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Never mind, was just missing a parenthesis."
+                }
+            ]
+        }
+    ]
+}

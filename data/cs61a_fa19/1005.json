@@ -1,0 +1,45 @@
+{
+    "subject": "[Lab 04] Q4: List Indexing",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q4\">Q4: List Indexing</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q4: List Indexing in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Hi - I just reached this question and I'm still a little unfamiliar with lists, so I don't know exactly what to do for this question. Are there are any suggestions as to how I should start this question?",
+            "follow-ups": [
+                {
+                    "feedback": "Have you looked at the mini summary of the topic that appears in the beginning of the lab under Topics?"
+                }
+            ]
+        },
+        {
+            "question": "Im just double checking; we are supposed to implement recursion for the list problems, yes?",
+            "follow-ups": [
+                {
+                    "feedback": "No"
+                },
+                {
+                    "feedback": "Oh I did. so I should change it then? Or does it not matter?"
+                },
+                {
+                    "feedback": "Ideally, you would utilize list comprehensions as that is a very important concept that will appear on exams, so it's good to get the practice in for that, although what you have currently is enough for full credit."
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "Hi,  I fin unlocking all the tests for this question but when I checked score it says 0 for that one?",
+            "follow-ups": [
+                {
+                    "feedback": "Ah got it, it's out of 0"
+                },
+                {
+                    "feedback": "just like my amount of sleep"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble starting the List Indexing Ok. How should I fix this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlx2xhbqzpklj%2Fk130mc39ls81%2Flab04_error.PNG)"
+        }
+    ]
+}

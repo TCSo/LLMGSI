@@ -1,0 +1,39 @@
+{
+    "subject": "[Lab 08] Q4: Subsequences",
+    "content": "<a href=\"https://cs61a.org/lab/lab08//#q4\">Q4: Subsequences</a>\n\n<p> Please post all questions you have below concerning Q4: Subsequences in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "How would you arrive at the solution to this problem? I have drawn out how it works, but I do not know if I could have come up with the answer to this myself.",
+            "follow-ups": [
+                {
+                    "feedback": "This is how I solved it. I had a different solution than the answer, but it makes sense to me, so I'll just explain my thought process while doing it. To anyone reading this, probably don't read if you want to figure it out yourself. A bit long, but I hope it helps.      Naturally, since we're dealing with a combinations/permutations type problem (not exactly but this was similar in my mind), I thought immediately to use recursion somewhere in the answer. So the first thing when dealing with recursion is to identify a base case. What is the simplest input to this function? I saw it as just having an empty list. In that case, we return `[ [] ] ` Alright, base case done. You could add more ( I initially did ), but I realized that it was unnecessary since the algorithm I used didn't need anymore than just this.      So now how do we find the subsequences of lists greater than 0? We know that we have to use recursion, so let's try to see if we can find an algorithm that repeats itself till we hit 0. I thought small to begin with. What if we have a list of length 1? Well we would have something like this:                     >>> sorted( subseqs([3]) ) #Expected Output     [ [], [3] ]  Hmm... That first list looks quite familiar. It looks a lot like the list from the base case. But what about that 3? Where did that come from? Well, I thought of the hint function they gave which was ` insert_into_all`. We're going to be inserting some number into a list of lists using this function. But what returns a list of lists here? Well only subseqs does. Are we perhaps inserting the elements from the original list into some subsequences? We could test that theory with a bigger problem. Perhaps a list of length 2.                     >>> sorted( subseqs([2, 3]) ) #Expected Output     [ [], [2], [2, 3], [3] ]  Hey we remember this output! The list ` [ [], [3] ] ` makes an appearance here from before and the `[ [2], [2,3] ]` is obtained from adding 2 to every subsequence made from the numbers after 2 (which in this case is only 3), just like our theory says. I verified this with a few more sequences and I felt confident in the theory. Even better is that this strategy always reduces the list length by 1 (since we are going element by element), so we will always reach our base case.  So what's the strategy I came up with from this thinking? Well we have a base case where if the list is empty, then the only thing that needs to be returned is a list with an empty list in it. If it's not empty, we add each element of the list to the subsequences of the elements in front of it then add those subsequences to some master list that we'll return at the end. I ran into some bugs along the way (mostly because of my dumb mistakes), but other than that, the strategy transitioned quite nicely to code."
+                }
+            ]
+        },
+        {
+            "question": "Is there any reason why we need to use list comprehension and why this wouldn't work?                def insert_into_all(item, nested_list):         \"\"\"Assuming that nested_list is a list of lists, return a new list         consisting of all the lists in nested_list, but with item added to         the front of each.              >>> nl = [[], [1, 2], [3]]         >>> insert_into_all(0, nl)         [[0], [0, 1, 2], [0, 3]]         \"\"\"         for lst in nested_list:             lst = [item] + lst         return nested_list",
+            "follow-ups": [
+                {
+                    "feedback": "You don't _need_ the comprehension to do it, but it makes things easier.  The reason this doesn't work is because you aren't actually changing the nested_list at all. In general, if you reassign the variable you are using to loop through the list, the list isn't mutated. Here's an example:                >>> c = [1,2,3,4,5]       >>> for x in c:       ...\tx = x ** 2       ...       >>> c       [1,2,3,4,5]  If you want to actually mutate nested_list (which you probably shouldn't do here, but instead mutate a copy of it), you'll need to either assign by index, or call one of the list functions on it:                >>> c = [1,2,3,4,5]       >>> for i in range(len(c)):       ...\tc[i] = c[i] ** 2       ...       >>> c       [1, 4, 9, 16, 25]"
+                },
+                {
+                    "feedback": "I did something slightly differently which works but I don't know why! What is different about `insert` compare to `l = [item] + l`?                for l in nested_list:             l.insert(0, item)         return nested_list"
+                },
+                {
+                    "feedback": "insert() is a function that will mutate the lists inside nested_list rather than bind the name l to a new value as the example above did.  Note that when we iterate through a list of lists, we do not deep copy the inner lists. They are pointers to the actual lists inside nested_list, so mutating l will mutate the inner lists. Here's an example of that:                >>> nested_list = [ [1], [1, 2], [1, 2, 3]] #Make a nested list with some random values     >>> i = 0 #We'll have a index counter to help us out with the example     >>> for l in nested_list: #loop element-wise through the nested_list     ...\tassert l is nested_list[i] #If l is not pointing to the elements in nested_list, throw an error     ...\tl.append(i + 2) #Something cool      ...\ti += 1 # increment i     ...     >>> nested_list     [ [1, 2], [1, 2, 3], [1, 2, 3, 4]]  Notice that the code above didn't throw an assertion error. This means l is the same as the lists inside of nested_list (since that is what is checks for), so mutating l with a function like insert() mutates the lists within nested_list"
+                }
+            ]
+        },
+        {
+            "question": "nl = [[], [1, 2], [3]]       [i.append(6) for i in nl ]       [None, None, None]  why is the result the None?",
+            "follow-ups": [
+                {
+                    "feedback": "append() returns None, so the expression ` i.append(6)` evaluates to None every time the list comprehension runs."
+                },
+                {
+                    "feedback": "Thanks"
+                }
+            ]
+        }
+    ]
+}

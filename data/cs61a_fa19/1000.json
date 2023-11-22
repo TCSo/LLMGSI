@@ -1,0 +1,17 @@
+{
+    "subject": "[Lab 04] Q9: Key of Min Value",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q9\">Q9: Key of Min Value</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q9: Key of Min Value in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": ">>> letters = {'a': 6, 'b': 5, 'c': 4, 'd': 5}  >>> min(letters)  'a'  In the above code in q9, why does min(letters) return 'a'?",
+            "follow-ups": [
+                {
+                    "feedback": "Why is ('a':6) known as the collection's smallest element?"
+                },
+                {
+                    "feedback": "When you call min on a dictionary, it will return the smallest key. In this case, it happened to be 'a' because 'a', in terms of String comparisons, is the smallest.  Traditionally, when iterating through a Dictionary in Python, this is done with the keys.                d = {'a': 6, 'b': 5, 'c': 4, 'd': 5}       for key in d:       \tprint(key)  The code above will print the letters a-d on separate lines. Because we iterate through the keys rather than the values, Python will return the min of the keys, and not the values. Because we paired 6 with 'a', which is the smallest key, it can be thought of as the smallest element."
+                }
+            ]
+        }
+    ]
+}

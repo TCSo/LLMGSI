@@ -1,0 +1,39 @@
+{
+    "subject": "[Lab 11] Q2: WWSD: Quasiquote",
+    "content": "<a href=\"https://cs61a.org/lab/lab11//#q2\">Q2: WWSD: Quasiquote</a>\n\n<p> Please post all questions you have below concerning Q2: WWSD: Quasiquote in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "Hi, can someone please explain how scheme would process unquoting with normal quotes?   Thanks.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpc7vwkn2b6%2Fk2w914qns2zw%2FScreen_Shot_20191112_at_11.26.33_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Without completely giving away the answer, I can tell you that `,x` gets _parsed_ as an unquote expression (it has nothing to do with the quote - the quote just makes sure the parsed expression doesn't get evaluated)"
+                },
+                {
+                    "feedback": "Can you explain this a little more? I'm also stuck and I'm confused about your explanation. Thanks!"
+                },
+                {
+                    "feedback": "(Referring to Q6 of the Scheme project) consider how `scheme_read()` would handle the input `,x` (i.e. what Pair expression results)"
+                },
+                {
+                    "feedback": "Remember that the quotes are always parsed differently before they are ever even evaluated. For example, `'x` is parsed as `(quote x)`, ``x` is parsed as `(quasiquote x)`, and `,x` is parsed as `(unquote x)`. Combine these to get your expected output."
+                }
+            ]
+        },
+        {
+            "question": "scm> `(1 ,x 3)  ______  scm> '(1 ,x 3)  ______  Why would calling this twice result in an answer different from the first?",
+            "follow-ups": [
+                {
+                    "feedback": "Notice that the the first quote is a quasiquote while the second one is just a quote."
+                }
+            ]
+        },
+        {
+            "question": "Can somebody help me on this test case?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk30pui2te93x%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191115_%E4%B8%8B%E5%8D%882.30.11.png)",
+            "follow-ups": [
+                {
+                    "feedback": "The entire expression `(cons x (list y 4))` is unquoted, meaning it must be evaluated in the final output. Remember how `cons` works!"
+                }
+            ]
+        }
+    ]
+}

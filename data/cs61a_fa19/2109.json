@@ -1,0 +1,539 @@
+{
+    "subject": "[HW 09] Q4: Multiples of 3",
+    "content": "<a href=\"https://cs61a.org/hw/hw09//#q4\">Q4: Multiples of 3</a>\n\n<p> Please post all questions you have below concerning Q4: Multiples of 3 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I am actually wondering how can we create a natural number stream without the help of another helper functions",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that a stream can contain itself. ``` scm> (define ones (cons-stream 1 ones)) ones scm> ones (1 . #[promise (not forced)]) scm> (cdr-stream ones) (1 . #[promise (forced)]) scm> (cdr-stream (cdr-stream ones)) (1 . #[promise (forced)]) ```"
+                },
+                {
+                    "feedback": "Why does the top one say promise (not forced), while the bottom ones say promise (forced)?"
+                },
+                {
+                    "feedback": "It’s weird to think about, but once you have evaluated the `cdr-stream` of a stream, its second value will be forced. When we defined `ones`, we defined it as a stream starting with 1 and whatever is contained in the stream `ones` as the rest. That initially isn’t evaluated, but once we call `(cdr-stream ones)`, we evaluate the promise and see that it is just `ones`, so we return that stream. That stream is our original stream, and since we evaluated the `cdr-stream` of `ones`, it is forced any time we reference it. `(cdr-stream ones)` will always reference itself."
+                },
+                {
+                    "feedback": "How can I construct a stream that increments (1, 2, 3, ...), without a define statement? Stuck for a while now..."
+                },
+                {
+                    "feedback": "got it"
+                }
+            ]
+        },
+        {
+            "question": "Just to confirm, the instructions say \"do not define any other helper functions\" but it's still fine to pass in a new lambda for `f` in our `map- stream` call, right?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, I believe that should be fine (at least, that’s what I did). Just don’t create your own recursive helpers and whatnot."
+                },
+                {
+                    "feedback": "Sounds good, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure how to do this without passing naturals as the second parameter of map-stream. The end goal is to basically multiply natural numbers each by 3, so I am not sure how to do it otherwise?",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that streams can refer to themselves. For example, if I wanted a stream of ones, I could do this: ``` scm> (define ones (cons-stream 1 ones)) ones scm> ones (1 . #[promise (not forced)]) scm> (cdr-stream ones) (1 . #[promise (forced)]) scm> (cdr-stream (cdr-stream ones)) (1 . #[promise (forced)]) ``` These streams can also be mapped, so see if you can combine `map-stream` with a self-referential stream to get the desired result."
+                },
+                {
+                    "feedback": "Sorry I just didn't get this. Should I input multiple-of-three into the map- stream? I feel so confused about the logic here."
+                },
+                {
+                    "feedback": "yes"
+                },
+                {
+                    "feedback": "Would defining a stream like that be considered a helper function?"
+                },
+                {
+                    "feedback": "Nope. You just can’t define your own new helper methods with `define` or anything."
+                },
+                {
+                    "feedback": "The only new procedure your solution defines should be the mapper function you feed into map-stream. As long as you don’t create any new procedures besides that one, you’re fine."
+                },
+                {
+                    "feedback": "Am I allowed to define int-stream (as shown in the lecture notes) before defining multiples-of-three?"
+                },
+                {
+                    "feedback": "Nope."
+                },
+                {
+                    "feedback": "If we can't define a stream, how are we supposed to pass a stream as input to map-stream? Is there a way to define a stream without a function that uses cons-stream into a recursive call to the stream generator?"
+                },
+                {
+                    "feedback": "See the other hints elsewhere in this thread. It is recommended for this problem to set the rest of `multiples-of-three` to a mapped version of itself. Nicholas said it best below:  \"Remember that if your stream starts with 3, you can add 3 to get 6, then add 3 again to get 9, and so on and so forth. The more layers of adding 3 you have, the more multiplies of 3 you should get, so just trust in a sort-of- recursive-leap of faith (that is, a self-referential stream) that mapping a stream to a version of itself adding 3 will generate the next in the series.\""
+                },
+                {
+                    "feedback": "So we're not supposed to use map-stream?"
+                },
+                {
+                    "feedback": "We are supposed to use it. Note that Nicholas and I both describe “mapping a stream” which can be done with the `map-stream` function."
+                },
+                {
+                    "feedback": "You are supposed to use it. We can use it to map the stream to a version of itself but mutated."
+                }
+            ]
+        },
+        {
+            "question": "I understand how one can refer to one's stream, but how can you modify the values in the cons-stream without parameters in multiples-of-three? Seems like you can only make a repeating stream, which is useless here.",
+            "follow-ups": [
+                {
+                    "feedback": "Consider setting the rest of multiples-of-three to be a mapped version of itself."
+                },
+                {
+                    "feedback": "I don't get how setting the rest of multiples-of-three to a mapped version of itself would work. Wouldn't that just create a stream of 3s, if we set the first part of multiples-of-three to a mapped version of the ones stream?"
+                },
+                {
+                    "feedback": "Don't worry about creating a \"ones\" stream. The \"first part\" (I assume you mean first element) of multiples-of-three should just be the first multiple of three, which is 3. A hint I can give you is that the mapper function should take in a multiple of three and output the next multiple of three."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk32q0sjih2jo%2FScreen_Shot_20191117_at_12.10.24_AM.png)I'm not sure why this is glitching out; this part should be relatively straightforward, but map just doesn't do what is commanded to do.",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnq8q8s8c31g%2Fk32q31pfv9nn%2FScreen_Shot_20191117_at_12.10.32_AM.png)  Also, for some reason, the 2nd value resulted in 12 despite the map-stream of the first one working (1, 2, 3, etc.) so I'm not sure why the 2nd map-stream used to multiply the stream isn't working."
+                },
+                {
+                    "feedback": "could you explain your strategy?"
+                },
+                {
+                    "feedback": "try using the + operator instead of *"
+                },
+                {
+                    "feedback": "I am using the + operator"
+                },
+                {
+                    "feedback": "what are you using it for?"
+                },
+                {
+                    "feedback": "There could be a ton of different things going on here. What I recommend doing is going to scheme.cs61a.org, typing in what you have and then running `(visualize)` to see all the intricases of the code you wrote."
+                },
+                {
+                    "feedback": "I seem to have the same problem and I tried using + and * to generate the multiples"
+                },
+                {
+                    "feedback": "Remember that if your stream starts with 3, you can add 3 to get 6, then add 3 again to get 9, and so on and so forth. The more layers of adding 3 you have, the more multiplies of 3 you should get, so just trust in a sort-of-recursive- leap of faith (that is, a self-referential stream) that mapping a stream to a version of itself adding 3 will generate the next in the series."
+                },
+                {
+                    "feedback": "I got this error by mistakenly calling cons-stream instead of map-stream, maybe you're in the same boat"
+                }
+            ]
+        },
+        {
+            "question": "I think I don't understand the concept of the question. Can someone please explain it to me? More specifically what does map-stream returns? Also what should be the final output?",
+            "follow-ups": [
+                {
+                    "feedback": "`map-stream` takes in a stream and a function and returns a mapped version of the stream where each element corresponds to the function applied on each element of the given stream. The final output of Q4 should be a stream containing all multiples of 3 (3, 6, 9, ...)"
+                },
+                {
+                    "feedback": "Thank you Cyrus I will try. You are awesome."
+                },
+                {
+                    "feedback": "No problem, best of luck and thank you for the kind words. <3"
+                },
+                {
+                    "feedback": "Thank you best wishes to you too <3"
+                }
+            ]
+        },
+        {
+            "question": "What does map-stream returns and how is it useful for multiples-of-three? i am stuck forever",
+            "follow-ups": [
+                {
+                    "feedback": "`map-stream` takes in a stream and a function and returns a mapped version of the stream where each element corresponds to the function applied on each element of the given stream. For instance, if I have a stream consisting of `(1 2 3)` and my mapping function is `(lambda (x) (* 2 x))` then `map-stream` would output `(2 4 6)`.  Also Nicholas has a good hint above: \"Remember that if your stream starts with 3, you can add 3 to get 6, then add 3 again to get 9, and so on and so forth. The more layers of adding 3 you have, the more multiplies of 3 you should get, so just trust in a sort-of-recursive-leap of faith (that is, a self- referential stream) that **mapping a stream to a version of itself adding 3 will generate the next in the series.** \""
+                },
+                {
+                    "feedback": "Thank you Cyrus"
+                },
+                {
+                    "feedback": "No problem"
+                },
+                {
+                    "feedback": "I got it Thank you again you are awesome Cyrus"
+                },
+                {
+                    "feedback": "No problem thank you :)"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk39rbteu8bl5%2FScreen_Shot_20191121_at_10.16.28_PM.png)  hi i am still stuck on this problem, and for some reason the rest of my stream are not stream but a list. can you explain why this is the issue?"
+                }
+            ]
+        },
+        {
+            "question": "When it says, \"Do not define any other helper functions,\" does that include copying the naturals definition from discussion/lecture:  (define (naturals n) (cons-stream n (naturals (+ n 1))))  I am passing all tests, just making sure I didn't break the rules.",
+            "follow-ups": [
+                {
+                    "feedback": "Here, `naturals` is being used as a helper, so no, this isn't allowed by the rules."
+                }
+            ]
+        },
+        {
+            "question": "How do we use the map-steam function in this problem (with a lambda function passed into the map-steam function that multiplies each element of the stream by 3)?",
+            "follow-ups": [
+                {
+                    "feedback": "Multiples of 3 are achieved by repeatedly adding 3 to a number. See if you can use this fact with `map-stream` and a self-referential stream to achieve the desired result. Take a look at some of the other hints I gave above if you are still stuck."
+                },
+                {
+                    "feedback": "Am I right to pass in a function into map-stream that multiplies each element of the stream by 3?"
+                },
+                {
+                    "feedback": "Think about what happens in this case: you'll get the output 3, 9, 27... this is why Nicholas said we obtain multiples of three \"by repeatedly **adding** 3\""
+                },
+                {
+                    "feedback": "Oh I was thinking to create an infinite stream of integers (1 2 3 4...) and apply the map-stream function on it, which would multiply each element of the stream by 3 and therefore give a new stream of multiples of 3 (3,6,9,12...)"
+                },
+                {
+                    "feedback": "No need for that - just hard-code a starting value for the multiples of three stream (i.e. the first multiple of three), and then you should be able to build upon that using `map-stream` recursively"
+                },
+                {
+                    "feedback": "Got it to work, but I don't think I fully understand how \"mapping the stream to a version of itself\" results in an infinite stream. Could someone please elaborate on this part?"
+                },
+                {
+                    "feedback": "Remember that we always define what the `first` and `rest` of a stream is. As a simpler example, let’s look at an infinite stream of ones: ``` scm> (define ones (cons-stream 1 ones)) ones scm> ones (1 . #[promise (not forced)]) scm> (cdr-stream ones) (1 . #[promise (forced)]) scm> (cdr-stream (cdr-stream ones)) (1 . #[promise (forced)]) ``` We have essentially defined `ones` as a stream whose first value is `1` and whose rest of the values is the stream `ones`. This means that when we look up the `cdr-stream` of `ones`, we see that the rest of the stream is `ones`, which is itself a `1` followed by the rest of the values in `ones`. This means that the `cdr-stream` of `ones` is itself, and `ones` always starts with a `1` followed by `ones`. We apply a similar concept in this problem, except we say that the stream is followed by a mutated version of itself, like saying that the first value is `3` followed by a version of itself except adding `3` more."
+                },
+                {
+                    "feedback": "This clears up the confusion...thank you so much Nicholas and Cyrus!!"
+                },
+                {
+                    "feedback": "No problem"
+                },
+                {
+                    "feedback": "Nicholas's explanation got me thinking - the concept he describes is similar to a linked list WWPD question from back in the day (which I've recalled from memory here):                >>> test = Link(5)     >>> test.rest = test     >>> test.rest.first     5     >>> test.rest.rest.first     5     >>> test.rest.rest.rest.first     5  Here we set the rest of a `Link` to be itself, which is similar to the way the `ones` stream is generated."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpa50qn729r%2Fk376hvz7m6wl%2FScreen_Shot_20191120_at_3.03.03_AM.png)  Hi, I have no clue what is wrong with my lambda procedure it seems like?",
+            "follow-ups": [
+                {
+                    "feedback": "I think you’ve accidentally defined `multiples-of-three` to be a procedure rather than a variable. Make sure your `define` statement is of the form `(define multiples-of-three (...))` and not `(define (multiples-of-three) (...))`."
+                },
+                {
+                    "feedback": "If I try to define multiples-of-three as a variable I get an error:  Error: expected  # 3  # but got  # Traceback (most recent call last):  # ...  # SchemeError: unknown identifier: multiples-of-three  as far as I can tell I'm not missing any parenthesis or anything"
+                },
+                {
+                    "feedback": "Is your solution of the form `(define multiples-of-three (...))`?"
+                },
+                {
+                    "feedback": "yes"
+                },
+                {
+                    "feedback": "Your code should contain this (where ... is an arbitrary expression or multiple), and if it doesn't, I guess you can re-extract the file and copy your code over?                ; Streams     (define (map-stream f s)       (if (null? s)           nil           (cons-stream (f (car s))                        (map-stream f (cdr-stream s)))))          (define multiples-of-three ...)          (define (nondecreastream s) ...)"
+                }
+            ]
+        },
+        {
+            "question": "why does my code say error  ; Expected: 3   ; Actual : SchemeError: unknown identifier: multiples-of-three   (car multiples-of-three)",
+            "follow-ups": [
+                {
+                    "feedback": "there may be some parentheses that are missing that is causing your multiples- of-three to not be defined. also check your spelling and punctuation in the name itself to make sure that they match."
+                }
+            ]
+        },
+        {
+            "question": "Can we use the int-stream defined in class?",
+            "follow-ups": [
+                {
+                    "feedback": "No, you should not."
+                },
+                {
+                    "feedback": "You should need nothing other than the `map-stream` procedure as a helper method."
+                }
+            ]
+        },
+        {
+            "question": "I am getting the error  Error: argument 0 of car has wrong type (str)  My car of the stream is 3 which I believe is an integer, any clues on what this error means?",
+            "follow-ups": [
+                {
+                    "feedback": "Are you ever quoting anything in your implementation? I’m not sure how you would get a string to come up in the first place."
+                },
+                {
+                    "feedback": "im not quoting anything, i use map-stream as the second part of my stream."
+                },
+                {
+                    "feedback": "I honestly am not sure what the error could be, sorry about that. You could consider making a private post to the instructors or going into office hours. Also, once you figure your issue out, it would be nice if you added a response on here to help out anyone else who might be having the same problem."
+                }
+            ]
+        },
+        {
+            "question": "I seem to be getting the same error as described a couple of posts above with the unknown identifier: multiples-of-three, however, I checked my parentheses and I copy-pasted the name so that it is not different and I still get the same error. Am I just using it incorrectly?",
+            "follow-ups": [
+                {
+                    "feedback": "Your code in `hw09.scm` should contain this:                ; Streams     (define (map-stream f s)       (if (null? s)           nil           (cons-stream (f (car s))                        (map-stream f (cdr-stream s)))))          (define multiples-of-three ...)          (define (nondecreastream s) ...)  Where `...` is replaced with some expression(s). If it looks like this and you're still receiving the error, your expressions used to define `multiples- of-three` are likely malformed."
+                },
+                {
+                    "feedback": "Thanks for the clarification Cyrus!"
+                },
+                {
+                    "feedback": "Worst-case scenario, try re-downloading the project files and pasting in your code if it still doesn’t work."
+                },
+                {
+                    "feedback": "^ and no problem"
+                },
+                {
+                    "feedback": "Thanks to both of you I'll see what I can do!"
+                },
+                {
+                    "feedback": "it may help to not define your lambda function"
+                },
+                {
+                    "feedback": "as in don't give it a variable name and insert it into the map-stream call"
+                },
+                {
+                    "feedback": "I was getting this same error! My issue was using \"cons\" in my implementation of multiples-of-three instead of \"cons-stream\", maybe that applies to you as well?"
+                },
+                {
+                    "feedback": "Not OP but this helped me! Thanks a lot!"
+                }
+            ]
+        },
+        {
+            "question": "Do we need to modify the map-stream procedure? I put a lambda procedure under multiplies-of-three but I run into an error. I'm so confused with what should multiplies-of-three return.",
+            "follow-ups": [
+                {
+                    "feedback": "No, you shouldn’t need to modify it. Make sure you pass in a lambda expression and a stream, with the function first and the stream second."
+                },
+                {
+                    "feedback": "A proper map-stream call would look like `(map-stream (lambda (*symbols go here*) *some expression*) *stream goes here*)`"
+                }
+            ]
+        },
+        {
+            "question": "Also getting the unknown identifier error here. Pretty sure no parentheses are missing and have re-downloaded the original skeleton code multiple times. Also tried calling the given finite-test-stream and infinite-test-stream in the editor and got the same error.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuzqj8j2s6pf%2Fk385tcjawnq7%2FScreen_Shot_20191120_at_19.29.46.png)",
+            "follow-ups": [
+                {
+                    "feedback": "If your text editor has parenthesis highlighting, try making sure that all the parentheses line up the way they are supposed to (not only that none are missing). Otherwise, you’re just going to have to try office hours so that they can figure out your issue. Sorry we couldn’t be of more help; it is a weird issue to have."
+                },
+                {
+                    "feedback": "you can try deleting the code except for the two functions here and reinserting them back until you get an error to determine the source"
+                },
+                {
+                    "feedback": "make sure you're removing the 'Your code here statement at the top. I hadn't removed mine's and once I did, everything started working fine."
+                }
+            ]
+        },
+        {
+            "question": "I completed the problem, but I'm still a little iffy on visualizing the structure. Can someone explain it to me, please? So is it because since it's a promise. We can just add functions on it like (+ 3 [promise]) and we can do it multiple times without actually computing the value? like (+ 3 (+ 3 [promis])).",
+            "follow-ups": [
+                {
+                    "feedback": "There is a pretty lengthy explanation on a way of visualizing a similar problem at @2216\\. Take a look at it and see if it helps at all."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1gnzqvd2zr%2Fk38lypi57w1d%2FScreen_Shot_20191121_at_3.03.52_AM.png)  Has anyone figured out how to fix this error? I have tried re-downloading the files but the error still occurs. Why is this happening and how can i fix the problem?",
+            "follow-ups": [
+                {
+                    "feedback": "It seems like a lot of people have been having this error for some reason. The only reason anyone has come up with is that your parentheses are mismatched such that the other define forms are actually inside a larger define form because of the ways the parentheses match up. Check those, and if you still can’t figure it out, you’re just going to have to go into office hours or make a private post, unfortunately."
+                },
+                {
+                    "feedback": "ok, thanks!"
+                },
+                {
+                    "feedback": "I'm having the same issue, has there been any resolution besides the parentheses (apparently mine match up yet I still get the SchemeError)."
+                },
+                {
+                    "feedback": "I had the same issue, and I was able to fix it by changing my implementation in multiples-of-three from \"cons\" to \"cons-stream\". Hope that helps!"
+                },
+                {
+                    "feedback": "Thank you that fixed it! (to the most recent post)"
+                },
+                {
+                    "feedback": "figured it out! I just had to remove the \"your code here statement at the top, then everything started working"
+                }
+            ]
+        },
+        {
+            "question": "For anyone having trouble with the \"unknown identifier: multiples-of-three\" error, I fixed my error by starting my function with cons-stream instead of map-stream.",
+            "follow-ups": [
+                {
+                    "feedback": "so you cons-streamed your map-stream? I am confused."
+                },
+                {
+                    "feedback": "Basically my code starts with cons-stream. It started with map-stream before which is what gave me that error."
+                }
+            ]
+        },
+        {
+            "question": "I understand that we have to make a call to map stream using a lambda as the f but what else am I supposed to put in my cons-stream? I am confused on how to construct this stream. As in, after I cons-stream the map-stream call, what do I include after that?",
+            "follow-ups": [
+                {
+                    "feedback": "I'm asking this because no matter what I do, I get 'unknown identifier: multiples-of-three' but I have checked my names, parentheses, and I'm using cons-stream."
+                },
+                {
+                    "feedback": "You’re really just going to have to make a private post or go into office hours to figure this one out. There have been a ton of people having this problem, and no one has been able to post a working solution for everyone on Piazza yet. Sorry about that."
+                },
+                {
+                    "feedback": "ok thanks for the help anyways"
+                },
+                {
+                    "feedback": "despite that, can someone answer my original question? I just want to make sure I'm understanding this properly"
+                },
+                {
+                    "feedback": "You don’t want to be constructing new streams for the argument you pass into `map-stream`. What you really want to build is essentially a self-referential stream that has a mutated version of itself as the rest. It’s hard to explain over Piazza, but take a look at @2216 for a similar problem and see if you can figure out what is going on."
+                }
+            ]
+        },
+        {
+            "question": "does anyone know why I might be getting this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjex7lyc5jh%2Fk39g1h13wr6f%2FScreen_Shot_20191121_at_5.05.03_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You might have an extra pair of parentheses somewhere that leads to your output being evaluated an extra time. Also, make sure you are generating a stream and not a list."
+                }
+            ]
+        },
+        {
+            "question": "Note to everyone with the \"multiples-of-three\" error:  I tried to put parentheses around \"multiples-of-three\", just like how the other functions have parentheses around their names (and parameters.)  Hope this helps!",
+            "follow-ups": [
+                {
+                    "feedback": "We want multiples-of-three to be a stream though, not a function"
+                },
+                {
+                    "feedback": "^ what anon said"
+                },
+                {
+                    "feedback": "You're right, I realized that after I posted"
+                },
+                {
+                    "feedback": "Remove the 'Your code here statement at the top if you haven't already. I was getting this error, and then when I removed that statement, everything start working."
+                }
+            ]
+        },
+        {
+            "question": "For the mulitples-of-three error, I put the (define multiples-of-three ...) under the (define infinite-stream) and it seems to work. I don't know if it is a solution tho.",
+            "follow-ups": [
+                {
+                    "feedback": "No, you shouldn't do this"
+                }
+            ]
+        },
+        {
+            "question": "FOr this question, I think what we have to do is put in lambda for f within our map-stream function. however, we need to have a cons-stream that goes from 1 to the next greater number. I got how we have to apply lambda function for this multiples-of-three, but i am confused on how you could possible make a stream that goes from 1 to an infinity... can someone help me plz.",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk39knjngm9mo%2FScreen_Shot_20191121_at_7.14.55_PM.png)  I am keep getting this error and I don't know what to do with it..."
+                },
+                {
+                    "feedback": "You are on the right track, but you need to have a first element of the stream in order to manipulate it"
+                },
+                {
+                    "feedback": "In other words you need a cons-stream somewhere"
+                },
+                {
+                    "feedback": "Otherwise there is no stream made"
+                },
+                {
+                    "feedback": "so what you mean by needing to have the first element of the stream, do you mean you need to have something like (car (cons-stream))?"
+                },
+                {
+                    "feedback": "i do have a cons-stream but I don't know what you have to put into the cons- stream inorder to make a stream that goes up infinitely."
+                },
+                {
+                    "feedback": "Well you always need a (define name (cons-stream first something)). To create a constant infinite stream, (define name (cons-stream first name)). Here that wouldn't work because we don't want a constant stream, but you seem to be on the right track from what is in the screenshot"
+                },
+                {
+                    "feedback": "okay i tried using the infinite stream that professor showed us during the lecture. ex. (define (int-stream start)(cons-stream start (int-stream (+ start 1)))))  but it is still returning the same error that multiple of 3 is an unknown identifier."
+                },
+                {
+                    "feedback": "How many define statements do you have now ?"
+                },
+                {
+                    "feedback": "Remember that multiples-of-3 should be a stream"
+                },
+                {
+                    "feedback": "^ but by using map-stream doesn't that in itself return a strea m"
+                },
+                {
+                    "feedback": "what i have right now is cons-stream something mapstreem lambda multiples-of- three  if this is not working i donno what else is going to work. but its keep saying that fomal must be a list which it is because i just wrote it as multiples-of- three without any parenthesis or cons-stream thingy."
+                },
+                {
+                    "feedback": "resolving this follow up now that it is past due - sorry that we were not able to address it before the deadline. if you have questions about this homework, please post a new follow up!"
+                }
+            ]
+        },
+        {
+            "question": "For those with a 'unknown identifier: multiples-of-three' error: **make sure you do not have any define statements except**` (define multiples-of-three ... ) **.**` **** You should be using cons-stream but should **not** be _defining_ a new stream.",
+            "follow-ups": [
+                {
+                    "feedback": "ugh piazza formatting"
+                },
+                {
+                    "feedback": "awwwwww thank you"
+                },
+                {
+                    "feedback": "wait would you have a map-stream and within you would have lambda function and for the stream would you type multiples-of-three?"
+                },
+                {
+                    "feedback": "I don't have any define statement beside the define multiples-of-three but i am still getting the same error..."
+                },
+                {
+                    "feedback": "look at the response to your above post, see if that helps"
+                }
+            ]
+        },
+        {
+            "question": "Any idea on the unknown identifier error?",
+            "follow-ups": [
+                {
+                    "feedback": "can you describe specifically what unknown identifier error you are receiving?"
+                }
+            ]
+        },
+        {
+            "question": "After you successfully implement the variable, how do you actually call the stream in interactive terminal? Just typing multiples-of-three only gets me 3 as opposed to infinite stream.",
+            "follow-ups": [
+                {
+                    "feedback": "`multiples-of-three` should be a stream, so if you’re not getting a stream, then there is probably an implementation issue…"
+                },
+                {
+                    "feedback": "and the way you make the multiples-of-three into a stream is through (cons- stream multiples-of-three nil) ? or how do you make it into streams"
+                },
+                {
+                    "feedback": "Refer to @2216 for a description of a similar problem, and see if you can adapt the ideas to work with this one. Let me know if you still need further explanation."
+                },
+                {
+                    "feedback": "I've been getting scheme error, saying that my formals must be stream,.... I donno why that is happening."
+                },
+                {
+                    "feedback": "it is checking if the rest of my stream is also a stream but it's keep giving me a scheme error"
+                },
+                {
+                    "feedback": "resolving this follow up now that it is past due - sorry that we were not able to address it before the deadline. if you have questions about this homework, please post a new follow up!"
+                }
+            ]
+        },
+        {
+            "question": "I have been getting this error for like eternity but I don't understand why rest of my stream are not stream but list. can anyone explain the cause or the source for this problem? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk39rgwp9jjjj%2FScreen_Shot_20191121_at_10.16.28_PM.png)  it also says formal must be a list. WTH does that mean?",
+            "follow-ups": [
+                {
+                    "feedback": "It seems like you may have triggered a bug in the interpreter. I’m not sure what it would be, but either way, make sure that `multiples-of-three` is ultimately a list and only a list. The implementation of this shouldn’t be too complicated in general; take a look at @2216 if you want some pointers based on a similar problem."
+                },
+                {
+                    "feedback": "You're using cons instead of cons-stream"
+                },
+                {
+                    "feedback": "i am using cons-stream :("
+                },
+                {
+                    "feedback": "what i have right now is cons-stream something mapstreem lambda multiples-of- three  if this is not working i donno what else is going to work."
+                },
+                {
+                    "feedback": "its keep saying that fomal must be a list which it is because i just wrote it as multiples-of-three without any parenthesis or cons-stream thingy."
+                },
+                {
+                    "feedback": "This is very strange, you seem to have the right approach. Put this in a comment in your code, since hw is graded on effort not correctness"
+                },
+                {
+                    "feedback": "resolving this follow up now that it is past due - sorry that we were not able to address it before the deadline. if you have questions about this homework, please post a new follow up!"
+                }
+            ]
+        },
+        {
+            "question": "For those of you who can't figure out the \"SchemeError: unknown identifier: multiples-of-three\", try copying this:                (define multiples-of-three ...)   and then fill in the ... with your original code. I have no idea why, but it worked for both my friend and I."
+        }
+    ]
+}

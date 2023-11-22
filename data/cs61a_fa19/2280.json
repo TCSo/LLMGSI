@@ -1,0 +1,41 @@
+{
+    "subject": "[Lab 13] Q1: Give Interest",
+    "content": "<a href=\"https://cs61a.org/lab/lab13//#q1\">Q1: Give Interest</a>\n\n<p> Please post all questions you have below concerning Q1: Give Interest in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj4db1e2a3zb2j6%2Fk3f7putfb4sl%2FScreen_Shot_20191125_at_5.59.08_PM.png)  I don't understand why I'm also outputting the original table data along with the modified table",
+            "follow-ups": [
+                {
+                    "feedback": "Are you using `INSERT INTO` or `UPDATE`? You should be using the latter."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjz1zsn3o5836lt%2Fk3i0djflxkyd%2FScreen_Shot_20191127_at_4.57.07_PM.png)  I'm updating the values of amount for all accounts, why is it not working correctly?",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like you’re running the wrong test case. Make sure you are running `python3 ok -q give-interest`."
+                }
+            ]
+        },
+        {
+            "question": "How do we view the original tables? I can't seem to find them or what the column names are? Are we supposed to have access to this information?",
+            "follow-ups": [
+                {
+                    "feedback": "Wait I found it, it's in the data.sql file"
+                }
+            ]
+        },
+        {
+            "question": "I am a bit confused about this problem. How can we change the data unless we wrote a separate SELECT statement for each account holder?  Is there something(such as a function or so) that modifies the data for us?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Yes! Refer to last Friday’s lecture to learn about the statements you will need to use to solve these homework questions, then come back if you need additional help."
+                },
+                {
+                    "feedback": "Will do! Thanks!"
+                }
+            ]
+        }
+    ]
+}

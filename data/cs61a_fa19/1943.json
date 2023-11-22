@@ -1,0 +1,324 @@
+{
+    "subject": "[Scheme] Problem 16",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-16-1-pt\">Problem 16</a>\n\n<p> Please post all questions you have below concerning Problem 16 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "any hints on how to keep track of the index?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider utilizing a helper function"
+                },
+                {
+                    "feedback": "My code was able to pass all the tests but would fail in cases where the list contains a repeated value like (1 2 2 3 4). This is because the helper function I created only returns the smallest index of a value. Were you able to account for this case? Thanks in advance"
+                },
+                {
+                    "feedback": "Your helper function should really just be keeping track of an index and incrementing it each time it’s called."
+                }
+            ]
+        },
+        {
+            "question": "Any hints on how to increment the index variable? I'm having trouble redefining the variable and making sure it's incremented each time the helper function is called.",
+            "follow-ups": [
+                {
+                    "feedback": "Take in the index variable as a parameter, and make your recursive call with the current index incremented"
+                },
+                {
+                    "feedback": "Maybe my way of thinking of how to increment the index recursively is incorrect, but for example if I were to pass in 0 to the helper function, wouldn't the recursive call just return 1 each time? Is there something more abstract I could pass into the helper in the body of enumerate?"
+                },
+                {
+                    "feedback": "First think of what your base case should be, and think about what the function should return in such a case. A logical base case would be when the list is empty, because an enumerated empty list is still just an empty list.      Next think about what your recursive call should be. A helper function is useful in keeping track of what the current index is, so each time you recursively call the helper function, you would probably want to increment the index with `(+ i 1)` when you call the function. Think of `i` as your current index that you want to be the first element in the two-element list, and increment it each time."
+                },
+                {
+                    "feedback": "How would we store the index across multiple calls? If I pass in 0 into my helper function, the next time enumerate is called, 0 is passed in again. Every time enumerate is called, a new helper function is created, so I cannot put a define expression inside the helper function to store the index."
+                },
+                {
+                    "feedback": "Consider the following simple example:                scm> (define (helper i) (print i) (helper (+ i 1)))     scm> (helper 0)     0     1     2     3     4     5     6     ...  Or something like:                scm> (define (outer x)     ...>   (define (inner y)     ...>     (print (+ x y))     ...>     (inner (+ y 1)))     ...>   (inner 0))     outer     scm> (outer 5)     5     6     7     8     9     10       ..."
+                },
+                {
+                    "feedback": "Thanks for the help! For some reason, I didn't realize that the helper function could have more than one parameter lol"
+                },
+                {
+                    "feedback": "I'm still confused as to how those examples can help, though. Isn't each increasing value still contained within one call to enumerate? If we recursively call enumerate, won't it just pass in 0 again?"
+                },
+                {
+                    "feedback": "Each call to a function has its own frame and thus its own set of variables. By defining a parameter in our helper method that we increment each time it is called, we can get larger and larger indices."
+                },
+                {
+                    "feedback": "Wait, are we allowed to write outside of the enumerate function for this question? I've been trying to write the helper function inside of the enumerate function this whole time."
+                },
+                {
+                    "feedback": "You probably should write it inside the function—that would make more sense."
+                },
+                {
+                    "feedback": "Regarding your previous comment about how each call to a function has its own frame, isn't each call to the helper function from each call to enumerate a different call? Using that logic, wouldn't all of the information from the previous call to the helper function be lost?"
+                },
+                {
+                    "feedback": "Never mind, I think I know how to approach this now based on the question I asked and Cyrus's hint. Thanks for the help."
+                }
+            ]
+        },
+        {
+            "question": "Is there any way that I could have two expressions in an 'else' expression in if.      For example, I want to something like this in scheme:                if x>2:          return x       else:          x += 1          return x  (Not exactly like this. But basically have multiple expressions in the if/else statement.)",
+            "follow-ups": [
+                {
+                    "feedback": "Use the `begin` statement. For example:   ```   scm> (if (= 0 1)   .... (/ 1 0)   .... (begin   .... (print 1)   .... (print 2)   .... (print 'multiline!)))   1   2   multiline!   ```"
+                }
+            ]
+        },
+        {
+            "question": "What is the difference between null? and = nil ?",
+            "follow-ups": [
+                {
+                    "feedback": "They're functionally the same as far as I'm aware; I would assume `null?` is shorthand notation for `= nil` and `null?` is typically used by convention."
+                },
+                {
+                    "feedback": "Oh, my solution was wrong when I used one of those two, but I passed all the test cases when I used the other - I was wondering the reason behind that..."
+                },
+                {
+                    "feedback": "Nevermind on that - you would have to use `eq?` rather than = since = only works with numbers.                scm> (= nil '())     Traceback (most recent call last):       0\t(= () (quote ()))     Error: operand 0 (()) is not a number     scm> (eq? nil '())     #t     scm> (null? '())     #t"
+                },
+                {
+                    "feedback": "oh I see, thanks!"
+                },
+                {
+                    "feedback": "Here’s the definition for the `null?` built-in, in case you were curious:   ```   @builtin(\"null?\")   def scheme_nullp(x):   return type(x).__name__ == 'nil'   ```   It just checks whether the name of the class of `x` is `nil`, since `nil` is an instance of the `nil` class, but the name `nil` is shadowed by the instance, so we can’t accidentally make another instance of `nil`. Just thought you might want to know."
+                }
+            ]
+        },
+        {
+            "question": "Has anybody ran into this error?  SchemeError: cdr can only be a pair, nil, or a promise but was None  I have a base case returning nil and even when I put nil at the end of my constructed list it gave back this error. Could his be an issue with my previous code?",
+            "follow-ups": [
+                {
+                    "feedback": "nil and None are two different things - try your code on the web interpreter, and if it works, or the error is different, then there's likely an issue with your interpreter implementation."
+                }
+            ]
+        },
+        {
+            "question": "If I don't use streams, then I get this error:  cdr can only be a pair, nil, or a promise but was 3  and when I implemented a stream I got this error:  ((0 . #[promise (not forced)]) (1 . #[promise (not forced)]) (2 . #[promise (not forced)]) (3 . #[promise (not forced)]))  Any suggestions?",
+            "follow-ups": [
+                {
+                    "feedback": "Consider using a helper function instead of streams."
+                },
+                {
+                    "feedback": "Also, if you want to produce a two-element list, keep in mind that the cdr of the list should be a one-element list, rather than simply that element by itself."
+                }
+            ]
+        },
+        {
+            "question": "Is anyone getting this error? I'm not calling 0 on anything so I'm lost![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jseoqnxz4xn%2Fk30w6aaahr5m%2FScreen_Shot_20191115_at_5.27.13_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "It looks like might be trying to return a list but forgetting to include the `list` keyword at the beginning of the list, so it’s seeing the evaluated list as the operator, which doesn’t work. Double check the results of evaluation and make sure a list never ends up as the first element of a larger expression."
+                },
+                {
+                    "feedback": "solved it thanks!"
+                }
+            ]
+        },
+        {
+            "question": "So, I have the correct answer because it works in the online Scheme interpreter.  Furthermore, when open the scheme interpreter using python3 scheme.py and run my code, it works.  But when I run my code by using python3 ok -q 16, I get the following error.  SchemeError: ('incorrect number of arguments: called on ', <function scheme_car at 0x7f8d08bcb840>)      *Note: This is the Type Error that I wrote it to display in Problem 3.  Does anyone have advise as to what I should do? Because I am not exactly sure what exactly the problem is. It just seems to break only during the ok py tests.",
+            "follow-ups": [
+                {
+                    "feedback": "Well, it sounds like you’re either not passing enough arguments or passing too many arguments to `car`, although if it works in all those other places, I’m not entirely sure why it would be failing the test case. How are you implementing the procedure to begin with?"
+                },
+                {
+                    "feedback": "I mean, I know my implementation of my procedure is correct, because it outputs correctly in these other places.  It just comes down to the fact that ok py doesn't accept it for some reason.  At any point, I am only inputting one argument into car.  I will continue to do more testing to see if I can find some issue with my interpreter."
+                },
+                {
+                    "feedback": "Unfortunately, I have no idea what else could be causing the issue.      Do you happen to live around Unit 1 at all? I’m actually going to be helping some people debug in-person tomorrow if you’ll be around."
+                },
+                {
+                    "feedback": "Ah, I live Foothill, But yeah, sure if I am available during that time. Is there a way I can best contact you?"
+                },
+                {
+                    "feedback": "@2114"
+                },
+                {
+                    "feedback": "Hey, so apparently I came back to the question and tried to run the ok grader on it again, and it worked.  But I made no changes to the code itself.  So I believe it may have had something to do with the scheme editor (i.e. running python3 editor) being weird.  Literally all I did was close my computer for the night and reopen it today, and it worked.  So I think the solution might just be restarting the scheme editor (or possibly my computer).  Thanks for the help. I am glad it wasn't something more difficult to fix."
+                },
+                {
+                    "feedback": "Hmmm. That is very odd indeed. I’m glad it works now, though!"
+                }
+            ]
+        },
+        {
+            "question": "What am i possibly doing for it to say this?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk3203jy5cz9q%2FScreen_Shot_20191116_at_12.05.02_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "that's supposed to be my helper function that keeps track of index"
+                },
+                {
+                    "feedback": "Are you accidentally quoting `helper`?"
+                },
+                {
+                    "feedback": "no i firstly defined it to increment i and then im trying to call it when i cons the list"
+                },
+                {
+                    "feedback": "im confused as to how the helper function should behave so it returns the next number each time"
+                },
+                {
+                    "feedback": "The `helper` symbol somehow isn’t getting evaluated to the procedure as the operator, and your interpreter is somehow trying to directly use the symbol instead… Could be this a problem with your problem 4 implementation? Have you passed all the test cases up to problem 15 and 116 test cases in `tests.scm`?"
+                },
+                {
+                    "feedback": "Yeah I did. I mean I'm probably just syntactically writing my helper implementation incorrectly"
+                },
+                {
+                    "feedback": "Hmmm. Well, remember the the form for define is `(define ([function name] [formals]) [body])`. If you’re still running into issues, I can take a look at it in person later today."
+                },
+                {
+                    "feedback": "is the helper function supposed to be recursive?"
+                },
+                {
+                    "feedback": "Doing it recursively is a good idea."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpu89d3d2pr%2Fk321adjr60dx%2FCapture.PNG)  Why does this keep occurring??",
+            "follow-ups": [
+                {
+                    "feedback": "Are you doing anything along the lines of `(s (...))`? That would mean you’re trying to put the list as the operand to a Scheme expression, but that doesn’t work. Make sure you use quotation or the `list` or `cons` procedures to make your returned lists."
+                },
+                {
+                    "feedback": "I think it is something to do with my helper function. I try to call my helper function at the end and no matter what I put in as the first operand it says \"int not callable\" or \"pair not callable\", etc."
+                },
+                {
+                    "feedback": "I solved it!! I was missing a parenthesis."
+                }
+            ]
+        },
+        {
+            "question": "Hello, I am trying to test if my cons-all procedure works but my scheme editor is not doing anything when I hit run. This has been happening since we first started scheme so I'm not too sure how to fix it.",
+            "follow-ups": [
+                {
+                    "feedback": "and to test the cons-all procedure I created a new .scm file with just cons- all and a test case"
+                },
+                {
+                    "feedback": "Sorry, I meant to post this in problem 17"
+                },
+                {
+                    "feedback": "You mean you aren’t even getting the interpreter to open in the first place?"
+                },
+                {
+                    "feedback": "The interpreter is opening but nothing happens when I click the green 'run' button."
+                },
+                {
+                    "feedback": "by nothing happening, you mean that it successfully runs and completes without any output?      maybe try running and testing code in scheme.cs61a.org in the meantime - especially if you are just testing functionality with respects your helper functions"
+                }
+            ]
+        },
+        {
+            "question": "My code works in a web interpreter , but I get the error\" cdr can only be pair , nil or promise but was 3 when i run the tests . Does anybody why I am getting this error, if there is something wrong with my interpreter how do I fix this?  Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Well, it sounds like it could be an issue with your interpreter, but I wouldn’t be able to isolate the problem for you. Try running the cases with the staff interpreter."
+                },
+                {
+                    "feedback": "Also, make sure your code in the web interpreter and other interpreter is precisely the same."
+                },
+                {
+                    "feedback": "How to run the cases with staff interpreter?  thanks !"
+                },
+                {
+                    "feedback": "Having the same issue! Staff interpreter isn't working"
+                },
+                {
+                    "feedback": "I think you’re going to have to manually load your code with `python3 scheme -i questions.scm` and then manually run the cases. There *is* a workaround to actually extract their interpreter file (obfuscated, of course), but I won’t go into that here."
+                }
+            ]
+        },
+        {
+            "question": "So I have a working solution, but it involves defining a helper procedure that generates a range and zipping the two lists. Is this a bad solution in terms of efficiency?",
+            "follow-ups": [
+                {
+                    "feedback": "I think what you described takes linear time which is the fastest efficiency in terms of time for this problem"
+                },
+                {
+                    "feedback": "thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Where should we write our codes? I didn't find \"Begin Problem 16\" or \"End Problem 16\" comments in scheme.py.  Does it mean we should construct the enumerate procedure from scratch?",
+            "follow-ups": [
+                {
+                    "feedback": "its in questions.scm"
+                }
+            ]
+        },
+        {
+            "question": "do i need to use append somewhere I keep gettings output with way to many parenthesis",
+            "follow-ups": [
+                {
+                    "feedback": "`append` or `cons` would both work. What does your output look like?"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkaea2a0ntf6ft%2Fk33l22voighp%2FScreen_Shot_20191117_at_2.39.28_PM.png)  i'm using list currently is that why i'm getting output like this?"
+                },
+                {
+                    "feedback": "Yeah, using `list` would cause an issue. Remember the difference between `list` and `cons`. Take a look at the example: ``` scm> (list 1 '(2 3)) (1 (2 3)) scm> (cons 1 '(2 3)) (1 2 3) ``` `list` takes in multiple elements and creates a list from those elements. `cons` takes in the first element and the **rest** of the elements and then just adds the first to the rest at the beginning."
+                },
+                {
+                    "feedback": "aHHhHh TYSM"
+                }
+            ]
+        },
+        {
+            "question": "What is \"replace-this-line\"?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjudnfvh5tj%2Fk33sxgzg698k%2FScreen_Shot_20191117_at_6.19.05_PM.png)  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjudnfvh5tj%2Fk33sxyhbyld5%2FScreen_Shot_20191117_at_6.19.22_PM.png)  Where should the enumerate procedure be put?",
+            "follow-ups": [
+                {
+                    "feedback": "An empty `enumerate` procedure already exists in the file. Find it, and replace the \"'replace-this-line\" with the actual functionality you wish to implement."
+                },
+                {
+                    "feedback": "To clarify, it’s in the `questions.scm` file, separate from the `scheme.py` file you’ve been editing up until now."
+                }
+            ]
+        },
+        {
+            "question": "What does this mean?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk34rwlds20bd%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191118_%E4%B8%8A%E5%8D%8810.38.58.png)",
+            "follow-ups": [
+                {
+                    "feedback": "`load` is just a `BuiltinProcedure` that loads the Scheme from a given file. Someone else seemed to be having issues with their built-in procedures earlier, but they just resorted to going into OH. Does the `load` procedure work when you use it in the interactive interpreter?"
+                }
+            ]
+        },
+        {
+            "question": "I'm wondering how could cdr be a number when I'm not even calling cdr anywhere?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk34s1s5histo%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191118_%E4%B8%8A%E5%8D%8810.42.44.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You don’t have to call cdr for this error to occur. This error also occurs if you construct a pair using cons that contains a non-pair as the second element. For instance, the input (cons 2 3) would cause this error."
+                },
+                {
+                    "feedback": "Ah I see. I put (car s) as the second argument of cons. But how could I make it into a pair though?"
+                },
+                {
+                    "feedback": "To make a list consisting of a single element, either use `(cons element nil)` or `(list element)`"
+                }
+            ]
+        },
+        {
+            "question": "I'm returning this but I'm pretty sure I do cons inside helper function when I recursively call it. My helper function takes in two more arguments besides s, one is the index and the other is a list so far. Do I not need to use a list so far?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk34sifjodyjf%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191118_%E4%B8%8A%E5%8D%8810.51.14.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You do not need to keep track of the list so far. The only additional parameter you need in your helper is the index, and that you can increment in a recursive call."
+                }
+            ]
+        },
+        {
+            "question": "I'm pretty confused on where to start...does anyone have any tips for how to go about this problem? I've seen some people say to make a helper func... what could that be used for?",
+            "follow-ups": [
+                {
+                    "feedback": "We need to somehow keep track of what index we are on when we prepend the index, so your helper function will have a parameter to keep track of this index."
+                }
+            ]
+        },
+        {
+            "question": "I passed 114 tests but I keep failing 2 tests and i'm getting the same error message for both of them![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjchbovrjthn2vw%2Fk36qqbp4g89z%2FScreenshot_20191119_at_7.41.42_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This may be a problem with your interpreter - make sure you are utilizing nil wherever you are supposed to and make sure None isn't used wherever nil should be"
+                }
+            ]
+        }
+    ]
+}

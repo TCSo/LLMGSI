@@ -1,0 +1,216 @@
+{
+    "subject": "[Scheme] Problem 11",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-11-1-pt\">Problem 11</a>\n\n<p> Please post all questions you have below concerning Problem 11 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I'm getting the following error - which I'm confused about because I don't think I'm modifying the body of the lambda function anywhere.[Capture.PNG](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdjah7wms5d2%2Fk2mahk4zwav9%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure your new frame is a child of the frame in which the lambda is defined."
+                },
+                {
+                    "feedback": "So the parameter \"env\" is the frame in which the lambda is beiing called, but self.env is the frame in which the lambda was defined?"
+                },
+                {
+                    "feedback": "Yep!"
+                },
+                {
+                    "feedback": "I'm getting a similar error here:  scm> (square 21)   441   scm> square ; check to make sure lambda body hasn't changed   (lambda (x) 441)  But I'm pretty sure that my new frame is a child of the frame in which lambda is defined. What should I do?"
+                },
+                {
+                    "feedback": "The frame _should_ be a child of the frame in which the lambda was defined, so it sounds like you did it correctly.  You will later implement a mu function, which uses the frame in which called, rather than in which it was defined, but you don’t have to worry about that right now.  Good work!  EDIT: Wow, I’m bad at reading. Please excuse my clumsiness in not answering your question. Let me draft up a new response."
+                },
+                {
+                    "feedback": "But still I'm not able to pass the tests ... actually, I tried both \"self.env\" and \"env\" and got the same error: (lambda (x) 441). So I'm really confused what I'm doing wrong here."
+                },
+                {
+                    "feedback": "Oh, you need to construct a new frame each time you call it. This is where the `make_call_frame` function comes in, and you should also use a method you built in the one of the previous problems."
+                },
+                {
+                    "feedback": "I understand that each time I call it I need to construct a new frame. Basically, my code just creates a new frame using make_child_frame and returns it, as specified by the instructions for problem 11. However, I still don't understand what made the body of the lambda procedure change after the first call to the lambda procedure. I don't know where to fix my code upon seeing this error."
+                },
+                {
+                    "feedback": "I honestly have no idea, either. Are you ever reassigning the `.body` attribute of a `LambdaProcedure` instance? I’m also wondering if there’s possible a subtle, uncaught error in your `make_child_frame` function. Otherwise, I have no idea, sorry."
+                },
+                {
+                    "feedback": "I'm getting the same error, even though my code calls on self.env"
+                },
+                {
+                    "feedback": "Since we don’t really seem to be able to deduce what the problem is without looking at the code, I recommend anyone experiencing this problem make a private post to the instructors or go into OH in order to get this issue resolved. I haven’t been able to find a way to reproduce the issue on my own code."
+                },
+                {
+                    "feedback": "I had the same problem as this, and it turned out to be rooted in my problem 4. I used a while loop instead of map on accident, which screwed up my values later on. When I switched it to map it fixed the problem in number 11."
+                },
+                {
+                    "feedback": "I used a map in question 4 but I'm still failing the test :("
+                },
+                {
+                    "feedback": "It would probably be better if you started a new thread since this one is getting quite long. Either way, if you’re able to provide more info on how you tackled the implementation and the specific test you’re failing, that would be really helpful to help you solve the issue."
+                },
+                {
+                    "feedback": "Same. I fixed my Problem 4 code and it passed."
+                }
+            ]
+        },
+        {
+            "question": "I got the following error and I don't understand where I changed the body of lambda procedure  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdje8twst5in%2Fk2pcurnkq5b6%2Ferror.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably reassigning/modifying your formal somewhere in your code. think of a way to not use the actual formals but instead a very similar one."
+                }
+            ]
+        },
+        {
+            "question": "I get this issue:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdj5v2fzu550%2Fk2piyhra6v82%2FScreen_Shot_20191107_at_6.31.47_PM.png)  I've passed all test cases up to now, so i don't think i have an issue with another problem (unless i needed to do something with problem 4). The issue is that there is no apply method for the LambdaProcedure class, but it seems we never needed to implement this (and I don't think I should). Where am I reaching an issue?",
+            "follow-ups": [
+                {
+                    "feedback": "check problem 4, check how you apply procedures, I had the same issue"
+                }
+            ]
+        },
+        {
+            "question": "Any ideas on why I might be getting this error?                scm> (define (square x) (* x x))       square       scm> square       (lambda (x) (* x x))       scm> (square 21)       Traceback (most recent call last):       return env.lookup(expr)       AttributeError: 'NoneType' object has no attribute 'lookup'     # Error: expected       # 441       # but got       # Traceback (most recent call last):       # ...       # AttributeError: 'NoneType' object has no attribute 'lookup'",
+            "follow-ups": [
+                {
+                    "feedback": "When I print the arguments of scheme_eval, for some reason it gives me this:                scm> (square 21)       DEBUG: <Global Frame> (square 21)       DEBUG: <Global Frame> square       DEBUG: <Global Frame> 21       DEBUG: None (* x x)       DEBUG: None *"
+                },
+                {
+                    "feedback": "Wait never mind I realized I wasn't returning"
+                },
+                {
+                    "feedback": "Awesome. Glad you figured it out!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (outer-func x y)   .... (define (inner z x)   .... (+ x (* y 2) (* z 3)))   .... inner)   outer-func   scm> ((outer-func 1 2) 1 10)   # Error: unknown identifier: y  I can't quite figure out why I'm getting this error when the previous outer function test case passed.",
+            "follow-ups": [
+                {
+                    "feedback": "Are you handling your frames correctly? Make sure that your child frame will return variables in its parent frame if the symbol isn’t defined within itself."
+                },
+                {
+                    "feedback": "Is that something we need to do in the make child frame function? I have that handled in the lookup function, not sure if i should be using that in this problem."
+                },
+                {
+                    "feedback": "figured it out!"
+                },
+                {
+                    "feedback": "What did you end up doing? I got the same problem :("
+                },
+                {
+                    "feedback": "jk figured it out. thanks!"
+                },
+                {
+                    "feedback": "Just for anyone else that encounters this problem: Remember that self.env is where you want to make the child frame not just \"env\"."
+                },
+                {
+                    "feedback": "Why does the distinction between self.env and env matter?"
+                },
+                {
+                    "feedback": "self.env is bound to the environment made in the __init__ method and it's different from the one that we pass in, in the make_call_frame. In other words, we're telling it: \"Hey, lets use the instance's environment, not the one that we pass in, because that can be any environment and I want to define it using the instance's environment\" Idk if that made any sense.., but hopefully that helped! (someone correct me if i'm wrong pls)"
+                },
+                {
+                    "feedback": "Yeah, that literally fixed it for me."
+                },
+                {
+                    "feedback": "Ok yeah this definitely helped me out and fixed my issue too. But again to clear this up, we are using self.env because that is the environment in which the lambda expression is defined in, correct? So what is the env that is being passed into make_call_frame? That is the environment in which it is being called...?"
+                },
+                {
+                    "feedback": "The `env` being passed into `make_call_frame` is the `env` in which the procedure is being evaluated. This will come in handy for problem 15."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyb0om924bv2ew%2Fk2sowuztce71%2FScreen_Shot_20191109_at_11.41.38_PM.png)  why does this not error? The number of opening and closing brackets aren't equal and inner) with one bracket doesn't mean anything right?",
+            "follow-ups": [
+                {
+                    "feedback": "The order of evaluation is always to evaluate the operator—the first element—then evaluate the operands—the rest of the elements—and then apply the operator to the operands. This is always true unless the function is a special form.      In this case, the operator is `(outer-func 1 2)`, and the operands are `(1 10)`. Most of the time, the operator is just a symbol like `define` or `+`, but in this case, it’s an entire expression, so it needs to be evaluated. We will assume that `(outer-func 1 2)` evaluates to a proper operator, and then we apply that operator to the operands `(1 10)`. Thus, this form is syntactically correct."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhj0k2er3zv%2Fk2u0u6avtuqb%2FScreen_Shot_20191110_at_10.01.48_PM.png)I'm getting this error when running my code and I am returning the child frame. Does anyone understand why this error is popping up?",
+            "follow-ups": [
+                {
+                    "feedback": "Either your `make_child_frame` function isn’t successfully returning a `Frame`, or it’s also possible that your child frame is failing when it tries to look up a variable in the parent frame, possibly because you aren’t setting the parent frame correctly."
+                },
+                {
+                    "feedback": "I made a mistake in 10 and figured it out. Thanks though."
+                },
+                {
+                    "feedback": "Can someone please explain the difference between self.formals vs formals and when it is necessary to use one over the other?"
+                },
+                {
+                    "feedback": "It’s the difference between an instance attribute and a local variable. Refer to the week 7 lectures in order to brush up on classes and objects."
+                },
+                {
+                    "feedback": "is self.formals a list of parameters that is specific to each instance of the LambdaProcedure class? Whereas formals would just be one list of parameters that doesn't change depending on which instance we are considering?"
+                },
+                {
+                    "feedback": "`formals` is a parameter that is passed into the constructor of the `LambdaProcedure`; it exists only in the frame that is created when we call the constructor, and it is lost when we exit the constructor. However, the constructor sets `self.formals` for that given instance, so we can still reference what was originally passed in through `self.formals`."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble understanding what to pass in as the argument for the formals parameters for the call the make_child_frame. Any hints on this? We have args as the values and the environment but I don't see what to pass in as the formals",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that when a `LambdaProcedure` is constructed, it takes in a list of `formals` as one of its attributes, since `LambdaProcedure` needs to know what the names of its formal parameters are. Now is one of those instances when we need to know them; how would we retreive the list of `formals` from the `LambdaProcedure` instance?"
+                },
+                {
+                    "feedback": "Ah I get it, just didn't see the list of formals it already gives, thanks!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzccscx0iwb5wb%2Fk2wxm0lszjt9%2FScreenshot_from_20191112_225624.png)  Does anyone else get/understand this error?",
+            "follow-ups": [
+                {
+                    "feedback": "You should never mutate or evaluate your `body` when constructing a lambda function in `do_lambda_form`. Take the entire body expression raw, as-is."
+                }
+            ]
+        },
+        {
+            "question": "Anyone know how to deal with the keyerror issue? It worked fine for my previous tests![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhhvcy9d3zb%2Fk2wxw8oy5s0o%2FScreen_Shot_20191112_at_11.03.22_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "`KeyError` happens when you try to look up a value in a dictionary that doesn’t exist. I would double check your implementation of `Frame.lookup` and also see why you’re trying to lookup the value bound to the `+` operator."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdisrjcdr4q9%2Fk2ydj2islrzc%2FScreen_Shot_20191113_at_11.08.00_PM.png)Does anyone know why I keep getting this error? I have a feeling that it might have to do with the code in my problem 10, but I passed all the cases for that problem.",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are using the correct `env` for your parent frame."
+                },
+                {
+                    "feedback": "I tried calling the make_child_frame method of self.env, and it doesnt seem to work?"
+                },
+                {
+                    "feedback": "That should work - double check all facets of your `make_child_frame` implementation"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1f9kvgv2yq%2Fk2zahk1nipb5%2F%E6%8D%95%E8%8E%B7.PNG)  Hi, Ive been running into some trouble with problem 11. I have passed all the tests for the previous problems, so I am uncertain as how to begin to approach this problem. Is it an issue with my implementation for previous problems?",
+            "follow-ups": [
+                {
+                    "feedback": "It’s not immediately obvious what the error is. What are you returning from the `do_define_form` function?"
+                },
+                {
+                    "feedback": "the name of the function"
+                },
+                {
+                    "feedback": "I think the issue might be in your problem 5 implementation? Could you walk me through how you implemented that? I’m not 100% sure, though."
+                },
+                {
+                    "feedback": "got it, there was an inane mistake in problem 5. Many thanks."
+                },
+                {
+                    "feedback": "Want to explain what the mistake was to help anyone else running into the same issue?"
+                }
+            ]
+        }
+    ]
+}

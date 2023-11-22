@@ -1,0 +1,214 @@
+{
+    "subject": "[Lab 14] Q2: Compose All",
+    "content": "<a href=\"https://cs61a.org/lab/lab14//#q2\">Q2: Compose All</a>\n\n<p> Please post all questions you have below concerning Q2: Compose All in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "((lambda (x) (+ x 1))  ((lambda (x) (* x x))  (lambda (x) (* x 2))))  is this the lambda expression we should try to create for the example `(define composed (compose-all (list double square` add-one))) ?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. If you have something like `(compose-all (list square add-one))`, you should get something like `(lambda (x) (add-one (square x)))`. More generally, from the assignment description:  > For example, if `func` is the result of calling `compose-all` on a list of > functions `(f g h)`, then `(func x)` should be equivalent to the result of > calling `(h (g (f x))).`"
+                },
+                {
+                    "feedback": "I'm trying to implement that logic and I'm able to get past the first test case but then I keep getting stuck on this error:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzufd6deraw7i%2Fk3pbi5buga3e%2FScreen_Shot_20191202_at_7.08.30_PM.png)  I'm not intending to call halve anywhere so I'm a little confused... I think my base case is good since I passed the first test case so I think it's in my recursive call. Any help?"
+                },
+                {
+                    "feedback": "You should never actually be trying to call any of the functions. Make sure references to something like `(car funcs)` is always inside some sort of lambda so that you don’t try to call them, since you don’t know what the argument would be."
+                },
+                {
+                    "feedback": "That solves that error, but I'm still having trouble with the recursive call. At the moment my recursive call with `(cdr funcs)` is being passed as the argument for (`lambda(x)(car funcs))` but that only applies the first function to the value. I also tried the opposite of passing (lambda(x)(car funcs)) as the argument for the result of a recursive call with (cdr funcs) but that only applied the second function to the values."
+                },
+                {
+                    "feedback": "You will have to trust in your recursive leap of faith that a recursive call passing in `(cdr funcs)` will return the proper method. Also remember that the operator of a Scheme expression can also be a Scheme expression itself. Try putting the recursive call as the operator."
+                }
+            ]
+        },
+        {
+            "question": "Im curious about how long/short others' solutions are for this question. Is there a way to do this without a couple of conditions including a helper function to chain functions from the funcs list?",
+            "follow-ups": [
+                {
+                    "feedback": "I solved this with an if condition that returned one of two lambdas, no helpers needed. One of the lambdas was rather simple in nature and dealt with the case where we have no more functions left to chain, the other was a lambda that called `compose-all` within its body."
+                },
+                {
+                    "feedback": "(Different anonymous here) In the lambda with `compose-all` within its body, do you call that lambda in the same line? I'm really confused on where my call to (car funcs) should be incorporated?"
+                },
+                {
+                    "feedback": "Remember that the operator of a Scheme expression can also be a Scheme expression itself. So `(lambda (x) ((car funcs) x))`, for example, would be equivalent to `(car funcs)`, but then you can also insert another function in the middle. Keep this in mind for your recursive leap of faith, as well."
+                },
+                {
+                    "feedback": "Just a note (you don't have to do it with a helper function and Cyrus's way is how most people do it too): You can also do it with a helper function, this would be the option if you wanted to do it tail recursively!"
+                },
+                {
+                    "feedback": "I'm having some trouble with this. How does one call compose-all on cdr funcs? I tried using a begin statement within the lambda function where I call (car funcs ) on x and then compose-all. I think I'm missing something with respect to the recursive leap of faith?"
+                },
+                {
+                    "feedback": "You do not need a begin statement. If you wish to call `compose-all` on `cdr funcs`, you can simply say `(compose-all (cdr funcs))`. You can then utilize this expression as the procedure within a call expression."
+                },
+                {
+                    "feedback": "I am confused on what the recursive call would be"
+                },
+                {
+                    "feedback": "Remember to use your recursive leap of faith, trusting that if you pass in the `cdr` of `funcs`, you will get a function that is the composition of the `cdr` of `funcs`. You then need to make sure you also apply the `car` of `funcs` to an input `x`. Keep in mind that the operator of a Scheme expression can itself be a Scheme expression—this is extremely useful."
+                },
+                {
+                    "feedback": "\"Keep in mind that the operator of a Scheme expression can itself be a Scheme expression—this is extremely useful.\" Could you give an example of this?"
+                },
+                {
+                    "feedback": "Say you want to make a function that just applies the first element of `funcs`. I could write this as `(lambda (x) ((car funcs) x))`."
+                },
+                {
+                    "feedback": "So the operator in this case is (car funcs)?"
+                },
+                {
+                    "feedback": "Yep! So the first element in `funcs` gets applied to `x`."
+                },
+                {
+                    "feedback": "so would the car of funcs to an input x be in the input of the lambda, and then we have a recursive call in the body of the lambda?"
+                },
+                {
+                    "feedback": "It's not in the input of the lambda, but rather ends up being the input to the recursive call itself (think - what does your recursive call return?). Remember that `compose-all` needs to return a lambda, not a value, so you shouldn't be inputting anything into the returned lambda itself."
+                },
+                {
+                    "feedback": "i still don't get it"
+                },
+                {
+                    "feedback": "Think about it this way: the composition of a list of functions of x is the same as a new function that takes in x and returns the value of calling the first function on x and passing that value into the composition of the rest of those functions of x."
+                },
+                {
+                    "feedback": "Ah that makes sense. But how do I make it return a lambda"
+                },
+                {
+                    "feedback": "Simply have a return expression of the form `(lambda (x) ...)` and the lambda you construct will be returned."
+                },
+                {
+                    "feedback": "I am getting the following error:  scm> (define identity (compose-all (list)))  # Error: argument 0 of car has wrong type (nil)  # Error: expected  # identity  # but got  # Traceback (most recent call last):  # ...  # SchemeError: argument 0 of car has wrong type (nil)  Run only this test case with \"python3 ok -q compose-all --suite 1 --case 1\"  Even though I am checking if funcs is null in the beginning and returning the identity function if it is."
+                },
+                {
+                    "feedback": "How are you implementing the identity function?"
+                },
+                {
+                    "feedback": "Using a lambda expression that takes in x and returns x"
+                },
+                {
+                    "feedback": "Have you written the check correctly? I’m not sure how to explain this other than possibly writing the check wrong such that you fall through the base case even when you aren’t supposed to."
+                },
+                {
+                    "feedback": "I think my parentheses match up...if that's what you mean"
+                },
+                {
+                    "feedback": "Well, you’re somehow or another trying to call the `car` of an empty `funcs` list, which means that `funcs` is at some point `nil` without you having checked it first."
+                }
+            ]
+        },
+        {
+            "question": "Traceback (most recent call last):  # ...  # SchemeError: argument 0 of cdr has wrong type (nil)  Why is it wrong to do  (if (null? (cdr funcs))  ?  It seems like this is the line causing the code to error.",
+            "follow-ups": [
+                {
+                    "feedback": "You can't call `cdr` on nil, so before that `if` you will need to check if `funcs` is nil."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpyjgr9t2tk%2Fk3qq7lhfo0jb%2Flab14_q2.png)  Similar to another followup, I had the issue of not being able to call (null? (cdr funcs)) without first checking if funcs was nil. So I turned my if statement into a cond statement where I added the first condition to first check if funcs was nil, and if so return nil. I then moved my check if the cdr of funcs was null as the second condition. However, I am getting this error which is confusing me because I don't think I am trying to call nil anywhere... only return it. Any help?",
+            "follow-ups": [
+                {
+                    "feedback": "Well, if `funcs` is `nil`, you still need to return some function. The base case of `null?` doesn’t always mean a `nil` return value—it has to make sense for the function as a whole, even in the base case, and the function will always return another function. Specifically, having no functions in `funcs` means you need to return a function that does nothing to its input, which is known as the identity function."
+                },
+                {
+                    "feedback": "What is the difference between nil and null? Are we checking if the funcs is nil or null in our base case?"
+                },
+                {
+                    "feedback": "In Scheme, you can think of \"null\" as describing an object (like an adjective), i.e. if a value is null, it equals `nil`, while `nil` is the value we use to represent all null values. The predicate to check if an object is null, i.e. equals `nil`, is `(null? object)` but the actual null object is named `nil`.  Sorry if this is confusing - TL;DR use `(null? object)` to check for nullity and if you want to return \"null\", return `nil`."
+                },
+                {
+                    "feedback": "Makes sense. Thank you!"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (halve x) (/ x 2))       halve       scm> (define (square x) (* x x))       square       scm> (define halve-then-square (compose-all (list halve square)))       halve-then-square       scm> (define square-then-halve (compose-all (list square halve)))       square-then-halve       scm> (halve-then-square 42)       (lambda (x) ((car funcs) x))  Does anyone have any idea as to why I might be getting this result? It seems that my code is actually returning the statement (lambda (x) ((car funcs) x)) but I haven't used quotation anywhere.",
+            "follow-ups": [
+                {
+                    "feedback": "Ok, never mind. It seems as though I had gotten the arrangements of calls and lambdas in the second lambda Cyrus mentioned wrong."
+                }
+            ]
+        },
+        {
+            "question": "It seems like I'm not calculating the number correctly but I am using a lambda that contains compose-all on cdr of funcs for my recursive case.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Fk3s96z4mea6l%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_20191204_%E4%B8%8B%E5%8D%888.59.33.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you also use the `car` of `funcs` at some point, since that is the function that you need to apply to the output of `compose-all` with the rest of `funcs`. Otherwise, you’re not actually changing the input at all."
+                },
+                {
+                    "feedback": "Thank you so much! That solves my problem!"
+                }
+            ]
+        },
+        {
+            "question": "I am confused  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhx0jnu546w%2Fk3thcsxiteh3%2F20191205_2.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind I got it"
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (halve x) (/ x 2))  halve  scm> (define (square x) (* x x))  square  scm> (define halve-then-square (compose-all (list halve square)))  # Error: unknown identifier: x  # Error: expected  # halve-then-square  # but got  # Traceback (most recent call last):  # ...  # SchemeError: unknown identifier: x  Run only this test case with \"python3 ok -q compose-all --suite 1 --case 2\"",
+            "follow-ups": [
+                {
+                    "feedback": "^Any idea why I could be getting this error?"
+                },
+                {
+                    "feedback": "Make sure x is only being referenced wherever it is in scope, i.e. the body of a lambda that has x as a parameter."
+                },
+                {
+                    "feedback": "I reference x in both of my lambdas"
+                },
+                {
+                    "feedback": "Are you referencing it anywhere outside of your lambda functions? Double check your parentheses to make sure you haven’t accidentally put one outside the bodies of the lambdas."
+                },
+                {
+                    "feedback": "Got it! Thank you so much Nicholas and Cyrus!"
+                }
+            ]
+        },
+        {
+            "question": "scm> (define (halve x) (/ x 2))   halve   scm> (define (square x) (* x x))   square   scm> (define halve-then-square (compose-all (list halve square)))   halve-then-square   scm> (define square-then-halve (compose-all (list square halve)))   square-then-halve   scm> (halve-then-square 42)   # Error: too few arguments to function call  # Error: expected   # 441   # but got   # Traceback (most recent call last):   # ...   # SchemeError: too few arguments to function call  I think I am using a lambda of car of funcs that contains compose-all on cdr of funcs for my recursive case. Can anyone help me with this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Check every procedure call and make sure you are passing in the proper parameters as each procedure expects."
+                },
+                {
+                    "feedback": "Thanks a lot!!! I got it solved!!"
+                },
+                {
+                    "feedback": "No problem, glad you got it!"
+                }
+            ]
+        },
+        {
+            "question": "I keep on getting the following error:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjz1zsn3o5836lt%2Fk3v0rwwh8zdx%2FScreen_Shot_20191206_at_7.29.12_PM.png)  In my base case, I'm checking if the list of functions is null, and if it is, I return the identity function. My recursive case is basically constructing a scheme list with all of these functions nested. Why is it giving me this not- callable error?",
+            "follow-ups": [
+                {
+                    "feedback": "Instead of constructing a Scheme list, you should be returning a lambda that takes in x, calculates the result of calling the first function on x, and passes that result into the composition of the rest of the functions. This has the effect of repeatedly calling all functions in the list left-to-right."
+                },
+                {
+                    "feedback": "Got it, thank you Cyrus"
+                },
+                {
+                    "feedback": "No problem!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnp1702wm22s%2Fk3v1xd1jw3xb%2FScreen_Shot_20191206_at_8.01.24_PM.png)  When funcs or (cdr funcs) is not null, I had it return (lambda (x) (recursive call ((car funcs) x)))  am I doing something wrong with the lambda function?",
+            "follow-ups": [
+                {
+                    "feedback": "You maybe have a parenthesis error somewhere - make sure `((car funcs) x)` gets passed into the function returned by your recursive call. Also, you only need to check for if `funcs` is null, not `(cdr funcs)`."
+                }
+            ]
+        }
+    ]
+}

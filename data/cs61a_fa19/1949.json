@@ -1,0 +1,149 @@
+{
+    "subject": "[Scheme] Problem 10",
+    "content": "<a href=\"https://cs61a.org/proj/scheme//#problem-11\">Problem 10</a>\n\n<p> Please post all questions you have below concerning Problem 10 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "I understand how we are supposed to define the first value of formals to the first value of vals and so on.. my question is how can we iterate through both lists? Do we need a helper function?",
+            "follow-ups": [
+                {
+                    "feedback": "A typical while loop can be used to iterate through both lists at once. Just consider what the while condition should be."
+                }
+            ]
+        },
+        {
+            "question": "is there a method to determine the length of a pair?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, look in the scheme_read.py"
+                },
+                {
+                    "feedback": "It’s totally up to you, but there’s also a quite nice recursive solution for this, as well."
+                },
+                {
+                    "feedback": "You can also do this iteratively without testing the length of either pair"
+                }
+            ]
+        },
+        {
+            "question": "Can you do this with a for loop? It doesn't seem to be working for me and I don't quite understand why.",
+            "follow-ups": [
+                {
+                    "feedback": "Either a while loop or recursion makes more sense for this problem"
+                }
+            ]
+        },
+        {
+            "question": "tips on raising the error?",
+            "follow-ups": [
+                {
+                    "feedback": "Errors are raised with the `raise` keyword followed by the error you wish to raise. Errors tend to be constructed on the fly, so you normally see the constructor immediately following the `raise` keyword. In this case, you would probably raise it with `raise SchemeError(message)` to indicate mismatched list lengths.      If you’re asking about specifically how to do this, remember that the `Pair` class has implemented a `__len__` function, so you can call `len` on a `Pair` to get the length of the list."
+                }
+            ]
+        },
+        {
+            "question": "how are you supposed to create a new instance of Frame with parent \"self\"? i tried using Frame(self) and keep getting a NoneType object has no attribute 'lookup' error.",
+            "follow-ups": [
+                {
+                    "feedback": "`Frame(self)` is exactly the way to make a new `Frame` with parent `self`. Is it possible you’re accidentally not returning the frame? The `NoneType` error tells me that it’s trying to call `lookup` on `None` somewhere, which is returned if you don’t return anything."
+                },
+                {
+                    "feedback": "yeah, i accidentally forgot to return the frame! thank you"
+                }
+            ]
+        },
+        {
+            "question": "I am confussed on what this error message means. When I ran it the first time, it gave me the SchemeError message, so I thought if I take out the string message, it would work, but then I got the second error message and don't know how to proceed. ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fiy0l288kfo4fi%2Fk2vqjhu86nbq%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "nvm I was returning SchemeError instead of raising it"
+                }
+            ]
+        },
+        {
+            "question": ">>> from scheme import *       >>> global_frame = create_global_frame()       >>> formals = Pair('a', Pair('b', Pair('c', nil)))       >>> vals = Pair(1, Pair(2, Pair(3, nil)))       >>> frame = global_frame.make_child_frame(formals, vals)       >>> global_frame.lookup('a') # Type SchemeError if you think this errors       ? SchemeError       -- OK! --              >>> frame.lookup('a')        # Type SchemeError if you think this errors       ? Pair('b', Pair('c', nil))       -- Not quite. Try again! --",
+            "follow-ups": [
+                {
+                    "feedback": "Each symbol in formals is matched with each value in vals. Knowing this, what value is 'a' associated with?"
+                },
+                {
+                    "feedback": "Frame is the child frame. We have passed in `(a b c)` as the formals and `(1 2 3)` as the values to create the child frame `frame`. We are now trying to lookup the value bound to `a`. What is the value?"
+                },
+                {
+                    "feedback": "? (a: 1, b: 2, c: 3)   \\-- Not quite. Try again! --  ? {a: 1, b: 2, c: 3}   \\-- Not quite. Try again! --  ? a: 1, b: 2, c: 3   \\-- Not quite. Try again! --"
+                },
+                {
+                    "feedback": "`frame.lookup('a')` specifically looks up the value that `a` is assigned to. What is `a` assigned to?"
+                },
+                {
+                    "feedback": "? (a:1)   \\-- Not quite. Try again! --  ? {a:1}   \\-- Not quite. Try again! --  ? {a: 1}   \\-- Not quite. Try again! --  ? (a: 1)   \\-- Not quite. Try again! --"
+                },
+                {
+                    "feedback": "O, got it. 1"
+                },
+                {
+                    "feedback": "I’d encourage you to carefully read up on the descriptions for each function to see what their intended behaviors are instead of brute-forcing the unlock cases for Ok. They are there to help you get an understanding on what exactly each function does so that you can better implement it."
+                },
+                {
+                    "feedback": "Sorry...I should read carefully."
+                }
+            ]
+        },
+        {
+            "question": "So i am trying to implement recursion in this problem, but im confused on it. when I call self.make_child_frame with parameters of formals.rest and vals.rest, doesn't it keep making a new child frame every time its recursively being called? i basically first defined a new frame then called child.define with formals.first and vals.first and went from there to then recursively keep calling it. also, i am getting this error and unsure why.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkv017wndk6xr%2Fk2xoib82v108%2FScreen_Shot_20191113_at_11.17.31_AM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "What you would probably want to do if you wanted to implement this recursively would be to use a recursive leap of faith and believe that `make_child_frame` will give you a properly constructed `Frame` and then mutate it and define your new variable(s) before you return it. I’m not sure what is causing that error. Are you trying to `lookup` the variables you’re trying to define?"
+                },
+                {
+                    "feedback": "How would i go about mutating the frame? basically the first thing i did was create a new frame, and the second step i did was i called child_frame.define(formals.first, vals.first) and then went about checking for error and then returning the frame if the rest's are nil. under my else statement i had my recursive call self.make_child_frame(formals.rest, vals.rest)  and no i am not using lookup on the variables"
+                },
+                {
+                    "feedback": "You would have to take a recursive leap of faith and trust that `self.make_child_frame` already returns an instance of `Frame` for you, and then you can mutate that."
+                },
+                {
+                    "feedback": "I still don't understand though how to go about mutating that frame because how I see it, is every time i pass in the new formals and vals and it recursively calls the function, it keeps creating a new child frame and binds that values to formals in that respective frame."
+                },
+                {
+                    "feedback": "Maybe you don’t need to construct a new `Frame` on every recursive call? Maybe you could only construct one in your base case and keep passing it up, mutating it as it goes?"
+                }
+            ]
+        },
+        {
+            "question": "I'm not sure what the case test is asking?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk22e1u660c%2Fk2xqyo5kfgy%2FScreen_Shot_20191113_at_12.37.17_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "This is Python, not Scheme, so instead of #f use Python's false equivalent if you believe the answer is false. This test case is asking if the parent of a new frame that's a child frame of the global frame, is the global frame."
+                },
+                {
+                    "feedback": "Oh of course. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "I created an instance of a new frame with the parent as self: Frame(self) and assigned it. At the end of my code, I returned this assigned frame. I get the following error. What am I doing wrong?![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk22e1u660c%2Fk2xvy873alm7%2FScreen_Shot_20191113_at_2.56.49_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Are you sure you are returning the new `Frame`? You are getting this error because `make_child_frame` is returning None. And what do you mean by \"assigned it\"?"
+                },
+                {
+                    "feedback": "I set another_frame = Frame(self) and then at the end of my code returned another_frame"
+                },
+                {
+                    "feedback": "It seems pretty clear that the `frame` variable is set to `None`. Could you run the code in the interactive Python interpreter by calling `python3 -i scheme.py` and immediately running `(exit)` to exit the Scheme interpreter back to Python and see what happens when you call `print(global_frame.make_child_frame(nil, nil))`?"
+                },
+                {
+                    "feedback": "I got this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk22e1u660c%2Fk2xx9kxeimyw%2FScreen_Shot_20191113_at_3.34.47_PM.png)"
+                },
+                {
+                    "feedback": "Oops, forgot to define the global frame. Run `global_frame = create_global_frame()` first. Sorry!"
+                },
+                {
+                    "feedback": "I got this:  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk22e1u660c%2Fk2xxg539t82e%2FScreen_Shot_20191113_at_3.39.50_PM.png)"
+                },
+                {
+                    "feedback": "That means your `make_child_frame` is definitely returning `None`. Check and see why this could be the case, and if you still can’t figure it out, make a private post to the instructors containing your code or go into OH."
+                }
+            ]
+        }
+    ]
+}

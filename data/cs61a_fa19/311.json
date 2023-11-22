@@ -1,0 +1,56 @@
+{
+    "subject": "[Hog] Problem 10",
+    "content": "<a href=\"https://cs61a.org/proj/hog//#problem-10-1-pt\">Problem 10</a>\n\n<p> Please post all questions you have below concerning Problem 10 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Did anyone else code this up and get it to win \"more than half of the time\" as specified? I'm consistently getting a win rate of ~0.46.  My functions all passed the tests, so I don't think it's a bug?",
+            "follow-ups": [
+                {
+                    "feedback": "What exactly are you referring to? (I think I'm missing something.) Isn't Problem 10 about bacon_strategy?"
+                },
+                {
+                    "feedback": "Ok update – I know what you're talking about now. My win rate after coding Problem 10 and 11 is 0.577836395842179."
+                },
+                {
+                    "feedback": "Bacon strategy is 0.46 winrate - the half is outdated apparently. 1000 cases aren't enough to get a definite test so you might vary (0.44-0.48)"
+                },
+                {
+                    "feedback": "Can an instructor confirm that we don't need to actually have the bacon strategy with a winrate of more than half? Cuz i passed the tests but win rate is between .44 - .48."
+                },
+                {
+                    "feedback": "as long as it passes the tests, it is OK afaik."
+                }
+            ]
+        },
+        {
+            "question": "Why does bacon_strategy take in a \"score\" parameter? Isn't it useless for the purposes of the problem?",
+            "follow-ups": [
+                {
+                    "feedback": "All strategies take in the score and the opponent's score. Even for the strategy that's just                always_roll(n)  still takes in two scores. This is just consistent with what the definition of a strategy is."
+                }
+            ]
+        },
+        {
+            "question": "For this question, it says, \"return 4 # Replace this statement\" instead of \"Your code here.\"  Dose this mean that I have to write just one line of code?",
+            "follow-ups": [
+                {
+                    "feedback": "I have this same question."
+                },
+                {
+                    "feedback": "I think maybe this line’s just a place holder so that the whole def statement is somehow complete and that you don’t encounter any errors while testing for the former problems."
+                },
+                {
+                    "feedback": "^ yup, this is a placeholder. you are not restricted to one line."
+                }
+            ]
+        },
+        {
+            "question": "End of Problem 10, do I need to do something for this description?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpj7zui2gs%2Fk0ee8rp9mndp%2FCapture.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "this is a suggestion if you want to see if the bacon_strategy is actually an improvement upon always(4)."
+                }
+            ]
+        }
+    ]
+}

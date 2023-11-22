@@ -1,0 +1,1023 @@
+{
+    "subject": "[Cats] Problem 9",
+    "content": "<a href=\"https://cs61a.org/proj/cats//#problem-9-3-pt\">Problem 9</a>\n\n Please post all questions you have below concerning Problem 9 in the follow-ups.\n\n If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n\nHere&#39;s a 10-minute video of debugging tips: <a href=\"https://youtu.be/YGbXYoLvDRo\">https://youtu.be/YGbXYoLvDRo</a>\n\nSome more tips if you&#39;re stuck:\n- This implementation has multiple steps. Introducing some small helper functions can simplify this task quite a bit. For example, write a function to compute the time that a <code>player</code> spent typing word <code>i</code>: \n<pre>def time_spent_typing_word(i, player): \n    ...\ndef fastest_time_for_word(i): \n    ...\n</pre>\n- There are three parts to this problem: (1) finding how long it took for each player to type each word, (2) finding the fastest time that any player typed each word, and (3) building the output lists of words that a player typed the fastest. Write code for each part and try to test it as you go (see the video above)\n- The time to type a word is the difference between the total elapsed time for that word and the total elapsed time for the previous word.\n- The fastest time that a word was typed is the <code>min</code> of a list of times, the time that it took each player to type that word.\n- The words themselves can be extracted from the <code>word_times</code> argument by using only <code>word_times[0]</code>, because the same words appear in each element of <code>word_times</code>.\n- The margin is used after computing the fastest time for a word to determine whether that word should be added to the list of multiple players. The word should appear in the output list of any player that typed the word in less time than <code>fastest &#43; margin</code>, where <code>fastest</code> is the fastest time that the word was typed.\n- The final output could be built with something like: \n<pre>[[words[i] for i in range(n_words) if is_fastest(p, i)] for p in range(n_players)]\n</pre>\nbut you&#39;d have to define <code>words</code> and <code>is_fastest</code> for this expression to work (where <code>words</code> is a list of words in the sentence and <code>is_fastest</code> returns whether player <code>p</code> typed word <code>i</code> the fastest).",
+    "threads": [
+        {
+            "question": "If my solution relies partially on Python behavior that became an implementation detail in Python 3.6 and an official language feature in Python 3.7, is that okay?",
+            "follow-ups": [
+                {
+                    "feedback": "Nevermind, figured out a better solution without this behavior"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnoxy8bh71zl%2Fk0y8pq4g8esk%2F1.PNG)![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnoxy8bh71zl%2Fk0y8py2y2qqj%2F2.PNG)",
+            "follow-ups": [
+                {
+                    "feedback": "Use the provided getter methods for word elapsed time!"
+                },
+                {
+                    "feedback": "Can someone explain why this case is supposed to have 'luck' in the second list even though difference of the times for that word is 0.39?"
+                },
+                {
+                    "feedback": "Look at margin and what it does!"
+                },
+                {
+                    "feedback": "p1 took 1.19-0.8=0.39 seconds to write \"luck.\" p0 took 0.8-0.4=0.4 seconds to write \"luck.\" Therefore, p1 wrote \"luck\" faster"
+                },
+                {
+                    "feedback": "Ohhhhh I get it now thanks!"
+                },
+                {
+                    "feedback": "Hi what do you mean by \"Use the provided getter methods for word elapsed time!\""
+                },
+                {
+                    "feedback": "there are getter methods at the bottom of the typing file to use with the wordtime abstraction!"
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble understanding what the definition of the word fastest is. What does it mean when it says \"within margin of the smallest difference for any player\"?",
+            "follow-ups": [
+                {
+                    "feedback": "jk got it"
+                }
+            ]
+        },
+        {
+            "question": "What does the \"margin\" mean? Why \">>> fastest_words([p0, p1], 0.1) # with a large margin, both typed \"luck\" the fastest\"?",
+            "follow-ups": [
+                {
+                    "feedback": "I got it!"
+                },
+                {
+                    "feedback": "If others are wondering, the players within `margin` of the fastest time for each word are considered to be the fastest players for that word"
+                }
+            ]
+        },
+        {
+            "question": "help I don't know where to start",
+            "follow-ups": [
+                {
+                    "feedback": "Start off with the fact that players within `margin` of the fastest time for each word are considered to be the fastest players for that word. So ideally first you would compute how long it took each player to type each word. Go from there."
+                },
+                {
+                    "feedback": "But how do we even compute how long it took each player to type each word? And how/where do we store that information?"
+                },
+                {
+                    "feedback": "If I start at time 0.0, type the word \"dog\" at time 0.5, the word \"cat\" at time 0.8, and the word \"fish\" at time 1.3, then it took me 0.5 - 0.0 = 0.5 seconds to type \"dog\", it took me 0.8 - 0.5 = 0.3 seconds to type \"cat\", and 1.3 - 0.8 = 0.5 seconds to type \"fish\"."
+                },
+                {
+                    "feedback": "I am confused as to how we can find the time for each player with the amount of list unpacking needed"
+                }
+            ]
+        },
+        {
+            "question": "p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  Why is fastest_words([p0, p1], 0.1) not [ [ ] , [ ] ]?",
+            "follow-ups": [
+                {
+                    "feedback": "Because each word needs at least one player who typed it the fastest. Getting an output of [ [ ] , [ ] ] implies that there were no words for anyone to type the fastest, but there are three words in this case, so each needs to be assigned to at least one player."
+                },
+                {
+                    "feedback": "But isn't it only assigned to a player if the speed is less than the margin?"
+                },
+                {
+                    "feedback": "Regardless of the margin, there will be a person who types a word the fastest. The margin exists only to make a word appear in more than one player's output list"
+                },
+                {
+                    "feedback": "As an example of that, you could look at who typed the word \"What\" the fastest.  Player 0 took 0.2 seconds and Player 1 took 0.6 seconds. Even though our margin is 0.1, you can see that Player 0 typed it the fastest, so it should be put into their list.  If we had it so maybe Player 0 took 0.2 seconds and Player 1 took 0.25 seconds to type 'What', you can see that 0.2 - 0.25 = -0.05, which is within the margin of 0.1. This means by our definition of fastest, they both typed the word 'What' the fastest."
+                }
+            ]
+        },
+        {
+            "question": "What is the format for the output of \"fastest_words\"",
+            "follow-ups": [
+                {
+                    "feedback": "A list of lists, such as                [['word1 that p0 typed faster', 'word2 that p0 typed faster'], ['word3 that p1 typed faster', 'word4 that p1 typed faster']]"
+                }
+            ]
+        },
+        {
+            "question": "Do I need to use a dictionary? I cannot think of a way to match the minimum time and the exact word.",
+            "follow-ups": [
+                {
+                    "feedback": "This problem is 100% doable without a dictionary. You will naturally need to perform some operation on each and every word that was typed, so it would be much easier to think of on a word to word basis. If we look at this test case for example:       p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  The first word is 'What,'. How would I find the minimum time for this word if we're given the times of everyone who typed? After you find this minimum time, there is no need to do any word matching or anything since we know we're on the word 'What,'. Once we finish 'What,', we can repeat this for 'great' and then 'luck'. Notice these operations don't really rely on pairs of values, so a dictionary isn't really required."
+                },
+                {
+                    "feedback": "Got it!! Thank you so much!!!:)"
+                }
+            ]
+        },
+        {
+            "question": "Is 'START' included on both lists?",
+            "follow-ups": [
+                {
+                    "feedback": "yep"
+                },
+                {
+                    "feedback": "\"Both\" lists? Are there only two lists? Shouldn't the number of lists depend on the number of players?"
+                },
+                {
+                    "feedback": "Yeah, there can be more or less than 2 lists"
+                }
+            ]
+        },
+        {
+            "question": "Why is the first test case not  [['START','What'],['START','What']]",
+            "follow-ups": [
+                {
+                    "feedback": "nevermind,"
+                }
+            ]
+        },
+        {
+            "question": "Why is the first test case not what is given below?  [['START', 'What', 'great', 'luck'], ['START']]  I know that 'START' is in both lists, and Player 0 types all three strings faster than Player 1 and we don't have to worry about Margin because we assume it is 0. Just a bit confused",
+            "follow-ups": [
+                {
+                    "feedback": "START is a special value that is never included in the returned values"
+                },
+                {
+                    "feedback": "but two posts above, it says that 'START' is included in both lists? Or is that for something else"
+                },
+                {
+                    "feedback": "START is included in the _input_ lists but not in the _output_ list(s)."
+                },
+                {
+                    "feedback": "okay, i understand it now. Thank!"
+                },
+                {
+                    "feedback": "Then how do we get rid of START in the output list?"
+                },
+                {
+                    "feedback": "It's just like you did in the previous questions, use splicing."
+                }
+            ]
+        },
+        {
+            "question": "Just finished the last question. God this one took me a very long time but it feels really good when you finally finished the project, so hang on there!!! For those of you who are still working on this one, here are some of my suggestions: 1, remember to use Data Abstraction, that is, you have to use \"elapsed_time\" and \"word\" in your function instead of assuming that the word_time is of some particular type (such as lists). 2, break down the question and make it simpler, how are you going to calculate how much time it takes to write each word, and how are you going to use this information later (Maybe store it somewhere)? As you break the question simpler and simpler it will be much easier for you to work it out. 3, when you debug, put some print statements there, it definitely helps you to keep track of everything."
+        },
+        {
+            "question": ">>> import typing  >>> import tests.abstraction_check as test  >>> test.swap_implementations(typing)  >>> p0 = [typing.word_time('START', 0), typing.word_time('What', 0.2), typing.word_time('great', 0.4), typing.word_time('luck', 0.8)]  >>> p1 = [typing.word_time('START', 0), typing.word_time('What', 0.6), typing.word_time('great', 0.8), typing.word_time('luck', 1.19)]  >>> typing.fastest_words([p0, p1])  Error: expected  # [['What', 'great'], ['great', 'luck']]  # but got  # Traceback (most recent call last):  # ...  # AbstractionViolation: Can't use [] notation on WordTime object  >>> test.restore_implementations(typing)  I passed 101 tests but now I get this error, don't quite understand what it means.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember not to violate abstraction barriers when doing this problem.  The assumption is that your input is a list of these units called WordTimes which contain a word and a time. You cannot treat them like lists (even though the underlying implementation may treat them like that). The reason you get this error is because you are possibly doing on operation like p0[1][0] to get the times of the words, but that violates an abstraction barrier.  To fix this, change your code so you are properly getting the times and words from these WordTimes. What is the selector for WordTime and how can you change your code to use it?"
+                },
+                {
+                    "feedback": "tysm!!!!!!!!!!!!!!!!!  Just changed some code to call expression and problem solved!!!!"
+                },
+                {
+                    "feedback": "i had this same problem but when I changed the accessors for word_times into the given functions it started giving me syntax errors everywhere else"
+                }
+            ]
+        },
+        {
+            "question": "Total points for this project without any bonus or EC is 17 right?",
+            "follow-ups": [
+                {
+                    "feedback": "I believe so - points are as displayed on the spec for this project."
+                }
+            ]
+        },
+        {
+            "question": "I'm having trouble understanding what it means by using the `word` and `elapsed_time` accessor functions for the `word_time` data abstraction, could someone please explain? I don't understand how I can call those functions.",
+            "follow-ups": [
+                {
+                    "feedback": "Every word_time has a word and a time attached to it. Much like the rational number example, the functions word and elapsed_time are selector functions that get some data out of word_time. This data happens to be either the word the word time is holding, or the time in the word_time.  word() is a function that takes a word_time and returns the word attached to it. Similarly elapsed_time() is a function that takes a word_time and gets the time part from it.  If you want an example of the syntax, here's an example. A note that the p0 list used below is one from the test cases.                >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]       >>> wt = p0[1] #Get the second element of p0, which is word_time('What', 0.2), and bind it to wt.       >>> word(wt)       'What'       >>> elapsed_time(wt)       0.2"
+                },
+                {
+                    "feedback": "I put in  wt = word_times[1]   return word(wt), elapsed_time(wt)  and got  >>> from typing import word_time, fastest_words  >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  >>> fastest_words([p0, p1])  (['START', 0], ['What', 0.6])  why is that?"
+                },
+                {
+                    "feedback": "seems like calling word and eplapsed_time each returned a list made up of a word and a time, rather than returning a time and a word separately like you said. what I'm I doing wrong with the operations?"
+                },
+                {
+                    "feedback": "the original argument is a list of words, with each list corresponding to a player. words_times[1] will list for the second player, a list of word_times."
+                }
+            ]
+        },
+        {
+            "question": "Could anyone give me a hint? I have no idea...",
+            "follow-ups": [
+                {
+                    "feedback": "What I did was broke down problem into different parts.  1) First find the minimum time for each word and store those In a list.  2) Then compare each players times with those times in the list and check if each players time for each word is within minimum time plus minus margin.  3) Then store those in a list and then add that list to a new list.  4) When list of all players have been added to the final list , loop ends.  5) Return final list."
+                },
+                {
+                    "feedback": "Thank you SO MUCH!!!! That's really helpful. I've been stuck for nearly 3 days on q9. Finally got it!"
+                },
+                {
+                    "feedback": "Thank you a lotttt! Finally figure it out. But it seems we needs four loops(two for loops that contain list comprehension)? Are there any way to simplify the codes?"
+                },
+                {
+                    "feedback": "The above set of hints are super helpful. Consider going through them if you are stuck!"
+                },
+                {
+                    "feedback": "How do we compare each players time with those times in the list we created? I'm a bit lost"
+                }
+            ]
+        },
+        {
+            "question": "I supposed both 0.4-0.2 and 0.8-0.6 will give me 0.2 when I type it in python, but instead, I got a weird output for 0.8-0.6, why is that?  >>> 0.4-0.2  0.2  >>> 0.8-0.6  0.20000000000000007  >>>",
+            "follow-ups": [
+                {
+                    "feedback": "python stores the answer to a subtraction of two floats as a float and computers sometimes can't accurately represent floats due to the limits of binary. This should not be a concern however, since by default margin is given a value of 0.00001, more than the difference between the actual subtraction of two floats and python's subtraction."
+                }
+            ]
+        },
+        {
+            "question": "How do with deal with the situation that there is more than 2 players?",
+            "follow-ups": [
+                {
+                    "feedback": "Sorry, there is a typo \"we\""
+                },
+                {
+                    "feedback": "Generalize your solution to account for as many players as there are - use the provided variables and possibly a nested for loop"
+                },
+                {
+                    "feedback": "Thank you very much, but there are four loops in my codes ( two for loops that contain list comprehension). I create a list of the shortest time for each words and compare it with every player. Are there any simplified methods?"
+                },
+                {
+                    "feedback": "I was able to do it in two loops. Rather than have separate loops to determine the fastest person who typed and then see who was within margin, you could condense both checks into the same loop. It's a bit tricky, but doable."
+                },
+                {
+                    "feedback": "If you condense both checks into the same loop, you need to be careful with how the margin works - it isn't an obvious-enough issue to fail any tests, but after thinking it through, I separated out the loops just to be safe."
+                }
+            ]
+        },
+        {
+            "question": "Are we allowed to use while loops? Also, do we have to, or are there ways of avoiding them? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "You can use for loops, which result in a less convoluted solution than one with while loops"
+                },
+                {
+                    "feedback": "okay, thank you! can we somehow use the min function with its key parameter to solve parts of this question?"
+                },
+                {
+                    "feedback": "I wouldn't recommend that, since there may be multiple \"minimums\""
+                }
+            ]
+        },
+        {
+            "question": "Help! I don't even know where to start!  I don't even know what variables mean what? Where are we supposed to use abstraction? What do _word(), word_time() and elapsed_time()_ return? When am I supposed to call them?  I understood the question and what it wants us to do (the entire margin thing and everything) but I don't understand _how_ it wants us to do that: I don't understand what to compute and where to store what we've computed and what to return in what form.",
+            "follow-ups": [
+                {
+                    "feedback": "`word_time` takes in a word and a time and returns them together as a pair. When you pass this pair value (a word-time) into the `word` function, it extracts the word from that pair and returns it. When you pass the word-time into the `elapsed_time` function, it extracts the time from the pair and returns it."
+                }
+            ]
+        },
+        {
+            "question": "why does \"hi\"[5:] output \"\" but hi[5] output error?",
+            "follow-ups": [
+                {
+                    "feedback": "[5:] tries slicing from index 5 onwards, and since there are no characters at index 5 and beyond, there are no characters to be obtained, so nothing gets returned. However, [5] tries forcibly accessing the value at index 5, and there is no character at that index, so an error gets brought up. That's simply a nuance of how list slicing works"
+                },
+                {
+                    "feedback": "Thanks!"
+                }
+            ]
+        },
+        {
+            "question": ">>> from typing import word_time, fastest_words  >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  >>> p2 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.3), word_time('luck', 0.6)]  >>> fastest_words([p0, p1, p2])  why is this not the answer to this question [['What’], [], [‘What’, ’great’, ‘luck’]]?",
+            "follow-ups": [
+                {
+                    "feedback": "That is the answer"
+                },
+                {
+                    "feedback": "it doesn't seem to work, am I missing something subtle syntax wise? I get the not quite message every time"
+                },
+                {
+                    "feedback": "got it now, thanks!"
+                },
+                {
+                    "feedback": "wait I'm having the same issue.. what did you do to fix it?"
+                },
+                {
+                    "feedback": "make sure you are formatting quotes, commas and brackets correctly!"
+                }
+            ]
+        },
+        {
+            "question": ">>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  >>> p2 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.3), word_time('luck', 0.6)]  fastest_words([p0, p1, p2])  Definition: player typed a word the _fastest_ if the difference between their elapsed time for that word and the previous word is within `margin` of the smallest difference for any player.  Should the smallest difference for any player not be p2[1] and [2], 0.3-0.2=0.1? And, by this margin, shouldn't the smallest difference added to the margin not be 0.1 + 1e^-5? And by this logic, shouldn't the answer be [[],[],[\"great']]? I feel like i have a fundamental misunderstanding with regards to the definition of fastest.  Many Thanks.",
+            "follow-ups": [
+                {
+                    "feedback": "Notice the definition of fastest is in relation to a single word and not all the words. In this case, there are three words, and each word has at least one corresponding player who typed the word the \"fastest.\"      It's 100% true that player 2 typed 'great' the \"fastest\" according to your math, but what about the other words? Who typed the words 'What,' and 'luck' the fastest? They should also be included in your return value."
+                }
+            ]
+        },
+        {
+            "question": "what does this mean?: fastest_words([p0, p1], 0.1) # with a large margin, both typed \"luck\" the fastest would it not be [['luck'],['luck']]",
+            "follow-ups": [
+                {
+                    "feedback": "See the followup above for a more in depth explanation. For this test case, 'luck' was not the only word that was typed. What about the other words? Who typed those the fastest? That should also be included in the returned list."
+                },
+                {
+                    "feedback": "nevermind"
+                }
+            ]
+        },
+        {
+            "question": "I've been stuck on this problem for a day now, even after reading the previous comments and hints and rewatching the lecture on abstraction. Here's what I understand so far:  So word_times is a list of lists (one for each player) that has the following element for each word the player typed: word_time(word, elapsed_time), where word is the word that was typed and elapsed_time is the time that has passed. This element is a call expression so when it's evaluated it will return [word, elapsed_time] which is a list. We can then pass this into the word and elapsed_time functions to access the word that was typed and the elapsed time. This is supposed to be done for each element in the list for each player. After we do this, we should find the actual times it took to type each word by subtracting the current elapsed time for the word typed from the elapsed time of the word that was typed right afterwards. You do this for every player. Then you find the minimum time for each word from out of all of the players. Then you deal with the margin.  I'm not sure how to access the elements though. I know we could use a for loop but I'm just not understanding how to use it to apply the functions to each element for each list. I'm so confused. Please help!",
+            "follow-ups": [
+                {
+                    "feedback": "word_times[0] will contain all the word-times for player 0, word_times[1] will contain all the word-times for player 1, etc."
+                },
+                {
+                    "feedback": "So are we supposed to use a while loop"
+                },
+                {
+                    "feedback": "You can if you want, or a for loop works too"
+                }
+            ]
+        },
+        {
+            "question": "Is it possible to do this using list comprehension? I'm a bit stuck trying to create a list of all the words with the shortest times and depending on the number of users I would have that many nested loops.",
+            "follow-ups": [
+                {
+                    "feedback": "I would not recommend a list comprehension. The way I did it was, find the \"fastest players\" for each word, add that word to each player's list within a master list, and then iterate onto the next word. Finally, I returned the master list."
+                }
+            ]
+        },
+        {
+            "question": "Can we have some examples of inputs and output of python3 -q ** -u tests next time?  Sometimes the answer needs a space after a comma, sometimes it doesn't.  It has been multiple times that I wrote the right answer but was rejected by the check system and I was confused about the correctness for a long time, however, it eventually came out to be the space problems :(",
+            "follow-ups": [
+                {
+                    "feedback": "Arrays will always have comma-separated-with-a-space values when printed out. For instance, [5, 'cats', 38, 42] or [3] or [[2, 4], [6, 8]]"
+                },
+                {
+                    "feedback": "Unfortunately, the check system doesn't seem to want us to add space this time in problem 9 :("
+                },
+                {
+                    "feedback": "I didn't experience that issue"
+                },
+                {
+                    "feedback": "Sorry for the frustration. We always use the formatting that is generated by the Python interpreter."
+                }
+            ]
+        },
+        {
+            "question": "Do I need to create new lists as variables by using a while loop, depending on how many times is needed to get each player a list of times for each word, so I can determine which player(s) typed the word the fastest? Unless there's a simpler way, it's very confusing for me.",
+            "follow-ups": [
+                {
+                    "feedback": "Most solutions will have multiple steps. Something like: \\- Find the words \\- Find the fastest time for each word \\- Create an output list of words for each player by comparing their time to the fastest time (and margin)"
+                }
+            ]
+        },
+        {
+            "question": "How would I go about finding the minimum time for each word, across different players? I'm having trouble figuring this out with a nested for loop....",
+            "follow-ups": [
+                {
+                    "feedback": "For each word index, compute the time for each player and then use the `min` function to find the minimum time. One good way to do this is to write a function `def fastest_time(i):..` that computes the fastest time for word `i`."
+                }
+            ]
+        },
+        {
+            "question": "I want to make sure something . We can assume word_times to be a list right , since its given but we cannot assume word_time to be a list and we have to use accessor functions word and elapsed time to get the required values . But we can assume word_times which is the argument passed to be a list right??",
+            "follow-ups": [
+                {
+                    "feedback": "Yes. You are correct.  word_times is a list of lists. Each list in word_times contains the individual word_time units that each player made during the game.  A word_time however is a compound data value that contains a word and a time. It may not necessarily be a list, so you can't assume that as you have stated. Subtle but important difference."
+                }
+            ]
+        },
+        {
+            "question": "I don't understand where this error is coming from... please help, thanks a lot!  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k50bjzi368%2Fk15x3ju5i84k%2FAnnotation_20190929_213140.png)",
+            "follow-ups": [
+                {
+                    "feedback": "here, word_times = [p0, p1]  so I did word_times[player] to get p0 or p1, then did [word+1] to get word_time('What', 0,2) etc  I also had the program print word_times[player][word+1], and it displayed ['What', 0.2], etc.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k50bjzi368%2Fk15xbn2rihpc%2FAnnotation_20190929_213832.png)"
+                },
+                {
+                    "feedback": "What is the name word bound to here? In the square brackets you are using it as an integer since you are adding 1 to it, but then you are calling it like a function.  If you want to use the word function, then make sure you aren't binding the name, word, to something else somewhere in the function, otherwise Python will try to call whatever you bound word to (which seems to be an integer) and not the function."
+                },
+                {
+                    "feedback": "it is a function from the original code given to us.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyt7k50bjzi368%2Fk160c7m5i3lg%2FAnnotation_20190929_230331.png)"
+                },
+                {
+                    "feedback": "Oh!! I see the problem now. Thank you!! Since I names my variable for iteration word, it binded the name to the integer instead of the function."
+                }
+            ]
+        },
+        {
+            "question": "After finding the minimum time and comparing a player's time with the min time + margin, how can we add the word to the player's list in the master list? I know how to get the word I want, but just not sure about where and how to put that word into the list that I will return. The list is initially an empty one, so how can I create lists inside the master list for different players? Any advice on this? Thanks a lot!!",
+            "follow-ups": [
+                {
+                    "feedback": "You can create lists within lists in Python using a list comprehension. See the code below for an example:                >>> words = [[] for i in range(3)]       >>> words       [[], [], []]       >>> words[0].append('Hello!')       >>> words       [['Hello!'],[],[]]       >>> words[0][0]       'Hello!'  You could think of words in this example as the master list of all the words. To add a word to a specific player, you just need to grab their list from the master list (which is what words[0] does) and then append it to it."
+                },
+                {
+                    "feedback": "Oh I see! Thank you!  But just now I found that after adding the words to the list, the list became ['W', 'h', 'a', 't', 'g', 'r', 'e', 'a', 't'] instead of ['What', 'great']. Why is this happening?"
+                },
+                {
+                    "feedback": "nvm! just fixed it.  Thanks a lot!!!"
+                },
+                {
+                    "feedback": "I've had a similar bug to anon (the ['W', 'h', 'a', 't', 'g', 'r', 'e', 'a', 't'] issue), and turns out I forgot to add brackets around the word() selector when adding words from word_times to a list."
+                }
+            ]
+        },
+        {
+            "question": "I am about halfway through problem 9 and I am a bit stuck on how I would compare the elements of two(or more) lists that are within one list. Any tips on how to approach this?",
+            "follow-ups": [
+                {
+                    "feedback": "You need to be clever with indexing and loops"
+                }
+            ]
+        },
+        {
+            "question": "Problem 9 > Suite 1 > Case 1 (cases remaining: 102) >>> from typing import word_time, fastest_words >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)] >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)] >>> fastest_words([p0, p1]) ? (['START', 0],['WHAT', 0.6]) \\-- Not quite. Try again! -- ? [['What', 'great'], ['great', 'luck']] \\-- OK! -- >>> fastest_words([p0, p1], 0.1) # with a large margin, both typed \"luck\" the fastest ? [[],[]] \\-- Not quite. Try again! -- Can you guys please explain this question. Thank you so much",
+            "follow-ups": [
+                {
+                    "feedback": "So first you need to find the minimum time for each word.  For example : The minimum time for the word \"What\" is 0.2 of p0. Now you would check whether p1's time of 'What' is within margin of minimum time . Since 0.6(p1's time for what) is not within 0.2 plus minus 0.00001(or whatever is given). Therefore What is not fastest word of p1 but its fastest word of p0. Now same goes for the word 'great', minimum time for 'great ' is 0.2 and p1 and p0's time for great is 0.2 . So 'great; is the fastest word of both of these. So its in both of the lists of p0 and p1.  Same goes for luck.  In the second part the margin is 0.1 so you would perform your calculations based on this margin"
+                },
+                {
+                    "feedback": "I would use margin = 0.1 to calculate the fastest time but it should be empty list for both, right?"
+                },
+                {
+                    "feedback": "if not, it should be like this [['START', 'What'], ['START', 'What']]. But it is still wrong"
+                }
+            ]
+        },
+        {
+            "question": "Im confused on how we get the time elapsed to be accurate and substract the current timestep from the previous one? The abstracted function is elapsed_time but it doesn't take into account the previous timestep.",
+            "follow-ups": [
+                {
+                    "feedback": "You can compare the elapsed time of a word to the elapsed time of the word before it."
+                }
+            ]
+        },
+        {
+            "question": "[ image removed ]  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk0ifnw5z0%2Fk1722znyt5gx%2Fdebugpic1.PNG)  I've been looking at this code for a while now and I don't understand why all the words get added to the lists instead of just the fastest ones and the ones typed within a time less than margin.",
+            "follow-ups": [
+                {
+                    "feedback": "Please don't post your code to Piazza unless it is a separate private post"
+                },
+                {
+                    "feedback": "code has been removed - **please post a private post if you plan on posting code** , and we can help you out there."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpa50qn729r%2Fk176tiesnb0n%2FScreen_Shot_20190930_at_6.51.39_PM.png)  Hi i dont understand why its returning all the junk before [['What', 'great'], ['great', 'luck']]?",
+            "follow-ups": [
+                {
+                    "feedback": "Maybe you have some debug statements you forgot to remove?"
+                },
+                {
+                    "feedback": "oh nvm i was trying out trace and forgot to remove"
+                }
+            ]
+        },
+        {
+            "question": "is there any function which we can use which tells the index of an element in a list?",
+            "follow-ups": [
+                {
+                    "feedback": "list.index(element)  Is allowed to be used."
+                },
+                {
+                    "feedback": "Thank you!"
+                },
+                {
+                    "feedback": ">>> from typing import word_time, fastest_words  >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  >>> fastest_words([p0, p1])  [[0.2, 0.2, 0.4], [0.6, 0.20000000000000007, 0.3899999999999999]]  Any clue on why I am getting 0.2000007, and 0.38999999. These are just for my reference, which are the time spent on each word. the list for p0 seems fine, but note sure what happened to p1."
+                },
+                {
+                    "feedback": "Those numbers are correct, I think it's just how python deals with floats. There's no way for it to calculate it exactly but as you can probably tell, its negligible."
+                },
+                {
+                    "feedback": "That just has to do with the way Python handles decimals - you can read up on that [here](https://docs.python.org/2/tutorial/floatingpoint.html) (this is why the margin parameter exists and must be > 0)"
+                },
+                {
+                    "feedback": "Thank you! Also, how do we create n lists inside of a list?"
+                },
+                {
+                    "feedback": "n lists inside a list? You can always do a for loop of n range, and append empty lists into the list you want to append to."
+                },
+                {
+                    "feedback": "This is a fun one. What I did was use a list comprehension, generating an empty list n times using the range() function. Huy's solution would work as well"
+                },
+                {
+                    "feedback": "Interesting! But how can I implement the following (have been stuck on this for too long)  Lets say I have lst=list(range(2))  I have an if statement which checks whether to add a string to lst[1] or not.  If True, I add it to lst[1].  So lets say I first need to add \"hi\" to lst[1]. How can I do that to make sure that I am also able to add hello later. Thanks"
+                },
+                {
+                    "feedback": "There has to be a condition set for you to add to lst[1]. Perhaps a condition could be it has to be p0 who typed this. Also, is the list that you're nesting 2 lists inside, empty?"
+                },
+                {
+                    "feedback": "I have a condition in my code. Yes, I have a list with two empty lists inside. Not sure how to add multiple elements at seperate occasions to each index."
+                },
+                {
+                    "feedback": "If you want to append to the nested list:  Let's pretend you have a list named ex_list, and its elements is just an empty list with 2 nested list. If you want to append to the first empty list, you'd just do ex_list[0].append(\"random string\"). Is that what you're asking? If you want to append another element, it'd be the same thing, but now that next element is the 2nd element in that 1st nested list: ex_list[0].append(\"another random string\"). And if you want to append to the 2nd empty list, then it's just ex_list[1] and so forth if you have more empty lists.  So your ex_list is: [['random string', 'another random string'], []]"
+                },
+                {
+                    "feedback": "So I have k=[[]]*2 which is [[],[]].  If i do k[0].append(\"hi\"), in python tutor, it seems to add \"hi\" to both the empty lists."
+                },
+                {
+                    "feedback": "I think what's happening here is that these 2 lists are copies of each other, so whatever you do to 1 index, the other one will be copied exactly.  Try doing k[1].append(\"hi\"), you will get the same result; \"hi\" is appended to both empty lists."
+                },
+                {
+                    "feedback": "Ya, thats what happens. So then how can I create a list with n empty lists inside of it? cause list(range(n)) creates one list with n indexes. I need one list with n lists inside."
+                },
+                {
+                    "feedback": "Try this:                k = []     for i in range(2):         k.append([])     k[0].append('hi')  This would create a list, k, with 2 empty lists in it. And when you append to the first empty list, the string is appended only once.  And if you prefer list comprehensions, this would work:                k = [[] for i in range(2)]       k[0].append('hi')"
+                },
+                {
+                    "feedback": "THANK YOU SO MUCH :)  Really appreciate all your help!!!!!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlju5hwr4ux696%2Fk185ubs6804y%2FScreen_Shot_20191001_at_11.10.57_AM.png)  Any clue why? Not sure what it means by int object is not subscriptable,. Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "`time_till_lst` probably contains integers, so when you iterate over it, naming the iterated variable `elements`, `elements` gets bound to an integer, so you can't do `elements[k]`"
+                },
+                {
+                    "feedback": "time_till_lst contains multiple lists. so when i do elements[k] for elements in time_till_lst, i am getting values from lists. Im only failing 3 cases, so super confused on what the error is."
+                },
+                {
+                    "feedback": "This error is only possible if you use [] on an integer, so check all lines of your code and use debug statements as necessary. Make sure k is an int as well"
+                },
+                {
+                    "feedback": "figured it out. I was using .index function which was returning the index of the first occurrence, causing the trouble. Thanks!"
+                },
+                {
+                    "feedback": "Im sure this question has been asked before, but cant seem to find it. Can i add a couple lines of docstrings to my Q9, since its a bit long and has multiple functions?"
+                },
+                {
+                    "feedback": "As long as you follow the [composition guide instructions on docstrings](https://cs61a.org/articles/composition.html#docstrings), you're good. \"Put docstrings only at the top of functions. Docstrings are denoted by triple-quotes at the beginning of a function or class. You should not put docstrings in the middle of the function -- only put them at the beginning.\""
+                },
+                {
+                    "feedback": "At the beginning of the question's function, or our defined functions?"
+                },
+                {
+                    "feedback": "Docstrings should go at the beginning of the body of whichever function they are documenting"
+                }
+            ]
+        },
+        {
+            "question": "What do we want to return and how do we make use of margin in this question?",
+            "follow-ups": [
+                {
+                    "feedback": "From the problem description:  `fastest_words` returns a list of lists of words, one list for each player, and within each list the words they typed the fastest.  **Definition** : A player typed a word the _fastest_ if the difference between their elapsed time for that word and the previous word is within `margin` of the smallest difference for any player. Therefore, if two players type a word within `margin` of each other, that word will appear in both of their lists."
+                }
+            ]
+        },
+        {
+            "question": "I keep getting nonetype errors while trying to append to my masterlist, does anyone have advice on how to troubleshoot this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Can you give an example of something you're appending, or a type?"
+                },
+                {
+                    "feedback": "TypeError: 'NoneType' object is not subscriptable  I'm trying to append a string/current word that I'm iterating to to the empty masterlist which I made using the list comprehension method you used earlier"
+                },
+                {
+                    "feedback": "however you are indexing into the list, somehow the name of the list is being set to None. thus, when you try to index into None, there will be an error preventing you from making that move."
+                }
+            ]
+        },
+        {
+            "question": "I ended up with this error since I'm not allowed to add strings to lists, only numbers:  TypeError: can only concatenate list (not \"str\") to list  I try to create a list explicitly since I don't know how to implicitly, or create a list so that I don't have to assign new list to players because it depends on how many players are typing against each other.  Any way(s) I can create a list for each player with words typed the fastest in the list?",
+            "follow-ups": [
+                {
+                    "feedback": "You can **add** strings to lists, but you cannot **add** them together. The error you are getting is likely because you were using the plus operator with a list and a string as the operands and that is not allowed.                >>> l = []       >>> s = \"Hello!\"       >>> l + s       TypeError: can only concatenate list (not \"str\") to list  Adding in this sense is like the sum. You can't sum together a list and string. But if you wanted to add the string to the end of the list, you could either use append or wrap the string in a list literal like so:                >>> l = []       >>> s = \"Hello!\"       >>> l += [s]       >>> l       [\"Hello!\"]       >>> l.append(s)       >>> l       [\"Hello!\", \"Hello!\"]  The second part of your question seems to be asking how to create a list of lists (If I'm understanding it correctly). You can do that like this:                >>> l = [ [] for i in range(3) ]       >>> l       [[], [], []]  You could easily change the 3 to however many lists you need inside, which in this case should just be the number of players there are and then just append corresponding words into the inner lists using the method above this one."
+                }
+            ]
+        },
+        {
+            "question": "So I'm very confused. I'm doing some of the subtraction to get the quickest times, but some operations such as:   0.8-0.6      return 0.2, and sometimes 0.20000000000000007. Thus, two times that were supposed to be equal, are not anymore. Why is this happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Looking online, it seems to be an issue called floating point error, but I'm not sure how to fix it."
+                },
+                {
+                    "feedback": "That's why the margin parameter exists. The small error as a result of floating point error is negligible compared to any reasonable choice of margin. Don't worry about it."
+                }
+            ]
+        },
+        {
+            "question": "I have the following line:                     quickest_time = word_times[0][word][1] - word_times[0][word-1][1]     but after 101 passed test cases, I get the following error:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk18qrva27z3g%2FScreen_Shot_20191001_at_8.59.05_PM.png)      Why is this happening?",
+            "follow-ups": [
+                {
+                    "feedback": "If I add a print() statement right after that line, no errors come up, which is confusing me even more."
+                },
+                {
+                    "feedback": "This is because your code is treating a WordTime like it is a list, which violates an abstraction barrier. Take the following incorrect code for example.                >>> wt = word_time(\"Hello!\", 0.4)     >>> type(wt)       <class 'list'>     >>> wt[1]     0.4  In the code above, I get the time using wt like it is a list. The only reason it works here is because, internally, the type of wt is a list, so while the operation is allowed syntactically, it would not work if we stopped using lists to represent word_time objects. That is what this check does. It changes word_time from being a list to some other representation and your code is not working because of it.  So to fix your code, you need to get the time from the word_time object using the selectors so it doesn't violate any abstraction barriers."
+                },
+                {
+                    "feedback": "What do you mean by “the selectors?”"
+                },
+                {
+                    "feedback": "Selectors are basically the functions that get data out of compound data types. In class, we had the rational number example that had the constructor rational() and the selectors numer() and denom() which got the numerator and denominator respectively. The numer() and denom() functions are selectors for rational numbers.  In this case, the selectors for word_times are the elapsed_time() and word() functions. These functions will get the time and the word out of a word_time respectively as seen below:                >>> wt = word_time(\"Hello!\", 0.4)     >>> word(wt)     \"Hello!\"     >>> elapsed_time(wt)     0.4"
+                },
+                {
+                    "feedback": "How would I use that on a very long line such as:                word_times[0][word][1] - word_times[0][word-1][1]     I see how it works, but not sure how to apply it to something much longer like this"
+                },
+                {
+                    "feedback": "Well think of what you're indexing into at each step.  word_times is a list of lists. Each list is a list of word_times for a player, so if we wanted to get player 0's word_times, we would do word_times[0].  Now we have word_times[0] which is a list of word_times. If we want a specific word_time, we can just index index into it again like word_times[0][0]. This will give us the very first word_time of the first list.  Now onto the interesting part. We know word_time[0][0] is a word_time, so if we wanted to get the time of it, for example, we would call elapsed_time on it like I did before. Putting all this together, you can do something like this:                >>> word_times = [ [word_time(\"Hello\", 0.4)] ]     >>> word_times[0]     [word_time(\"Hello\", 0.4)]     >>> word_times[0][0] #Probably not how it would display, but just showing it like this for simplicity     word_time(\"Hello\", 0.4)     >>> elapsed_time(word_times[0][0])     0.4  Think of how you could generalize this process to your code."
+                },
+                {
+                    "feedback": "I can see how to do that for indices 0 and 1 in word_time, since those functions are given to us, but how would I do it for another index, such as 3?"
+                },
+                {
+                    "feedback": "word_time is designed to only hold two pieces of data which are the word and the time. There isn't any third piece of data in word_time so you'll only need word() and elapsed_time() to get access to all of word_time if that's what you mean.  If you're talking about word_times, the list, then you let's suppose you wanted to get the elapsed time of the third player's first word_time (lots of words, but bear with me). You could do something like this:                >>> word_times = [ [word_time(\"Player 0!\", 0.4)], [word_time(\"Player 1!\", 0.4)], [word_time(\"Player 2!\", 0.4)] ]     >>> word_times[2] #Get the third player's (Player 2) word times.     [word_time(\"Player 2!\", 0.4)]     >>> word_times[2][0] #Probably not how it would display, but just showing it like this for simplicity     word_time(\"Player 2!\", 0.4)     >>> word(word_times[2][0])     'Player 2!'"
+                },
+                {
+                    "feedback": "I got it! Thank you so so much :)"
+                }
+            ]
+        },
+        {
+            "question": "I can't figure out how to compute the time a player spent typing a word. How do you get the previous elapsed time?",
+            "follow-ups": [
+                {
+                    "feedback": "Having the same problem. Time isn't given to us a parameter to how do we obtain that data?"
+                },
+                {
+                    "feedback": "For each player, you have a list of word_time values. Each word_time value in the list contains a word and the total elapsed time from the beginning of the race up until the moment when the player finished typing that word. Think about how you can figure out how long it took to type the first word (after \"START\"). And if you know how long it took to type the first word, does that help you figure out how long it took to type the second word?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnphk4bea2fk%2Fk18vd0pakow0%2FUntitled.jpg)  I do not understand why I am getting this kind of error when I type word(word_times[0][0])",
+            "follow-ups": [
+                {
+                    "feedback": "I spent about 2 hours to figure out this error, but I figured out why I got this problem.  I used a variable name \"word\" in the fastest_word function. As a result, whenever word was called, it did not use the word function instead the word in the fastest_word function."
+                }
+            ]
+        },
+        {
+            "question": "I understand how to obtain the words and times from word lists. I also understand how to compute the times. I'm confused as to how we store all of this information into a list?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about how you can utilize a list to represent a player, and even player(s)."
+                },
+                {
+                    "feedback": "Would it make sense to have a separate list for each player?  Tbh I'm not entirely sure why we need this list, it just seems like a good place to start based on what other people have recommended on PIazza."
+                },
+                {
+                    "feedback": "We need the list because we want to keep track of the times it took for a player to type certain words. And it'd be harder to keep track of if you had different lists for each player. You can do this in one list. Think about it, what if you had 1000 players, do you really want to hard code a 1000 lists; even 10 players. It's a variable amount, there's no way you would make a separate list for each player."
+                },
+                {
+                    "feedback": "So the list just has all the times for the whole problem? Of all players?  How would we then a) associate each time to a word and b) know what times are associated with each player?"
+                },
+                {
+                    "feedback": "The list does have all the times of all players.  You can associate a time to a word by accessing indices. Just think about how you can represent the players inside 1 list. I'm trying my best not to give the answer away."
+                },
+                {
+                    "feedback": "I understand, I'm just having trouble understanding this question. Thank you for your help!"
+                }
+            ]
+        },
+        {
+            "question": "def time_spent_typing_word(i, player):            ...       def fastest_time_for_word(i):            ...  In this function given in the hints, is the parameter i literally the word itself?",
+            "follow-ups": [
+                {
+                    "feedback": "I think that they mean the index for the word, so it can help you access the word (remember word times is just a list of lists) or at least that's how I did mine"
+                }
+            ]
+        },
+        {
+            "question": "def time_spent_typing_word(i, player):          ...     def fastest_time_for_word(i):          ...",
+            "follow-ups": [
+                {
+                    "feedback": "at here, what 'i' and 'player' does mean?  I dont know what should I do with 'i'"
+                },
+                {
+                    "feedback": "Player represents what player it is, i represents a word.  Thus first function's parameters is the word and a player; meaning it helps compute the time a certain player spent typing a particular word. And the 2nd, as the name indicates, would probably return the fastest time any player took to type a word, i."
+                },
+                {
+                    "feedback": "So you know that word_times is a list of lists that contain the things we want. So in you function, you would apply another function to word_times something like:  func(word_times[player][i])"
+                },
+                {
+                    "feedback": "Nevermind."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk08zzitk4ju3pb%2Fk19aqwby1eiv%2Fcode.JPG)  I don't know why this is happening..  I noticed that 0.8- 0.6 is like 0.20000000000000007 so I tried to fix this problem with margin value.  But I think it was wrong..  I think I still do not understand what the margin is.  Please help",
+            "follow-ups": [
+                {
+                    "feedback": "think of `margin` as a margin of error - if any player has a time for a word that is within `margin` from the true minimum time for typing that word across all players, then they will also be considered as having typed that word that fastest."
+                },
+                {
+                    "feedback": "I still don't understand..  if  p0 = [[word_time('START', '0'), word_time('What', '0.2'), word_time('great', '0.4'), word_time('luck', '0.8)]]  p1 = [[word_time('START', '0'), word_time('What', '0.6'), word_time('great', '0.8'), word_time('luck', '1.19')]]  fastest_words([p0, p1], 0.1)'  why the result is  [['What', 'great', 'luck'], ['great', 'luck']]  like this?  before changing the margin value, the result was  [['What', 'great'], ['great', 'luck']]  because the fastest typed time for 'What' was 0.2(p0), for 'great' was 0.2(p0, p1), and for 'luck' was 0.39(p1).  What is changed when margin is 0.1?"
+                },
+                {
+                    "feedback": "p0 typed 'luck' in 0.4 seconds. p1 typed 'luck' in 0.39 seconds.  the difference between the two is 0.1 seconds.  when no second argument for the margin is provided to fastest_words, then the margin defaults to 0.00001.  this difference between p0's time for 'luck' and the true fastest time is not less than or equal to the default margin. however, when we pass in 0.1 as the margin, now the difference is equal to the margin, indicating that we should allow p0's time to also be considered the fastest time."
+                }
+            ]
+        },
+        {
+            "question": "I understand what fastest words should do and I have written code for it but it keep running into \"  TypeError: '<' not supported between instances of 'NoneType' and 'NoneType'\" when I'm trying to return the minimum of the times to type a certain word across all players. How can I fix this error?",
+            "follow-ups": [
+                {
+                    "feedback": "Both sides of your < expression are evaluating to `None`. Double check everything to make sure you are evaluating to a value on each side"
+                }
+            ]
+        },
+        {
+            "question": "Should I create separate lists for each player to store their fastest words and then combine those lists together in the end as a whole return? If so, how can I know how many empty lists to create(aka how many players, and one list for each player) in the beginning?",
+            "follow-ups": [
+                {
+                    "feedback": "If there are `n` players, you need `n` lists. `n_players` is given to you at the beginning of the function, so it can be used to make things easier"
+                }
+            ]
+        },
+        {
+            "question": "So I know how to get the fastest times for each word, but I am not sure how to continue after this. How would I go about comparing these fastest times with the times of the players?",
+            "follow-ups": [
+                {
+                    "feedback": "So what I did was stored all the fastests times in a list. Then I used a function to compute the time spent on a word and checked if it matched the time in the list. If it did, I appended it to the players list.(I made a list with lists for each player)"
+                }
+            ]
+        },
+        {
+            "question": "Can someone explain to me how `_margin_` __works? I read all the posts here and still dont seem to understand it.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, I got it."
+                }
+            ]
+        },
+        {
+            "question": ">>> from typing import word_time, fastest_words   >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]   >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]   >>> fastest_words([p0, p1])   [['What', 'great'], ['START', 'luck']]  # Error: expected   # [['What', 'great'], ['great', 'luck']]   # but got   # [['What', 'great'], ['START', 'luck']]  Not going to lie, I am not sure what is going wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "Start is not included in the list of words, ignore \"Start\" since we go from n+1"
+                }
+            ]
+        },
+        {
+            "question": "So, I have a pretty long conditional statement to take in account the margin, is that considered bad composition?",
+            "follow-ups": [
+                {
+                    "feedback": "If you're worried about composition, you could take that long conditional and bind a descriptive name like 'is_above_margin' to the result of that long conditional. Then your if/while statements will be comprehensible."
+                }
+            ]
+        },
+        {
+            "question": "Can someone please explain how to use this suggested function:                def time_spent_typing_word(i, player):",
+            "follow-ups": [
+                {
+                    "feedback": "I currently have 2 lists with the computed times for each player."
+                },
+                {
+                    "feedback": "It takes in a word, i, and a player, player, and should return the time that player took to type a word, i. And you shouldn't have just 2 lists, you need an x amount of lists for x players. The player amount can vary, and is not static. Unless you mean you have 2 lists in the case of 2 players and will have 3 in the case of 3, etc."
+                },
+                {
+                    "feedback": "ideally, with that function, you could figure out how many seconds it took player X to type out some word that you select for with i. Then it would be much easier to compare between all players to find the player who typed the i'th word using the least amount of seconds."
+                }
+            ]
+        },
+        {
+            "question": "One of the lists are blank since there are three players instead of two:  Problem 9 > Suite 1 > Case 1  >>> from typing import word_time, fastest_words  >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]  >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]  >>> fastest_words([p0, p1])  [['What', 'great'], ['great', 'luck']]  >>> fastest_words([p0, p1], 0.1) # with a large margin, both typed \"luck\" the fastest  [['What', 'great', 'luck'], ['great', 'luck']]  >>> p2 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.3), word_time('luck', 0.6)]  >>> fastest_words([p0, p1, p2])  [['What', 'great'], ['great', 'luck']]  # Error: expected  # [['What'], [], ['What', 'great', 'luck']]  # but got  # [['What', 'great'], ['great', 'luck']]  I only created a list for two players, but I need to create three players. Once I create three players, I'm still stuck.  When I create three players, that means I have to make lots of cases for comparing times for three players and check to see if at least two of those times are within the margin, but what if I have more than three players? Is there a simple way to manage cases for comparing times for n_players?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about how you can make a variable amount of lists, possibly in 1 list. You never want to hardcode more cases if n increases, you just need to find a way to process them all at the same time, one by one without creating more tests. Right now your code is static; you are setting a static number of players where the problem can involve n amouny of players."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjvrdusnceo64iz%2Fk19vvtnrwgtj%2Fproblem9.PNG)  I think that I implemented the recommended helper functions correctly, but I'm not sure how to check and append every player's fastest times. Right now I'm using a while loop inside a for loop and am getting the correct output for Player 0, but not sure how to change my code to check/append the next player(s).",
+            "follow-ups": [
+                {
+                    "feedback": "Why are you using a while loop inside the for loop? It doesnt seem necessary. Also your list is doubled in size. A good step is to probably keep track of all the players' times for each words which means youll have to find a way to calculate it for each player and then compare their times. All the while try to keep track of the lowest time for that word."
+                },
+                {
+                    "feedback": "I'm using the while loop to check all the elapsed times of a player (to see if any should be added to the player's list of fastest times) and then stopping when the time for the last word is checked. The list is doubled because it ran through Player 0's values twice instead of checking Player 0 once and then moving on to Player 1. I think I have all access to all the things you mentioned (minimum times, player times, etc), the part I'm stuck on is checking/appending the next player after checking/appending Player 0's fastest times."
+                },
+                {
+                    "feedback": "You can make a function that goes through all the player's times and see if its in between the minimum time you have +/- the margin. Then append? That shouldn't be an issue if you stored the player's times in the nested list corrextly."
+                }
+            ]
+        },
+        {
+            "question": "# Error: expected   # [['What', 'great'], ['great', 'luck']]   # but got   # Traceback (most recent call last):   # ...   # AbstractionViolation: Can't use [] notation on WordTime object   >>> test.restore_implementations(typing)  I've got this error but I don't know what is wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "You have to use the selector functions to access elapsed times and the words. Right now it says you are not and thus are violating abstraction rules."
+                },
+                {
+                    "feedback": "I don't have idea how to use the selector functions to access elapsed times and the words.  How can I use it?"
+                },
+                {
+                    "feedback": "Taking a look at lecture 12 where the professor discusses abstraction could help. Its an importang concept and the videos do a good job at explainin how it works. But the selector functions takes in one of the elements in the list for any player. But figuring out how to access those elements is apart of the problem."
+                },
+                {
+                    "feedback": "I got it. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Quick question: How can I take the difference of elapsed_time and previous elapsed_time for the player typing a word. I tried that out but I have this error:  # Error: expected  # [['What', 'great'], ['great', 'luck']]  # but got  # Traceback (most recent call last):  # ...  # TypeError: unsupported operand type(s) for -: 'int' and 'str'",
+            "follow-ups": [
+                {
+                    "feedback": "Double check that elapsed_time is being called on a word_time and that you're subtracting the elapsed_times (not words)."
+                }
+            ]
+        },
+        {
+            "question": "Problem 9 > Suite 1 > Case 1          >>> from typing import word_time, fastest_words     >>> p0 = [word_time('START', 0), word_time('What', 0.2), word_time('great', 0.4), word_time('luck', 0.8)]     >>> p1 = [word_time('START', 0), word_time('What', 0.6), word_time('great', 0.8), word_time('luck', 1.19)]     >>> fastest_words([p0, p1])     [['W', 'h', 'a', 't', 'g', 'r', 'e', 'a', 't'], ['g', 'r', 'e', 'a', 't', 'l', 'u', 'c', 'k']]          # Error: expected     #     [['What', 'great'], ['great', 'luck']]     # but got     #     [['W', 'h', 'a', 't', 'g', 'r', 'e', 'a', 't'], ['g', 'r', 'e', 'a', 't', 'l', 'u', 'c', 'k']]  Can someone help me with this? I don't know what happens here. I had the lists combine together in the end using the word function and +=.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, got it! I make the return value of from the word function into a list and it works."
+                }
+            ]
+        },
+        {
+            "question": "how can you find the index of a repeated element? x=[1,2,3,4,1]  I keep getting index 0 when I want index 4??????",
+            "follow-ups": [
+                {
+                    "feedback": "Which index do you want if there are repeats? You could always just run a for loop on the list and check if each element matches the one you want to find."
+                },
+                {
+                    "feedback": "I'm trying to return 4 as the index but it keeps returning 0?"
+                },
+                {
+                    "feedback": "The index of the second `1` in the list `x` (assuming it exists) could be found with `x[x.index(1)+1:].index(1)+1`. I'm not sure how that will help you, but I hope it helps."
+                }
+            ]
+        },
+        {
+            "question": "How do you define words and in_fastest? What are they supposed to do? Their purpose? Thanks",
+            "follow-ups": [
+                {
+                    "feedback": "In the example at the top, `words` would be a list of words in the sentence and `is_fastest` would return whether player `p` typed word `i` the fastest."
+                },
+                {
+                    "feedback": "But isn't the list of the words in the sentence in the list of words_time?"
+                }
+            ]
+        },
+        {
+            "question": "I'm able to compute the list which has the fastest time for each word but im not sure how to compare each time for each player with that list of the fastest time.",
+            "follow-ups": [
+                {
+                    "feedback": "For each player, you can calculate how long they took to type each word and then compare that value with the fastest time anyone took to type that word. You'd just be iterating through all the words to do the comparisons word by word."
+                },
+                {
+                    "feedback": "So would it use a for loop to loop through the players then another for loop to loop through the words and check if the time it took to type the word is less than or equal to the fastest time anyone took to type that word plus the margin?"
+                },
+                {
+                    "feedback": "Try it and see, but that sounds about right. This problem definitely involves nested for loops!"
+                }
+            ]
+        },
+        {
+            "question": "It says   \"\\- The words themselves can be extracted from the `word_times` argument by using only `word_times[0]`, because the same words appear in each element of `word_times`.\"  but when I put in word_times[0] it just gives me the vector of the first player. How would I get all the words?",
+            "follow-ups": [
+                {
+                    "feedback": "All the players have the same set of words - so the words for the first player are the words for the entire game."
+                },
+                {
+                    "feedback": "so when I am trying to create a for loop to have it go through every word, why wouldn't for i in word_times[0] work then?"
+                }
+            ]
+        },
+        {
+            "question": "I've passed 101 test cases, but am now receiving a very cryptic error. Any help would be greatly appreciated:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjl5t8yezsxr48i%2Fk1a8wwwsa7dq%2Fcat.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I think it's because you need to call the accessor functions word(word_time) and elapsed_time(word_time). Are you instead accessing them using word_time[0] or word_time[1]?"
+                }
+            ]
+        },
+        {
+            "question": "I have been at it for a few hours and honestly, I am more confused now trying to work this out. I am confused on how to access the elapsed_time of the list of words for either player. I try using elapsed_time and it just returns the list of words and time of the other player.",
+            "follow-ups": [
+                {
+                    "feedback": "elapsed_time shouldn't be called on a list, but rather a word_time itself. It sounds like you might be calling elapsed_time on word_times. Remember that word_times is a list of list of word_time objects. Call elapsed_time on one individual object rather than the whole list."
+                },
+                {
+                    "feedback": "In addition, there could be more than 2 players as well, make sure that your program can deal with varying amounts of players"
+                }
+            ]
+        },
+        {
+            "question": "Hello!  I have a list of the fastest times for each word and I have the time it takes to type a word. However, I'm not sure where to go from here. Please, HELP!!! 1 hour left.",
+            "follow-ups": [
+                {
+                    "feedback": "Perhaps try to compare the times amongst the players. First you have to separate the times for each player."
+                },
+                {
+                    "feedback": "Compare what them for what reason?"
+                },
+                {
+                    "feedback": "Like what do we get from comparing them"
+                },
+                {
+                    "feedback": "Well, the goal of the problem is to find who typed each of the word the fastest so you need to compare them"
+                },
+                {
+                    "feedback": "Thank you we got it. Really appreciate it."
+                }
+            ]
+        },
+        {
+            "question": "Can we use .remove(<element>)?",
+            "follow-ups": [
+                {
+                    "feedback": "What are you removing? I don't think its necessary"
+                },
+                {
+                    "feedback": "What's the context? There's probably a better solution than using .remove().      But to answer your question, yeah, I don't see why not."
+                },
+                {
+                    "feedback": "I have start at the beginning of a list and I need to get rid of it. The code works with .remove() but it does not work with slicing. I think im doing something wrong with slicing"
+                },
+                {
+                    "feedback": "When you return the array you can just write:      return array[1:]  in order to not take the first index (the 'START') right?      A second option is to begin looking through/appending values from the array _starting_ from index 1 instead of 0 (thereby skipping 'START')."
+                }
+            ]
+        },
+        {
+            "question": "Okay, I just finished this question and thought I'd give my two cents for anyone who's having trouble.      First off, take it slow. There's a lot of abstraction going on, so you're going to have to be very general with everything you do.      When I first went at this, I wrote the entire question in the context of there being only 2 players because I misinterpreted the question. Oddly enough, I think this really helped me solve the problem as a whole because once I had everything written for 2 players, it wasn't _super_ hard to expand it to an arbitrary amount. You will be encapsulating many things and having to keep track of several different array indices, so if you're using while loops be sure to come up with unique names for your incremental variables or you'll loose track of what's what. Also, you might have to use two nested while loops (or at least that's what I did).      Lastly, while in hindsight I don't recommend it, I was able to complete this question without using any helper methods. If you find each individual process hard to keep track of, I would certainly suggest making some."
+        },
+        {
+            "question": "Anyone know what the difference between extend and append it? My implementation works with append a list but not extend. Is there a difference, I'm assuming there is.",
+            "follow-ups": [
+                {
+                    "feedback": "For some list, say a = [1,2,3] will have the following:                >>> a.append([4,5])       >>> a       [1, 2, 3, [4, 5]]  whereas for extend:                >>> a.extend([4,5])       >>> a       [1, 2, 3, 4, 5]  Essentially, append adds exactly one item to the list, which in this case, is another list. This is helpful for creating nested lists!  Extend takes all the elements in the original list and adds them to the list that we called extend on. We must pass in a list into extend, since it kinda flattens the list out."
+                },
+                {
+                    "feedback": "Append would add as 1 index while extend, you can add multiple things and each will go to a different index.  If you do append([1,2]) to a list, it will go to one index as a nested list. If you do extend([1,2]), it will be extended to the list by 2 indices.  Pretend your list is [1,3,2].  Append would give you [1, 3, 2, [1,2]] while extend would give [1, 3, 2, 1, 2]"
+                },
+                {
+                    "feedback": "Append is just adding a value to the array while extending requires an iterable value and appends each value within to the array.      Here's a screenshot from my shell that shows the difference:         ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdj480i0p51u%2Fk1ac1i9liso%2Fappend_vs_extend.png)  A likely reason for your code not working with extend is because it errors when a non-iterable type is passed in (such as an int, double, and most other primitive types)."
+                },
+                {
+                    "feedback": "Thank You!"
+                },
+                {
+                    "feedback": "No problem! :)"
+                }
+            ]
+        },
+        {
+            "question": "After constructing a 2D list that stores the time it took each player to type the word, how would I save the information gathered from comparing elements to see which user had the fastest time? It wouldn't make sense to use another list, since there could be multiple players with the same fastest time, so I wouldn't know the length.",
+            "follow-ups": [
+                {
+                    "feedback": "I would advise against making more lists than you have to. Instead you can find the fastest player for a given word by storing the fastest time in a variable and iterating through each player comparing their time to type the word and updating it when it's faster than the previous best. After looping through every player you'll have the fastest, and be able to move on from there."
+                },
+                {
+                    "feedback": "Aka, iterate over each word just once overall"
+                }
+            ]
+        },
+        {
+            "question": "I'm confused as to what this assertion statement is saying:  assert all(len(times) == n_words + 1 for times in word_times))"
+        },
+        {
+            "question": "I have a problem of format.  I want to generate the time-only list to calculate the real tying time and avoid modifying the original word time list.  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvqck3p4cg6g9%2Fk1bbicpxs68e%2F22.JPG)  However, it comes out the error that I couldn't use [] to pick up the time seperately??  So how could I do calculation without serperating the string and the time??",
+            "follow-ups": [
+                {
+                    "feedback": "You are NOT supposed to post code. You should post the code to the GSI or tutor privately."
+                },
+                {
+                    "feedback": "Thanks for reminding me this. I delete the code and try to only focus on the violation so far:-)"
+                },
+                {
+                    "feedback": "No problem!"
+                },
+                {
+                    "feedback": "I have tried using elapsed-time funciton to avoid the term but,  when I tried to generate a wordlist(with the all the words as the elements)  I used word function, but it seems doesn't work so far...  Is there any mistakes?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzvqck3p4cg6g9%2Fk1bd6uqo4z26%2F%E9%97%AE%E9%A2%98.JPG)"
+                },
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjlbgfnv8JCx9%2Fk1bl22603jsi%2FScreen_Shot_20191003_at_8.41.40_PM.png)  I'm getting the same error message as well. Please help, me and my partner have been working on this for hours now"
+                },
+                {
+                    "feedback": "Try to use the function word and function elapsed_time for [0] and [1] alternatively! I‘ve just figured it out! (The functions are just following the fastest_words()"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjkwsq6kjuta6ao%2Fk1bo47uk3pzp%2FScreen_Shot_20191003_at_10.07.26_PM.png)  i'm getting this error - i've tried my code in pythontutor and it seems fine, and i got past the first error for not using the abstract functions to call the 0th/1st element of the list, but i have no idea how to resolve this error - please help!",
+            "follow-ups": [
+                {
+                    "feedback": "This means that you are not properly using the provided selector functions and that you are violating abstraction barriers. Most likely your logic can stay largely the same. You just need to use the proper selector functions that are provided under Q9"
+                },
+                {
+                    "feedback": "Agree to Derek:-) You'd better use the selector function which has provided in the codes. Do not try to use the lambda. I don't think it's the best way to deal with the problem."
+                }
+            ]
+        },
+        {
+            "question": "I passed every test but got this error... Please help!  [PGDHI4HPTTBZDHPY.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fk05tv2xoxmv5ub%2Fk1bod0ezcmdb%2FPGDHI4HPTTBZDHPY.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Use the `elapsed_time` method instead of that third set of brackets"
+                },
+                {
+                    "feedback": "I'm also getting this error, and I'm confused about how to use elapsed time and word"
+                },
+                {
+                    "feedback": "Given a `word_time`, `elapsed_time` returns the time value of that `word_time`"
+                }
+            ]
+        },
+        {
+            "question": "How do I implement the data abstraction pieces I'm so confused. Mine is passing all the tests until it gives the abstraction error?Please help",
+            "follow-ups": [
+                {
+                    "feedback": "Call the selector functions `word` and `elapsed_time`"
+                }
+            ]
+        }
+    ]
+}

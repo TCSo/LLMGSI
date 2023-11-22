@@ -1,0 +1,39 @@
+{
+    "subject": "[Lab 14] Q5: Insert",
+    "content": "<a href=\"https://cs61a.org/lab/lab14//#q5\">Q5: Insert</a>\n\n<p> Please post all questions you have below concerning Q5: Insert in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "DId anyone get a pretty long solution to this problem?",
+            "follow-ups": [
+                {
+                    "feedback": "My solution was like nine lines, if that helps."
+                },
+                {
+                    "feedback": "Ok mine was too. Thanks!"
+                },
+                {
+                    "feedback": "It depends on how exactly you factor your code, but for what it’s worth, mine was six, with three different suites (AKA blocks of code inside ifs, elses, fors, while, trys, etc.)."
+                }
+            ]
+        },
+        {
+            "question": "How can we update the Link? When I try to update its rest attribute I keep on getting a maximum recursion error.",
+            "follow-ups": [
+                {
+                    "feedback": "You are probably doing something like `link.rest = link`. This will create an infinite recursion error, since that means that the `rest` of `link` is always referring to itself. Instead, you should create a new instance of `Link` and use that as your new `link.rest`."
+                }
+            ]
+        },
+        {
+            "question": "How do you check if the index is out of bounds?",
+            "follow-ups": [
+                {
+                    "feedback": "(Same Anon)  NVM. You use try and except. Figured it out."
+                },
+                {
+                    "feedback": "Use the value of `index`, given the state of `link`, to determine if insertion is possible. If not, raise an `IndexError`."
+                }
+            ]
+        }
+    ]
+}

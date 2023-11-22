@@ -1,0 +1,55 @@
+{
+    "subject": "[Lab 05] Q7: Add trees",
+    "content": "<a href=\"https://cs61a.org/lab/lab05/#q7\">Q7: Add trees</a>\n\n<p> Please post all questions you have below concerning Q7: Add trees in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I managed to implement a function that adds the labels of nodes and calls itself on the branches. I also have the base case(when the tree is just a leaf). I passed test case 1.      I need to deal with the issue of the two input trees' nodes having a different number of branches. I know how to count how many branches a node has. My idea was to add branches with value of 0 to the node that has less branches so that both nodes have the same number of branches. But I don't know how to do that...  [ CODE REMOVED ]",
+            "follow-ups": [
+                {
+                    "feedback": "**First of all, please don 't post code here.**  Second, experiment with how you can add trees with value 0 in the interpreter. They are structured in such a way that it is easy to do so once you know the proper structure.  Also, you might wanna take a look at which trees you're adding code to."
+                },
+                {
+                    "feedback": "I managed to pass the tests, but I might have broken abstraction barriers. I used the '+' operator to add an empty branch to my nodes, but I realized that the '+' operator only works for lists and not dictionaries. Is there some better way to do this?"
+                },
+                {
+                    "feedback": "If you're saying you used the + operator on the branches, then that's fine since our abstraction made it so branches is a list of trees. Adding to the list doesn't break an abstraction barrier since we expect it to be a list in all cases (I.E. You call the tree() constructor with the second argument as a list of trees, and branches() returns a list).  In my implementation though, I used the zip_longest() function to simultaneously loop through each branch of both trees, and fill non-existent nodes with None. My base cases accounted for this, and everything seems to have turned out fine, and it looks quite simple. I'd recommend looking up how the function works if you're looking for a simple solution."
+                },
+                {
+                    "feedback": "You also could've used the `fillvalue` parameter and set it equal to `tree(0)`, reducing the number of base cases necessary"
+                },
+                {
+                    "feedback": "Didn't consider that. Good tip."
+                }
+            ]
+        },
+        {
+            "question": "how do I zip the two trees together?",
+            "follow-ups": [
+                {
+                    "feedback": "Look up the `zip` function"
+                },
+                {
+                    "feedback": "I did, but i get a “Nonetype is unsubscriptable” error when i try to zip them together. Is this the only way to iterate through the two trees at the same time?"
+                },
+                {
+                    "feedback": "I am not lost on how to go about iterating through both trees"
+                },
+                {
+                    "feedback": "I think \"zip\" is more useful when iterating through two lists simoutaneously, like the example in this link: <https://www.geeksforgeeks.org/python-iterate- multiple-lists-simultaneously/>"
+                },
+                {
+                    "feedback": "Should i make a new tree by zipping the branches of the two trees together recursively?"
+                },
+                {
+                    "feedback": "we are interested in adding the values between trees - this is not directly equivalent to zipping two trees together. make sure that you understand the behavior of zip."
+                },
+                {
+                    "feedback": "I successfully passed the first three test cases by having the base case as if both trees are leaves, and by zipping the lists of branches together with fillvalue and then unzipping zipped list to get the equal length branches back. Then i returned a tree with a recursive call to add_trees where the branches were the unzipped lists for every i in the range of one of the lists. However I am getting the error  SyntaxError: unexpected EOF while parsing (<string>, line 1)  and I can't figure out why."
+                },
+                {
+                    "feedback": "nevermind i just accidently changed the doctest!!! my function actually worked and Im so happy lolll. THanks for the help everyone!"
+                }
+            ]
+        }
+    ]
+}

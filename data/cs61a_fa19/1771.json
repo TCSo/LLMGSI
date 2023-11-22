@@ -1,0 +1,78 @@
+{
+    "subject": "[HW 06] Q3: Sign",
+    "content": "<a href=\"https://cs61a.org/hw/hw06//#q3\">Q3: Sign</a>\n\n<p> Please post all questions you have below concerning Q3: Sign in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "im trying to follow the same syntax as the textbook, but i get this error:                scm> (sign -42)     # Error: int is not callable: -1          # Error: expected     #     -1     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: int is not callable: -1  looks like im getting the same number -1, but instead of returning it im calling something on the number?",
+            "follow-ups": [
+                {
+                    "feedback": "Probably somewhere in your code, you have something that looks like `(-1)`. This is treated as a call expression in Scheme. Try removing the parenthesis if you have them or write it like `(- 1)` (with a space after the dash) so Scheme can use the subtraction operator."
+                },
+                {
+                    "feedback": "Just to clarify, `-1` and `(- 1)` both evaluate to -1 because when only a single argument is provided to the subtraction operator, it outputs that argument negated, so `(- 1)` outputs 1 negated which is -1."
+                }
+            ]
+        },
+        {
+            "question": "Can someone please give me a hint on what this means?  scm> (cond ((= 1 1) 42))",
+            "follow-ups": [
+                {
+                    "feedback": "Take a look at the cond expression documentation [here](https://cs61a.org/lab/lab09//#cond-expressions)"
+                }
+            ]
+        },
+        {
+            "question": "scm> (load-all \".\")  # Error: unexpected end of file  What does this mean? All my previous cases that passed are no longer passing",
+            "follow-ups": [
+                {
+                    "feedback": "are you getting the same 'urllib3' error as other students also?"
+                }
+            ]
+        },
+        {
+            "question": "Traceback (most recent call last):   File \"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/runpy.py\", line 193, in _run_module_as_main   \"__main__\", mod_spec)   File \"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/runpy.py\", line 85, in _run_code   exec(code, run_globals)   File \"ok/__main__.py\", line 14, in <module>   File \"ok/client/cli/ok.py\", line 48, in <module>   File \"ok/client/api/assignment.py\", line 3, in <module>   File \"ok/client/utils/auth.py\", line 5, in <module>   File \"ok/requests/__init__.py\", line 43, in <module>   ModuleNotFoundError: No module named 'urllib3'",
+            "follow-ups": [
+                {
+                    "feedback": "+1"
+                },
+                {
+                    "feedback": "I passed Q2, but when I met this error on Q3, Q2 also met also error."
+                },
+                {
+                    "feedback": "I'm having this issue with the entire homework right now! :("
+                },
+                {
+                    "feedback": "helps pls! same problem:("
+                },
+                {
+                    "feedback": "+ 1"
+                },
+                {
+                    "feedback": "please see @1864!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdikaea854l2%2Fk2gwktq9u7eb%2FScreen_Shot_20191101_at_6.41.41_PM.png)  I initially had urllib error but I resolved it by pip3 install. Now I have this OSError - how do I solve this?",
+            "follow-ups": [
+                {
+                    "feedback": "how did you fix this? I'm having the same problem"
+                },
+                {
+                    "feedback": "I believe this has been resolved, please see @1888"
+                }
+            ]
+        },
+        {
+            "question": ""
+        },
+        {
+            "question": "I don't know why I'm getting this on my terminal when I try the doctests?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjchbovrjthn2vw%2Fk2gz3dcfyusx%2FScreenshot_20191101_at_7.53.09_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "I believe this has been resolved, please see @1888"
+                }
+            ]
+        }
+    ]
+}

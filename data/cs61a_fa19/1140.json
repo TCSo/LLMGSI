@@ -1,0 +1,376 @@
+{
+    "subject": "[Lab 05] Q5: Sprout leaves",
+    "content": "<a href=\"https://cs61a.org/lab/lab05/#q5\">Q5: Sprout leaves</a>\n\n<p> Please post all questions you have below concerning Q5: Sprout leaves in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "Why am I getting this weird indentation as my output? ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhx0jnu546w%2Fk187qh5wwac4%2F20191001.png)",
+            "follow-ups": [
+                {
+                    "feedback": "You shouldn't be printing the tree in your `sprout_leaves `implementation. You should just be returning it"
+                },
+                {
+                    "feedback": "Cool thanks!"
+                },
+                {
+                    "feedback": "Hi, how did you manage to get this close to the answer?"
+                }
+            ]
+        },
+        {
+            "question": "I keep getting this: AssertionError: branches must be trees. Any clue why?",
+            "follow-ups": [
+                {
+                    "feedback": "You might be passing in a list of numbers as your branches. Convert each number into a tree."
+                },
+                {
+                    "feedback": "Oh ok, got it thank you. I defined a new function and passed the test, but wondering if that is really necessary?"
+                },
+                {
+                    "feedback": "I used a list comprehension to convert each value into a tree"
+                },
+                {
+                    "feedback": "I don’t think I passed a list of values as branches, I just passed one element from vals as a branch but I also got the same error."
+                },
+                {
+                    "feedback": "the second argument (that I think you are referring to) must be a _list_ of _trees_. if we were to just pass in a value, it would not be a list, but if we were to pass in a list of values, it would still not be a list of trees."
+                },
+                {
+                    "feedback": "I keep getting the same error as OP.  Perhaps I am not understanding list comprehension..?                # vals = [1, 2, 3]       result = [tree(v) for v in vals]       # result = [tree(10, tree(2), tree(3)]  Is above code true?"
+                },
+                {
+                    "feedback": "yes, the above code is true (with the exception of a missing right parenthesis after 10)."
+                }
+            ]
+        },
+        {
+            "question": "I seems to get an extra indentation for the label and each branch. I’m so confused.",
+            "follow-ups": [
+                {
+                    "feedback": "If you are printing the tree in your `sprout_leaves `implementation, you shouldn't be doing that. You should just be returning it"
+                },
+                {
+                    "feedback": "Oh thank you!!"
+                }
+            ]
+        },
+        {
+            "question": "I've been trying to implement the code but I keep getting this error:                Doctests for sprout_leaves          >>> from lab05 import *     >>> t1 = tree(1, [tree(2), tree(3)])     >>> print_tree(t1)     1       2       3     >>> new1 = sprout_leaves(t1, [4, 5])     >>> print_tree(new1)     Traceback (most recent call last):       File \"/Users/eashanmathur/Desktop/cs61a/lab/lab05/lab05.py\", line 363, in print_tree         print('  ' * indent + str(label(t)))       File \"/Users/eashanmathur/Desktop/cs61a/lab/lab05/lab05.py\", line 323, in label         return tree[0]     TypeError: 'NoneType' object is not subscriptable          # Error: expected     #     1     #       2     #         4     #         5     #       3     #         4     #         5     # but got     #     Traceback (most recent call last):     #       ...     #     TypeError: 'NoneType' object is not subscriptable  Is my source file not correct is or there something wrong with my code?",
+            "follow-ups": [
+                {
+                    "feedback": "`new1` is equal to `None`, meaning your code is incorrect (the call to sprout_leaves didn't return anything). Make sure you aren't modifying the original tree, but instead are returning a new tree"
+                },
+                {
+                    "feedback": "Ok cool. Thanks!"
+                }
+            ]
+        },
+        {
+            "question": "Can we use append to add a branch to another branch here?",
+            "follow-ups": [
+                {
+                    "feedback": "you can also use list comprehension, which might be easier in this case"
+                }
+            ]
+        },
+        {
+            "question": "I’m a little bit stuck...how can we add the vals to an old node? And how do we know which node was the original end?",
+            "follow-ups": [
+                {
+                    "feedback": "Think about the condition that you need in order to add a node. There is a helper function that will tell you if an element of the tree still has branches (or not). See if you can implement it this way"
+                },
+                {
+                    "feedback": "How do you add values to a old node?"
+                },
+                {
+                    "feedback": "You're not really adding values to an old node. You're just creating a new tree with the old node as the tree label and vals as its branches. So you would need to call the tree constructor with the correct arguments."
+                }
+            ]
+        },
+        {
+            "question": "I seem to have everything right except for that the vals end up being formatted as [4, 5] in the new tree rather than:  4  5  I would appreciate any feedback as to why this is happening/how to fix it!",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you're iterating through vals and creating a branch for each element of the list rather than just passing the entire list vals as the branch."
+                },
+                {
+                    "feedback": "Okay, I did that, but now it's:  [4]  [5]  instead of:  4  5  How do I fix this?"
+                },
+                {
+                    "feedback": "Do you have square brackets around each element of vals when you are making new branches?"
+                },
+                {
+                    "feedback": "I don't think so- I just make trees. I also just noticed that the bracketed numbers are not indented more than their titles, which is another issue."
+                },
+                {
+                    "feedback": "I found the issue with the bracketing (I called tree on vals every time the function ran, instead of just for leafs), but now I don't know why the indentation is not working? It goes:  1  2  4  5  3  4  5"
+                },
+                {
+                    "feedback": "This suggests that every number after the 1 is a separate branch of 1, when the goal is to make 4 and 5 a branch of 2 and 3 which are the leaves of the original tree.  In code, the result you got looks like:                tree(1,           [  tree(2),              tree(4),     \ttree(5),     \ttree(3),     \ttree(4),     \ttree(5)\t])  But what we want is:                tree(1,     \t[tree(2,     \t\t[tree(4),     \t\t tree(5)]),     \t  tree(3,      \t\t[tree(4),     \t\t tree(5)])])  Check to make sure that you are adding the vals to the leaves of the tree and not nodes that have branches."
+                }
+            ]
+        },
+        {
+            "question": "My first test case passes, but my second one gives me this:   TypeError: 'int' object is not subscriptable      Any idea why? I tried printing my array at the end of the function, and I believe it's formatted correctly:      1, [2, [4, 5]], [3, [4, 5]]]",
+            "follow-ups": [
+                {
+                    "feedback": "the error \"____ object is not subscriptable\" is raised when using list indexing with anything other than a list (in this case, an int)."
+                }
+            ]
+        },
+        {
+            "question": "After passing a couple of test cases, I get the following:      ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjy7jn9kkjyj3lb%2Fk18wbn66mbkt%2FScreen_Shot_20191001_at_11.34.25_PM.png)      Any idea why this could be happening?",
+            "follow-ups": [
+                {
+                    "feedback": "You seem to have forgotten the parent node in one of your cases"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjmhz6r9hduNU%2Fk19jhgldj8lg%2FScreen_Shot_20191002_at_10.21.48_AM.png)  I keep getting this as my output for the first test case. It seems as if my code doesn't get to the second branch. Any suggestions/hints? Thanks!",
+            "follow-ups": [
+                {
+                    "feedback": "Make sure you are iterating (combined w/recursion) over all branches"
+                },
+                {
+                    "feedback": "I used a for loop to do it, namely \"for i in branches(t)\", but it returns the above tree instead....."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzdh1dko96k2x2%2Fk19ltnnwoa8r%2Fsprout_leaves1.PNG)  I'm not sure why I'm only returning the first branch. Is it wrong to use a for in loop to iterate through the branches?",
+            "follow-ups": [
+                {
+                    "feedback": "I used a list comprehension to iterate through the branches, but a for loop works as well. Make sure your base case is correct and that you aren’t returning just one branch. Recursion is part of the intended solution"
+                },
+                {
+                    "feedback": "Is it incorrect for my base case to return a tree with the attached vals if it is a leaf? I believe this is what's causing my function to just return the first branch, but I'm still quite sure that the base case should return a tree with the leaf as the new parent and the vals as the new leaves, right?"
+                },
+                {
+                    "feedback": "That sounds correct. Your recursive statement is likely incorrect. The new tree should have the same label as the old one, and the new tree's branches should be equal to each of the old tree's branches, but with their leaves sprouted. Branches must be trees - so take a recursive leap of faith"
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191002_at_12.35.08_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzlnpjx2nu92h9%2Fk19o84etwyv4%2FScreen_Shot_20191002_at_12.35.08_PM.png)  So I tested all the test cases in the interactive mode - and they all worked. However the Ok autograder still says my code doesn't work. Any reasons why?",
+            "follow-ups": [
+                {
+                    "feedback": "I also put the results in a text editor to ensure that the spacing wasn't off."
+                },
+                {
+                    "feedback": "Maybe the autograder also checks to see you're not breaking abstraction barriers?"
+                },
+                {
+                    "feedback": "I'm pretty sure that I didn't break any abstraction barriers"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1a7h4yvuqzw%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191002213431.png)I don't know what is going wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "There is a discussion about this above. Make sure you are actually adding vals to the leaves of the tree and not nodes that have branches."
+                },
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "I still don't know where is wrong. My base case is \"is_leaf\", otherwise call sprout_leaves on b in branches and add them to get new branches. Finally, return tree(label(t),new_branches)."
+                },
+                {
+                    "feedback": "It seems like your base case might be off then. Suppose you have a leaf. We want the numbers in vals to be branches of the leaf, and not be at the same level as the leaf.      For example, if we have tree(2), then this is a leaf as it has no branches. If we wanted to have, say, 4 and 5, become branches of this leaf, we would denote it like:                     tree(2, [tree(4), tree(5)])  Make sure you're adding to the branches of the tree like this in the base case and when you are returning the tree in the base case that you are properly creating its label."
+                },
+                {
+                    "feedback": "I got similar problem but I also have 2 and 3 with brackets which I’m so confused why. I believe I’m adding the vals appropriately to the leaf. ![](https://piazza.com/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdhg01so23yc%2Faonycqhkrgnn%2FIMG_6661.PNG)"
+                },
+                {
+                    "feedback": "I had the same problem with brackets - when you add `vals` to a leaf, be careful with which data types you're passing into the `tree(label, branches=[])` constructor (you have the pre-written selector functions to help)."
+                },
+                {
+                    "feedback": "Did you end up figuring the brackets out? I am getting the exact same output as you are and I'm not sure why those specific nodes would be inside brackets."
+                },
+                {
+                    "feedback": "I am also getting that output, and not sure why."
+                },
+                {
+                    "feedback": "Figured it out. Check that you're using the 'label' getter everywhere you need to."
+                },
+                {
+                    "feedback": "As the person above suggested, you can run these yourself to see the difference:     `>>> leaf = tree(1)`   `>>> leaf`   `[1]`   `>>> label(leaf)`   `1`"
+                }
+            ]
+        },
+        {
+            "question": "If it is not the base case, I create a new_branches which is a empty list, call sprout_branches on each branches and add them to the new_branches. Finally return a tree with the new_branches as the branch. I don't know why it is wrong.![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzt20qlrozj7mg%2Fk1azrbkwlbir%2F%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191003104357.png)",
+            "follow-ups": [
+                {
+                    "feedback": "If new_branches is a list of trees, then wrapping it in a list literal makes it so it is your list of trees is in another list, which doesn't make sense since branches is a list of trees and not a nested list of trees."
+                },
+                {
+                    "feedback": "Sorry, I cannot get your point. Could you please talk more about it?"
+                },
+                {
+                    "feedback": "Suppose we had:                >>> new_branches = [tree(1), tree(2), tree(3)]  Then                >>> [new_branches]     [[tree(1), tree(2), tree(3)]]  Putting new_branches in a list is wrong because it is already a list, so the tree won't work properly since the new branches you are inputting is not a list of trees, but rather a list containing a list of trees."
+                }
+            ]
+        },
+        {
+            "question": "Should we create a new tree for this problem?  I don't know how to write the recursion to make sure the next branch(and the new branches with it if it is a leaf) is added following the last branch",
+            "follow-ups": [
+                {
+                    "feedback": "Every return statement should involve creating a new tree"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjigmrym5ibs4jz%2Fk1bay6igovki%2FScreen_Shot_20191003_at_3.59.24_PM.png)  What am I doing wrong?",
+            "follow-ups": [
+                {
+                    "feedback": "You are forgetting to iterate over all the branches"
+                }
+            ]
+        },
+        {
+            "question": "[LAB05.pdf](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6pvtkrcij413u%2Fk1bp2t24pi44%2FLAB05.pdf)  Not sure what I'm doing wrong and I am not printing the statements in my implementation.",
+            "follow-ups": [
+                {
+                    "feedback": "You prolly accidentally modified the doctests - re-extract lab05.py elsewhere and copy them over"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6pvtkrcij413u%2Fk1bp2t24pi44%2FLAB05.pdf)  can someone help lol thanks"
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1bvdhaule1g%2FScreen_Shot_20191004_at_1.30.19_AM.png)  Can anyone explain to me why this is happening?",
+            "follow-ups": [
+                {
+                    "feedback": "Any ideas about this? I'm having the same issue as well, only for this test case. Others seem to be working fine."
+                }
+            ]
+        },
+        {
+            "question": "I'm stuck on how I should add my base case tree to the overall tree. Is there a way to add a tree to a tree?",
+            "follow-ups": [
+                {
+                    "feedback": "What do you mean by add a tree to a tree? If you mean like add a tree to the branches of another tree, you could do something like this:                >>> t = tree(4)     >>> print_tree(t)     4     >>> tree_to_add = tree(3)     >>> t = tree(label(t), branches(t) + [tree_to_add]) #Create a new tree with the label of t, but the branches now includes tree_to_add     >>> print_tree(t)     4     \t3  Branches is a list of trees, so adding a tree in this case would just mean that we append another tree to the end of the list of branches of t."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jryyhii14l1%2Fk1cd82izrn6j%2Fhelp_trees.png)i feel really really stuck... ive read through all these answers but they havent really helped,,, can someone give a hint as to what is wrong? i know someone said iteration is used to add the new leaves, but when i do that im getting answers that are even more off. Thank you!!",
+            "follow-ups": [
+                {
+                    "feedback": "First, make sure you are returning a new tree w/ every return statement, not a list. Let's think about it this way. What happens when the passed in tree happens to be a leaf? Then it's simple - you just have to return a tree where the label matches that of the leaf, but with the given values as branches. Note that each value has to be converted into a tree (all branches of a tree are also trees). This will be your base case. Now, the sprouted version of a tree contains the same label as the original tree, but all its branches (which are trees themselves) become the sprouted version of themselves. Take a recursive leap of faith!"
+                },
+                {
+                    "feedback": "right now I am reassigning a new tree and adding a branch for every leaf, then have a recursive statement if the branch i am on is not a leaf. If I were to be returning a new tree every time I add the new leaves: how would i keep track of where I am on the start tree? sorry if this is a dumb question? i have less brackets in my test case now because I believe i am now using a list comprehension correctly to add in vals"
+                },
+                {
+                    "feedback": "nevermind! got it after 3 days!!!  tips for anyone: i was making it much more complex than it needed to be, you can do it in a few lines. i used a list comprehension in both of my return statements, within tree constructors,, and called on sprout leaves within one of those constructors."
+                },
+                {
+                    "feedback": "can you share your code here?"
+                }
+            ]
+        },
+        {
+            "question": "How exactly do I create a new tree at a node? Do i do tree(old node, vals) and set it equal to a variable or do I append to an old node..? idk Im confused...can someone help???",
+            "follow-ups": [
+                {
+                    "feedback": "When you input a leaf, you should return a new tree that has the same label as the leaf, but its branches are trees where each tree has a label corresponding to an element from vals. This is a base case - use recursion. See my above answer for more tips"
+                },
+                {
+                    "feedback": "How do I convert the value in vals into trees...I tried for i in vals: and then in the branches parameter for returning a tree I said tree(i)..but I still get the same Assertion Error asking me to pass in trees for a branch..  for i in vals:  return tree(... , tree(i)) --> like this"
+                },
+                {
+                    "feedback": "You're overcomplicating it. Each value in vals should just be represented by a leaf (aka, a tree with a label and no branches). Given a value in vals, what should its corresponding tree's label be?"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdk8hztdv66n%2Fk1ci0yb1opa0%2FScreen_Shot_20191004_at_12.05.06_PM.png)  Why is this giving me an error?",
+            "follow-ups": [
+                {
+                    "feedback": "please see @367 for proper etiquette when posting on Piazza. we need a little more information to help you effectively on Piazza.  either way, I would try redownloading the lab files - maybe this will solve the error where it is not recognizing as correct the same output."
+                }
+            ]
+        },
+        {
+            "question": "![Not quite sure why I am receiving this error.](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjyamq91ahbl5tz%2Fk1ckiic3dzze%2FScreen_Shot_20191004_at_1.14.09_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "For the other test cases, my code would not print out a list, but here it did"
+                },
+                {
+                    "feedback": "please see @367 for proper etiquette when posting on Piazza - we need more information in addition to just a test output to be able to help out.  I would check your behavior in your base case though - it looks like your label for your leaf node is being put in a list, just by looking at this error."
+                }
+            ]
+        },
+        {
+            "question": "Traceback (most recent call last):   print_tree(t2)(   ^   SyntaxError: unexpected EOF while parsing  # Error: expected   # 1   # 2   # 3   # but got   # Traceback (most recent call last):   # ...   # SyntaxError: unexpected EOF while parsing (<string>, line 1)  \\---------------------------------------------------------------------  Does anyone know how I can fix this error?"
+        },
+        {
+            "question": "Doctests for sprout_leaves          >>> from lab05 import *     >>> t1 = tree(1, [tree(2), tree(3)])     >>> print_tree(t1)     1       2       3     >>> new1 = sprout_leaves(t1, [4, 5])     >>> print_tree(new1)     1       [2, [4], [5]]       [3, [4], [5]]          # Error: expected     #     1     #       2     #         4     #         5     #       3     #         4     #         5     # but got     #     1     #       [2, [4], [5]]     #       [3, [4], [5]]  Not entirely sure why my output is not formatted as a tree. Do I need to add anything extra?",
+            "follow-ups": [
+                {
+                    "feedback": "You're probably not using the tree constructor"
+                }
+            ]
+        },
+        {
+            "question": "I have the base case: if it is a leaf, I call tree function with the label(t) and a list comprehension for elements in vals. And reassign the value to the tree.  For the else case: for every branch in t, I call the function recursively.  Is there anything wrong? Why am I getting the same t without any changes?",
+            "follow-ups": [
+                {
+                    "feedback": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6refm6jl9q1g8%2Fk1d1h1qq4vmg%2FScreen_Shot_20191004_at_21.09.29.png)"
+                },
+                {
+                    "feedback": "What do you mean you reassign the value to the tree?      If you're using an assignment statement to bind t1 to something else in the function, that wouldn't effect the global name t1. You can only modify t1 in the function with the global keyword, or you change the underlying list in t1 (which is an abstraction violation). Neither are required for this question since we don't need to modify t1, but rather return a new tree with the desired changes."
+                }
+            ]
+        },
+        {
+            "question": "I know that the tips above suggest returning a new tree each time, but how come there isn't a solution where we modify the existing tree?",
+            "follow-ups": [
+                {
+                    "feedback": "Could be wrong, but I think it has something to do with the action where we check each branch in branches - adding to the existing tree would change the number of branches, right? And then we'd be adding 'vals' where we don't want them?"
+                },
+                {
+                    "feedback": "It could also be that our tree implementation is not mutable unless we violate an abstraction barrier.  The only way to change the things in the tree would be to use list operations (since we have no functions provided that modify trees), but that would be assuming the tree is a list which we can't do since the implementation may change."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr5jrbbbw5i3u6%2Fk1d4n2l7fnoo%2FScreen_Shot_20191004_at_10.38.07_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "anyone know why this unrelated code is not working?"
+                },
+                {
+                    "feedback": "Check if you have any missing closed parentheses/brackets missing from your sprout_leaves function."
+                }
+            ]
+        },
+        {
+            "question": "I am getting output:  1  4  5  So it seems like it's identifying 1 as a leaf. My \"if\" statement is  if is_leaf(tree(branch)):  Why is is_leaf returning True?",
+            "follow-ups": [
+                {
+                    "feedback": "Calling tree with only one argument creates a tree with no branches."
+                },
+                {
+                    "feedback": "is_leaf is returning True because it checks of the tree's list of branches are empty."
+                },
+                {
+                    "feedback": "In case anyone else was wondering, it was because I was calling over items in t, not over branches of t!"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjr8bnmb0swf56s%2Fk1d6vvml8x6j%2FCapture.PNG)  From what I've seen in this thread, I should be expecting what I got, rather than what it is testing for. Is there something wrong with my test case?",
+            "follow-ups": [
+                {
+                    "feedback": "it was because I needed to change my indentation to spaces"
+                }
+            ]
+        }
+    ]
+}

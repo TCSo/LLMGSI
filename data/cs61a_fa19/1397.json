@@ -1,0 +1,175 @@
+{
+    "subject": "[HW 05] Q3: Preorder",
+    "content": "<a href=\"https://cs61a.org/hw/hw05//#q3\">Q3: Preorder</a>\n\n<p> Please post all questions you have below concerning Q3: Preorder in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "I cannot see the preorder diagram for Q3. Anyone can fix it?",
+            "follow-ups": [
+                {
+                    "feedback": "same"
+                },
+                {
+                    "feedback": "Can't see it either."
+                },
+                {
+                    "feedback": "Same here"
+                },
+                {
+                    "feedback": "Same here."
+                },
+                {
+                    "feedback": "same"
+                },
+                {
+                    "feedback": "same"
+                },
+                {
+                    "feedback": "Not sure why it's not showing up (I just submitted a fix for it, so hopefully it should show up on the website at some point). For the time being, here is the picture: ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fj6lew6vplxx2mj%2Fk1oir7bsg1to%2Fpreorder.png)"
+                },
+                {
+                    "feedback": "You should be able to see it on the website now! Thanks for raising this issue."
+                }
+            ]
+        },
+        {
+            "question": "i got this error when i tried to use for b in branches(t). are we not allowed to use that for this assignment?",
+            "follow-ups": [
+                {
+                    "feedback": ""
+                },
+                {
+                    "feedback": "In this homework, they changed the definition of how a tree is defined, it is now a class rather than a data abstraction. If you look in the homework file you can see how it is implemented."
+                }
+            ]
+        },
+        {
+            "question": "It seems that I got nothing returned even though I’m returning things for both t.is_leaf and the else case. I’m trying to do recursive call through each node to get its number and append it to a list to return but I’m not sure where exactly is wrong.",
+            "follow-ups": [
+                {
+                    "feedback": "Try something similar to how you would solve the `flatten(lst)` problem in HW 03"
+                }
+            ]
+        },
+        {
+            "question": "When I should be printing out \"[1, 2, 3, 4, 5, 6, 7]\" I got only \"[1, 2, 3, 6]\" printed out, what might be the error here?",
+            "follow-ups": [
+                {
+                    "feedback": "I think it's because you're simply printing the label of every tree.  **For example:**                Tree(1, [Tree(2), Tree(3, [Tree(4), Tree(5)]), Tree(6, [Tree(7)])])  You're printing the first label '1' and then for the second tree you print its label '2' and then for the third tree you're printing it's label 3 and then for the last one you're printing 6. Therefore, try and see what in your code is doing that."
+                },
+                {
+                    "feedback": "Figured it out! Thank you!"
+                },
+                {
+                    "feedback": "Same problem here. But as I go through my code, I just can't figure out why the leaves are skipped.  Any hint? Thank you!!"
+                },
+                {
+                    "feedback": "are you somehow combining the result of your recursive calls to the returned result of each call?"
+                }
+            ]
+        },
+        {
+            "question": "Can we use branches(t) or t.branches in this question?  If not, how can we go through the branches one by one?  Any advice please? Thanks a lot!",
+            "follow-ups": [
+                {
+                    "feedback": "We can use `t.branches`"
+                },
+                {
+                    "feedback": "Thank you!"
+                }
+            ]
+        },
+        {
+            "question": "for this question and question 4, are we allowed to use helper functions and nonlocal statements to keep track of the final return value?",
+            "follow-ups": [
+                {
+                    "feedback": "They should not be necessary for either solution, but they're allowed"
+                }
+            ]
+        },
+        {
+            "question": "How are you supposed to find the label / root element? Both [root(t)] and label(t) show not defined errors.",
+            "follow-ups": [
+                {
+                    "feedback": "t.label()"
+                }
+            ]
+        },
+        {
+            "question": "I'm wondering why I'm getting this output?  ![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi5ew7if4c9%2Fk1sq838zidky%2FScreen_Shot_20191015_at_8.38.18_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "Me too, I'm not too sure (I can't really think of a way to make this happen). My guess is that you are double-counting some elements (even triple-counting)? Take a look at the preorder diagram and make sure you are really understanding it!"
+                },
+                {
+                    "feedback": "thanks! I'll keep thinking over it"
+                }
+            ]
+        },
+        {
+            "question": "I was able to get the output  [1, [2], [3, [4], [5]], [6, [7]]]  but everything is nested. I know I can just make a helper function to flatten the list before I return it, but how would you do it without that?",
+            "follow-ups": [
+                {
+                    "feedback": "nvm I figured it out! I just made two separate lists for each recursive call, which are both empty lists. Then I added t.label + list comprehension of branches, and for each recursive call I added the flattened elements to the second list, and just returned the second list"
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdi1r57iy49r%2Fk1yjczbkbqw4%2FScreen_Shot_20191019_at_10.13.22_PM.png)",
+            "follow-ups": [
+                {
+                    "feedback": "^OP. Can anyone help me out as to how to flatten the list. I know its because appending the recursive call nests the list but then how do I flatten it?"
+                },
+                {
+                    "feedback": "Look at hw03 question flatten. You can either keep this version of code and write a helper flatten function, or flatten the list every time the program tries to append a list to another list. But ultimately the concept is the same to hw03"
+                }
+            ]
+        },
+        {
+            "question": "For some reason, the tree is being recognized as a leaf even though it isn't. I had the program print \"leaf (label)\" if the tree is a leaf and I got this result:![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzkuy0gbms85m4%2Fk1zhezkni2bm%2FAnnotation_20191020_140654.png)",
+            "follow-ups": [
+                {
+                    "feedback": "wait nvm I was calling is_leaf incorrectly"
+                },
+                {
+                    "feedback": "i have the same problem. How are you supposed to call it besides t.is_leaf?"
+                },
+                {
+                    "feedback": "how else do i call it?"
+                },
+                {
+                    "feedback": "^^help"
+                }
+            ]
+        },
+        {
+            "question": "I was able to pass all doc tests without using recursion. Should I be implementing this with recursion?",
+            "follow-ups": [
+                {
+                    "feedback": "Damn I realized it works only because the doctests go only two branches deep. I will try to change it up to use recursion."
+                }
+            ]
+        },
+        {
+            "question": "In OOP, how do i call a recursive function? Do I say b.preorder or preorder(b) for b in t.branches?",
+            "follow-ups": [
+                {
+                    "feedback": "like which format is correct"
+                },
+                {
+                    "feedback": "we only use dot notation, i.e. b.preorder(), with instances of objects. to use that method call, preorder would have to be an instance method of b's class. for other uses, we would use method calls similar to preorder(b)."
+                }
+            ]
+        },
+        {
+            "question": "[Screen_Shot_20191022_at_4.16.45_PM.png](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjhb2sk402bj3ob%2Fk22gy3sbwc49%2FScreen_Shot_20191022_at_4.16.45_PM.png)  why cant i get past the base case?",
+            "follow-ups": [
+                {
+                    "feedback": "isn't the base case to check if it is a leaf?"
+                },
+                {
+                    "feedback": "Yes, the base case would be if it is a leaf. I suspect you have an error in your logic causing it to always think it is in the base case. Check your `if` statements."
+                }
+            ]
+        }
+    ]
+}

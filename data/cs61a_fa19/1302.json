@@ -1,0 +1,44 @@
+{
+    "subject": "[Ants] Problem 11",
+    "content": "<a href=\"https://cs61a.org/proj/ants//#problem-11-1-pt\">Problem 11</a>\n\n<p> Please post all questions you have below concerning Problem 11 in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "How can I access the add_insect method from the Place class? When I try to do Place.add_insect(self, insect) it says the 'Water' object has no attribute 'armor' which makes sense, but I don't know how to access it otherwise.",
+            "follow-ups": [
+                {
+                    "feedback": "nvm this works had something else wrong"
+                },
+                {
+                    "feedback": "I have the same problem. Could you give some hint on what might be wrong?"
+                },
+                {
+                    "feedback": "Check which line of the code is giving you this error. The error says that you are trying to access an attribute 'armor' of the 'Water' object. Does a Water object has an 'armor' attribute?  If you have the same question as the original anon, look at Place.add_insect() function, does it call Water.armor anywhere? If it does, then you should look at it because you are not supposed to call WaterInstance.armor. If it does not, then the problem is not there and you should look at something else."
+                }
+            ]
+        },
+        {
+            "question": "If I deploy a fireant to a water place, will it damage all the bees at this place after the fireant's armor is reduced to 0?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, but this is not behavior you have to account for in code specifically. If you pass all the `FireAnt` test cases, and then program your Q11 solution as normal, it'll work."
+                }
+            ]
+        },
+        {
+            "question": "For this problem, I used the old add_insect and then determine whether the insect is watersafe. I'm getting this error:                Problem 11 > Suite 3 > Case 1          >>> from ants import *     >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout     >>> dimensions = (1, 9)     >>> colony = AntColony(None, beehive, ant_types(), layout, dimensions)     >>> old_add_insect = Place.add_insect     >>> # Testing water inheritance     >>> def new_add_insect(self, insect):     ...     raise NotImplementedError()     >>> Place.add_insect = new_add_insect     >>> test_bee = Bee(1)     >>> test_water = Water('Water Test4')     >>> try:     ...     test_water.add_insect(test_bee)     ... except NotImplementedError:     ...     print(\"correct inheritance!\")          # Error: expected     #     correct inheritance!     # but got          >>> Place.add_insect = old_add_insect          Run only this test case with \"python3 ok -q 11 --suite 3 --case 1\"     ---------------------------------------------------------------------     Test summary         7 test cases passed before encountering first failed test case",
+            "follow-ups": [
+                {
+                    "feedback": "Inheritance allows you to not define the same function defined in a superclass of your subclass. If they are different however, then you do need to implement it. However, if what your function does is essentially what the superclass' function does + some other things. You can just call your superclass function directly with the syntax Superclass.function() in your subclass function definition and add a few things bellow it.  This suggests that if your superclass.function is modified, your subclass function will also reflect that modification. In this test case, you can see that Place.add_insect is modified to the new_add_insect that just throws an error. If you do call the function in your subclass (Water) add_insect function, this change is supposed to be reflected and when you call test_water.add_insect(test_bee), it should call the new_add_insect function that throws an error, thus printing \"correct inheritance!\". The error tells you that you are not reflecting this change in the subclass' add_insect function (inheritance not implemented correctly)  Check whether you are actually using the inherited function or you are defining the same function again in your subclass."
+                }
+            ]
+        },
+        {
+            "question": "How do I add the insect to water? Do I need to assign a new variable to a function call?",
+            "follow-ups": [
+                {
+                    "feedback": "note that the Place class already has an add_insect method that you worked on previously."
+                }
+            ]
+        }
+    ]
+}

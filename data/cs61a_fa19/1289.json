@@ -1,0 +1,56 @@
+{
+    "subject": "[Lab 06] Q3: Making Cards",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab06/#q3\">Q1: Making Cards</a></p>\n<p></p>\n<p>Please post all questions you have below concerning Q1: Making Cards in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "While implementing power function, I got the “float object is not callable” error. Does anyone know why?",
+            "follow-ups": [
+                {
+                    "feedback": "At some point you are using a number as a function. Check all your variables and syntax"
+                },
+                {
+                    "feedback": "I think I sort of know where I’m wrong. Is other_card a number? I used a method on it directly."
+                },
+                {
+                    "feedback": "My guess as to what's going on: make sure when you're accessing attributes, you don't include () at the end. For example, to get the opponent card's defense value, the expression `other_card.defense` works, but `other_card.defense()` would throw the error described."
+                },
+                {
+                    "feedback": "Thank you! I’m pretty sure I didn’t include any ( )after method and I’m accessing the attack and defense correctly. I’m really confused."
+                },
+                {
+                    "feedback": "Nvm. Figured it out! I wasn’t assigning the expression to the right thing. Thank you for your help!"
+                }
+            ]
+        },
+        {
+            "question": "I wrote self.name = name and so in my code. But I keep getting attributeError Card object has no attribute name.",
+            "follow-ups": [
+                {
+                    "feedback": "I downloaded another one from our website and this time my code worked. Thanks"
+                }
+            ]
+        },
+        {
+            "question": "what's the hell? there is name but I keep getting g attributeError Card object has no attribute name??",
+            "follow-ups": [
+                {
+                    "feedback": "class Card(object):           cardtype = 'Staff'                  def __init__(self, name, attack, defense):               \"\"\"               Create a Card object with a name, attack,               and defense.               >>> staff_member = Card('staff', 400, 300)               >>> staff_member.name               'staff'               >>> staff_member.attack               400               >>> staff_member.defense               300               >>> other_staff = Card('other', 300, 500)               >>> other_staff.attack               300               >>> other_staff.defense               500               \"\"\"               \"*** YOUR CODE HERE ***\"               self.name = name               self.attack = attack               self.defense = attack     >>> from classes import *       >>> staff_member = Card('staff', 400, 300)       >>> staff_member.name       AttributeError: 'Card' object has no attribute 'name'              # Error: expected       #     'staff'       # but got       #     Traceback (most recent call last):       #       ...       #     AttributeError: 'Card' object has no attribute 'name'"
+                },
+                {
+                    "feedback": "Make sure your code was saved properly"
+                }
+            ]
+        },
+        {
+            "question": "When I try to run the ok test for power, it returns that no doctests are found for Card.power. Is this happening for anyone else?",
+            "follow-ups": [
+                {
+                    "feedback": "def power(self, other_card):             \"\"\"             Calculate power as:             (player card's attack) - (opponent card's defense)/2             where other_card is the opponent's card.             >>> staff_member = Card('staff', 400, 300)             >>> other_staff = Card('other', 300, 500)             >>> staff_member.power(other_staff)             150.0             >>> other_staff.power(staff_member)             150.0             >>> third_card = Card('third', 200, 400)             >>> staff_member.power(third_card)             200.0             >>> third_card.power(staff_member)             50.0             \"\"\"             \"*** YOUR CODE HERE ***\"  Try copying this over"
+                },
+                {
+                    "feedback": "It works now, thank you!"
+                }
+            ]
+        }
+    ]
+}

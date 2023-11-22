@@ -1,0 +1,149 @@
+{
+    "subject": "[Lab 11] Q5: Switch",
+    "content": "<a href=\"https://cs61a.org/lab/lab11//#q5\">Q5: Switch</a>\n\n<p> Please post all questions you have below concerning Q5: Switch in the follow-ups.\n\n</p><p> If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.\n</p>",
+    "threads": [
+        {
+            "question": "```   switch > Suite 1 > Case 1      scm> (load-all \".\")         scm> (switch 1 ((1 (print 'a))   .... (2 (print 'b))   .... (3 (print 'c))))   a   scm> (switch (+ 1 1) ((1 (print 'a))   .... (2 (print 'b))   .... (3 (print 'c))))   b   scm> (define x 'b)   x   scm> (switch x ((a (print 1))   .... (b (print 2))   .... (c (print 3))))   # Error: unknown identifier: a      # Error: expected   # 2   # but got   # Traceback (most recent call last):   # ...   # SchemeError: unknown identifier: a   ```   Isn’t the expected behavior of this to error? We are supposedly comparing the value of `x` to the value of `a`, but `a` is never bound, so it should error out. Shouldn’t the case be the following:   ```   scm> (switch x (('a (print 1))   .... ('b (print 2))   .... ('c (print 3))))   ```   Thanks in advance!",
+            "follow-ups": [
+                {
+                    "feedback": "According to the question description, \"Define the macro `switch`, which takes in an expression `expr` and a list of pairs, `cases`, **where the first element of the pair is some** ** _value_** **** and the second element is a single expression.\"  x is an expression that needs to be evaluated but the cases are, by definition, values which don't need to be evaluated."
+                },
+                {
+                    "feedback": "Hmmm. I guess that’s fair enough. I guess I thought it would make more sense for them to be expressions that could be evaluated, but maybe that’s just me."
+                },
+                {
+                    "feedback": "I am really struggling with this case. I figured out how to evaluate not but call expr, but I am not able to do the same thing for the first element of the pair. It gives me the error: int 1 is not callable.  Any ideas?"
+                },
+                {
+                    "feedback": "You aren’t actually supposed to evaluate the first element of the pairs at all. They are raw values, and the comparison should treat them as such.     The `int 1 is not callable` tells me you’re putting the first element inside parentheses, something like `((car pair) 2 3` or something. Check and make sure you’re not doing that."
+                },
+                {
+                    "feedback": "I do need parentheses to evaluate the car of cases right? so I am doing (car (car cases)), and also tried to do (list 'car ....) None worked"
+                },
+                {
+                    "feedback": "Are you doing something like ``(,(car (car cases)))` or `(list (car (car cases)))`? These will still pass the value of `(car (car))` in a list out of the macro, which means that the scheme evaluator sees `(1)` at some point, which is an error.      Macros are kind of fussy to work with, so take your time and work through exactly what your current implementation returns. Try tracing out your code, remembering that `expr` and `cases` are both passed in as raw lists, and see if you get the correct output when you evaluate it by hand."
+                },
+                {
+                    "feedback": "I'm having the same problem. I am not putting the value inside a list, but I think the issue is that cases is being evaluated twice, once when the body of macro is evaluated and once in the final expression, so an error is being raised. I think I don't fully understand how to write macros, because I'm confused as to how to get the interpreter to use the value of cases instead of the word 'cases' without trying to evaluate cases as an expression."
+                },
+                {
+                    "feedback": "`cases` is passed in as the raw expression, so if you wanted to return the expression from the macro (and remember that macros *should* return expressions), you would just put `cases` in the macro without quoting or `eval`ing. Then, when the result of the macro is evaluated, you would get the right result. Of course, we want to manipulate `cases` and `expr` to achieve the desired result, so you will have to do a little more work than that. But remember that the first evaluation just evaluates `cases` to its expression, and the second evaluation actually evaluates this expression."
+                },
+                {
+                    "feedback": "I'm not sure how to get the first element of each pair in cases. I tried doing (list 'car (list 'car...) but that doesn't work since when the expression is actually being evaluated, (1 (print 'a)) is evaluated, causing the \"1 is not callable\" error. How would we get the first element in each pair without actually evaluating each pair?"
+                },
+                {
+                    "feedback": "You are allowed to do some evaluation in the body of the macro before you return anything. You have the list `cases`, and if I wanted to get the first value, for example, I would just do `(car (car cases))`. I could do something like `(define first-val (car (car cases)))` in the body of the macro and then later use that value in my final output, like `(list 'print first-val)`, which would return a `print` procedure with the first value in it."
+                },
+                {
+                    "feedback": "What do you guys mean by the first and second evaluation stages"
+                },
+                {
+                    "feedback": "The body of the macro is internally run (and thus evaluated) to get the output of the macro just like a normal function. However, that output must be a Scheme expression, and after the macro returns, the interpreter evaluates the result of the macro to get the final output."
+                },
+                {
+                    "feedback": "so the output is kind of like what a person would type into the interpreter, which then must be evaluated?"
+                },
+                {
+                    "feedback": "Yes, exactly!"
+                },
+                {
+                    "feedback": "I tried doing (car (car cases)) but it raised an error \"SchemeError: argument 0 of car has wrong type (str)\". I figured out that this is because it was treating cases as a string, even though I unquoted the whole expression. Why isn't it assigning the list to cases? I can't just unquote only cases, because then it tries to evaluate cases and raises a whole different error."
+                },
+                {
+                    "feedback": "`(car (car cases))` is perfectly valid, so it is probably the case that the post-macro evaluation is what is causing it to fail. If you put the unquoted `(car (car cases)` at the beginning of the returned list, however, you will get the error. I encourage you to try to trace your macro code manually to see where your error is coming up. It’s a common debugging practice you will have to use more often later if not now, and it helps you deepen your understanding, as well! If you still can’t get it, you might want to consider a private post or going to OH—macros are especially difficult to debug without seeing the code. We will help as best as we can, but we can only do so much without seeing your code, unfortunately."
+                }
+            ]
+        },
+        {
+            "question": "When comparing expr with the first element of a pair, sometimes it could be a single value and other times it could be an expression that needs to be evaluated. So when I tried comparing just \"expr\" and the first element, it worked for the first test where \"expr\" was 1, but failed the second test because the second test where \"expr\" was (+ 1 1). But if I switched it so that I'm comparing (expr) with the first element, it would still fail the first test. Any hints on how to deal with this?",
+            "follow-ups": [
+                {
+                    "feedback": "You should always be evaluating the expression. There's a difference between evaluating the expression and calling an expression. (expr) would call the expression and you cannot call integers like 1.  However, you can evaluate 1 to 1 (since it is an atomic expression). You can also evaluate (+ 1 1) to be 2 since we can evaluate call expressions. Therefore, you should be creating a macro that will always evaluate expr once the macro returns.  As a hint though, think of the type of call expression you want the macro to return. We will need to go through each of the cases, so you'll need some kind of recursive structure. At each stage of the recursion, what expression will you be evaluating to determine which case to use? Think of what that would look like if we copy and pasted in expr and cases, and that should help you write the macro."
+                }
+            ]
+        },
+        {
+            "question": "How to pass \"expr\" and \"cases\" to \"switch\" inside a \"switch\" function?  Specifically, I am trying to check each condition recursively:                (define-macro (switch expr cases)           (cond ((null? cases) nil)                 (...)                 (else (switch expr (cdr cases))))       )  However, the last case doesn't work, as '(cdr cases) is passed to the next function. Where are the mistakes in my approach?",
+            "follow-ups": [
+                {
+                    "feedback": "More generally, how to make a recursive macro?"
+                },
+                {
+                    "feedback": "Recursion with macros can be done, although it is a little more cumbersome. Just keep in mind that `expr` and `cases` are both raw expressions, but it’s certainly a valid approach!      What’s wrong with `(cdr cases)`? It seems like a logical recursive call to me. However, remember that you will have to return expressions at some point, so you will have to use quotation marks *somewhere*."
+                },
+                {
+                    "feedback": "Thanks! The problem is that                (switch expr (cdr cases))                takes (cdr cases) as '(cdr cases).  However, you are right that I missed a quotation mark here. In fact,                (list 'switch expr (cdr cases))  gives the right one."
+                },
+                {
+                    "feedback": "Yep! You could also use quasiquotes if you wanted to. `(list 'switch expr (cdr cases))` is equivalent to ``(switch ,expr ,(cdr cases))`. Up to you, though!"
+                },
+                {
+                    "feedback": "I used: `(switch, expr, (cdr cases)) but I also tried it by putting the comma in front of cases like this: `(switch, expr, (cdr ,cases)) but it did not work. I understand that the difference between the two lines of code is that the cdr of cases is being evaluated in different places. In the first case it is evaluated within the macro and in the second case it is being evaluated in the global frame. Yet, I do not understand why this cases an error to be thrown. I tried tracing the code but it seems like in both cases, the end result is a call to switch with identical parameters. Specifically, I am referencing this test case:                scm> (switch (+ 1 1) ((1 (print 'a))     ....                  (2 (print 'b))     ....                  (3 (print 'c))))     # Error: argument 0 of car has wrong type (str)          # Error: expected     #     b     # but got     #     Traceback (most recent call last):     #       ...     #     SchemeError: argument 0 of car has wrong type (str)"
+                },
+                {
+                    "feedback": "I don’t think there’s much else I can help you with when it comes to macros, since they are kind of finicky to explain over Piazza, and it’s difficult without seeing the code. However, if you wanted to return a `switch` expression with all the cases minus the first case, you would want to remove the first case before you return the whole expression, so you would want to unquote the whole `(cdr cases)` expression, not just `cases`. If you’re still having issue, you may want to consider making a private post to the instructors, since I don’t think there’s much else I can do, unfortunately. Sorry about that."
+                },
+                {
+                    "feedback": "for the case where (= (car (car cases)) expr), I return (list 'cdr '(car cases)) but it returns the output (a) instead of a. What can I do to fix this?"
+                },
+                {
+                    "feedback": "Remember that `cdr` returns the *rest* of the list, so it still returns a list. Add a final `car` at the beginning to select that element."
+                },
+                {
+                    "feedback": "Thanks so much! I finally got it"
+                }
+            ]
+        },
+        {
+            "question": "I am still confused about what needs to be unquoted and what doesn't. I am getting the same error that int is not callable. I am unquoting every cases and expr in my function body, which makes intuitive sense to me because the interpreter needs to see what they actually are instead of the quoted 'expr or 'cases. What am I doing wrong here?",
+            "follow-ups": [
+                {
+                    "feedback": "I suspect what is happening is that when you unquote one element of `cases`, you are putting it at the beginning of a list, something like ``(,(car cases) (...))` Make sure you aren’t accidentally returning a function that has any part of `cases` at the beginning of the list, because neither the value nor the value should ever be called as an operator."
+                },
+                {
+                    "feedback": "Thanks! But can I do something like (car ,cases)? My rationale is to evaluate each case recursively, and in order for the interpreter to be able to see it, it needs to be unquoted(and hence evaluated)"
+                },
+                {
+                    "feedback": "Yeah, that’s a pretty good description of unquoting. There’s not much help I can give you other than suggesting you trace your code by hand from start to finish, as a sort-of WWSD question, and seeing where the errors come in. Remember that macros take in and return raw expressions which are still evaluated once more after they are returned."
+                },
+                {
+                    "feedback": "I don’t think you can do (car ,cases). That expression will evaluate ‘cases’ before “car” is carried out first, which should not be the case. I think it is the (car (cdr (car cases))) that needs to be evaluated. Correct me if I am wrong."
+                },
+                {
+                    "feedback": "In all honesty, since evaluation is carried out twice, once for the body of the macro and once on the result of the macro, you could probably do it in either place. As long as you make it work, and as long as your macro returns some sane result. Just keep in mind that macros are generally for rewriting and not for actual, purposeful evaluation of values."
+                }
+            ]
+        },
+        {
+            "question": "![](/redirect/s3?bucket=uploads&prefix=attach%2Fjziyku5gomy7aq%2Fjzqdilgiwv14lm%2Fk2zvoxfpi3vo%2FScreen_Shot_20191115_at_12.25.13_AM.png) I got int is not callable. When I test cases with a simpler list (1 2), it's still not callable. I found out that because 'cases' is in the form of a call expression (x y z), it will always try to call it when I directly use 'cases' as the operand. When I change cases in the form of a list '(x y z) it works perfectly fine. But I don't rly know how to make it into an actual list rather than a call expression.",
+            "follow-ups": [
+                {
+                    "feedback": "Remember that when you evaluate the body of the macro procedure the first time, you can treat the operand subexpressions as lists. Therefore, you can get elements of this list using car or cdr. When the expression that the macro procedure returns is evaluated again, those elements will be evaluated"
+                }
+            ]
+        },
+        {
+            "question": "Could someone please explain the solution of this question? I still cannot quite get how it works...                (cons 'cond               (map (lambda (case) (cons `(equal? ,expr (quote ,(car case))) (cdr case)))                     cases))",
+            "follow-ups": [
+                {
+                    "feedback": "nvm, got it"
+                },
+                {
+                    "feedback": "Why do we need cond in this solution?"
+                },
+                {
+                    "feedback": "`cond` is the form that lets us have multiple predicates, which is pretty analogous to what we are trying to achieve with `switch`. I believe there is also a recursive solution, though."
+                }
+            ]
+        },
+        {
+            "question": "(define-macro (switch expr cases)  `(if (= ,expr (car (car ,cases)))   (car (cdr (car ,cases)))   (switch ,expr (cdr ,cases))   )   )  Can anyone explain why there is error in this code?  (SchemeError: int is not callable: 1)",
+            "follow-ups": [
+                {
+                    "feedback": "**Please do not ever post code publicly on Piazza. Make a private post to the instructors for that.**"
+                }
+            ]
+        }
+    ]
+}

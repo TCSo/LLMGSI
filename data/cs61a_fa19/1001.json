@@ -1,0 +1,17 @@
+{
+    "subject": "[Lab 04] Q8: Squares only",
+    "content": "<p><a href=\"https://cs61a.org/lab/lab04/#q8\">Q8: Squares only</a><br /><br /></p>\n<p>Please post all questions you have below concerning Q8: Squares only in the follow-ups.<br /><br /></p>\n<p>If you are stuck on this question, feel free to read through the follow-up responses to see if you can draw any ideas from them.</p>",
+    "threads": [
+        {
+            "question": "can we use sqrt? or do we need to use pow?",
+            "follow-ups": [
+                {
+                    "feedback": "I don't know, but I know we can get the square root without using sqrt or pow."
+                },
+                {
+                    "feedback": "You can use them if you wish, or you can also use `** `"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,88 @@
+{
+    "subject": "CS 61A Project Fair",
+    "content": "<p style=\"text-align:center\">On December 15, way in the Woz.</p>\n<p style=\"text-align:center\">There&#39;ll be a showcase. There&#39;ll be applause. </p>\n<p style=\"text-align:center\">Come if you&#39;re interested. Come if you dare.</p>\n<p style=\"text-align:center\">Can&#39;t wait to see all your projects there. </p>\n<p style=\"text-align:center\"></p>\n<p style=\"text-align:center\"><img src=\"/redirect/s3?bucket=uploads&amp;prefix=attach%2Fjziyku5gomy7aq%2Fidgol4rbp704zh%2Fk2gsodgkbcwv%2FIMG_1735.JPG\" alt=\"\" /></p>\n<p style=\"text-align:center\"></p>\n<p>Hello all you wonderful computer scientists!</p>\n<div><br />This semester CS 61A is going to be having its <b>second ever</b> project fair, which will be your opportunity to take your newfound savvy with programming out for a spin and develop your very own piece of software. As you have probably heard by now, one of the awesome things about computer science is that it can be applied to almost anything (not all programming is tricky recursion questions!). This is your chance to apply the programming fundamentals that you have learned to whatever tickles your fancy.<br /><br />Note that participation is <b>completely optional</b>. If you do choose to participate in the 61A Project Fair, you&#39;ll present your project in a format similar to an academic conference; small groups of people will come up to you, and you&#39;ll show them what you built. Presenting your work is a great experience and can start conversations that lead to future projects and collaborations. Some of the people who come view your project will be judges (but you won&#39;t know which ones), and there will be prizes. Prize details are TBD, but no course points will be awarded.<br /><br /><strong>Advice</strong><br />For some ideas on how to get started, see these slides for what you can do with 61A knowledge: <a href=\"http://goo.gl/qiFdax\" target=\"_blank\" rel=\"noopener noreferrer\">goo.gl/qiFdax</a>. (Note: the last 1/3 of this class is in SQL and Lisp so you already have all the Python fundamentals to do these things).<br />Webcast here: <a href=\"http://goo.gl/Fw2MTW\" target=\"_blank\" rel=\"noopener noreferrer\">goo.gl/Fw2MTW</a><br />Related video by James (some overlap with the above): <a href=\"https://www.youtube.com/watch?v=VDqrMF3sKlw&amp;list=PLx38hZJ5RLZcZxpP7pr2BopUyCE0heOsk&amp;vq=hd1080\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.youtube.com/watch?v=VDqrMF3sKlw&amp;list=PLx38hZJ5RLZcZxpP7pr2BopUyCE0heOsk&amp;vq=hd1080</a><br />Much of building software boils down to Googling for the right things. For example, for a cipher simulation, you might want to try searching for &#34;python interactively ask for string input.&#34; First hit is almost always an informative answer &#43; example usage. Maybe you want to make a cipher that encrypts emails and returns an encrypted version to the sender? Search &#34;python how to send emails&#34; and indeed the first hit tells you exactly how to do so.<br /><br />Group work, as always, is allowed and encouraged. Please fill out the form <a href=\"https://forms.gle/8DpA4Y2hpeosSGGE8\" target=\"_blank\" rel=\"noopener noreferrer\">here</a> (by November 16) so we know how many people plan on attending and showcasing their project. Only one person from each team needs to fill out the form. Once we get a rough headcount for the number of people participating we can work out more specific details.</div>\n<div></div>\n<div>If you have a great idea and would like to find a group, feel free to post in a thread below. <br /><br /><b>When: </b>Sunday, December 15, 12:30 pm to 3:30 pm (Set-up is from 12:00 pm - 12:30 pm)<br /><b>Where:</b> Wozniak Lounge, Soda 430 (Woz)</div>\n<div></div>\n<div></div>",
+    "threads": [
+        {
+            "question": "anyone interested in forming a team?",
+            "follow-ups": [
+                {
+                    "feedback": "I am!"
+                },
+                {
+                    "feedback": "contact me at t.kam@berkeley.edu"
+                }
+            ]
+        },
+        {
+            "question": "When is the deadline for filling out the form?",
+            "follow-ups": [
+                {
+                    "feedback": "+1"
+                },
+                {
+                    "feedback": "November 16. I've updated the original post."
+                },
+                {
+                    "feedback": "Can projects change after that if we maintain the same teams?"
+                },
+                {
+                    "feedback": "Yes, that should be fine. If you need to change your project, just edit your form submission."
+                }
+            ]
+        },
+        {
+            "question": "Does the project have to be Python based and be related to stuff we've covered in 61A?",
+            "follow-ups": [
+                {
+                    "feedback": "Nope!"
+                }
+            ]
+        },
+        {
+            "question": "Does it have to be something we make like from now on? Or can we build on something we started beforehand?",
+            "follow-ups": [
+                {
+                    "feedback": "You can build on something you started beforehand."
+                }
+            ]
+        },
+        {
+            "question": "Is there any ways we can look for teammates?",
+            "follow-ups": [
+                {
+                    "feedback": "I believe there is a note at the beginning of the year where you could post to ask for partners."
+                },
+                {
+                    "feedback": "@5"
+                }
+            ]
+        },
+        {
+            "question": "are we supposed to receive some kind of email after signing up? or if I full out the form im good to go",
+            "follow-ups": [
+                {
+                    "feedback": "If you fill out the form, you should be good to go"
+                },
+                {
+                    "feedback": "Thank you"
+                }
+            ]
+        },
+        {
+            "question": "Posted blank comment on accident can someone delete this",
+            "follow-ups": [
+                {
+                    "feedback": "Don’t worry about it too much. You can find quite a few blank comments from many of us scattered around a bunch of posts—it happens."
+                }
+            ]
+        },
+        {
+            "question": "Could I still participate even though I forgot to fill out the form?",
+            "follow-ups": [
+                {
+                    "feedback": "Yes, just fill it out now"
+                }
+            ]
+        }
+    ]
+}
