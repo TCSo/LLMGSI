@@ -1,3 +1,4 @@
 openai
 PyPDF2
 llama_index
+rank-bm25
