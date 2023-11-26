@@ -35,3 +35,10 @@ Replace "YOUR_OPENAI_API_KEY" in src/setup_utils.py with a valid openAI API key 
 ```
 make run
 ```
+## Start Server/App
+```
+cd src/nanoserver
+python manage.py runserver 0.0.0.0:8080
+```
+```
+```
