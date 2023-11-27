@@ -50,7 +50,9 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8080
 ```
-Test with postman, 127.0.0.1:8080/api/option:<gpt><llama>/infer, request body:
+Test with postman:
+`127.0.0.1:8080/api/option:<gpt><llama>/infer`
+Request body:
 ```
 ```
 
