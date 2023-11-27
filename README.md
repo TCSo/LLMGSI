@@ -54,7 +54,8 @@ Local test with this url:
 ```
 127.0.0.1:8080/api/option:<gpt><llama>/infer
 ```
-Request body:
+Request body can be empty for default response, or
 ```
+{"input": "What's gradient descent?"}
 ```
 
