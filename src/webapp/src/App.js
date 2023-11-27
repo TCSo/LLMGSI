@@ -14,6 +14,25 @@ function App() {
       setMessages([...messages, { text: newMessage, sender: 'user' }]);
       // Here you might want to make an API call or handle the response from a chatbot
       // For simplicity, we're just adding the user's message to the state.
+      const url = 'http://localhost:8000';
+      const data = {
+        question: newMessage,
+      };
+
+      fetch(url, {
+        method: 'POST', // or 'GET' depending on your server
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // If you're sending JSON data
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        setMessages([...messages, { text: data, sender: 'LLMGSI' }]);
+      })
+      .catch(error => console.error('Error:', error));
+
       setNewMessage('');
     }
   };
