@@ -58,4 +58,11 @@ Request body can be empty for default response, or
 ```
 {"input": "What's gradient descent?"}
 ```
+then you may get response like:
+```
+{
+    "data": "Gradient descent is an optimization algorithm commonly used in machine learning and optimization problems. It is used to minimize a function by iteratively adjusting the parameters in the direction of steepest descent. In other words, it helps find the minimum of a function by taking steps proportional to the negative of the gradient at the current point. The gradient represents the direction of the steepest increase in the function, so moving in the opposite direction allows us to find the minimum. Gradient descent is often used in training machine learning models to find the optimal values for the model's parameters.",
+    "succeed": 1
+}
+```
 
