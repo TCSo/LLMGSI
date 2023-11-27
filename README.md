@@ -35,17 +35,18 @@ Replace "YOUR_OPENAI_API_KEY" in src/setup_utils.py with a valid openAI API key 
 ```
 make run
 ```
-## Start Server/App
+## Start Server
+Dependency
 ```
 pip install django==3.2.10
 pip install djangorestframework
 pip install django-cors-headers
 pip install django-filter
-
+```
+Set up database, and run
+```
 cd src/nanoserver
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8080
-```
-```
 ```
