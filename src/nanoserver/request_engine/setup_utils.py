@@ -4,7 +4,7 @@ import sys
 
 # Setup openAI config for llamaindex to use
 def setup_openAI():
-    os.environ["OPENAI_API_KEY"] = "YOUR OPENAI API KEY"
+    os.environ["OPENAI_API_KEY"] = "sk-"
 
 # Setup basic logging 
 def setup_logging():
