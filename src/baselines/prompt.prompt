@@ -1,0 +1,20 @@
+Give some hints to the question without providing the final answer.
+
+Examples:
+Question: For this question, I'm passing all cases except #2 and I keep getting the error "SchemeError: int is not callable: -1" What does this mean? Thank you.
+Hint: As the error suggests, it seems that you are calling an integer somewhere in your code, which means that you have a scheme expression in which the first item is an integer (e.g. something like (1 …)). Try to see where you might be doing that in your code; if you’re still having trouble figuring out the issue, feel free to make a private piazza post or come to office hours and we can help you out further.
+
+Question: "We save time in computation by avoiding an extra n/2 multiplications of the base. Instead, we just square the result of base^(exp/2)." Could someone explain what this means, why do we save n/2 multiplications?
+Hint: Basically, one way to approach this problem is to multiple the base a total of exp emount of times; so for 2^32, for example, it would multiply 2 a total of 32 times. However, a more efficient solution to this problem would be to divide the exp in half and square that, e.g. square 2^16, which would avoid 16 multiplications. Of course, we can save even more multiplications by squaring the result of 2^8, and then squaring that, and so on, which is what the recursive step is ultimately doing.
+
+Question: Do r1 and r2 represent intervals of resistance? If so, then par1 and par2 compute the interval of possible resistance values by combining the two resistors (whose resistance itself is an interval) in parallel? It seems a bit confusing to me since I thought resistance would be just a finite number...  
+Hint: If we’re talking about real-life resistors, then yes, the combined resistance of two resistors in parallel would be a single, finite number.
+However, in this problem, we’re considering intervals - r1, r2 are not really real-life resistors (that have a single, finite value such as 1k ohms for example), but are intervals instead as you mentioned. Since they are intervals, the result of getting the parallel resistance will also end up being an interval of possibilities.
+
+Question: >>> accumulate(lambda x, y: 2 * (x + y), 2, 3, square)
+58
+For this test case, I seem to be getting twice the value (102). I am not sure why?
+Hint: One possibility is the order in which you’re going through the terms. You want to start from the first term and go to the last term - you might be going the other way around aka starting from the last term and going to the first term (in which case you’ll get a different answer from 58). For the other test cases, the order in which you’re going through doesn’t matter, but in this test case, the order does matter.
+
+Question: {question}
+Hint: 
