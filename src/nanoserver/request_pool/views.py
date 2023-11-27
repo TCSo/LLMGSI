@@ -17,7 +17,7 @@ from rest_framework.response import Response
 from .models import LLMRequest
 # Create your views here.
 
-response = query_response(question)
+# response = query_response(question)
 
 class InferView(views.APIView):
     def post(self, request, endpoint_name, format=None):

@@ -10,7 +10,7 @@ from llama_index.retrievers import VectorIndexRetriever, BM25Retriever, QueryFus
 from llama_index.query_engine import RetrieverQueryEngine
 from llama_index.indices.postprocessor import SimilarityPostprocessor
 
-from setup_utils import *
+from .setup_utils import *
 from llama_index.prompts import PromptTemplate
 from llama_index import GPTVectorStoreIndex, download_loader
 
