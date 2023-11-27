@@ -36,6 +36,8 @@ Replace "YOUR_OPENAI_API_KEY" in src/setup_utils.py with a valid openAI API key 
 make run
 ```
 ## Start Server
+![ea58eef142362713c4d47b198609502](https://github.com/TCSo/LLMGSI/assets/106426767/3dbe5680-61ba-47df-98bd-3060dd43ebaa)
+
 Dependency
 ```
 pip install django==3.2.10
