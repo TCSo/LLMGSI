@@ -103,3 +103,7 @@ button {
   cursor: pointer;
   border-radius: 5px;
 }
+
+.disabled-button {
+  background-color: rgb(233, 66, 60);
+}

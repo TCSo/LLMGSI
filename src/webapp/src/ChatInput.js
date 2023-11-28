@@ -15,7 +15,7 @@ const ChatInput = ({ messages, setMessages, newMessage, setNewMessage }) => {
         }
     };
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         let tempMessage = messages
         if (newMessage.trim() !== '') {
           tempMessage = [...tempMessage, { text: newMessage, sender: 'user' }]
@@ -26,7 +26,7 @@ const ChatInput = ({ messages, setMessages, newMessage, setNewMessage }) => {
           };
     
           setIsLoading(true);
-          fetch(APIURL, {
+          await fetch(APIURL, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -49,18 +49,18 @@ const ChatInput = ({ messages, setMessages, newMessage, setNewMessage }) => {
 
     return (
         <div>
-            {!isLoading && (
-                <div className="chat-input">
-                    <input
-                        type="text"
-                        placeholder="Type your message..."
-                        value={newMessage}
-                        onKeyDown={handleKeyDown}
-                        onChange={handleInputChange}
-                    />
-                    {!isLoading && <button onClick={handleSendMessage}>Send</button>}
-                </div>
-            )}
+            <div className="chat-input">
+                <input
+                    type="text"
+                    placeholder="Type your message..."
+                    value={newMessage}
+                    onKeyDown={handleKeyDown}
+                    onChange={handleInputChange}
+                    disabled = {(isLoading)? "disabled" : ""}
+                />
+                {isLoading &&<button className='disabled-button'>Generating</button>}
+                {!isLoading && <button onClick={handleSendMessage}>Send</button>}
+            </div>
         </div>
     );
 };
