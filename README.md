@@ -15,6 +15,11 @@ LLMGSI
 │   │   └───...   
 │   └───...   
 └───src (main source code)
+│   ├───baselines
+│   ├───nanoserver (backend server code)
+│   ├───webapp (frontend web interface)
+│   │   └───...   
+│   └───...   
 │   ├───main.py (main entry point for the program)
 │   ├───query_engines (llamaindex query engines)
 │   └───setup_utils.py (setup utilities)
@@ -22,7 +27,7 @@ LLMGSI
 │   └───...
 ```
 
-## Usage
+## Usage (Not Up-to-Date)
 Clone the repository with
 ```
 git clone https://github.com/TCSo/LLMGSI.git
