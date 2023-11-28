@@ -1,29 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
 .App {
   text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(237, 244, 233);
+}
+
+.header {
+  background-color: #2e7d11;
+  color: #e7f1e3;
+  height: 5vh;
+  font-size: 25px;
+  font-weight: bolder;
+  text-align: left;
+  padding-top: 1vh;
+  padding-left: 2vw;
+  padding: '1rem';
+  display: flex;
+}
+
+.infobox {
+  width: 200px;
+  height: 100%;
+  font-size: 15px;
+  background-color: #114b5f;
+  /* background: '#f0f0f0';
+  borderLeft: '1px solid #ccc';
+  display: 'flex';
+  flexDirection: 'column';
+  alignItems: 'center'; */
+}
+
+.infobox-content {
+  font-size: 15px;
+  color: white;
+  margin-left: auto;
+  padding-right: 7px;
 }
 
 .chat-container {
-  width: 300px;
+  width: 100%;
+  height: 100vh;
   margin: auto;
-  border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .chat-messages {
-  max-height: 300px;
+  height: 600px;
   overflow-y: auto;
   padding: 10px;
 }
 
 .message {
   padding: 8px;
-  margin: 8px;
+  margin: 20px;
   border-radius: 5px;
 }
 
 .user {
-  background-color: #e6f7ff;
+  margin-left: auto;
+  margin-right: 0;
+  width: 33.33%;
+  color:#ffffff;
+  background-color: #2e7d11;
+}
+
+.llmgsi {
+  margin-right: auto;
+  margin-left: 0;
+  width: 75%;
+  background-color: #ffffff;
 }
 
 .chat-input {
@@ -36,6 +91,7 @@ input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #ffffff;
 }
 
 button {
